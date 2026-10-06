@@ -24,6 +24,7 @@ Também: busca global (`Ctrl+K`), painel "Precisa de atenção", planejamento em
 
 📖 **[Manual de funcionalidades](docs/MANUAL.md)** — cada tela e recurso, e como a pontuação é calculada.
 🚀 **[Guia de implantação](docs/IMPLANTACAO.md)** — Vercel + Supabase, passo a passo, custo zero.
+🛠️ **[Guia prático](docs/GUIA_PRATICO.md)** — passo a passo de cada funcionalidade (ex.: como resolver uma vigência vencida).
 🧭 **[Entendendo a planilha e o site](docs/ENTENDENDO_A_PLANILHA.md)** — guia **para quem não conhece o assunto**: o que o Excel fazia, seus limites e como cada parte virou site.
 👥 **[Gerenciamento de usuários](docs/USUARIOS.md)** — como criar contas, autorizar e remover acessos no Supabase.
 
