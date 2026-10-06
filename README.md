@@ -17,12 +17,14 @@ portal da SEMEC (`referencia.zip`).
 | Plano de Ação | Plano de Ação | Ações corretivas, dias restantes, validação da CDE |
 | Dashboard | Dashboard | 6 indicadores, gráficos, qualidade do cadastro, legenda |
 | Relatórios | Relatórios | Matriz por seção, distribuição por distrito, consolidação; Excel e impressão |
+| DistritoBairro (tabela dinâmica) | Relatórios → Distrito e Bairro | Matriz de unidades por bairro e distrito, clicável |
 | — | Dados e backup | Exportar Excel, cópia de segurança, restauração |
 
-Também: layout para celular e impressão em A4.
+Também: busca global (`Ctrl+K`), painel "Precisa de atenção", planejamento em lote, colunas configuráveis, layout para celular e impressão em A4.
 
 📖 **[Manual de funcionalidades](docs/MANUAL.md)** — cada tela e recurso, e como a pontuação é calculada.
 🚀 **[Guia de implantação](docs/IMPLANTACAO.md)** — Vercel + Supabase, passo a passo, custo zero.
+🧭 **[Entendendo a planilha e o site](docs/ENTENDENDO_A_PLANILHA.md)** — guia **para quem não conhece o assunto**: o que o Excel fazia, seus limites e como cada parte virou site.
 👥 **[Gerenciamento de usuários](docs/USUARIOS.md)** — como criar contas, autorizar e remover acessos no Supabase.
 
 ## Como os dados são guardados
