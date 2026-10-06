@@ -29,7 +29,6 @@ export function Inicio() {
   return (
     <>
       <Faixa
-        inicio
         sobre="Coordenadoria de Documentação Escolar — CDE · SEMEC"
         titulo="Instrumento de Controle da Documentação Escolar"
         sub={i.subtitulo}
@@ -43,7 +42,7 @@ export function Inicio() {
       </Faixa>
 
       <div className="container pagina">
-        <PainelKpis recorte={recorte} sobreposto />
+        <PainelKpis recorte={recorte} />
         {d.unidades.length === 0 && (
           <Nota tipo="alerta">
             O banco de dados está vazio. Acesse <Link to="/dados">Dados e backup</Link> e use{' '}
@@ -149,22 +148,26 @@ export function Inicio() {
         </div>
       </div>
 
-      <section className="faixa-escura" aria-labelledby="fontes">
-        <div className="container" style={{ display: 'grid', gap: 24 }}>
-          <h2 id="fontes">{fraseado(i.fontesTitulo)}</h2>
-          <div className="grade-2">
+      <div className="container pagina" style={{ paddingTop: 0 }}>
+        <section className="cartao" aria-labelledby="fontes">
+          <div className="cartao__cab">
+            <h2 id="fontes" className="titulo-bloco">
+              {fraseado(i.fontesTitulo)}
+            </h2>
+          </div>
+          <ul className="lista-simples">
             {i.fontes.map((f) => (
-              <div className="cartao-escuro" key={f.arquivo}>
-                <FileSpreadsheet size={28} aria-hidden style={{ flexShrink: 0, color: 'var(--verde)' }} />
+              <li key={f.arquivo} style={{ justifyContent: 'flex-start' }}>
+                <FileSpreadsheet size={22} aria-hidden style={{ color: 'var(--verde-texto)', flexShrink: 0 }} />
                 <div>
                   <strong>{f.arquivo}</strong>
-                  <p>{f.descricao}</p>
+                  <p className="texto-muted">{f.descricao}</p>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
-        </div>
-      </section>
+          </ul>
+        </section>
+      </div>
     </>
   );
 }

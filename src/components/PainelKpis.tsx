@@ -4,7 +4,7 @@ import { formatarNumero, formatarPct } from '../lib/format';
 import { Kpi } from './ui';
 
 /** Os seis indicadores do Dashboard, com rótulos e legendas da planilha. */
-export function PainelKpis({ recorte, sobreposto }: { recorte: Recorte; sobreposto?: boolean }) {
+export function PainelKpis({ recorte }: { recorte: Recorte }) {
   const k = calcularKpis(recorte);
   const valores = [
     formatarNumero(k.unidades),
@@ -16,7 +16,7 @@ export function PainelKpis({ recorte, sobreposto }: { recorte: Recorte; sobrepos
   ];
   const variantes = [undefined, undefined, undefined, undefined, 'alerta', 'verde'] as const;
   return (
-    <div className={'kpis' + (sobreposto ? ' kpis--sobreposto' : '')}>
+    <div className="kpis">
       {TEXTOS.dashboard.kpis.map((kpi, i) => (
         <Kpi key={kpi.rotulo} rotulo={kpi.rotulo} valor={valores[i]} legenda={kpi.legenda} variante={variantes[i]} />
       ))}

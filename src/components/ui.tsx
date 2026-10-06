@@ -12,7 +12,6 @@ export function Faixa({
   titulo,
   sub,
   children,
-  inicio,
 }: {
   sobre?: string;
   titulo: string;
@@ -21,14 +20,16 @@ export function Faixa({
   inicio?: boolean;
 }) {
   return (
-    <section className={'faixa' + (inicio ? ' faixa--inicio' : '')}>
-      <div className="container">
-        {sobre && <p className="faixa__sobre">{sobre}</p>}
-        <h1 id="titulo-pagina">{titulo}</h1>
-        {sub && <p className="faixa__sub">{sub}</p>}
-        {children && <div className="faixa__acoes">{children}</div>}
+    <header className="pagina-cab">
+      <div className="container pagina-cab__linha">
+        <div className="pagina-cab__texto">
+          {sobre && <p className="pagina-cab__sobre">{sobre}</p>}
+          <h1 id="titulo-pagina">{titulo}</h1>
+          {sub && <p className="pagina-cab__sub">{sub}</p>}
+        </div>
+        {children && <div className="pagina-cab__acoes nao-imprimir">{children}</div>}
       </div>
-    </section>
+    </header>
   );
 }
 
