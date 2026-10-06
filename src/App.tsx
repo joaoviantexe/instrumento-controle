@@ -60,12 +60,29 @@ function Conteudo() {
 
 function Portao() {
   const { status } = useSessao();
-  if (status === 'carregando') return <Carregando />;
-  if (status === 'anonimo') return <Entrar />;
-  if (status === 'nao-autorizado' || status === 'erro') return <SemAcesso />;
+  if (status === 'carregando')
+    return (
+      <Moldura>
+        <Carregando />
+      </Moldura>
+    );
+  if (status === 'anonimo')
+    return (
+      <Moldura>
+        <Entrar />
+      </Moldura>
+    );
+  if (status === 'nao-autorizado' || status === 'erro')
+    return (
+      <Moldura>
+        <SemAcesso />
+      </Moldura>
+    );
   return (
     <DadosProvider backend={backend}>
-      <Conteudo />
+      <Moldura>
+        <Conteudo />
+      </Moldura>
     </DadosProvider>
   );
 }
@@ -74,9 +91,7 @@ export function App() {
   return (
     <SessaoProvider>
       <BrowserRouter>
-        <Moldura>
-          <Portao />
-        </Moldura>
+        <Portao />
       </BrowserRouter>
     </SessaoProvider>
   );

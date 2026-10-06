@@ -82,7 +82,7 @@ export function Dados() {
 
   return (
     <>
-      <Faixa sobre="Dados e backup" titulo="DADOS E CÓPIA DE SEGURANÇA" sub="Exportação para Excel, cópia de segurança e restauração." />
+      <Faixa titulo="Dados e backup" sub="Exportação para Excel, cópia de segurança e restauração." />
       <div className="container pagina">
         {vazio && (
           <Nota tipo="alerta">

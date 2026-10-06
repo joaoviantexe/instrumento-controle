@@ -9,7 +9,7 @@ export function Instrucoes() {
   const t = TEXTOS.instrucoes;
   return (
     <>
-      <Faixa sobre="Instruções" titulo={t.titulo} sub={t.subtitulo} />
+      <Faixa titulo={t.titulo} sub={t.subtitulo} />
       <div className="container pagina">
         <section className="cartao" aria-label={t.titulo}>
           <ol className="lista-simples" style={{ counterReset: 'none' }}>

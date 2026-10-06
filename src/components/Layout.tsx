@@ -1,10 +1,11 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Cloud, HardDrive, LogOut, Menu, X } from 'lucide-react';
+import { Cloud, HardDrive, LogOut, Menu, Search, X } from 'lucide-react';
 import { SECOES_APP } from './navegacao';
 import { useSessao } from '../lib/sessao';
 import { supabaseConfigurado } from '../lib/backend/supabase';
 import { Avisos } from './ui';
+import { BuscaGlobal } from './BuscaGlobal';
 
 const NOME = 'Instrumento de Controle da Documentação Escolar';
 const SUBTITULO = 'Coordenadoria de Documentação Escolar — CDE · SEMEC';
@@ -44,7 +45,7 @@ function Usuario() {
   );
 }
 
-function Lateral({ aberta, aoFechar }: { aberta: boolean; aoFechar: () => void }) {
+function Lateral({ aberta, aoFechar, aoBuscar }: { aberta: boolean; aoFechar: () => void; aoBuscar: () => void }) {
   return (
     <aside className={'lateral nao-imprimir' + (aberta ? ' lateral--aberta' : '')} id="menu" aria-label="Menu">
       <div className="lateral__topo">
@@ -53,6 +54,11 @@ function Lateral({ aberta, aoFechar }: { aberta: boolean; aoFechar: () => void }
           <X size={22} />
         </button>
       </div>
+      <button type="button" className="lateral__busca" onClick={aoBuscar} aria-label="Buscar">
+        <Search size={16} aria-hidden />
+        <span>Buscar</span>
+        <kbd>Ctrl K</kbd>
+      </button>
       <nav className="lateral__nav" aria-label="Seções do instrumento">
         <ul>
           {SECOES_APP.map((s, i) => (
@@ -73,7 +79,7 @@ function Lateral({ aberta, aoFechar }: { aberta: boolean; aoFechar: () => void }
   );
 }
 
-function BarraMovel({ aoAbrir }: { aoAbrir: () => void }) {
+function BarraMovel({ aoAbrir, aoBuscar }: { aoAbrir: () => void; aoBuscar: () => void }) {
   return (
     <div className="topo nao-imprimir">
       <button type="button" className="icone-btn" onClick={aoAbrir} aria-label="Abrir menu" aria-controls="menu">
@@ -82,6 +88,9 @@ function BarraMovel({ aoAbrir }: { aoAbrir: () => void }) {
       <Link to="/" className="topo__nome">
         {NOME}
       </Link>
+      <button type="button" className="icone-btn topo__busca" onClick={aoBuscar} aria-label="Buscar">
+        <Search size={22} />
+      </button>
     </div>
   );
 }
@@ -115,6 +124,7 @@ function RolarAoTopo() {
 export function Moldura({ children }: { children?: React.ReactNode }) {
   const { status } = useSessao();
   const [aberta, setAberta] = useState(false);
+  const [buscando, setBuscando] = useState(false);
   const { pathname } = useLocation();
   const completa = status === 'ok';
 
@@ -126,14 +136,41 @@ export function Moldura({ children }: { children?: React.ReactNode }) {
     return () => document.removeEventListener('keydown', f);
   }, [aberta]);
 
+  // Atalhos: Ctrl/⌘+K (ou "/" fora de campos) abre a busca
+  useEffect(() => {
+    if (!completa) return;
+    const f = (e: KeyboardEvent) => {
+      const alvo = e.target as HTMLElement;
+      const digitando = /^(INPUT|TEXTAREA|SELECT)$/.test(alvo.tagName) || alvo.isContentEditable;
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setBuscando((b) => !b);
+      } else if (e.key === '/' && !digitando && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        setBuscando(true);
+      }
+    };
+    document.addEventListener('keydown', f);
+    return () => document.removeEventListener('keydown', f);
+  }, [completa]);
+
   return (
     <div className={'app' + (completa ? '' : ' app--simples')}>
       <RolarAoTopo />
-      {completa && <Lateral aberta={aberta} aoFechar={() => setAberta(false)} />}
+      {completa && (
+        <Lateral
+          aberta={aberta}
+          aoFechar={() => setAberta(false)}
+          aoBuscar={() => {
+            setAberta(false);
+            setBuscando(true);
+          }}
+        />
+      )}
       {completa && aberta && <div className="veu veu--menu" onClick={() => setAberta(false)} />}
       <div className="app__conteudo">
         {completa ? (
-          <BarraMovel aoAbrir={() => setAberta(true)} />
+          <BarraMovel aoAbrir={() => setAberta(true)} aoBuscar={() => setBuscando(true)} />
         ) : (
           <div className="topo topo--fixo nao-imprimir">
             <span className="topo__nome">Prefeitura Municipal de Belém</span>
@@ -145,6 +182,7 @@ export function Moldura({ children }: { children?: React.ReactNode }) {
         <Rodape />
       </div>
       <Avisos />
+      {completa && buscando && <BuscaGlobal aoFechar={() => setBuscando(false)} />}
     </div>
   );
 }

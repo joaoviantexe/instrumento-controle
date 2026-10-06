@@ -42,6 +42,7 @@ Cadastro Unidades → Plano de Auditoria → Auditoria Documental → (Checklist
 |---|---|
 | **Menu lateral** | Fica sempre visível no computador. Mostra o nome do projeto, as seções na mesma ordem das abas da planilha (agrupadas por linhas separadoras), o modo de armazenamento e, no banco compartilhado, o e-mail logado com o botão **sair**. A seção aberta fica destacada. |
 | **Cabeçalho da página** | Título, subtítulo (os textos da aba correspondente) e, à direita, as ações principais da tela (ex.: **Nova unidade**, **Imprimir**). |
+| **Busca global** | `Ctrl+K` (ou `/`, ou o botão **Buscar** do menu) abre uma caixa para ir direto a uma **unidade** (por nome, INEP, bairro, diretor(a) ou endereço), **auditoria**, **ação** ou **seção**. Use ↑ ↓ para escolher e `Enter` para abrir. |
 | **Celular e tablet** | O menu lateral vira uma gaveta, aberta pelo botão ☰ na barra superior; fecha ao escolher uma seção ou com `Esc`. |
 
 As tabelas permitem **ordenar** clicando no cabeçalho. Os filtros ficam na URL, então é possível copiar o
@@ -49,14 +50,20 @@ endereço e enviar a um colega com a mesma visão. No celular, as tabelas viram 
 
 ## 2. Início
 
-Visão geral para abrir o dia:
+Para abrir o dia sabendo **o que fazer primeiro**:
 
-- **Seis indicadores** (Unidades cadastradas, Itens do Checklist, Auditorias registradas, Itens avaliados,
-  Não conformes, Índice global), iguais aos do Dashboard.
-- **Os 8 passos** do fluxo recomendado, cada um com botão **Acessar** que leva à tela correspondente.
+- **Precisa de atenção** — cinco linhas com um número e um botão que leva à lista **já filtrada**:
+  **Prazo expirado** (ações em aberto com prazo vencido), **NC críticas** (itens de peso 3 "Não conforme"),
+  **Validação CDE: Pendente** (ações concluídas aguardando a CDE), **Vigência do ato: vencida** e **Ato de autorização**
+  (unidades sem ato informado ou "não localizado"). Quando não há nada pendente, a linha mostra um ✓ verde.
+- **Instruções de uso** — os **8 passos** do fluxo, cada um com **barra de progresso real** (ex.: "166 de 217 com Data da atualização")
+  e o botão **Acessar**. O **próximo passo** (primeira etapa de andamento ainda incompleta) vem destacado em verde.
 - **Plano de ação corretiva**: as 6 ações em aberto com prazo mais próximo (dias restantes em vermelho quando vencidos).
 - **Plano de auditoria documental**: as próximas auditorias agendadas, em execução ou planejadas com data.
+- **Fontes incorporadas ao instrumento**.
 - Aviso quando o banco está vazio, com o caminho para carregar os dados da planilha.
+
+> Os seis indicadores numéricos (Unidades cadastradas, Itens do Checklist…) ficam no **Dashboard**.
 
 ## 3. Instruções
 
@@ -72,7 +79,7 @@ Base territorial com as **217 unidades** (175 municipais e 42 OSC/conveniadas) d
 - **Botões de distrito** (DABEL, DABEN, DAENT, DAGUA, DAICO, DAMOS, DAOUT, DASAC) com a quantidade de unidades.
 - **Busca** por nome, código INEP/MEC, bairro, endereço, diretor(a), secretário(a) ou e-mail — ignora acentos e maiúsculas.
 - **Filtros**: Bairro, Rede/Vínculo, Tipo de unidade, Zona, Situação.
-- **Pendências cadastrais**: atalho para o passo 1 das Instruções (completar atos legais, vigência, responsáveis e
+- **Pendências cadastrais** (também acessadas pelo painel **Precisa de atenção**): atalho para o passo 1 das Instruções (completar atos legais, vigência, responsáveis e
   data da atualização). Mostra, por exemplo, unidades sem *Ato de criação*, com *Ato de autorização/credenciamento/reconhecimento*
   “NÃO LOCALIZADO”, com *Vigência do ato* vencida (em vermelho), sem diretor(a), sem secretário(a) ou sem telefone.
 - **Exportar Excel** da lista filtrada.
@@ -110,6 +117,11 @@ Programação das verificações por unidade — uma linha por auditoria (**217*
   *NC críticas* e *Checklist da visita concluído*.
 - **Nova auditoria**: escolha a unidade digitando parte do nome (busca entre as 217). O ID (`AUD-218`, `AUD-219`…) é gerado
   automaticamente — não há risco de repetir IDs.
+- **Planejamento em lote**: marque as caixas à esquerda (ou a caixa do cabeçalho, que seleciona **todas as auditorias da lista filtrada**)
+  e clique em **Planejar em lote**. Preencha **apenas o que deve mudar** — Tipo de verificação, Prioridade, Data planejada, Situação e/ou
+  Auditor(a)/equipe — e **Aplicar**: os campos em branco permanecem como estão em cada auditoria.
+- **Colunas**: o botão **Colunas** escolhe o que aparece na tabela (a escolha fica salva neste navegador). Por padrão ficam ocultas
+  *Data realizada*, *Itens previstos*, *Checklist da visita concluído* e *Observações*.
 - **Ações por linha**: abrir a *Auditoria Documental*, abrir o *Checklist da Visita*, editar e excluir.
   Excluir uma auditoria apaga também seus registros da Auditoria Documental; as ações do Plano de Ação são mantidas, sem o vínculo.
 
@@ -135,7 +147,10 @@ A tela de trabalho principal: avaliação dos 53 registros de uma auditoria.
    *Requer ação? Sim* e mostra um selo com o ID da ação.
 6. **Filtros**: Todos / Não avaliado / Não conforme e Parcialmente conforme / Requer ação? Sim.
 7. O **índice lateral** leva a cada seção, com o progresso (avaliados/total).
-8. **Imprimir** gera a ficha da auditoria.
+8. Uma **barra de progresso fixa** acompanha a rolagem: itens avaliados (ex.: *2/53*), barra de andamento e **índice ponderado**.
+   O botão **Próximo não avaliado** rola até o primeiro item pendente; a opção **Ir ao próximo item ao marcar Conforme**
+   avança sozinha depois de cada "Conforme" (a escolha fica salva).
+9. **Imprimir** gera a ficha da auditoria.
 
 > Os 12 itens `VIS-01` a `VIS-12` têm peso zero: ficam registrados, mas não alteram o índice (evita dupla contagem).
 
@@ -160,18 +175,24 @@ Tratamento das não conformidades. A baixa depende de validação da CDE.
   Prioridade, Responsável, Data de abertura, Prazo, Situação, Evidência de conclusão, Data de conclusão, Validação CDE.
   Ao marcar *Concluída*, a data de conclusão é sugerida com a data de hoje.
 - Ao escolher a *ID auditoria*, a unidade é preenchida sozinha. IDs (`AC-001`…) automáticos.
+- **Colunas**: o botão **Colunas** mostra/oculta colunas (por padrão ficam ocultas *ID auditoria*, *Achado*, *Data de abertura*, *Evidência de conclusão* e *Data de conclusão*).
 - **Exportar Excel** da lista filtrada.
 
 ## 10. Dashboard
 
 Painel executivo, com filtro por **Distrito**:
 
-- **6 indicadores**: Unidades cadastradas, Itens do Checklist, Auditorias registradas, Itens avaliados, Não conformes, Índice global.
+- **Índice global em destaque** (com a barra de conformidade e "X de Y itens avaliados") ao lado dos demais indicadores:
+  Unidades cadastradas, Itens do Checklist, Auditorias registradas, Itens avaliados e Não conformes.
+- **Precisa de atenção** (sem filtro de distrito): as mesmas cinco linhas do Início.
 - **Situação dos itens avaliados** — barras para cada situação, com quantidade e percentual.
-- **Abrangência do Checklist por seção** — itens em cada seção.
+- **Índice ponderado por seção** e **Índice global por distrito** — mostram **onde** a conformidade está mais fraca
+  (aparecem quando há itens avaliados; antes disso, orientam a abrir a Auditoria Documental).
 - **Unidades cadastradas por distrito e vínculo** — barras empilhadas Municipal × OSC/Conveniada.
+- **Plano de auditoria documental** e **Plano de ação corretiva** — situação de cada um, com **Prazo expirado**.
 - **Qualidade do cadastro territorial** — cobertura de logradouro, CEP, telefone, e-mail e situação ativa.
-- Situação das auditorias e das ações corretivas, e a **Legenda de gestão**.
+- **Abrangência do Checklist por seção** — itens em cada seção.
+- **Legenda de gestão**.
 - Todos os gráficos têm legenda, valores nos rótulos e dica ao passar o mouse; as cores foram validadas para daltonismo e
   nunca são o único meio de identificação (sempre há rótulo).
 - **Imprimir** gera o painel em A4.
@@ -181,9 +202,11 @@ Painel executivo, com filtro por **Distrito**:
 Para as reuniões de gestão:
 
 - **Matriz por seção**: contagem de cada situação, itens registrados e **índice ponderado** por seção (a seção 7 não tem índice, pois seu peso é zero).
+- **Distrito e Bairro** (a tabela dinâmica da aba *DistritoBairro*): quantas unidades há em cada bairro, por distrito, com **sombreamento**
+  pela quantidade. **Clicar em um número abre a lista de unidades** daquele bairro e distrito.
 - **Distribuição das unidades por distrito**: Municipal, OSC/Conveniada, Total e Participação.
 - **Consolidação das auditorias**: ID, unidade, situação, índice e checklist da visita.
-- Filtro por distrito, **Imprimir** e **Exportar Excel** (3 abas).
+- Filtro por distrito, **Imprimir** e **Exportar Excel** (4 abas: Relatórios, DistritoBairro, Distribuição por distrito e Consolidação).
 
 ## 12. Dados e backup
 

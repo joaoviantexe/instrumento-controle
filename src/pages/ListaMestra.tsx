@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Download, Search } from 'lucide-react';
-import { CampoSelect, Etiqueta, Faixa, Nota } from '../components/ui';
+import { CampoSelect, Etiqueta, Faixa, Nota, Vazio } from '../components/ui';
 import { CABECALHOS_LISTA as C, LISTA_MESTRA, SECOES, SECOES_CURTAS, TEXTOS } from '../data/planilha';
 import { contem, formatarPeso } from '../lib/format';
 import { exportarExcel } from '../lib/exportar';
@@ -28,7 +28,7 @@ export function ListaMestra() {
 
   return (
     <>
-      <Faixa sobre="Lista Mestra" titulo={t.titulo} sub={t.subtitulo} />
+      <Faixa titulo={t.titulo} sub={t.subtitulo} />
       <div className="container pagina">
         <Nota>{t.nota}</Nota>
 
@@ -137,7 +137,7 @@ export function ListaMestra() {
             </section>
           );
         })}
-        {itens.length === 0 && <p className="tabela-vazia">Nenhum item encontrado.</p>}
+        {itens.length === 0 && <Vazio texto="Nenhum item encontrado." />}
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Check, ChevronDown, ChevronUp, ClipboardList, FilePlus2, Pencil, Printer } from 'lucide-react';
+import { ArrowDownToLine, Check, ChevronDown, ChevronUp, ClipboardList, FilePlus2, Pencil, Printer } from 'lucide-react';
 import { CLASSE_SITUACAO, CampoSelect, CampoTexto, Etiqueta, Faixa, Medidor, Nota } from '../components/ui';
 import { Combobox } from '../components/Combobox';
 import { FormAuditoria } from '../components/FormAuditoria';
@@ -51,11 +51,14 @@ function ItemAuditoria({
   acoes,
   aoSalvar,
   aoRegistrarAcao,
+  aoConforme,
 }: {
   linha: Linha;
   acoes: Acao[];
   aoSalvar: (av: Avaliacao) => Promise<void>;
   aoRegistrarAcao: (l: Linha) => void;
+  /** Chamado depois de gravar "Conforme" (permite avançar para o próximo item). */
+  aoConforme?: (codigo: string) => void;
 }) {
   const [aberto, setAberto] = useState(() => precisaDetalhe(linha));
   const [texto, setTexto] = useState({ evidencia: linha.evidencia, achado: linha.achado, responsavel: linha.responsavel });
@@ -129,7 +132,9 @@ function ItemAuditoria({
               className={CLASSE_SITUACAO[s]}
               aria-pressed={linha.situacao === s}
               onClick={() => {
-                void salvar({ situacao: s as SituacaoItem });
+                void salvar({ situacao: s as SituacaoItem }).then(() => {
+                  if (s === 'Conforme') aoConforme?.(linha.item);
+                });
                 if (s === 'Não conforme' || s === 'Parcialmente conforme' || s === 'Não se aplica') setAberto(true);
               }}
             >
@@ -266,7 +271,7 @@ export function AuditoriaDocumental() {
       .slice(0, 12);
     return (
       <>
-        <Faixa sobre="Auditoria Documental" titulo={t.titulo} sub={t.subtitulo} />
+        <Faixa titulo={t.titulo} sub={t.subtitulo} />
         <div className="container pagina">
           <Nota>
             <strong>{passo.titulo}.</strong> {passo.descricao}
@@ -313,6 +318,13 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
   const [filtro, setFiltro] = useState<Filtro>('todos');
   const [editando, setEditando] = useState(false);
   const [novaAcao, setNovaAcao] = useState<RascunhoAcao | null>(null);
+  const [avancar, setAvancar] = useState(() => {
+    try {
+      return localStorage.getItem('instrumento-cde:avancar') === '1';
+    } catch {
+      return false;
+    }
+  });
   const t = TEXTOS.auditoriaDocumental;
   const u = d.unidadePorId.get(aud.unidade_id);
   const linhas = useMemo(() => linhasDaAuditoria(aud.id, d.mapaAvaliacoes), [aud.id, d.mapaAvaliacoes]);
@@ -342,6 +354,29 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
     acao: `${R.requerAcao} Sim`,
   };
 
+  function alternarAvancar(v: boolean) {
+    setAvancar(v);
+    try {
+      localStorage.setItem('instrumento-cde:avancar', v ? '1' : '0');
+    } catch {
+      /* preferência opcional */
+    }
+  }
+
+  /** Rola até o primeiro item ainda não avaliado depois de `depoisDe` (ou o primeiro de todos). */
+  function irParaPendente(depoisDe?: string) {
+    const lista = linhas.filter((l) => !avaliado(l.situacao) && l.item !== depoisDe);
+    const base = depoisDe ? linhas.findIndex((l) => l.item === depoisDe) : -1;
+    const alvo = lista.find((l) => linhas.findIndex((x) => x.item === l.item) > base) ?? lista[0];
+    if (!alvo) {
+      avisar('Todos os itens já foram avaliados.');
+      return;
+    }
+    const el = document.getElementById(`item-${alvo.item}`);
+    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el?.querySelector<HTMLButtonElement>('.seg button')?.focus({ preventScroll: true });
+  }
+
   function registrarAcao(l: Linha) {
     setNovaAcao({
       ...acaoVazia(),
@@ -359,7 +394,7 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
 
   return (
     <>
-      <Faixa sobre={`Auditoria Documental · ${aud.id}`} titulo={u?.nome ?? aud.id} sub={t.subtitulo}>
+      <Faixa bruto sobre={`Auditoria Documental · ${aud.id}`} titulo={u?.nome ?? aud.id} sub={t.subtitulo}>
         <Link to={`/checklist-da-visita/${aud.id}`} className="btn btn--claro">
           <ClipboardList size={16} aria-hidden /> Checklist da Visita
         </Link>
@@ -434,6 +469,37 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
           </div>
         </section>
 
+        <div className="aud-barra nao-imprimir" role="region" aria-label={`${R.id} ${aud.id}`}>
+          <div className="aud-barra__prog">
+            <span className="aud-barra__texto">
+              <strong>{resumo?.avaliados ?? 0}</strong>/{resumo?.iniciada ? resumo.previstos : linhas.length} {r.avaliados}
+            </span>
+            <span className="medidor__trilho" aria-hidden>
+              <span
+                className="medidor__barra"
+                style={{ display: 'block', width: `${((resumo?.avaliados ?? 0) / Math.max(1, linhas.length)) * 100}%` }}
+              />
+            </span>
+            <span className="aud-barra__texto">
+              {r.indice}: <strong>{formatarPct(resumo?.indice ?? null)}</strong>
+            </span>
+          </div>
+          <div className="aud-barra__acoes">
+            <label className="aud-barra__opcao">
+              <input type="checkbox" checked={avancar} onChange={(e) => alternarAvancar(e.target.checked)} />
+              Ir ao próximo item ao marcar Conforme
+            </label>
+            <button
+              type="button"
+              className="btn btn--primario btn--pequeno"
+              onClick={() => irParaPendente()}
+              disabled={contagens.pendentes === 0}
+            >
+              <ArrowDownToLine size={14} aria-hidden /> Próximo não avaliado
+            </button>
+          </div>
+        </div>
+
         <Nota>
           <strong>{TEXTOS.instrucoes.passos[2].titulo}.</strong> {TEXTOS.instrucoes.passos[2].descricao}{' '}
           {TEXTOS.instrucoes.passos[3].descricao}
@@ -489,6 +555,7 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
                       acoes={acoesPorItem.get(l.item) ?? []}
                       aoSalvar={d.salvarAvaliacao}
                       aoRegistrarAcao={registrarAcao}
+                      aoConforme={avancar ? (codigo) => irParaPendente(codigo) : undefined}
                     />
                   ))}
                 </section>

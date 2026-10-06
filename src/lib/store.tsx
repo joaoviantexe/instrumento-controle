@@ -30,6 +30,8 @@ export interface Dados extends Snapshot, Derivados {
   excluirUnidade(id: string): Promise<boolean>;
   criarAuditoria(a: Omit<Auditoria, 'id'>): Promise<string>;
   salvarAuditoria(a: Auditoria): Promise<void>;
+  /** Altera várias auditorias de uma vez (planejamento em lote). */
+  salvarAuditorias(lista: Auditoria[]): Promise<void>;
   excluirAuditoria(id: string): Promise<void>;
   salvarAvaliacao(av: Avaliacao): Promise<void>;
   criarAcao(a: Omit<Acao, 'id'>): Promise<string>;
@@ -150,6 +152,13 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         await executar(
           (s) => ({ ...s, auditorias: substituir(s.auditorias, (x) => x.id === a.id, a) }),
           () => backend.salvar('auditorias', a),
+        );
+      },
+      async salvarAuditorias(lista: Auditoria[]) {
+        const mapa = new Map(lista.map((a) => [a.id, a]));
+        await executar(
+          (s) => ({ ...s, auditorias: s.auditorias.map((a) => mapa.get(a.id) ?? a) }),
+          () => backend.salvarVarios('auditorias', lista),
         );
       },
       async excluirAuditoria(id: string) {

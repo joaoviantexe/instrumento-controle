@@ -96,6 +96,15 @@ export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
         .upsert(paraBanco(registro), { onConflict: (CHAVES[tabela] as string[]).join(',') });
       verificar(error);
     },
+    async salvarVarios(tabela, registros) {
+      const conflito = (CHAVES[tabela] as string[]).join(',');
+      for (let i = 0; i < registros.length; i += TAMANHO_LOTE) {
+        const { error } = await sb
+          .from(tabela)
+          .upsert(registros.slice(i, i + TAMANHO_LOTE).map(paraBanco), { onConflict: conflito });
+        verificar(error);
+      }
+    },
     async inserir(tabela, registros) {
       await inserirEmLotes(tabela, registros);
     },

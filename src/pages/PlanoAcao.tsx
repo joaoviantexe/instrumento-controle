@@ -1,8 +1,20 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Download, Plus, Search, Trash2 } from 'lucide-react';
-import { CampoSelect, Dialogo, Etiqueta, Faixa, Nota, Th, ordenar, useOrdenacao, useRotulosCartao } from '../components/ui';
+import {
+  CampoSelect,
+  Dialogo,
+  Etiqueta,
+  Faixa,
+  Nota,
+  Th,
+  Vazio,
+  ordenar,
+  useOrdenacao,
+  useRotulosCartao,
+} from '../components/ui';
 import { FormAcao, acaoVazia, type RascunhoAcao } from '../components/FormAcao';
+import { SeletorColunas, useColunas, type DefColuna } from '../components/Colunas';
 import { DISTRITOS, ITEM_POR_CODIGO, PRIORIDADES, ROTULOS_ACAO as R, SITUACOES_ACAO, TEXTOS, VALIDACOES } from '../data/planilha';
 import { useDados } from '../lib/store';
 import { acaoAtrasada, diasRestantes } from '../lib/calc';
@@ -12,7 +24,36 @@ import { abaAcoes } from '../lib/abas';
 import { avisar } from '../lib/avisos';
 import type { Acao } from '../lib/types';
 
-type Campo = 'id' | 'auditoria_id' | 'unidade' | 'item' | 'prioridade' | 'responsavel' | 'data_abertura' | 'prazo' | 'dias' | 'situacao' | 'validacao';
+type Campo =
+  | 'id'
+  | 'auditoria_id'
+  | 'unidade'
+  | 'item'
+  | 'prioridade'
+  | 'responsavel'
+  | 'data_abertura'
+  | 'prazo'
+  | 'dias'
+  | 'situacao'
+  | 'validacao';
+
+const COLUNAS: DefColuna[] = [
+  { id: 'id', rotulo: R.id, fixa: true },
+  { id: 'auditoria', rotulo: R.auditoria },
+  { id: 'unidade', rotulo: R.unidade, fixa: true },
+  { id: 'item', rotulo: R.item },
+  { id: 'achado', rotulo: R.achado },
+  { id: 'acao', rotulo: R.acao, fixa: true },
+  { id: 'prioridade', rotulo: R.prioridade },
+  { id: 'responsavel', rotulo: R.responsavel },
+  { id: 'abertura', rotulo: R.dataAbertura },
+  { id: 'prazo', rotulo: R.prazo },
+  { id: 'dias', rotulo: R.diasRestantes },
+  { id: 'situacao', rotulo: R.situacao },
+  { id: 'evidencia', rotulo: R.evidencia },
+  { id: 'conclusao', rotulo: R.dataConclusao },
+  { id: 'validacao', rotulo: R.validacao },
+];
 
 const ORDEM_PRIORIDADE: Record<string, number> = Object.fromEntries(PRIORIDADES.map((p, i) => [p, i]));
 
@@ -30,6 +71,8 @@ export function PlanoAcao() {
   const [excluindo, setExcluindo] = useState<Acao | null>(null);
   const { ordem, alternar } = useOrdenacao<Campo>('prazo');
   const tabela = useRotulosCartao();
+  const cols = useColunas('plano-acao', COLUNAS, ['auditoria', 'achado', 'abertura', 'evidencia', 'conclusao']);
+  const v = cols.visivel;
 
   const f = {
     busca: params.get('busca') ?? '',
@@ -95,7 +138,7 @@ export function PlanoAcao() {
           case 'dias':
             return diasRestantes(a.prazo);
           case 'prioridade':
-            return a.prioridade ? ORDEM_PRIORIDADE[a.prioridade] ?? 99 : null;
+            return a.prioridade ? (ORDEM_PRIORIDADE[a.prioridade] ?? 99) : null;
           default:
             return a[ordem.campo];
         }
@@ -109,7 +152,7 @@ export function PlanoAcao() {
 
   return (
     <>
-      <Faixa sobre="Plano de Ação" titulo={TEXTOS.planoAcao.titulo} sub={TEXTOS.planoAcao.subtitulo}>
+      <Faixa titulo={TEXTOS.planoAcao.titulo} sub={TEXTOS.planoAcao.subtitulo}>
         <button type="button" className="btn btn--claro" onClick={() => setEditando({ ...acaoVazia(), unidade_id: f.unidade })}>
           <Plus size={16} aria-hidden /> Nova ação
         </button>
@@ -118,7 +161,12 @@ export function PlanoAcao() {
         <Nota>{TEXTOS.planoAcao.nota}</Nota>
 
         <div className="pilulas" role="group" aria-label={R.situacao}>
-          <button type="button" className="pilula" aria-pressed={!f.situacao && !f.vencidas} onClick={() => setParams({}, { replace: true })}>
+          <button
+            type="button"
+            className="pilula"
+            aria-pressed={!f.situacao && !f.vencidas}
+            onClick={() => setParams({}, { replace: true })}
+          >
             Todas <b>{d.acoes.length}</b>
           </button>
           {SITUACOES_ACAO.map((s) => (
@@ -155,9 +203,30 @@ export function PlanoAcao() {
                   onChange={(e) => setF('busca')(e.target.value)}
                 />
               </label>
-              <CampoSelect classe="campo--filtro" rotulo="Distrito" valor={f.distrito} aoMudar={setF('distrito')} opcoes={DISTRITOS} vazio="Todos" />
-              <CampoSelect classe="campo--filtro" rotulo={R.prioridade} valor={f.prioridade} aoMudar={setF('prioridade')} opcoes={PRIORIDADES} vazio="Todas" />
-              <CampoSelect classe="campo--filtro" rotulo={R.validacao} valor={f.validacao} aoMudar={setF('validacao')} opcoes={VALIDACOES} vazio="Todas" />
+              <CampoSelect
+                classe="campo--filtro"
+                rotulo="Distrito"
+                valor={f.distrito}
+                aoMudar={setF('distrito')}
+                opcoes={DISTRITOS}
+                vazio="Todos"
+              />
+              <CampoSelect
+                classe="campo--filtro"
+                rotulo={R.prioridade}
+                valor={f.prioridade}
+                aoMudar={setF('prioridade')}
+                opcoes={PRIORIDADES}
+                vazio="Todas"
+              />
+              <CampoSelect
+                classe="campo--filtro"
+                rotulo={R.validacao}
+                valor={f.validacao}
+                aoMudar={setF('validacao')}
+                opcoes={VALIDACOES}
+                vazio="Todas"
+              />
             </div>
             <div className="ferramentas">
               <p className="contagem" aria-live="polite">
@@ -175,6 +244,7 @@ export function PlanoAcao() {
                     Limpar filtros
                   </button>
                 )}
+                <SeletorColunas estado={cols} />
                 <button
                   type="button"
                   className="btn btn--contorno btn--pequeno"
@@ -192,40 +262,58 @@ export function PlanoAcao() {
                   <Th campo="id" ordem={ordem} alternar={alternar}>
                     {R.id}
                   </Th>
-                  <Th campo="auditoria_id" ordem={ordem} alternar={alternar}>
-                    {R.auditoria}
-                  </Th>
+                  {v('auditoria') && (
+                    <Th campo="auditoria_id" ordem={ordem} alternar={alternar}>
+                      {R.auditoria}
+                    </Th>
+                  )}
                   <Th campo="unidade" ordem={ordem} alternar={alternar}>
                     {R.unidade}
                   </Th>
-                  <Th campo="item" ordem={ordem} alternar={alternar}>
-                    {R.item}
-                  </Th>
-                  <th scope="col">{R.achado}</th>
+                  {v('item') && (
+                    <Th campo="item" ordem={ordem} alternar={alternar}>
+                      {R.item}
+                    </Th>
+                  )}
+                  {v('achado') && <th scope="col">{R.achado}</th>}
                   <th scope="col">{R.acao}</th>
-                  <Th campo="prioridade" ordem={ordem} alternar={alternar}>
-                    {R.prioridade}
-                  </Th>
-                  <Th campo="responsavel" ordem={ordem} alternar={alternar}>
-                    {R.responsavel}
-                  </Th>
-                  <Th campo="data_abertura" ordem={ordem} alternar={alternar}>
-                    {R.dataAbertura}
-                  </Th>
-                  <Th campo="prazo" ordem={ordem} alternar={alternar}>
-                    {R.prazo}
-                  </Th>
-                  <Th campo="dias" ordem={ordem} alternar={alternar} className="num">
-                    {R.diasRestantes}
-                  </Th>
-                  <Th campo="situacao" ordem={ordem} alternar={alternar}>
-                    {R.situacao}
-                  </Th>
-                  <th scope="col">{R.evidencia}</th>
-                  <th scope="col">{R.dataConclusao}</th>
-                  <Th campo="validacao" ordem={ordem} alternar={alternar}>
-                    {R.validacao}
-                  </Th>
+                  {v('prioridade') && (
+                    <Th campo="prioridade" ordem={ordem} alternar={alternar}>
+                      {R.prioridade}
+                    </Th>
+                  )}
+                  {v('responsavel') && (
+                    <Th campo="responsavel" ordem={ordem} alternar={alternar}>
+                      {R.responsavel}
+                    </Th>
+                  )}
+                  {v('abertura') && (
+                    <Th campo="data_abertura" ordem={ordem} alternar={alternar}>
+                      {R.dataAbertura}
+                    </Th>
+                  )}
+                  {v('prazo') && (
+                    <Th campo="prazo" ordem={ordem} alternar={alternar}>
+                      {R.prazo}
+                    </Th>
+                  )}
+                  {v('dias') && (
+                    <Th campo="dias" ordem={ordem} alternar={alternar} className="num">
+                      {R.diasRestantes}
+                    </Th>
+                  )}
+                  {v('situacao') && (
+                    <Th campo="situacao" ordem={ordem} alternar={alternar}>
+                      {R.situacao}
+                    </Th>
+                  )}
+                  {v('evidencia') && <th scope="col">{R.evidencia}</th>}
+                  {v('conclusao') && <th scope="col">{R.dataConclusao}</th>}
+                  {v('validacao') && (
+                    <Th campo="validacao" ordem={ordem} alternar={alternar}>
+                      {R.validacao}
+                    </Th>
+                  )}
                   <th scope="col">
                     <span className="sr-only">Ações</span>
                   </th>
@@ -244,38 +332,50 @@ export function PlanoAcao() {
                       tabIndex={0}
                     >
                       <td className="forte nowrap">{a.id}</td>
-                      <td className="nowrap">
-                        {a.auditoria_id ? (
-                          <Link to={`/auditoria-documental/${a.auditoria_id}`} onClick={(e) => e.stopPropagation()}>
-                            {a.auditoria_id}
-                          </Link>
-                        ) : (
-                          '—'
-                        )}
-                      </td>
+                      {v('auditoria') && (
+                        <td className="nowrap">
+                          {a.auditoria_id ? (
+                            <Link to={`/auditoria-documental/${a.auditoria_id}`} onClick={(e) => e.stopPropagation()}>
+                              {a.auditoria_id}
+                            </Link>
+                          ) : (
+                            '—'
+                          )}
+                        </td>
+                      )}
                       <td className="media">{u?.nome ?? '—'}</td>
-                      <td className="nowrap" title={ITEM_POR_CODIGO[a.item]?.item}>
-                        {a.item || '—'}
-                      </td>
-                      <td className="media">{a.achado}</td>
+                      {v('item') && (
+                        <td className="nowrap" title={ITEM_POR_CODIGO[a.item]?.item}>
+                          {a.item || '—'}
+                        </td>
+                      )}
+                      {v('achado') && <td className="media">{a.achado}</td>}
                       <td className="larga principal">{a.acao}</td>
-                      <td>
-                        <Etiqueta valor={a.prioridade} />
-                      </td>
-                      <td>{a.responsavel}</td>
-                      <td className="nowrap">{formatarData(a.data_abertura)}</td>
-                      <td className="nowrap">{formatarData(a.prazo)}</td>
-                      <td className="num">
-                        <DiasRestantes dias={diasRestantes(a.prazo)} aberta={aberta} />
-                      </td>
-                      <td>
-                        <Etiqueta valor={a.situacao} />
-                      </td>
-                      <td className="media pequeno">{a.evidencia}</td>
-                      <td className="nowrap">{formatarData(a.data_conclusao)}</td>
-                      <td>
-                        <Etiqueta valor={a.validacao} />
-                      </td>
+                      {v('prioridade') && (
+                        <td>
+                          <Etiqueta valor={a.prioridade} />
+                        </td>
+                      )}
+                      {v('responsavel') && <td>{a.responsavel}</td>}
+                      {v('abertura') && <td className="nowrap">{formatarData(a.data_abertura)}</td>}
+                      {v('prazo') && <td className="nowrap">{formatarData(a.prazo)}</td>}
+                      {v('dias') && (
+                        <td className="num">
+                          <DiasRestantes dias={diasRestantes(a.prazo)} aberta={aberta} />
+                        </td>
+                      )}
+                      {v('situacao') && (
+                        <td>
+                          <Etiqueta valor={a.situacao} />
+                        </td>
+                      )}
+                      {v('evidencia') && <td className="media pequeno">{a.evidencia}</td>}
+                      {v('conclusao') && <td className="nowrap">{formatarData(a.data_conclusao)}</td>}
+                      {v('validacao') && (
+                        <td>
+                          <Etiqueta valor={a.validacao} />
+                        </td>
+                      )}
                       <td>
                         <button
                           type="button"
@@ -296,7 +396,25 @@ export function PlanoAcao() {
               </tbody>
             </table>
             {filtradas.length === 0 && (
-              <p className="tabela-vazia">{d.acoes.length === 0 ? TEXTOS.instrucoes.passos[6].descricao : 'Nenhuma ação encontrada.'}</p>
+              <Vazio texto={d.acoes.length === 0 ? TEXTOS.instrucoes.passos[6].descricao : 'Nenhuma ação encontrada.'}>
+                {d.acoes.length === 0 ? (
+                  <button
+                    type="button"
+                    className="btn btn--primario btn--pequeno"
+                    onClick={() => setEditando({ ...acaoVazia(), unidade_id: f.unidade })}
+                  >
+                    <Plus size={14} aria-hidden /> Nova ação
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn--contorno btn--pequeno"
+                    onClick={() => setParams({}, { replace: true })}
+                  >
+                    Limpar filtros
+                  </button>
+                )}
+              </Vazio>
             )}
           </div>
         </section>

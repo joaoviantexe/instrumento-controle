@@ -44,7 +44,7 @@ export function UnidadeDetalhe() {
 
   return (
     <>
-      <Faixa sobre={`${u.distrito} · ${u.bairro}`} titulo={u.nome} sub={[u.inep && `${C.inep}: ${u.inep}`, u.rede, u.tipo_unidade].filter(Boolean).join(' · ')}>
+      <Faixa bruto sobre={`${u.distrito} · ${u.bairro}`} titulo={u.nome} sub={[u.inep && `${C.inep}: ${u.inep}`, u.rede, u.tipo_unidade].filter(Boolean).join(' · ')}>
         <button type="button" className="btn btn--claro" onClick={() => setEditando(true)}>
           <Pencil size={16} aria-hidden /> Editar
         </button>
