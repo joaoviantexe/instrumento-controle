@@ -1,0 +1,249 @@
+# Manual de funcionalidades
+
+Instrumento de Controle da Documentação Escolar — CDE/SEMEC.
+
+Este manual descreve cada tela e recurso da aplicação. A aplicação reproduz as 10 abas da planilha
+`Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC (4).xlsx`, com os mesmos textos, listas, pesos e fórmulas.
+
+## Sumário
+
+1. [Visão geral e navegação](#1-visão-geral-e-navegação)
+2. [Início](#2-início)
+3. [Instruções](#3-instruções)
+4. [Cadastro Unidades](#4-cadastro-unidades)
+5. [Lista Mestra](#5-lista-mestra)
+6. [Plano de Auditoria](#6-plano-de-auditoria)
+7. [Auditoria Documental](#7-auditoria-documental)
+8. [Checklist da Visita](#8-checklist-da-visita)
+9. [Plano de Ação](#9-plano-de-ação)
+10. [Dashboard](#10-dashboard)
+11. [Relatórios](#11-relatórios)
+12. [Dados e backup](#12-dados-e-backup)
+13. [Como a pontuação é calculada](#13-como-a-pontuação-é-calculada)
+14. [Acessibilidade](#14-acessibilidade)
+15. [Acesso, login e modos de armazenamento](#15-acesso-login-e-modos-de-armazenamento)
+16. [Origem dos textos](#16-origem-dos-textos)
+
+---
+
+## 1. Visão geral e navegação
+
+O fluxo segue a aba **Instruções** da planilha:
+
+```
+Cadastro Unidades → Plano de Auditoria → Auditoria Documental → (Checklist da Visita)
+                                                  ↓
+                          Plano de Ação ← não conformidades relevantes
+                                                  ↓
+                                   Dashboard e Relatórios
+```
+
+| Elemento | O que faz |
+|---|---|
+| **Barra branca superior** | Atalhos de teclado: `1` conteúdo, `2` menu, `3` rodapé, `5` acessibilidade (Alt+Shift+número, conforme o navegador). |
+| **Barra cinza** | Recursos de acessibilidade (alto contraste, fonte), indicação do modo de armazenamento e botão entrar/sair. |
+| **Cabeçalho azul** | Botão **Menu** (gaveta lateral com descrição de cada seção) e logotipo. |
+| **Abas** | As mesmas abas da planilha. No celular, use o botão **Menu**. |
+
+As tabelas permitem **ordenar** clicando no cabeçalho. Os filtros ficam na URL, então é possível copiar o
+endereço e enviar a um colega com a mesma visão. No celular, as tabelas viram cartões.
+
+## 2. Início
+
+Visão geral para abrir o dia:
+
+- **Seis indicadores** (Unidades cadastradas, Itens do Checklist, Auditorias registradas, Itens avaliados,
+  Não conformes, Índice global), iguais aos do Dashboard.
+- **Os 8 passos** do fluxo recomendado, cada um com botão **Acessar** que leva à tela correspondente.
+- **Plano de ação corretiva**: as 6 ações em aberto com prazo mais próximo (dias restantes em vermelho quando vencidos).
+- **Plano de auditoria documental**: as próximas auditorias agendadas, em execução ou planejadas com data.
+- Aviso quando o banco está vazio, com o caminho para carregar os dados da planilha.
+
+## 3. Instruções
+
+Reproduz a aba **Instruções**: os 8 passos do fluxo, a tabela **Critérios de classificação**
+(Conforme, Parcialmente conforme, Não conforme, Não se aplica) e as **Fontes incorporadas ao instrumento**.
+Cada passo tem um atalho para a tela onde ele é executado.
+
+## 4. Cadastro Unidades
+
+Base territorial com as **217 unidades** (175 municipais e 42 OSC/conveniadas) da aba *Cadastro Unidades*.
+
+**Lista**
+- **Botões de distrito** (DABEL, DABEN, DAENT, DAGUA, DAICO, DAMOS, DAOUT, DASAC) com a quantidade de unidades.
+- **Busca** por nome, código INEP/MEC, bairro, endereço, diretor(a), secretário(a) ou e-mail — ignora acentos e maiúsculas.
+- **Filtros**: Bairro, Rede/Vínculo, Tipo de unidade, Zona, Situação.
+- **Pendências cadastrais**: atalho para o passo 1 das Instruções (completar atos legais, vigência, responsáveis e
+  data da atualização). Mostra, por exemplo, unidades sem *Ato de criação*, com *Ato de autorização/credenciamento/reconhecimento*
+  “NÃO LOCALIZADO”, com *Vigência do ato* vencida (em vermelho), sem diretor(a), sem secretário(a) ou sem telefone.
+- **Exportar Excel** da lista filtrada.
+
+**Detalhe da unidade** (clique na linha)
+- Todos os 26 campos da planilha agrupados em *Identificação*, *Endereço*, *Atos legais*, *Responsáveis* e *Observações cadastrais*.
+- Histórico de auditorias da unidade e suas ações corretivas, com atalhos.
+- **Editar**: painel lateral com todos os campos. A *Data da atualização* é preenchida com a data de hoje ao salvar.
+  A *Vigência do ato* aceita data (DD/MM/AAAA) ou texto (ex.: DEFINITIVO), como na planilha.
+- **Nova auditoria**: abre o formulário do Plano de Auditoria já com a unidade selecionada.
+- **Excluir unidade**: só é permitido se a unidade não tiver auditorias. Caso tenha, a aplicação orienta a alterar a
+  *Situação* para EXTINTA ou PARALISADA.
+
+**Nova unidade**: botão na faixa azul do topo. Obrigatórios: *Nome da unidade* e *Distrito*.
+
+## 5. Lista Mestra
+
+Os **53 registros** do Checklist da CDE: 41 itens técnicos (peso 1 a 3) e 12 itens de síntese da visita (peso 0).
+
+- Botões por seção (1 a 7) com quantidade de itens; busca; filtro por *Criticidade* (Crítica, Alta, Moderada, Síntese).
+- Para cada item: *Código*, *Documento/item de controle*, *Evidência mínima*, *Abrangência/periodicidade*,
+  *Criticidade*, *Peso*, *Responsável primário*, *Origem no Checklist* e *Orientação de conferência*.
+- Total de pesos e **Exportar Excel**.
+
+A Lista Mestra é a definição do instrumento: não é editável pela interface, para que todas as auditorias usem os mesmos critérios.
+Alterações de critérios devem ser feitas em `scripts/extrair_planilha.py` / na planilha-fonte (ver [README](../README.md)).
+
+## 6. Plano de Auditoria
+
+Programação das verificações por unidade — uma linha por auditoria (**217** iniciais, `AUD-001` a `AUD-217`).
+
+- **Botões por situação**: Planejada, Agendada, Em execução, Concluída, Cancelada (e “não informada”).
+- **Filtros**: busca, Distrito, Tipo de verificação, Prioridade e “Com itens previstos” (auditorias já abertas na Auditoria Documental).
+- **Colunas calculadas automaticamente** (como na planilha): *Itens previstos*, *Itens avaliados*, *Índice ponderado*,
+  *NC críticas* e *Checklist da visita concluído*.
+- **Nova auditoria**: escolha a unidade digitando parte do nome (busca entre as 217). O ID (`AUD-218`, `AUD-219`…) é gerado
+  automaticamente — não há risco de repetir IDs.
+- **Ações por linha**: abrir a *Auditoria Documental*, abrir o *Checklist da Visita*, editar e excluir.
+  Excluir uma auditoria apaga também seus registros da Auditoria Documental; as ações do Plano de Ação são mantidas, sem o vínculo.
+
+Listas de opções (idênticas às da planilha): Tipo de verificação — *Visita técnica — checklist integral, Auditoria documental,
+Acompanhamento de pendências, Verificação temática, Autoavaliação da unidade*; Prioridade — *Imediata, Alta, Média, Baixa*.
+
+## 7. Auditoria Documental
+
+A tela de trabalho principal: avaliação dos 53 registros de uma auditoria.
+
+1. Escolha a auditoria no campo de busca (por ID ou nome da unidade) — ou chegue aqui pelo Plano de Auditoria.
+2. O cabeçalho mostra ID, data, distrito, bairro, auditor(a)/equipe, tipo, situação e o **resumo** (itens previstos, avaliados,
+   índice ponderado, NC críticas e checklist concluído), que se atualiza a cada clique.
+3. Em cada item, escolha a **Situação**: *Conforme, Parcialmente conforme, Não conforme, Não se aplica* ou *Não avaliado*.
+   - O item mostra o *Peso*, os *Pontos* e o *Índice do item* na hora.
+   - Ao classificar o primeiro item, a auditoria é aberta (53 itens previstos).
+4. **Detalhes** de cada item: *Evidência/localização*, *Achado/observação*, *Requer ação?*, *Prazo*, *Responsável*,
+   *Situação da ação*, além da *Orientação de conferência* da Lista Mestra.
+   - **Salvamento automático**: cada alteração é gravada ao mudar de campo (textos, 1 s após parar de digitar). Aparece “Salvo”.
+   - **Não se aplica** exige justificativa formal (“Justificar formalmente”): enquanto o campo *Achado/observação* estiver vazio, a tela
+     mostra um alerta.
+5. **Registrar no Plano de Ação**: cria uma ação já com o item, o achado, o responsável e o prazo preenchidos; o item passa a
+   *Requer ação? Sim* e mostra um selo com o ID da ação.
+6. **Filtros**: Todos / Não avaliado / Não conforme e Parcialmente conforme / Requer ação? Sim.
+7. O **índice lateral** leva a cada seção, com o progresso (avaliados/total).
+8. **Imprimir** gera a ficha da auditoria.
+
+> Os 12 itens `VIS-01` a `VIS-12` têm peso zero: ficam registrados, mas não alteram o índice (evita dupla contagem).
+
+## 8. Checklist da Visita
+
+Síntese automática dos 12 itens finais (`VIS-01` a `VIS-12`) de uma auditoria, no formato da aba original:
+Auditoria, Data da visita, Unidade, Distrito, Auditor(a)/equipe, Conclusão, e a tabela com *Situação*,
+*Evidência/localização*, *Achado/observação*, *Requer ação?*, *Responsável* e *Prazo*.
+
+Como na planilha, a tela é somente leitura: alterações são feitas na Auditoria Documental (o botão leva direto à seção 7).
+**Imprimir** gera a folha para levar à visita.
+
+## 9. Plano de Ação
+
+Tratamento das não conformidades. A baixa depende de validação da CDE.
+
+- **Botões por situação** (*Não iniciada, Em andamento, Concluída, Vencida, Suspensa*) e “Prazo expirado”
+  (ações em aberto com prazo anterior a hoje).
+- **Filtros**: busca, Distrito, Prioridade, Validação CDE (*Validada, Pendente, Reprovada*).
+- **Dias restantes** calculados a partir do prazo (`prazo − hoje`): verde (> 7), amarelo (≤ 7), vermelho (vencido).
+- **Nova ação** / clique na linha para editar. Campos: ID auditoria, Unidade, Código do item, Achado, Ação corretiva,
+  Prioridade, Responsável, Data de abertura, Prazo, Situação, Evidência de conclusão, Data de conclusão, Validação CDE.
+  Ao marcar *Concluída*, a data de conclusão é sugerida com a data de hoje.
+- Ao escolher a *ID auditoria*, a unidade é preenchida sozinha. IDs (`AC-001`…) automáticos.
+- **Exportar Excel** da lista filtrada.
+
+## 10. Dashboard
+
+Painel executivo, com filtro por **Distrito**:
+
+- **6 indicadores**: Unidades cadastradas, Itens do Checklist, Auditorias registradas, Itens avaliados, Não conformes, Índice global.
+- **Situação dos itens avaliados** — barras para cada situação, com quantidade e percentual.
+- **Abrangência do Checklist por seção** — itens em cada seção.
+- **Unidades cadastradas por distrito e vínculo** — barras empilhadas Municipal × OSC/Conveniada.
+- **Qualidade do cadastro territorial** — cobertura de logradouro, CEP, telefone, e-mail e situação ativa.
+- Situação das auditorias e das ações corretivas, e a **Legenda de gestão**.
+- Todos os gráficos têm legenda, valores nos rótulos e dica ao passar o mouse; as cores foram validadas para daltonismo e
+  nunca são o único meio de identificação (sempre há rótulo).
+- **Imprimir** gera o painel em A4.
+
+## 11. Relatórios
+
+Para as reuniões de gestão:
+
+- **Matriz por seção**: contagem de cada situação, itens registrados e **índice ponderado** por seção (a seção 7 não tem índice, pois seu peso é zero).
+- **Distribuição das unidades por distrito**: Municipal, OSC/Conveniada, Total e Participação.
+- **Consolidação das auditorias**: ID, unidade, situação, índice e checklist da visita.
+- Filtro por distrito, **Imprimir** e **Exportar Excel** (3 abas).
+
+## 12. Dados e backup
+
+- **Planilha completa**: gera um `.xlsx` com as abas *Cadastro Unidades, Lista Mestra, Plano de Auditoria, Auditoria Documental,
+  Plano de Ação* e *Relatórios*, com os mesmos cabeçalhos da planilha original (datas e percentuais formatados, filtros e primeira linha fixa).
+- **Cópia de segurança** (`.json`): baixa todos os registros; **Restaurar cópia** devolve o estado de um arquivo (substitui os dados atuais).
+  Serve também para migrar do modo local para o banco compartilhado.
+- **Dados da planilha**: recarrega as 217 unidades e 217 auditorias do arquivo original. No banco vazio, é o botão
+  **Carregar dados da planilha** (primeira configuração).
+- Todas as operações destrutivas pedem confirmação.
+
+## 13. Como a pontuação é calculada
+
+Reproduz as fórmulas da planilha (e foi conferida contra a planilha recalculada no LibreOffice, item a item):
+
+| Resultado | Fórmula |
+|---|---|
+| **Peso aplicável** (col. M) | 0 se *Não se aplica*, vazio ou peso 0; caso contrário, o peso do item |
+| **Pontos** (col. N) | *Conforme* = 100% do peso aplicável · *Parcialmente conforme* = 50% · demais = 0 |
+| **Índice do item** (col. O) | Pontos ÷ Peso aplicável (vazio se o peso aplicável for 0) |
+| **Índice ponderado** da auditoria | Σ Pontos ÷ Σ Peso aplicável |
+| **Itens avaliados** | itens com situação diferente de *Não avaliado* |
+| **NC críticas** | itens de peso 3 classificados como *Não conforme* |
+| **Checklist da visita concluído** | itens VIS avaliados ÷ 12 |
+| **Dias restantes** | Prazo − hoje |
+| **Índice global** (Dashboard) | Σ Pontos ÷ Σ Peso aplicável de todas as auditorias abertas |
+
+Atenção: *Não avaliado* conta como 0 pontos **dentro** do índice (o peso permanece no denominador). Por isso o índice
+de uma auditoria recém-aberta é 0,0% e sobe conforme os itens são avaliados. Já *Não se aplica* sai do cálculo.
+
+## 14. Acessibilidade
+
+- **Alto contraste**, **aumentar/diminuir/restaurar fonte** (barra cinza); as preferências ficam salvas no navegador.
+- Atalhos de “ir para” (conteúdo, menu, rodapé, acessibilidade) e foco visível em todos os controles.
+- Navegação completa por teclado (menus, listas pesquisáveis, painéis com `Esc` para fechar).
+- Marcação semântica (tabelas com cabeçalhos, regiões, anúncios de erro/sucesso para leitores de tela).
+- Respeita a preferência do sistema por menos animações.
+- Layout responsivo (celular, tablet e computador) e folhas de impressão próprias.
+
+O widget de Libras (VLibras) do portal de referência **não** foi incluído; pode ser adicionado com o script oficial do governo se desejado.
+
+## 15. Acesso, login e modos de armazenamento
+
+| | **Modo local** | **Banco compartilhado (Supabase)** |
+|---|---|---|
+| Quando | Sem variáveis de ambiente | Com `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` |
+| Onde ficam os dados | No navegador do computador | No banco, na nuvem |
+| Equipe | Cada pessoa vê só os próprios dados | Todos veem os mesmos dados |
+| Login | Não há | E-mail e senha; só e-mails cadastrados em `membros` entram |
+| Indicação na tela | “Modo local” | “Banco compartilhado” |
+| Auditoria de alterações | — | Cada registro guarda *quem* e *quando* alterou |
+
+Mudanças feitas por outra pessoa aparecem ao recarregar a página ou ao voltar à aba (a cada 60 s no máximo).
+Veja [IMPLANTACAO.md](IMPLANTACAO.md) para ativar o banco compartilhado.
+
+## 16. Origem dos textos
+
+Os textos de conteúdo — títulos, subtítulos, passos, critérios, cabeçalhos de colunas, listas de opções, legendas,
+notas, nomes e orientações dos 53 itens — vêm **exatamente da planilha**, extraídos automaticamente para
+`src/data/planilha.json` (não foram reescritos à mão). Os únicos textos novos são os mínimos de interface:
+rótulos de botões (Salvar, Cancelar, Exportar Excel, Imprimir…), mensagens de confirmação/erro, a seção **Dados e backup** e o formulário de login.
+Eventuais títulos em MAIÚSCULAS na planilha aparecem em caixa de frase em cartões, sem mudar as palavras.
