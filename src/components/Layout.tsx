@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Accessibility, Cloud, Contrast, HardDrive, LogOut, User, X, ZoomIn, ZoomOut } from 'lucide-react';
+import { Cloud, HardDrive, LogOut, User, X } from 'lucide-react';
 import { SECOES_APP } from './navegacao';
 import { TEXTOS } from '../data/planilha';
 import { useSessao } from '../lib/sessao';
@@ -9,95 +9,12 @@ import { supabaseConfigurado } from '../lib/backend/supabase';
 import { Avisos } from './ui';
 import { fraseado } from '../lib/format';
 
-const CHAVE_PREF = 'instrumento-cde:acessibilidade';
-
-function usePreferenciasAcessibilidade() {
-  const [pref, setPref] = useState<{ contraste: boolean; fonte: number }>(() => {
-    try {
-      return { contraste: false, fonte: 0, ...JSON.parse(localStorage.getItem(CHAVE_PREF) ?? '{}') };
-    } catch {
-      return { contraste: false, fonte: 0 };
-    }
-  });
-  useEffect(() => {
-    const html = document.documentElement;
-    if (pref.contraste) html.dataset.contraste = 'alto';
-    else delete html.dataset.contraste;
-    if (pref.fonte) html.dataset.fonte = String(pref.fonte);
-    else delete html.dataset.fonte;
-    try {
-      localStorage.setItem(CHAVE_PREF, JSON.stringify(pref));
-    } catch {
-      /* preferências são opcionais */
-    }
-  }, [pref]);
-  return {
-    pref,
-    alternarContraste: () => setPref((p) => ({ ...p, contraste: !p.contraste })),
-    fonte: (delta: number) => setPref((p) => ({ ...p, fonte: Math.max(-1, Math.min(2, p.fonte + delta)) })),
-    fontePadrao: () => setPref((p) => ({ ...p, fonte: 0 })),
-  };
-}
-
-function BarraAcessibilidade() {
-  return (
-    <div className="barra-acess nao-imprimir">
-      <div className="container">
-        <ul>
-          <li>
-            <a href="#conteudo" accessKey="1">
-              1 - ir para conteúdo
-            </a>
-          </li>
-          <li>
-            <a href="#menu" accessKey="2">
-              2 - ir para o menu
-            </a>
-          </li>
-          <li>
-            <a href="#rodape" accessKey="3">
-              3 - ir para o rodapé
-            </a>
-          </li>
-        </ul>
-        <a href="#acessibilidade" accessKey="5">
-          5 - recursos de acessibilidade
-        </a>
-      </div>
-    </div>
-  );
-}
-
 function BarraGov() {
-  const { pref, alternarContraste, fonte, fontePadrao } = usePreferenciasAcessibilidade();
   const { status, email, sair } = useSessao();
   return (
     <div className="barra-gov">
       <div className="container">
         <span className="barra-gov__orgao">Prefeitura Municipal de Belém</span>
-        <span className="barra-gov__sep" aria-hidden />
-        <div className="barra-gov__ferramentas" id="acessibilidade" role="group" aria-label="Recursos de acessibilidade">
-          <button
-            type="button"
-            className="icone-btn"
-            onClick={alternarContraste}
-            aria-pressed={pref.contraste}
-            title="Alto contraste"
-            aria-label="Alto contraste"
-          >
-            <Contrast size={20} />
-          </button>
-          <button type="button" className="icone-btn" onClick={() => fonte(-1)} title="Diminuir fonte" aria-label="Diminuir fonte">
-            <ZoomOut size={20} />
-          </button>
-          <button type="button" className="icone-btn" onClick={() => fonte(1)} title="Aumentar fonte" aria-label="Aumentar fonte">
-            <ZoomIn size={20} />
-          </button>
-          <button type="button" className="icone-btn" onClick={fontePadrao} title="Fonte padrão" aria-label="Fonte padrão">
-            <Accessibility size={20} />
-          </button>
-        </div>
-        <span className="barra-gov__sep" aria-hidden />
         <div className="barra-gov__direita">
           {supabaseConfigurado ? (
             <span className="modo-dados" title="Dados salvos no banco compartilhado (Supabase)">
@@ -140,7 +57,7 @@ function Gaveta({ aoFechar }: { aoFechar: () => void }) {
       <div className="veu" onClick={aoFechar} />
       <div className="gaveta" role="dialog" aria-modal="true" aria-label="Menu">
         <div className="gaveta__topo">
-          <img src="/logo-educacao-belem-horizontal.png" alt="Educação — Prefeitura de Belém" />
+          <strong className="gaveta__nome">Instrumento de Controle da Documentação Escolar</strong>
           <button type="button" className="icone-btn" onClick={aoFechar} aria-label="Fechar menu" autoFocus>
             <X size={24} />
           </button>
@@ -189,9 +106,6 @@ function Cabecalho() {
           <strong>Instrumento de Controle da Documentação Escolar</strong>
           <span>Coordenadoria de Documentação Escolar — CDE · SEMEC</span>
         </Link>
-        <Link to="/" className="cabecalho__logo" aria-label="Início">
-          <img className="logo" src="/logo-educacao-belem-horizontal.png" alt="Educação — Prefeitura de Belém" />
-        </Link>
       </div>
       {aberto && <Gaveta aoFechar={() => setAberto(false)} />}
     </header>
@@ -223,9 +137,6 @@ function Rodape() {
     <footer id="rodape">
       <div className="rodape">
         <div className="container">
-          <div>
-            <img src="/logo-educacao-belem-vertical.png" alt="Educação — Prefeitura de Belém" />
-          </div>
           {grupos.map((g, n) => (
             <nav key={n} aria-label={n === 0 ? 'Cadastro e auditoria' : 'Acompanhamento'}>
               <h2>{n === 0 ? 'Instrumento' : 'Acompanhamento'}</h2>
@@ -279,7 +190,6 @@ export function Moldura({ children }: { children?: React.ReactNode }) {
   return (
     <>
       <RolarAoTopo />
-      <BarraAcessibilidade />
       <BarraGov />
       <Cabecalho />
       <Abas />

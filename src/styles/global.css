@@ -65,55 +65,6 @@
   color-scheme: light;
 }
 
-/* Alto contraste (recurso de acessibilidade, como no portal da Prefeitura) */
-html[data-contraste='alto'] {
-  --azul: #000;
-  --azul-escuro: #000;
-  --azul-profundo: #000;
-  --azul-sec: #fff;
-  --azul-claro: #000;
-  --azul-borda: #fff;
-  --verde: #ffff00;
-  --verde-texto: #ffff00;
-  --verde-claro: #000;
-  --cinza-barra: #000;
-  --cinza-escuro: #000;
-  --tinta: #fff;
-  --tinta-2: #fff;
-  --muted: #fff;
-  --borda: #fff;
-  --borda-forte: #fff;
-  --fundo: #000;
-  --superficie: #000;
-  --superficie-2: #000;
-  --perigo: #ff6b6b;
-  --perigo-claro: #000;
-  --alerta: #ffff00;
-  --alerta-claro: #000;
-  --s-conforme-bg: #000;
-  --s-conforme-tx: #7dff7d;
-  --s-parcial-bg: #000;
-  --s-parcial-tx: #ffff00;
-  --s-nc-bg: #000;
-  --s-nc-tx: #ff8a8a;
-  --s-na-bg: #000;
-  --s-na-tx: #fff;
-  --s-nav-bg: #000;
-  --s-nav-tx: #d7b8ff;
-  --grade: #555;
-  --sombra: none;
-  color-scheme: dark;
-}
-html[data-contraste='alto'] a {
-  color: #ffff00;
-}
-html[data-contraste='alto'] .chip,
-html[data-contraste='alto'] .seg button {
-  border: 1px solid currentColor;
-}
-html[data-contraste='alto'] img.logo {
-  filter: none;
-}
 
 *,
 *::before,
@@ -124,15 +75,6 @@ html[data-contraste='alto'] img.logo {
 html {
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
-}
-html[data-fonte='1'] {
-  font-size: 112.5%;
-}
-html[data-fonte='2'] {
-  font-size: 125%;
-}
-html[data-fonte='-1'] {
-  font-size: 93.75%;
 }
 
 body {
@@ -153,12 +95,6 @@ h4 {
   color: var(--azul);
   line-height: 1.2;
   margin: 0;
-}
-html[data-contraste='alto'] h1,
-html[data-contraste='alto'] h2,
-html[data-contraste='alto'] h3,
-html[data-contraste='alto'] h4 {
-  color: #fff;
 }
 
 p {
@@ -204,33 +140,6 @@ textarea {
 /* ---------------------------------------------------------------------
    Barra de acessibilidade (topo branco)
    --------------------------------------------------------------------- */
-.barra-acess {
-  background: var(--superficie);
-  font-family: var(--fonte-titulo);
-  font-size: 0.78rem;
-}
-.barra-acess .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 32px;
-}
-.barra-acess ul {
-  display: flex;
-  gap: 16px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  flex-wrap: wrap;
-}
-.barra-acess a {
-  color: var(--tinta);
-  text-decoration: none;
-}
-.barra-acess a:hover {
-  text-decoration: underline;
-}
 
 /* ---------------------------------------------------------------------
    Barra institucional cinza
@@ -252,15 +161,6 @@ textarea {
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
-.barra-gov__sep {
-  width: 1px;
-  height: 22px;
-  background: rgba(255, 255, 255, 0.85);
-}
-.barra-gov__ferramentas {
-  display: flex;
-  gap: 4px;
-}
 .icone-btn {
   display: inline-grid;
   place-items: center;
@@ -274,9 +174,6 @@ textarea {
 }
 .icone-btn:hover {
   background: rgba(255, 255, 255, 0.12);
-}
-.icone-btn[aria-pressed='true'] {
-  background: rgba(255, 255, 255, 0.22);
 }
 .barra-gov__direita {
   margin-left: auto;
@@ -308,11 +205,6 @@ textarea {
 }
 .pilula-branca:hover {
   background: #eef1f6;
-}
-html[data-contraste='alto'] .pilula-branca {
-  background: #000;
-  color: #ffff00;
-  border: 1px solid #ffff00;
 }
 
 /* ---------------------------------------------------------------------
@@ -370,16 +262,6 @@ html[data-contraste='alto'] .pilula-branca {
   font-size: 0.82rem;
   opacity: 0.85;
 }
-.cabecalho__logo {
-  margin-left: auto;
-  display: block;
-  flex-shrink: 0;
-}
-.cabecalho__logo img {
-  display: block;
-  height: 56px;
-  width: auto;
-}
 
 /* ---------------------------------------------------------------------
    Abas de navegação (equivalentes às abas da planilha)
@@ -416,7 +298,7 @@ html[data-contraste='alto'] .pilula-branca {
 .abas ul {
   justify-content: space-between;
 }
-@media (max-width: 1400px) {
+@media (max-width: 1500px) {
   .abas svg {
     display: none;
   }
@@ -429,9 +311,6 @@ html[data-contraste='alto'] .pilula-branca {
   color: var(--azul);
   border-bottom-color: var(--verde);
   font-weight: 600;
-}
-html[data-contraste='alto'] .abas a[aria-current='page'] {
-  color: #ffff00;
 }
 
 /* ---------------------------------------------------------------------
@@ -464,9 +343,6 @@ html[data-contraste='alto'] .abas a[aria-current='page'] {
   justify-content: space-between;
   padding: 20px 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-}
-.gaveta__topo img {
-  height: 40px;
 }
 .gaveta nav {
   overflow-y: auto;
@@ -661,9 +537,6 @@ main {
 .nota--verde svg {
   color: var(--verde-texto);
 }
-html[data-contraste='alto'] .nota {
-  border: 1px solid #fff;
-}
 
 /* ---------------------------------------------------------------------
    Botões (pílulas, como no portal)
@@ -749,11 +622,6 @@ html[data-contraste='alto'] .nota {
   min-height: 34px;
   padding: 0;
 }
-html[data-contraste='alto'] .btn {
-  background: #000;
-  color: #ffff00;
-  border-color: #ffff00;
-}
 
 /* ---------------------------------------------------------------------
    Indicadores (KPIs)
@@ -802,9 +670,6 @@ html[data-contraste='alto'] .btn {
   font-weight: 600;
   color: var(--azul);
   line-height: 1.1;
-}
-html[data-contraste='alto'] .kpi__valor {
-  color: #fff;
 }
 .kpi__legenda {
   font-size: 0.76rem;
@@ -1134,9 +999,6 @@ html[data-contraste='alto'] .kpi__valor {
 .tabela a:hover {
   text-decoration: underline;
 }
-html[data-contraste='alto'] .tabela a {
-  color: #ffff00;
-}
 .tabela tr.clicavel {
   cursor: pointer;
 }
@@ -1176,9 +1038,6 @@ html[data-contraste='alto'] .tabela a {
   padding: 36px 20px;
   text-align: center;
   color: var(--muted);
-}
-html[data-contraste='alto'] .tabela th {
-  border-bottom: 1px solid #fff;
 }
 
 /* Barra de índice (medidor) */
@@ -1495,9 +1354,6 @@ html[data-contraste='alto'] .tabela th {
   font-weight: 600;
   color: var(--azul);
 }
-html[data-contraste='alto'] .resumo-aud dd {
-  color: #fff;
-}
 
 /* ---------------------------------------------------------------------
    Painel lateral e diálogos
@@ -1683,10 +1539,6 @@ html[data-contraste='alto'] .resumo-aud dd {
   transform: translate(-50%, calc(-100% - 8px));
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-html[data-contraste='alto'] .dica {
-  background: #fff;
-  color: #000;
-}
 
 /* Barras horizontais em lista (situação dos itens) */
 .barras-lista {
@@ -1731,7 +1583,7 @@ html[data-contraste='alto'] .dica {
 }
 .rodape .container {
   display: grid;
-  grid-template-columns: 200px repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px;
   padding-top: 48px;
   padding-bottom: 40px;
@@ -1762,10 +1614,6 @@ html[data-contraste='alto'] .dica {
 .rodape p {
   font-size: 0.82rem;
   opacity: 0.88;
-}
-.rodape img {
-  width: 150px;
-  height: auto;
 }
 .rodape__base {
   background: var(--cinza-barra);
@@ -1867,18 +1715,11 @@ html[data-contraste='alto'] .dica {
   .rodape .container {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .barra-gov__ferramentas,
-  .barra-gov__sep {
-    display: none;
-  }
 }
 
 @media (max-width: 720px) {
   :root {
     --gutter: 16px;
-  }
-  .barra-acess ul li:nth-child(n + 2) {
-    display: none;
   }
   .barra-gov__orgao {
     font-size: 0.68rem;
@@ -1894,16 +1735,16 @@ html[data-contraste='alto'] .dica {
   .btn-menu__barras span {
     width: 30px;
   }
-  .cabecalho__titulo {
+  .cabecalho__titulo strong {
+    font-size: 0.95rem;
+  }
+  .cabecalho__titulo span {
     display: none;
   }
   .btn-menu__texto {
     display: inline;
   }
-  .cabecalho__logo img {
-    height: 40px;
-  }
-  .abas {
+    .abas {
     display: none;
   }
   .kpis {
@@ -2049,20 +1890,7 @@ html[data-contraste='alto'] .dica {
     background: #fff;
     font-size: 10.5pt;
   }
-  .barra-acess,
-  .barra-gov,
-  .abas,
-  .rodape,
-  .rodape__base,
-  .nao-imprimir,
-  .avisos,
-  .btn,
-  .ferramentas,
-  .aud-indice,
-  [vw] {
-    display: none !important;
-  }
-  .so-impressao {
+    .so-impressao {
     display: block;
   }
   .cabecalho {
@@ -2078,10 +1906,7 @@ html[data-contraste='alto'] .dica {
     color: var(--azul);
   }
   .btn-menu,
-  .cabecalho__logo {
-    display: none;
-  }
-  .faixa {
+    .faixa {
     background: #fff !important;
     color: var(--tinta);
   }
@@ -2159,4 +1984,11 @@ html[data-contraste='alto'] .dica {
     color: inherit;
     text-decoration: none;
   }
+}
+
+.gaveta__nome {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.3;
 }
