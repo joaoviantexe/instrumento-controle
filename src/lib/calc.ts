@@ -237,6 +237,35 @@ export function distribuicaoDistritos(unidades: Unidade[]): LinhaDistrito[] {
   });
 }
 
+export interface LinhaBairro {
+  bairro: string;
+  /** Quantidade de unidades por distrito (mesma ordem de `distritos`). */
+  contagem: number[];
+  total: number;
+}
+
+/** Aba DistritoBairro (tabela dinâmica): contagem de unidades por Bairro (linhas) e Distrito (colunas). */
+export function matrizBairroDistrito(unidades: Unidade[]): { distritos: string[]; linhas: LinhaBairro[]; totais: number[]; total: number } {
+  const extras = unidades.map((u) => u.distrito).filter((d) => d && !DISTRITOS.includes(d));
+  const distritos = [...DISTRITOS, ...Array.from(new Set(extras)).sort()];
+  const porBairro = new Map<string, number[]>();
+  for (const u of unidades) {
+    const col = distritos.indexOf(u.distrito);
+    if (col < 0) continue;
+    const bairro = u.bairro || '(sem bairro)';
+    const linha = porBairro.get(bairro) ?? new Array(distritos.length).fill(0);
+    linha[col]++;
+    porBairro.set(bairro, linha);
+  }
+  const linhas = Array.from(porBairro, ([bairro, contagem]) => ({
+    bairro,
+    contagem,
+    total: contagem.reduce((a, b) => a + b, 0),
+  })).sort((a, b) => a.bairro.localeCompare(b.bairro, 'pt-BR'));
+  const totais = distritos.map((_, i) => linhas.reduce((s, l) => s + l.contagem[i], 0));
+  return { distritos, linhas, totais, total: totais.reduce((a, b) => a + b, 0) };
+}
+
 export interface IndicadorQualidade {
   indicador: string;
   registros: number;

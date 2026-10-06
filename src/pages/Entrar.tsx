@@ -20,7 +20,7 @@ export function Entrar() {
 
   return (
     <>
-      <Faixa sobre="CDE · SEMEC" titulo="Instrumento de Controle da Documentação Escolar" sub={TEXTOS.dashboard.subtitulo} />
+      <Faixa sobre="CDE · SEMEC" titulo="Instrumento de Controle da Documentação Escolar" sub={TEXTOS.dashboard.subtitulo} bruto />
       <div className="container">
         <form className="cartao login" onSubmit={enviar}>
           <div className="cartao__cab">

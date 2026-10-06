@@ -8,6 +8,7 @@ import {
   distribuicaoDistritos,
   indexarAvaliacoes,
   indiceGlobal,
+  matrizBairroDistrito,
   linhasDaAuditoria,
   linhasRegistradas,
   matrizSecoes,
@@ -117,6 +118,20 @@ describe('Dashboard e Relatórios', () => {
       expect([dist[i].municipal, dist[i].osc, dist[i].total]).toEqual([mun, osc, total]);
       expect(dist[i].participacao).toBeCloseTo(part as number, 10);
     });
+  });
+
+  it('reproduz a tabela dinâmica DistritoBairro', () => {
+    const m = matrizBairroDistrito(UNIDADES_INICIAIS);
+    expect(m.linhas).toHaveLength(54);
+    expect(m.total).toBe(217);
+    // totais por coluna = total por distrito da aba Relatórios
+    referencia.distribuicao.forEach(([distrito, , , total], i) => {
+      expect(m.distritos[i]).toBe(distrito);
+      expect(m.totais[i]).toBe(total);
+    });
+    expect(m.linhas.every((l) => l.total === l.contagem.reduce((a, b) => a + b, 0))).toBe(true);
+    const guama = m.linhas.find((l) => l.bairro === 'GUAMA')!;
+    expect(guama.total).toBe(13);
   });
 
   it('reproduz a qualidade do cadastro territorial', () => {

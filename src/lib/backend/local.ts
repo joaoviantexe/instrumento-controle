@@ -44,6 +44,15 @@ export function criarBackendLocal(): Backend {
       else l.push({ ...registro });
       gravar();
     },
+    async salvarVarios(tabela, registros) {
+      const l = lista(tabela);
+      for (const registro of registros) {
+        const i = l.findIndex((r) => mesmaChave(tabela, r, registro));
+        if (i >= 0) l[i] = { ...registro };
+        else l.push({ ...registro });
+      }
+      gravar();
+    },
     async inserir(tabela, registros) {
       const l = lista(tabela);
       for (const r of registros) {

@@ -1,34 +1,16 @@
 import { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Download, Plus, Search } from 'lucide-react';
-import { CampoSelect, Etiqueta, Faixa, Nota, Th, ordenar, useOrdenacao, useRotulosCartao } from '../components/ui';
+import { CampoSelect, Etiqueta, Faixa, Nota, Th, Vazio, ordenar, useOrdenacao, useRotulosCartao } from '../components/ui';
 import { FormUnidade, unidadeVazia } from '../components/FormUnidade';
 import { CABECALHOS_UNIDADE as C, DISTRITOS, OPCOES_CADASTRO, SITUACOES_UNIDADE, TEXTOS } from '../data/planilha';
 import { useDados } from '../lib/store';
 import { contem, formatarData } from '../lib/format';
 import { vigenciaVencida } from '../lib/calc';
+import { PENDENCIAS } from '../lib/pendencias';
 import { exportarExcel } from '../lib/exportar';
 import { abaUnidades } from '../lib/abas';
 import { avisar } from '../lib/avisos';
-import type { Unidade } from '../lib/types';
-
-/** Pendências cadastrais (passo 1 das Instruções: atos legais, vigência e responsáveis). */
-const NAO_LOCALIZADO = 'NÃO LOCALIZADO';
-const PENDENCIAS: { chave: string; rotulo: string; teste: (u: Unidade) => boolean }[] = [
-  { chave: 'ato_criacao', rotulo: `${C.ato_criacao}: não informado`, teste: (u) => !u.ato_criacao },
-  {
-    chave: 'ato_autorizacao',
-    rotulo: `${C.ato_autorizacao}: não informado ou não localizado`,
-    teste: (u) => !u.ato_autorizacao || u.ato_autorizacao.toUpperCase().includes(NAO_LOCALIZADO),
-  },
-  { chave: 'vigencia_vazia', rotulo: `${C.vigencia_ato}: não informada`, teste: (u) => !u.vigencia_ato },
-  { chave: 'vigencia_vencida', rotulo: `${C.vigencia_ato}: vencida`, teste: (u) => vigenciaVencida(u.vigencia_ato) },
-  { chave: 'diretor', rotulo: `${C.diretor}: não informado`, teste: (u) => !u.diretor },
-  { chave: 'secretario', rotulo: `${C.secretario}: não informado`, teste: (u) => !u.secretario || /^SEM SECRET/i.test(u.secretario) },
-  { chave: 'telefone', rotulo: `${C.telefone}: não informado`, teste: (u) => !u.telefone },
-  { chave: 'email', rotulo: `${C.email}: não informado`, teste: (u) => !u.email },
-  { chave: 'data_atualizacao', rotulo: `${C.data_atualizacao}: não informada`, teste: (u) => !u.data_atualizacao },
-];
 
 type Campo = 'distrito' | 'inep' | 'nome' | 'rede' | 'tipo_unidade' | 'vigencia_ato' | 'diretor' | 'data_atualizacao';
 
@@ -97,7 +79,7 @@ export function Unidades() {
 
   return (
     <>
-      <Faixa sobre="Cadastro Unidades" titulo="CADASTRO DE UNIDADES" sub={TEXTOS.cadastro.subtitulo}>
+      <Faixa titulo="Cadastro Unidades" sub={TEXTOS.cadastro.subtitulo}>
         <button type="button" className="btn btn--claro" onClick={() => setNova(true)}>
           <Plus size={16} aria-hidden /> Nova unidade
         </button>
@@ -247,7 +229,15 @@ export function Unidades() {
                 ))}
               </tbody>
             </table>
-            {filtradas.length === 0 && <p className="tabela-vazia">Nenhuma unidade encontrada.</p>}
+            {filtradas.length === 0 && (
+              <Vazio texto="Nenhuma unidade encontrada.">
+                {filtrando && (
+                  <button type="button" className="btn btn--contorno btn--pequeno" onClick={limpar}>
+                    Limpar filtros
+                  </button>
+                )}
+              </Vazio>
+            )}
           </div>
         </section>
       </div>

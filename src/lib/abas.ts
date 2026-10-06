@@ -8,7 +8,7 @@ import {
   ROTULOS_PLANO,
   TEXTOS,
 } from '../data/planilha';
-import { diasRestantes, linhasDaAuditoria, matrizSecoes, distribuicaoDistritos, type Linha } from './calc';
+import { diasRestantes, linhasDaAuditoria, matrizBairroDistrito, matrizSecoes, distribuicaoDistritos, type Linha } from './calc';
 import type { Aba, Coluna } from './exportar';
 import type { Dados } from './store';
 import type { Acao, Auditoria, Unidade } from './types';
@@ -203,6 +203,7 @@ export function abasRelatorios(d: Dados, linhas: Linha[], unidades: Unidade[], a
   const t = TEXTOS.relatorios;
   const matriz = matrizSecoes(linhas);
   const dist = distribuicaoDistritos(unidades);
+  const bd = matrizBairroDistrito(unidades);
   return [
     {
       nome: 'Relatórios',
@@ -229,6 +230,19 @@ export function abasRelatorios(d: Dados, linhas: Linha[], unidades: Unidade[], a
       titulo: t.distribuicaoTitulo,
       colunas: t.distribuicaoCabecalho.map((c, i) => ({ cabecalho: c, tipo: i === 0 ? 'texto' : i === 4 ? 'pct' : 'numero' })),
       linhas: dist.map((x) => [x.distrito, x.municipal, x.osc, x.total, x.participacao]),
+    },
+    {
+      nome: 'DistritoBairro',
+      titulo: 'DistritoBairro',
+      colunas: [
+        { cabecalho: 'Bairro', largura: 34 },
+        ...bd.distritos.map((x) => ({ cabecalho: x, tipo: 'numero' as const })),
+        { cabecalho: 'Total', tipo: 'numero' as const },
+      ],
+      linhas: [
+        ...bd.linhas.map((l) => [l.bairro, ...l.contagem, l.total]),
+        ['Total', ...bd.totais, bd.total],
+      ],
     },
     {
       nome: 'Consolidação das auditorias',

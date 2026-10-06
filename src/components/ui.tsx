@@ -1,8 +1,8 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { AlertTriangle, ArrowDown, ArrowUp, ArrowUpDown, CheckCircle2, Info, Loader2, X, XCircle } from 'lucide-react';
+import { AlertTriangle, ArrowDown, Inbox, ArrowUp, ArrowUpDown, CheckCircle2, Info, Loader2, X, XCircle } from 'lucide-react';
 import { fecharAviso, ouvirAvisos, type Aviso } from '../lib/avisos';
-import { formatarPct } from '../lib/format';
+import { formatarPct, fraseado } from '../lib/format';
 
 /* ------------------------------------------------------------------ */
 /* Faixa de título                                                     */
@@ -12,24 +12,37 @@ export function Faixa({
   titulo,
   sub,
   children,
+  bruto,
 }: {
   sobre?: string;
   titulo: string;
   sub?: string;
   children?: ReactNode;
-  inicio?: boolean;
+  /** Mantém o título como está (nomes próprios em maiúsculas, como os das unidades). */
+  bruto?: boolean;
 }) {
   return (
     <header className="pagina-cab">
       <div className="container pagina-cab__linha">
         <div className="pagina-cab__texto">
           {sobre && <p className="pagina-cab__sobre">{sobre}</p>}
-          <h1 id="titulo-pagina">{titulo}</h1>
+          <h1 id="titulo-pagina">{bruto ? titulo : fraseado(titulo)}</h1>
           {sub && <p className="pagina-cab__sub">{sub}</p>}
         </div>
         {children && <div className="pagina-cab__acoes nao-imprimir">{children}</div>}
       </div>
     </header>
+  );
+}
+
+/** Estado vazio: explica o que há (ou não) e oferece a próxima ação. */
+export function Vazio({ texto, children }: { texto: ReactNode; children?: ReactNode }) {
+  return (
+    <div className="vazio">
+      <Inbox size={30} aria-hidden />
+      <p>{texto}</p>
+      {children && <div className="vazio__acoes">{children}</div>}
+    </div>
   );
 }
 

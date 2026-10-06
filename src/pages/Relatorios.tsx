@@ -9,6 +9,7 @@ import { distribuicaoDistritos, indiceGlobal, matrizSecoes } from '../lib/calc';
 import { formatarNumero, formatarPct, fraseado } from '../lib/format';
 import { exportarExcel } from '../lib/exportar';
 import { abasRelatorios } from '../lib/abas';
+import { MatrizBairro } from '../components/MatrizBairro';
 
 export function Relatorios() {
   const d = useDados();
@@ -32,7 +33,7 @@ export function Relatorios() {
 
   return (
     <>
-      <Faixa sobre="Relatórios" titulo={t.titulo} sub={t.subtitulo}>
+      <Faixa titulo={t.titulo} sub={t.subtitulo}>
         <button type="button" className="btn btn--claro" onClick={() => window.print()}>
           <Printer size={16} aria-hidden /> Imprimir
         </button>
@@ -96,6 +97,16 @@ export function Relatorios() {
               </tfoot>
             </table>
           </div>
+        </section>
+
+        <section className="cartao" aria-labelledby="bairro">
+          <div className="cartao__cab">
+            <h2 id="bairro" className="titulo-bloco">
+              Distrito e Bairro
+            </h2>
+            <span className="contagem">{recorte.unidades.length} unidades · clique em um número para ver as unidades</span>
+          </div>
+          <MatrizBairro unidades={recorte.unidades} />
         </section>
 
         <div className="grade-2" style={{ alignItems: 'start' }}>

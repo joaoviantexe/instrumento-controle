@@ -44,10 +44,15 @@ export function BarrasHorizontais({
   dados,
   rotuloAcessivel,
   cor = 'var(--serie-1)',
+  max: maxFixo,
+  formatar = formatarNumero,
 }: {
   dados: { rotulo: string; valor: number }[];
   rotuloAcessivel: string;
   cor?: string;
+  /** Valor do fim do eixo (ex.: 1 para percentuais); por padrão é calculado. */
+  max?: number;
+  formatar?: (n: number) => string;
 }) {
   const { ref, largura } = useLargura<HTMLDivElement>();
   const [dica, setDica] = useState<Dica | null>(null);
@@ -56,7 +61,7 @@ export function BarrasHorizontais({
   const banda = 34;
   const barra = 18;
   const altura = dados.length * banda + 26;
-  const max = escalaMax(Math.max(...dados.map((d) => d.valor), 1));
+  const max = maxFixo ?? escalaMax(Math.max(...dados.map((d) => d.valor), 1));
   const w = largura - esquerda - direita;
   const x = (v: number) => esquerda + (v / max) * w;
   const ticks = [0, max / 2, max];
@@ -68,7 +73,7 @@ export function BarrasHorizontais({
           <g key={t}>
             <line className="grade-linha" x1={x(t)} x2={x(t)} y1={0} y2={altura - 22} />
             <text x={x(t)} y={altura - 6} fontSize={11} textAnchor="middle">
-              {formatarNumero(t)}
+              {formatar(t)}
             </text>
           </g>
         ))}
@@ -81,7 +86,7 @@ export function BarrasHorizontais({
               </text>
               <path d={caminhoBarra(esquerda, y, x(d.valor) - esquerda, barra)} fill={cor} />
               <text className="rotulo-valor" x={x(d.valor) + 6} y={y + barra / 2 + 4} fontSize={12}>
-                {formatarNumero(d.valor)}
+                {formatar(d.valor)}
               </text>
               <rect
                 className="alvo"
@@ -96,7 +101,7 @@ export function BarrasHorizontais({
                     y: y,
                     texto: (
                       <>
-                        {d.rotulo}: <b>{formatarNumero(d.valor)}</b>
+                        {d.rotulo}: <b>{formatar(d.valor)}</b>
                       </>
                     ),
                   });

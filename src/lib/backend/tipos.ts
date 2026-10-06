@@ -21,6 +21,8 @@ export interface Backend {
   carregar(): Promise<Snapshot>;
   /** Insere ou atualiza. */
   salvar<T extends NomeTabela>(tabela: T, registro: Tabelas[T]): Promise<void>;
+  /** Insere ou atualiza vários registros de uma vez. */
+  salvarVarios<T extends NomeTabela>(tabela: T, registros: Tabelas[T][]): Promise<void>;
   /** Insere; falha se a chave já existir. */
   inserir<T extends NomeTabela>(tabela: T, registros: Tabelas[T][]): Promise<void>;
   excluir<T extends NomeTabela>(tabela: T, chave: Partial<Tabelas[T]>): Promise<void>;

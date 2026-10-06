@@ -76,6 +76,16 @@ describe.skipIf(!URL_TESTE)('backend Supabase (integração)', () => {
     expect(Object.keys(s.acoes[0])).not.toContain('atualizado_por');
   });
 
+  it('altera várias auditorias de uma vez', async () => {
+    const s = await backend.carregar();
+    const lote = s.auditorias.slice(1, 4).map((a) => ({ ...a, tipo: 'Auditoria documental', data_planejada: '2026-11-03', equipe: 'Equipe A' }));
+    await backend.salvarVarios('auditorias', lote);
+    const depois = (await backend.carregar()).auditorias;
+    for (const a of lote) {
+      expect(depois.find((x) => x.id === a.id)).toMatchObject({ tipo: 'Auditoria documental', data_planejada: '2026-11-03', equipe: 'Equipe A' });
+    }
+  });
+
   it('exclui auditoria em cascata', async () => {
     await backend.excluir('auditorias', { id: 'AUD-001' });
     const s = await backend.carregar();

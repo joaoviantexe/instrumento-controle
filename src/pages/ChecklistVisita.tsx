@@ -42,7 +42,7 @@ export function ChecklistVisita() {
 
   return (
     <>
-      <Faixa sobre={aud ? `Checklist da Visita · ${aud.id}` : 'Checklist da Visita'} titulo={t.titulo} sub={t.subtitulo}>
+      <Faixa sobre={aud ? `Checklist da Visita · ${aud.id}` : undefined} titulo={t.titulo} sub={t.subtitulo}>
         {aud && (
           <>
             <button type="button" className="btn btn--claro" onClick={() => window.print()}>
