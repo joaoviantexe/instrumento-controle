@@ -19,7 +19,7 @@ portal da SEMEC (`referencia.zip`).
 | Relatórios | Relatórios | Matriz por seção, distribuição por distrito, consolidação; Excel e impressão |
 | — | Dados e backup | Exportar Excel, cópia de segurança, restauração |
 
-Também: acessibilidade (alto contraste, tamanho da fonte, teclado), layout para celular, impressão em A4.
+Também: layout para celular e impressão em A4.
 
 📖 **[Manual de funcionalidades](docs/MANUAL.md)** — cada tela e recurso, e como a pontuação é calculada.
 🚀 **[Guia de implantação](docs/IMPLANTACAO.md)** — Vercel + Supabase, passo a passo, custo zero.

@@ -20,7 +20,7 @@ Este manual descreve cada tela e recurso da aplicação. A aplicação reproduz 
 11. [Relatórios](#11-relatórios)
 12. [Dados e backup](#12-dados-e-backup)
 13. [Como a pontuação é calculada](#13-como-a-pontuação-é-calculada)
-14. [Acessibilidade](#14-acessibilidade)
+14. [Navegação e impressão](#14-navegação-e-impressão)
 15. [Acesso, login e modos de armazenamento](#15-acesso-login-e-modos-de-armazenamento)
 16. [Origem dos textos](#16-origem-dos-textos)
 
@@ -40,9 +40,8 @@ Cadastro Unidades → Plano de Auditoria → Auditoria Documental → (Checklist
 
 | Elemento | O que faz |
 |---|---|
-| **Barra branca superior** | Atalhos de teclado: `1` conteúdo, `2` menu, `3` rodapé, `5` acessibilidade (Alt+Shift+número, conforme o navegador). |
-| **Barra cinza** | Recursos de acessibilidade (alto contraste, fonte), indicação do modo de armazenamento e botão entrar/sair. |
-| **Cabeçalho azul** | Botão **Menu** (gaveta lateral com descrição de cada seção) e logotipo. |
+| **Barra cinza** | Indicação do modo de armazenamento e botão entrar/sair. |
+| **Cabeçalho azul** | Botão **Menu** (gaveta lateral com descrição de cada seção) e o nome do projeto. |
 | **Abas** | As mesmas abas da planilha. No celular, use o botão **Menu**. |
 
 As tabelas permitem **ordenar** clicando no cabeçalho. Os filtros ficam na URL, então é possível copiar o
@@ -215,16 +214,10 @@ Reproduz as fórmulas da planilha (e foi conferida contra a planilha recalculada
 Atenção: *Não avaliado* conta como 0 pontos **dentro** do índice (o peso permanece no denominador). Por isso o índice
 de uma auditoria recém-aberta é 0,0% e sobe conforme os itens são avaliados. Já *Não se aplica* sai do cálculo.
 
-## 14. Acessibilidade
+## 14. Navegação e impressão
 
-- **Alto contraste**, **aumentar/diminuir/restaurar fonte** (barra cinza); as preferências ficam salvas no navegador.
-- Atalhos de “ir para” (conteúdo, menu, rodapé, acessibilidade) e foco visível em todos os controles.
-- Navegação completa por teclado (menus, listas pesquisáveis, painéis com `Esc` para fechar).
-- Marcação semântica (tabelas com cabeçalhos, regiões, anúncios de erro/sucesso para leitores de tela).
-- Respeita a preferência do sistema por menos animações.
+- Navegação por teclado (menus, listas pesquisáveis, painéis com `Esc` para fechar) e foco visível.
 - Layout responsivo (celular, tablet e computador) e folhas de impressão próprias.
-
-O widget de Libras (VLibras) do portal de referência **não** foi incluído; pode ser adicionado com o script oficial do governo se desejado.
 
 ## 15. Acesso, login e modos de armazenamento
 
