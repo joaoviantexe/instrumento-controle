@@ -20,47 +20,23 @@ export interface Secao {
   icone: LucideIcon;
   /** Subtítulo da aba correspondente na planilha. */
   descricao: string;
-  /** Exibida nas abas superiores. */
-  aba: boolean;
+  /** Seções do mesmo grupo ficam juntas no menu, separadas dos outros por uma linha. */
+  grupo: number;
 }
 
 /** Seções do sistema, na mesma ordem das abas da planilha. */
 export const SECOES_APP: Secao[] = [
-  { rota: '/', rotulo: 'Início', icone: Home, descricao: TEXTOS.dashboard.subtitulo, aba: true },
-  { rota: '/instrucoes', rotulo: 'Instruções', icone: BookOpen, descricao: TEXTOS.instrucoes.subtitulo, aba: true },
-  { rota: '/unidades', rotulo: 'Cadastro Unidades', icone: School, descricao: TEXTOS.cadastro.subtitulo, aba: true },
-  { rota: '/lista-mestra', rotulo: 'Lista Mestra', icone: ListChecks, descricao: TEXTOS.listaMestra.subtitulo, aba: true },
-  {
-    rota: '/plano-de-auditoria',
-    rotulo: 'Plano de Auditoria',
-    icone: CalendarCheck,
-    descricao: TEXTOS.planoAuditoria.subtitulo,
-    aba: true,
-  },
-  {
-    rota: '/auditoria-documental',
-    rotulo: 'Auditoria Documental',
-    icone: ClipboardCheck,
-    descricao: TEXTOS.auditoriaDocumental.subtitulo,
-    aba: true,
-  },
-  {
-    rota: '/checklist-da-visita',
-    rotulo: 'Checklist da Visita',
-    icone: ClipboardList,
-    descricao: TEXTOS.checklistVisita.subtitulo,
-    aba: true,
-  },
-  { rota: '/plano-de-acao', rotulo: 'Plano de Ação', icone: Wrench, descricao: TEXTOS.planoAcao.subtitulo, aba: true },
-  { rota: '/dashboard', rotulo: 'Dashboard', icone: LayoutDashboard, descricao: TEXTOS.dashboard.subtitulo, aba: true },
-  { rota: '/relatorios', rotulo: 'Relatórios', icone: FileBarChart, descricao: TEXTOS.relatorios.subtitulo, aba: true },
-  {
-    rota: '/dados',
-    rotulo: 'Dados e backup',
-    icone: Database,
-    descricao: 'Exportação para Excel, cópia de segurança e restauração.',
-    aba: false,
-  },
+  { rota: '/', rotulo: 'Início', icone: Home, descricao: TEXTOS.dashboard.subtitulo, grupo: 0 },
+  { rota: '/instrucoes', rotulo: 'Instruções', icone: BookOpen, descricao: TEXTOS.instrucoes.subtitulo, grupo: 0 },
+  { rota: '/unidades', rotulo: 'Cadastro Unidades', icone: School, descricao: TEXTOS.cadastro.subtitulo, grupo: 1 },
+  { rota: '/lista-mestra', rotulo: 'Lista Mestra', icone: ListChecks, descricao: TEXTOS.listaMestra.subtitulo, grupo: 1 },
+  { rota: '/plano-de-auditoria', rotulo: 'Plano de Auditoria', icone: CalendarCheck, descricao: TEXTOS.planoAuditoria.subtitulo, grupo: 2 },
+  { rota: '/auditoria-documental', rotulo: 'Auditoria Documental', icone: ClipboardCheck, descricao: TEXTOS.auditoriaDocumental.subtitulo, grupo: 2 },
+  { rota: '/checklist-da-visita', rotulo: 'Checklist da Visita', icone: ClipboardList, descricao: TEXTOS.checklistVisita.subtitulo, grupo: 2 },
+  { rota: '/plano-de-acao', rotulo: 'Plano de Ação', icone: Wrench, descricao: TEXTOS.planoAcao.subtitulo, grupo: 3 },
+  { rota: '/dashboard', rotulo: 'Dashboard', icone: LayoutDashboard, descricao: TEXTOS.dashboard.subtitulo, grupo: 3 },
+  { rota: '/relatorios', rotulo: 'Relatórios', icone: FileBarChart, descricao: TEXTOS.relatorios.subtitulo, grupo: 3 },
+  { rota: '/dados', rotulo: 'Dados e backup', icone: Database, descricao: 'Exportação para Excel, cópia de segurança e restauração.', grupo: 4 },
 ];
 
 /** Rota de cada passo do fluxo recomendado (aba Instruções). */

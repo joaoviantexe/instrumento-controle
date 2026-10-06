@@ -40,9 +40,9 @@ Cadastro Unidades → Plano de Auditoria → Auditoria Documental → (Checklist
 
 | Elemento | O que faz |
 |---|---|
-| **Barra cinza** | Indicação do modo de armazenamento e botão entrar/sair. |
-| **Cabeçalho azul** | Botão **Menu** (gaveta lateral com descrição de cada seção) e o nome do projeto. |
-| **Abas** | As mesmas abas da planilha. No celular, use o botão **Menu**. |
+| **Menu lateral** | Fica sempre visível no computador. Mostra o nome do projeto, as seções na mesma ordem das abas da planilha (agrupadas por linhas separadoras), o modo de armazenamento e, no banco compartilhado, o e-mail logado com o botão **sair**. A seção aberta fica destacada. |
+| **Cabeçalho da página** | Título, subtítulo (os textos da aba correspondente) e, à direita, as ações principais da tela (ex.: **Nova unidade**, **Imprimir**). |
+| **Celular e tablet** | O menu lateral vira uma gaveta, aberta pelo botão ☰ na barra superior; fecha ao escolher uma seção ou com `Esc`. |
 
 As tabelas permitem **ordenar** clicando no cabeçalho. Os filtros ficam na URL, então é possível copiar o
 endereço e enviar a um colega com a mesma visão. No celular, as tabelas viram cartões.
