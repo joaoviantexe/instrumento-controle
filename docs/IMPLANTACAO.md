@@ -26,6 +26,7 @@ Recomendado para uso real: **B**. Siga os passos 1 a 4 abaixo; para a opção A 
    values ('nome@semec.belem.pa.gov.br', 'Nome da pessoa');
    ```
    Só e-mails listados em `membros` conseguem ler ou gravar dados — mesmo que alguém consiga criar uma conta.
+   Passo a passo detalhado (incluindo remover pessoas, redefinir senha e resolver erros de acesso): **[USUARIOS.md](USUARIOS.md)**.
 5. **Desative o cadastro aberto**: *Authentication → Sign In / Providers* (ou *Settings*) → desmarque **Allow new users to sign up**.
 6. Copie as credenciais em *Project Settings → API*: **Project URL** e a chave **anon / publishable**.
 
@@ -72,7 +73,7 @@ Mesmo assim, o passo 1.2 a 1.5 (executar o `schema.sql`, criar usuários e autor
 - **Cópias de segurança**: baixe periodicamente em *Dados e backup → Baixar cópia* (`.json`) e/ou *Exportar Excel*.
   No Supabase, *Database → Backups* mostra o que o plano oferece.
 - **Atualizações do código**: cada *push* na `main` gera um novo deploy automaticamente.
-- **Adicionar/remover pessoas**: inclua ou apague linhas na tabela `membros` (*Table Editor*) e crie/exclua o usuário em *Authentication → Users*.
+- **Adicionar/remover pessoas e redefinir senhas**: veja [USUARIOS.md](USUARIOS.md).
 - **Redefinir senha**: *Authentication → Users → ⋯ → Send password recovery* (configure o *Site URL* em *Authentication → URL Configuration* com o endereço da Vercel).
 
 ## Limites e cuidados dos planos gratuitos

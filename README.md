@@ -23,6 +23,7 @@ Também: layout para celular e impressão em A4.
 
 📖 **[Manual de funcionalidades](docs/MANUAL.md)** — cada tela e recurso, e como a pontuação é calculada.
 🚀 **[Guia de implantação](docs/IMPLANTACAO.md)** — Vercel + Supabase, passo a passo, custo zero.
+👥 **[Gerenciamento de usuários](docs/USUARIOS.md)** — como criar contas, autorizar e remover acessos no Supabase.
 
 ## Como os dados são guardados
 
