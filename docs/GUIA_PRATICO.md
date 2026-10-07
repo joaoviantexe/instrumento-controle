@@ -36,7 +36,7 @@ Cada receita diz **para que serve**, **o passo a passo** e **como saber que deu 
 
 **Onde:** Início e Dashboard.
 
-1. Veja as cinco linhas: *Prazo expirado*, *NC críticas*, *Validação CDE: Pendente*, *Vigência do ato: vencida*, *Ato de autorização*.
+1. Veja as cinco linhas: *Prazo expirado*, *NC críticas*, *Validação CDE: Pendente*, *Vigência do ato: vencida*, *Resolução*.
 2. Número **vermelho** = há pendências. **✓ verde** = nada pendente.
 3. Clique na linha: abre a lista **já filtrada** para trabalhar.
 
@@ -44,8 +44,8 @@ Cada receita diz **para que serve**, **o passo a passo** e **como saber que deu 
 
 1. **Início → Precisa de atenção → "Vigência do ato: vencida"**. Abre o Cadastro Unidades filtrado.
 2. Obtenha o ato renovado (CME ou escola).
-3. Clique na unidade. No cartão **Documentos**, arraste o **PDF do ato** (tipo *Ato de autorização/credenciamento/reconhecimento*): ele comprova a vigência. Depois clique em **Editar**.
-4. Em *Ato de autorização/credenciamento/reconhecimento*, escreva o ato novo, no padrão dos outros (ex.: `12/2026 - CME, DE 20/09/2026`).
+3. Clique na unidade. No cartão **Documentos**, arraste o **PDF do ato** (tipo *Resolução*): ele comprova a vigência. Depois clique em **Editar**.
+4. Em *Resolução*, escreva o ato novo, no padrão dos outros (ex.: `12/2026 - CME, DE 20/09/2026`).
 5. Em *Vigência do ato*, digite a nova data (`DD/MM/AAAA`). Para atos sem prazo, escreva `DEFINITIVO`.
 6. **Salvar**. A *Data da atualização* vira a data de hoje.
 7. **Deu certo quando:** a data não está mais em vermelho, o número do painel diminuiu e o PDF aparece em *Documentos* (a pendência *"sem PDF anexado"* também diminui).
@@ -53,9 +53,9 @@ Cada receita diz **para que serve**, **o passo a passo** e **como saber que deu 
 
 ## 4. Resolver um ato de autorização "não localizado"
 
-1. **Precisa de atenção → "Ato de autorização"** (ou *Cadastro Unidades → Pendências cadastrais → "…não informado ou não localizado"*).
+1. **Precisa de atenção → "Resolução"** (ou *Cadastro Unidades → Pendências cadastrais → "…não informado ou não localizado"*).
 2. Procure o ato no site do CME ou com a escola.
-3. Unidade → **Editar** → atualize *Ato de autorização…* e *Vigência do ato* → **Salvar**.
+3. Unidade → **Editar** → atualize *Resolução* e *Vigência do ato* → **Salvar**.
 4. Se não existir mesmo, é uma irregularidade: registre uma ação (seção 10) para a escola regularizar.
 
 ## 5. Completar outras pendências do cadastro

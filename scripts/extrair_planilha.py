@@ -115,7 +115,7 @@ def main(caminho):
     cadastro = {
         "titulo": ws.title,
         "subtitulo": texto(ws["A2"].value),
-        "cabecalhos": dict(zip(campos_unidade, cab_unidades)),
+        "cabecalhos": {**dict(zip(campos_unidade, cab_unidades)), "ato_criacao": "Portaria", "ato_autorizacao": "Resolução"},
         "situacoes": lista_validacao(ws, "F6"),
     }
     id_por_nome = {u["nome"]: u["id"] for u in unidades}

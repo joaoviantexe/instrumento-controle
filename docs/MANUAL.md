@@ -54,7 +54,7 @@ Para abrir o dia sabendo **o que fazer primeiro**:
 
 - **Precisa de atenção** — cinco linhas com um número e um botão que leva à lista **já filtrada**:
   **Prazo expirado** (ações em aberto com prazo vencido), **NC críticas** (itens de peso 3 "Não conforme"),
-  **Validação CDE: Pendente** (ações concluídas aguardando a CDE), **Vigência do ato: vencida** e **Ato de autorização**
+  **Validação CDE: Pendente** (ações concluídas aguardando a CDE), **Vigência do ato: vencida** e **Resolução**
   (unidades sem ato informado ou "não localizado"). Quando não há nada pendente, a linha mostra um ✓ verde.
 - **Instruções de uso** — os **8 passos** do fluxo, cada um com **barra de progresso real** (ex.: "166 de 217 com Data da atualização")
   e o botão **Acessar**. O **próximo passo** (primeira etapa de andamento ainda incompleta) vem destacado em verde.
@@ -80,7 +80,7 @@ Base territorial com as **217 unidades** (175 municipais e 42 OSC/conveniadas) d
 - **Busca** por nome, código INEP/MEC, bairro, endereço, diretor(a), secretário(a) ou e-mail — ignora acentos e maiúsculas.
 - **Filtros**: Bairro, Rede/Vínculo, Tipo de unidade, Zona, Situação.
 - **Pendências cadastrais** (também acessadas pelo painel **Precisa de atenção**): atalho para o passo 1 das Instruções (completar atos legais, vigência, responsáveis e
-  data da atualização). Mostra, por exemplo, unidades sem *Ato de criação*, com *Ato de autorização/credenciamento/reconhecimento*
+  data da atualização). Mostra, por exemplo, unidades sem *Portaria*, com *Resolução*
   “NÃO LOCALIZADO”, com *Vigência do ato* vencida (em vermelho), sem diretor(a), sem secretário(a) ou sem telefone.
 - **Exportar Excel** da lista filtrada.
 
@@ -232,7 +232,7 @@ Onde há **verificação ou comprovação de documentos**, é possível anexar e
 
 | Onde | O que anexar | Tipos de documento |
 |---|---|---|
-| **Cadastro Unidades → unidade → Documentos** | O PDF do ato (comprova a **vigência**) | Ato de autorização/credenciamento/reconhecimento · Ato de criação · Outro documento |
+| **Cadastro Unidades → unidade → Documentos** | O PDF do ato (comprova a **vigência**) | Resolução · Portaria · Decreto · Outro documento |
 | **Auditoria Documental → cada item → Detalhes** | A evidência do item verificado (selo 📎 no item) | Evidência |
 | **Auditoria Documental → Documentos da auditoria** e **Checklist da Visita → Documentos da visita** | Relatório, ata, comprovantes da visita | Relatório da auditoria · Comprovante da visita · Outro documento |
 | **Plano de Ação → ação** (depois de salva) | Comprovação da conclusão | Evidência de conclusão |
@@ -240,7 +240,7 @@ Onde há **verificação ou comprovação de documentos**, é possível anexar e
 - **Anexar:** arraste o PDF para a área tracejada ou clique em **Anexar PDF** (vários de uma vez). Escolha o *Tipo de documento* quando houver mais de um.
 - **Abrir:** clique no nome do arquivo (abre em nova aba). **Excluir:** ícone da lixeira, com confirmação.
 - **Regras:** só PDF (o conteúdo é conferido, não apenas a extensão), de até **10 MB**. Cada anexo guarda nome, tamanho, data e quem anexou.
-- **Filtro útil:** *Cadastro Unidades → Pendências cadastrais → "Ato de autorização/…: sem PDF anexado"* lista quem ainda não tem o PDF do ato.
+- **Filtro útil:** *Cadastro Unidades → Pendências cadastrais → "Resolução: sem PDF anexado"* lista quem ainda não tem o PDF do ato.
 - Ao excluir uma unidade, auditoria ou ação, os PDFs dela são apagados junto.
 - **Armazenamento:** no modo local, os PDFs ficam neste navegador (IndexedDB); no modo compartilhado, no *Storage* privado do Supabase
   (bucket `anexos`; plano gratuito: 1 GB). Só quem está na tabela `membros` consegue ver os arquivos; os links de abertura expiram em 2 minutos.
