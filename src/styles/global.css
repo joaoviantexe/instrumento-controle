@@ -1074,6 +1074,87 @@ main {
   color: var(--muted);
 }
 
+/* Anexos em PDF */
+.anexos {
+  display: grid;
+  gap: 12px;
+}
+.anexos__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.anexos__lista li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+}
+.anexos__lista li > svg {
+  flex-shrink: 0;
+  color: var(--s-nc-tx);
+}
+.anexos__info {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+}
+.anexos__info small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+.anexos__nome {
+  all: unset;
+  cursor: pointer;
+  color: var(--azul);
+  font-weight: 600;
+  font-size: 0.88rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.anexos__nome:hover {
+  text-decoration: underline;
+}
+.anexos__nome:focus-visible {
+  outline: 3px solid var(--foco);
+}
+.anexos__drop {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding: 14px 16px;
+  border: 2px dashed var(--borda-forte);
+  border-radius: var(--raio);
+  background: var(--superficie-2);
+  color: var(--tinta-2);
+  font-size: 0.86rem;
+}
+.anexos__drop--ativo {
+  border-color: var(--azul);
+  background: var(--azul-claro);
+}
+.anexos__drop small {
+  color: var(--muted);
+  margin-left: auto;
+}
+.anexos__tipo {
+  min-width: 220px;
+}
+.anexos__tipo > label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
 /* Auditoria Documental: barra de progresso fixa */
 .aud-barra {
   position: sticky;
@@ -2391,4 +2472,55 @@ main {
     color: inherit;
     text-decoration: none;
   }
+}
+
+/* Importação de planilha */
+.importacao {
+  display: grid;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--superficie-2);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+}
+.importacao table {
+  width: 100%;
+}
+.importacao__mudancas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 320px;
+  overflow: auto;
+  display: grid;
+  gap: 8px;
+  font-size: 0.84rem;
+}
+.importacao__mudancas ul {
+  margin: 2px 0 0;
+  padding-left: 18px;
+  color: var(--tinta-2);
+}
+.link-botao {
+  all: unset;
+  cursor: pointer;
+  color: var(--azul);
+  font-weight: 700;
+  text-decoration: underline;
+}
+.link-botao:focus-visible {
+  outline: 3px solid var(--foco);
+}
+
+.doc-auditoria > summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--azul);
+}
+.doc-auditoria[open] > summary {
+  border-bottom: 1px solid var(--borda);
 }

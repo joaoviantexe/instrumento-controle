@@ -15,6 +15,7 @@ import { hojeISO } from '../lib/format';
 import { CampoArea, CampoSelect, CampoTexto, Nota, Painel } from './ui';
 import { Combobox } from './Combobox';
 import { useOpcoesUnidades } from './FormAuditoria';
+import { Anexos } from './Anexos';
 
 export type RascunhoAcao = Omit<Acao, 'id'> & { id?: string };
 
@@ -145,6 +146,10 @@ export function FormAcao({
         <CampoSelect rotulo={R.situacao} valor={a.situacao} aoMudar={set('situacao')} opcoes={SITUACOES_ACAO} />
         <CampoSelect rotulo={R.validacao} valor={a.validacao} aoMudar={set('validacao')} opcoes={VALIDACOES} />
         <CampoArea rotulo={R.evidencia} valor={a.evidencia} aoMudar={set('evidencia')} />
+        <div className="campo campo--largo">
+          <span>PDF da {R.evidencia.toLowerCase()}</span>
+          {a.id ? <Anexos entidade="acao" entidadeId={a.id} /> : <small>Salve a ação para poder anexar arquivos.</small>}
+        </div>
         <CampoTexto rotulo={R.dataConclusao} tipo="date" valor={a.data_conclusao} aoMudar={set('data_conclusao')} />
         <button type="submit" hidden />
       </form>

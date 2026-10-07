@@ -59,18 +59,27 @@ Mesmo assim, o passo 1.2 a 1.5 (executar o `schema.sql`, criar usuários e autor
 
 > As variáveis são embutidas no momento do *build*. Se alterá-las depois, faça um novo deploy (*Deployments → ⋯ → Redeploy*).
 
+## 3-A. Habilitar os anexos em PDF
+
+Os anexos usam uma tabela (`anexos`) e um *bucket* privado do Storage, ambos criados pelo mesmo `supabase/schema.sql`.
+**Em um projeto já criado**, basta **executar o arquivo `supabase/schema.sql` inteiro de novo** (SQL Editor → colar → *Run*): ele é
+idempotente e não apaga dados. Para conferir: *Storage* deve listar o bucket **anexos** (privado). Enquanto isso não for feito,
+o resto do sistema funciona normalmente e as áreas de anexo mostram um aviso pedindo a atualização do banco.
+Limites: 10 MB por PDF; o plano gratuito do Supabase oferece 1 GB de arquivos.
+
 ## 4. Primeiro acesso
 
 1. Abra o endereço publicado e entre com um e-mail autorizado (barra cinza mostra **Banco compartilhado**).
-2. Em **Dados e backup**, clique em **Carregar dados da planilha**. Isso grava as 217 unidades e as 217 auditorias da planilha original.
-   (Se já usava o modo local, em vez disso use **Restaurar cópia** com o `.json` gerado no computador antigo.)
+2. Em **Dados e planilhas**, clique em **Carregar dados da planilha**. Isso grava as 217 unidades e as 217 auditorias da planilha original.
+   (Se já usava o modo local, exporte o Excel lá e, no banco compartilhado, use **Atualizar dados com uma planilha** com esse arquivo.)
 3. Pronto: a equipe já pode atualizar o cadastro, planejar e avaliar auditorias.
 
 ---
 
 ## Manutenção
 
-- **Cópias de segurança**: baixe periodicamente em *Dados e backup → Baixar cópia* (`.json`) e/ou *Exportar Excel*.
+- **Cópias de segurança**: exporte periodicamente em *Dados e planilhas → Exportar Excel* (o arquivo também serve para recarregar os dados via *Atualizar dados com uma planilha*).
+  Os **PDFs anexados não vão no Excel**: ficam no Supabase *Storage* (bucket `anexos`).
   No Supabase, *Database → Backups* mostra o que o plano oferece.
 - **Atualizações do código**: cada *push* na `main` gera um novo deploy automaticamente.
 - **Adicionar/remover pessoas e redefinir senhas**: veja [USUARIOS.md](USUARIOS.md).

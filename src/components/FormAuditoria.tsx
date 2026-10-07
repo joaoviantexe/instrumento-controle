@@ -3,6 +3,7 @@ import { Save } from 'lucide-react';
 import { PRIORIDADES, ROTULOS_PLANO as R, SITUACOES_AUDITORIA, TEXTOS, TIPOS_VERIFICACAO } from '../data/planilha';
 import type { Auditoria } from '../lib/types';
 import { useDados } from '../lib/store';
+import { Anexos } from './Anexos';
 import { CampoArea, CampoSelect, CampoTexto, Painel } from './ui';
 import { Combobox } from './Combobox';
 
@@ -100,6 +101,10 @@ export function FormAuditoria({
         <CampoTexto rotulo={R.dataRealizada} tipo="date" valor={a.data_realizada} aoMudar={set('data_realizada')} />
         <CampoTexto rotulo={R.equipe} valor={a.equipe} aoMudar={set('equipe')} largo />
         <CampoArea rotulo={R.observacoes} valor={a.observacoes} aoMudar={set('observacoes')} />
+        <div className="campo campo--largo">
+          <span>Documentos da auditoria</span>
+          {a.id ? <Anexos entidade="auditoria" entidadeId={a.id} /> : <small>Salve a auditoria para poder anexar arquivos.</small>}
+        </div>
         <button type="submit" hidden />
       </form>
     </Painel>

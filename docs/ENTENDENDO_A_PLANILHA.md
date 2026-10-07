@@ -83,7 +83,7 @@ Pense na **vistoria de um prédio** (ou na revisão de um carro):
 - **Busca, filtros e atalhos** (ex.: "mostre as 95 escolas com ato vencido" em um clique).
 - **Painel "O que precisa de atenção"** que junta, em um lugar, problemas que no Excel estavam espalhados em abas diferentes.
 - **Planejamento em lote** (marcar 30 auditorias e definir data/equipe de uma vez).
-- **Funciona no celular**, imprime em A4, faz cópia de segurança e exporta de volta para Excel.
+- **Funciona no celular**, imprime em A4, exporta e importa planilhas Excel e anexa PDFs (atos, evidências, relatórios).
 
 ### Números-chave
 
@@ -903,7 +903,7 @@ Não existe nenhuma fórmula que **avise** de uma **vigência de ato vencida** (
 | 8 | Plano de Ação | **Plano de Ação** | `/plano-de-acao` | `PlanoAcao.tsx`, `components/FormAcao.tsx` |
 | 9 | Dashboard | **Dashboard** | `/dashboard` | `Dashboard.tsx` |
 | 10 | Relatórios | **Relatórios** | `/relatorios` | `Relatorios.tsx` |
-| — | *(não existia)* | **Dados e backup** | `/dados` | `Dados.tsx` |
+| — | *(não existia)* | **Dados e planilhas** | `/dados` | `Dados.tsx` |
 | — | *(não existia)* | **Busca global** (`Ctrl+K`), **Entrar** (login) | — | `components/BuscaGlobal.tsx`, `Entrar.tsx` |
 
 ### 8.2 Elemento por elemento
@@ -951,7 +951,7 @@ Não existe nenhuma fórmula que **avise** de uma **vigência de ato vencida** (
 ### 8.4 O que foi **acrescentado** (não existia no Excel)
 
 1. **Login e controle de acesso** (só e-mails autorizados).
-2. **Banco de dados compartilhado** na nuvem, com **cópia de segurança** e **restauração**.
+2. **Banco de dados compartilhado** na nuvem, com **atualização por planilha Excel**.
 3. **Busca global** (`Ctrl+K`) — pular direto para uma escola, auditoria, ação ou tela.
 4. **Painel "Precisa de atenção"** e **progresso por etapa** no Início.
 5. **Índice por seção e por distrito** no Dashboard; **filtro por distrito**.
@@ -998,7 +998,7 @@ Nada foi **corrigido, completado ou apagado**: os erros do Cadastro (Parte 6.4) 
 | Níveis de permissão (auditor × coordenador × somente leitura) | Todos os membros têm o mesmo acesso |
 | Histórico completo de alterações | Guarda só o último autor/data |
 | Editar a Lista Mestra e os pesos pela tela | De propósito (ver acima) |
-| Importar um Excel pela tela | A carga inicial foi feita pelo desenvolvedor; **Restaurar cópia** aceita o `.json` do próprio sistema |
+| ~~Importar um Excel pela tela~~ | **Já existe:** *Dados e planilhas → Atualizar dados com uma planilha* (mostra o que muda antes de gravar; nada é excluído) |
 | Funcionar **sem internet** (no modo compartilhado) | Precisa de conexão; o "modo local" funciona sem rede, mas só no próprio navegador |
 | VLibras (tradutor de Libras do portal da Prefeitura) | Foi retirado a pedido; pode ser reincluído |
 
@@ -1104,10 +1104,10 @@ sequenceDiagram
 | **Planejar várias auditorias** | **Plano de Auditoria** → marcar as caixas → **Planejar em lote** |
 | **Avaliar uma escola** | **Auditoria Documental** → escolher a auditoria → classificar os itens |
 | **Abrir uma ação corretiva** | No item da auditoria → **Registrar no Plano de Ação** |
-| **Guardar uma cópia de segurança** | **Dados e backup → Baixar cópia** |
-| **Levar para o Excel** | **Dados e backup → Exportar Excel** (ou "Exportar Excel" em cada tela) |
+| **Guardar uma cópia de segurança** | **Dados e planilhas → Exportar Excel** (e reenviar depois, se preciso, em *Atualizar dados com uma planilha*) |
+| **Levar para o Excel** | **Dados e planilhas → Exportar Excel** (ou "Exportar Excel" em cada tela) |
 | **Mudar um texto, lista ou peso** | **Não é pela tela** — é uma mudança no arquivo de dados (precisa de quem programa) |
-| **Atualizar a base inicial a partir de um novo Excel** | `npm run extrair -- "arquivo.xlsx"`, publicar o site de novo e depois **Restaurar dados originais** (apaga respostas e ações: **baixe uma cópia antes**) |
+| **Atualizar os dados a partir de um novo Excel** | **Dados e planilhas → Atualizar dados com uma planilha** (sem apagar nada). Para trocar a base fixa (Lista Mestra, textos), `npm run extrair -- "arquivo.xlsx"` e publicar de novo |
 
 ---
 
@@ -1152,7 +1152,7 @@ sequenceDiagram
 | **8. Acompanhar** | Filtrar o Plano de Ação e olhar "Dias restantes" | **Plano de Ação** → botão **"Prazo expirado"**; clicar na ação → atualizar situação, evidência e data de conclusão |
 | **9. Validar** | Mudar a coluna *Validação CDE* | Na ação → **Validação CDE: Validada / Pendente / Reprovada** (a baixa depende da CDE) |
 | **10. Reunião de gestão** | Aba *Dashboard* e *Relatórios* (e conferir se as fórmulas não deram `#REF!`) | **Dashboard** (índice em destaque, atenção, gráficos) e **Relatórios** (matriz por seção, distritos, consolidação) → **Imprimir** ou **Exportar Excel** |
-| **11. Guardar** | "Salvar como…" e rezar | **Dados e backup → Baixar cópia** |
+| **11. Guardar** | "Salvar como…" e rezar | **Dados e planilhas → Exportar Excel** |
 
 **Atalhos úteis:** `Ctrl+K` (ou `/`) abre a busca para ir a qualquer unidade, auditoria, ação ou tela; `Esc` fecha painéis; as tabelas se ordenam clicando no cabeçalho; o botão **Colunas** esconde/mostra colunas; os filtros ficam no endereço (copie e cole para mostrar a alguém a mesma lista).
 

@@ -7,7 +7,7 @@ import { CABECALHOS_UNIDADE as C, DISTRITOS, OPCOES_CADASTRO, SITUACOES_UNIDADE,
 import { useDados } from '../lib/store';
 import { contem, formatarData } from '../lib/format';
 import { vigenciaVencida } from '../lib/calc';
-import { PENDENCIAS } from '../lib/pendencias';
+import { PENDENCIAS, contextoPendencia } from '../lib/pendencias';
 import { exportarExcel } from '../lib/exportar';
 import { abaUnidades } from '../lib/abas';
 import { avisar } from '../lib/avisos';
@@ -58,6 +58,7 @@ export function Unidades() {
   );
 
   const pendencia = PENDENCIAS.find((p) => p.chave === f.pendencia);
+  const ctxPend = useMemo(() => contextoPendencia(d.anexos), [d.anexos]);
   const filtradas = useMemo(() => {
     const lista = d.unidades.filter(
       (u) =>
@@ -67,12 +68,12 @@ export function Unidades() {
         (!f.tipo || u.tipo_unidade === f.tipo) &&
         (!f.zona || u.zona === f.zona) &&
         (!f.situacao || u.situacao === f.situacao) &&
-        (!pendencia || pendencia.teste(u)) &&
+        (!pendencia || pendencia.teste(u, ctxPend)) &&
         (!f.busca ||
           [u.nome, u.inep, u.bairro, u.endereco, u.diretor, u.secretario, u.email].some((v) => contem(v, f.busca))),
     );
     return ordenar(lista, (u) => (ordem.campo === 'distrito' ? `${u.distrito} ${u.bairro} ${u.nome}` : u[ordem.campo]), ordem.direcao);
-  }, [d.unidades, f.distrito, f.bairro, f.rede, f.tipo, f.zona, f.situacao, f.busca, pendencia, ordem]);
+  }, [d.unidades, f.distrito, f.bairro, f.rede, f.tipo, f.zona, f.situacao, f.busca, pendencia, ctxPend, ordem]);
 
   const limpar = () => setParams({}, { replace: true });
   const filtrando = Object.values(f).some(Boolean);

@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowDownToLine, Check, ChevronDown, ChevronUp, ClipboardList, FilePlus2, Pencil, Printer } from 'lucide-react';
+import { ArrowDownToLine, Check, Paperclip, ChevronDown, ChevronUp, ClipboardList, FilePlus2, Pencil, Printer } from 'lucide-react';
 import { CLASSE_SITUACAO, CampoSelect, CampoTexto, Etiqueta, Faixa, Medidor, Nota } from '../components/ui';
 import { Combobox } from '../components/Combobox';
+import { Anexos, useQuantidadeAnexos } from '../components/Anexos';
 import { FormAuditoria } from '../components/FormAuditoria';
 import { FormAcao, acaoVazia, type RascunhoAcao } from '../components/FormAcao';
 import {
@@ -19,7 +20,7 @@ import { useDados } from '../lib/store';
 import { avaliado, linhasDaAuditoria, type Linha } from '../lib/calc';
 import { formatarData, formatarPct, formatarPeso } from '../lib/format';
 import { avisar } from '../lib/avisos';
-import type { Acao, Auditoria, Avaliacao, SituacaoItem } from '../lib/types';
+import { chaveAvaliacao, type Acao, type Auditoria, type Avaliacao, type SituacaoItem } from '../lib/types';
 
 type Filtro = 'todos' | 'pendentes' | 'nc' | 'acao';
 
@@ -94,6 +95,7 @@ function ItemAuditoria({
   useEffect(() => () => window.clearTimeout(temporizador.current), []);
 
   const def = linha.def;
+  const nAnexos = useQuantidadeAnexos('avaliacao', chaveAvaliacao(linha.auditoria_id, linha.item));
   const criterioNA = TEXTOS.instrucoes.criterios.find((c) => c.situacao === 'Não se aplica');
   const id = `item-${linha.item}`;
 
@@ -146,6 +148,11 @@ function ItemAuditoria({
           {salvo && (
             <span className="salvo" role="status">
               <Check size={14} aria-hidden /> Salvo
+            </span>
+          )}
+          {nAnexos > 0 && (
+            <span className="chip chip--azul" title="PDFs anexados a este item">
+              <Paperclip size={12} aria-hidden /> {nAnexos}
             </span>
           )}
           {acoes.map((a) => (
@@ -220,6 +227,9 @@ function ItemAuditoria({
               aoMudar={(v) => void salvar({ situacao_acao: v })}
               opcoes={SITUACOES_ACAO}
             />
+            <div className="campo--largo">
+              <Anexos entidade="avaliacao" entidadeId={chaveAvaliacao(linha.auditoria_id, linha.item)} />
+            </div>
             <div className="campo--largo" style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <button type="button" className="btn btn--contorno btn--pequeno" onClick={() => aoRegistrarAcao(linha)}>
                 <FilePlus2 size={14} aria-hidden /> Registrar no Plano de Ação
@@ -468,6 +478,15 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
             </dl>
           </div>
         </section>
+
+        <details className="cartao nao-imprimir doc-auditoria">
+          <summary>
+            <Paperclip size={16} aria-hidden /> Documentos da auditoria (relatório, comprovantes)
+          </summary>
+          <div className="cartao__corpo">
+            <Anexos entidade="auditoria" entidadeId={aud.id} />
+          </div>
+        </details>
 
         <div className="aud-barra nao-imprimir" role="region" aria-label={`${R.id} ${aud.id}`}>
           <div className="aud-barra__prog">
