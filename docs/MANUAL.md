@@ -18,7 +18,7 @@ Este manual descreve cada tela e recurso da aplicação. A aplicação reproduz 
 9. [Plano de Ação](#9-plano-de-ação)
 10. [Dashboard](#10-dashboard)
 11. [Relatórios](#11-relatórios)
-12. [Dados e backup](#12-dados-e-backup)
+12. [Dados e planilhas](#12-dados-e-planilhas)
 13. [Como a pontuação é calculada](#13-como-a-pontuação-é-calculada)
 14. [Navegação e impressão](#14-navegação-e-impressão)
 15. [Acesso, login e modos de armazenamento](#15-acesso-login-e-modos-de-armazenamento)
@@ -208,15 +208,43 @@ Para as reuniões de gestão:
 - **Consolidação das auditorias**: ID, unidade, situação, índice e checklist da visita.
 - Filtro por distrito, **Imprimir** e **Exportar Excel** (4 abas: Relatórios, DistritoBairro, Distribuição por distrito e Consolidação).
 
-## 12. Dados e backup
+## 12. Dados e planilhas
 
 - **Planilha completa**: gera um `.xlsx` com as abas *Cadastro Unidades, Lista Mestra, Plano de Auditoria, Auditoria Documental,
   Plano de Ação* e *Relatórios*, com os mesmos cabeçalhos da planilha original (datas e percentuais formatados, filtros e primeira linha fixa).
-- **Cópia de segurança** (`.json`): baixa todos os registros; **Restaurar cópia** devolve o estado de um arquivo (substitui os dados atuais).
-  Serve também para migrar do modo local para o banco compartilhado.
+- **Atualizar dados com uma planilha**: envie um `.xlsx` (a planilha original atualizada ou o arquivo gerado por *Exportar Excel*).
+  O sistema reconhece as abas *Cadastro Unidades, Plano de Auditoria, Auditoria Documental* e *Plano de Ação* (pelo nome da aba ou pelos
+  cabeçalhos; a ordem das colunas não importa) e **mostra, antes de gravar**, quantos registros são novos, quantos mudam e quantos ficam iguais
+  (clicando no número de alterados vê-se campo a campo o que muda: ~~antes~~ → depois). Só então **Aplicar** grava.
+  - *Como cada registro é reconhecido:* unidades pelo **nome** (ou pelo **INEP**, quando ele é único — o INEP se repete entre sede e anexos);
+    auditorias e ações pelo **ID**; itens da Auditoria Documental pelo ID da auditoria + texto do item (`AUD-0001` e `AUD-001` são tratados como o mesmo).
+  - **Nada é excluído:** o que não está na planilha permanece. Colunas ausentes na planilha não alteram o campo.
+  - Unidades novas ganham o próximo `UN-nnn`; ações sem ID ganham o próximo `AC-nnn`.
+  - **Avisos** listam o que foi ignorado e por quê (ex.: unidade que não existe no cadastro, ID duplicado, item que não consta na Lista Mestra).
+  - Os PDFs anexados **não** fazem parte da planilha: continuam ligados aos registros.
 - **Dados da planilha**: recarrega as 217 unidades e 217 auditorias do arquivo original. No banco vazio, é o botão
   **Carregar dados da planilha** (primeira configuração).
 - Todas as operações destrutivas pedem confirmação.
+
+## 12-A. Anexos em PDF
+
+Onde há **verificação ou comprovação de documentos**, é possível anexar e abrir PDFs:
+
+| Onde | O que anexar | Tipos de documento |
+|---|---|---|
+| **Cadastro Unidades → unidade → Documentos** | O PDF do ato (comprova a **vigência**) | Ato de autorização/credenciamento/reconhecimento · Ato de criação · Outro documento |
+| **Auditoria Documental → cada item → Detalhes** | A evidência do item verificado (selo 📎 no item) | Evidência |
+| **Auditoria Documental → Documentos da auditoria** e **Checklist da Visita → Documentos da visita** | Relatório, ata, comprovantes da visita | Relatório da auditoria · Comprovante da visita · Outro documento |
+| **Plano de Ação → ação** (depois de salva) | Comprovação da conclusão | Evidência de conclusão |
+
+- **Anexar:** arraste o PDF para a área tracejada ou clique em **Anexar PDF** (vários de uma vez). Escolha o *Tipo de documento* quando houver mais de um.
+- **Abrir:** clique no nome do arquivo (abre em nova aba). **Excluir:** ícone da lixeira, com confirmação.
+- **Regras:** só PDF (o conteúdo é conferido, não apenas a extensão), de até **10 MB**. Cada anexo guarda nome, tamanho, data e quem anexou.
+- **Filtro útil:** *Cadastro Unidades → Pendências cadastrais → "Ato de autorização/…: sem PDF anexado"* lista quem ainda não tem o PDF do ato.
+- Ao excluir uma unidade, auditoria ou ação, os PDFs dela são apagados junto.
+- **Armazenamento:** no modo local, os PDFs ficam neste navegador (IndexedDB); no modo compartilhado, no *Storage* privado do Supabase
+  (bucket `anexos`; plano gratuito: 1 GB). Só quem está na tabela `membros` consegue ver os arquivos; os links de abertura expiram em 2 minutos.
+- Os PDFs **não vão** no *Exportar Excel*.
 
 ## 13. Como a pontuação é calculada
 
@@ -261,5 +289,5 @@ Veja [IMPLANTACAO.md](IMPLANTACAO.md) para ativar o banco compartilhado.
 Os textos de conteúdo — títulos, subtítulos, passos, critérios, cabeçalhos de colunas, listas de opções, legendas,
 notas, nomes e orientações dos 53 itens — vêm **exatamente da planilha**, extraídos automaticamente para
 `src/data/planilha.json` (não foram reescritos à mão). Os únicos textos novos são os mínimos de interface:
-rótulos de botões (Salvar, Cancelar, Exportar Excel, Imprimir…), mensagens de confirmação/erro, a seção **Dados e backup** e o formulário de login.
+rótulos de botões (Salvar, Cancelar, Exportar Excel, Imprimir…), mensagens de confirmação/erro, a seção **Dados e planilhas** e o formulário de login.
 Eventuais títulos em MAIÚSCULAS na planilha aparecem em caixa de frase em cartões, sem mudar as palavras.

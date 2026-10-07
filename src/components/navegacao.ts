@@ -36,7 +36,7 @@ export const SECOES_APP: Secao[] = [
   { rota: '/plano-de-acao', rotulo: 'Plano de Ação', icone: Wrench, descricao: TEXTOS.planoAcao.subtitulo, grupo: 3 },
   { rota: '/dashboard', rotulo: 'Dashboard', icone: LayoutDashboard, descricao: TEXTOS.dashboard.subtitulo, grupo: 3 },
   { rota: '/relatorios', rotulo: 'Relatórios', icone: FileBarChart, descricao: TEXTOS.relatorios.subtitulo, grupo: 3 },
-  { rota: '/dados', rotulo: 'Dados e backup', icone: Database, descricao: 'Exportação para Excel, cópia de segurança e restauração.', grupo: 4 },
+  { rota: '/dados', rotulo: 'Dados e planilhas', icone: Database, descricao: 'Exportação para Excel e atualização dos dados por planilha.', grupo: 4 },
 ];
 
 /** Rota de cada passo do fluxo recomendado (aba Instruções). */

@@ -115,7 +115,7 @@ Lembre de que a conta em *Authentication → Users* também precisa ter o e-mail
 |---|---|---|
 | **"E-mail ou senha incorretos."** | Senha errada, e-mail diferente do cadastrado ou conta ainda não confirmada | Confira o e-mail em *Authentication → Users*; marque/aplique **Auto Confirm** ou redefina a senha |
 | **"O e-mail … ainda não está autorizado."** | Conta criada, mas sem linha em `membros` | Execute o `insert` do passo 2; confira com o `select` do passo 3 |
-| Entra, mas o painel aparece **zerado** | Banco ainda sem dados | Em **Dados e backup**, use **Carregar dados da planilha** (só na primeira vez) |
+| Entra, mas o painel aparece **zerado** | Banco ainda sem dados | Em **Dados e planilhas**, use **Carregar dados da planilha** (só na primeira vez) |
 | Erro ao carregar dados após ficar dias sem usar | Projeto gratuito do Supabase pausado por inatividade | No painel do Supabase, clique em **Restore project**; os dados são mantidos |
 | Alguém consegue se cadastrar sozinho | Cadastro aberto ligado | *Authentication → Sign In / Providers* → desative **Allow new users to sign up** (mesmo assim, sem autorização em `membros` ela não vê dados) |
 

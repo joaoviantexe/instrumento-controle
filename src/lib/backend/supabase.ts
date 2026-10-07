@@ -1,6 +1,6 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import type { Snapshot } from '../types';
-import { CHAVES, ErroChaveDuplicada, type Backend, type NomeTabela, type Tabelas } from './tipos';
+import type { Anexo, Snapshot } from '../types';
+import { AnexosIndisponiveis, CHAVES, ErroChaveDuplicada, type AnexosApi, type Backend, type NomeTabela, type Tabelas } from './tipos';
 
 type Env = Record<string, string | undefined>;
 const env = import.meta.env as unknown as Env;
@@ -70,6 +70,57 @@ async function lerTudo<T extends NomeTabela>(sb: SupabaseClient, tabela: T): Pro
   return saida;
 }
 
+const BUCKET = 'anexos';
+
+function ausente(error: { code?: string; message: string }): boolean {
+  // 42P01 = tabela inexistente; PGRST205 = tabela fora do cache do PostgREST; 404 do Storage = bucket inexistente
+  return error.code === '42P01' || error.code === 'PGRST205' || /bucket not found|does not exist/i.test(error.message);
+}
+
+function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
+  return {
+    async listar() {
+      const { data, error } = await sb.from('anexos').select('*').order('criado_em');
+      if (error) {
+        if (ausente(error)) throw new AnexosIndisponiveis();
+        throw new Error(error.message);
+      }
+      return (data ?? []).map((l) => doBanco<Anexo>(l));
+    },
+    async enviar(arquivo, destino) {
+      const id = crypto.randomUUID();
+      const caminho = `${id}.pdf`;
+      const up = await sb.storage.from(BUCKET).upload(caminho, arquivo, { contentType: 'application/pdf', upsert: false });
+      if (up.error) {
+        if (ausente(up.error)) throw new AnexosIndisponiveis();
+        throw new Error(up.error.message);
+      }
+      const { data, error } = await sb
+        .from('anexos')
+        .insert(paraBanco({ id, ...destino, nome: arquivo.name, tamanho: arquivo.size }))
+        .select()
+        .single();
+      if (error) {
+        await sb.storage.from(BUCKET).remove([caminho]); // não deixa arquivo órfão
+        if (ausente(error)) throw new AnexosIndisponiveis();
+        throw new Error(error.message);
+      }
+      return doBanco<Anexo>(data);
+    },
+    async abrir(anexo) {
+      const { data, error } = await sb.storage.from(BUCKET).createSignedUrl(`${anexo.id}.pdf`, 120);
+      if (error || !data) throw new Error(error?.message ?? 'Não foi possível abrir o arquivo.');
+      return data.signedUrl;
+    },
+    async excluir(anexo) {
+      const r = await sb.storage.from(BUCKET).remove([`${anexo.id}.pdf`]);
+      if (r.error) throw new Error(r.error.message);
+      const { error } = await sb.from('anexos').delete().eq('id', anexo.id);
+      if (error) throw new Error(error.message);
+    },
+  };
+}
+
 export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
 
   async function inserirEmLotes(tabela: NomeTabela, registros: object[]) {
@@ -81,6 +132,7 @@ export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
 
   return {
     modo: 'supabase',
+    anexos: criarAnexosSupabase(sb),
     async carregar(): Promise<Snapshot> {
       const [unidades, auditorias, avaliacoes, acoes] = await Promise.all([
         lerTudo(sb, 'unidades'),

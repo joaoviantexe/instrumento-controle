@@ -164,6 +164,64 @@ create policy "consultar o proprio cadastro" on public.membros
   using (lower(email) = lower(coalesce(auth.jwt() ->> 'email', '')));
 
 -- ---------------------------------------------------------------------
+-- Anexos em PDF (ex.: o ato de autorização que comprova a vigência)
+-- Os dados do anexo ficam na tabela; o arquivo, no Storage (bucket "anexos").
+-- ---------------------------------------------------------------------
+create table if not exists public.anexos (
+  id          text primary key,
+  entidade    text not null check (entidade in ('unidade', 'auditoria', 'avaliacao', 'acao')),
+  -- unidade, auditoria e ação: o id do registro; avaliação: 'ID_DA_AUDITORIA:CÓDIGO_DO_ITEM'
+  entidade_id text not null,
+  categoria   text,
+  nome        text not null,
+  tamanho     integer not null check (tamanho > 0 and tamanho <= 10485760),
+  criado_em   timestamptz not null default now(),
+  criado_por  text
+);
+create index if not exists anexos_entidade_idx on public.anexos(entidade, entidade_id);
+
+create or replace function public.marcar_autoria()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.criado_em := coalesce(new.criado_em, now());
+  new.criado_por := coalesce(auth.jwt() ->> 'email', new.criado_por);
+  return new;
+end;
+$$;
+drop trigger if exists marcar_autoria on public.anexos;
+create trigger marcar_autoria before insert on public.anexos
+  for each row execute function public.marcar_autoria();
+
+alter table public.anexos enable row level security;
+drop policy if exists "membros autorizados" on public.anexos;
+create policy "membros autorizados" on public.anexos for all to authenticated
+  using (public.is_membro()) with check (public.is_membro());
+
+-- Bucket privado (só PDF, até 10 MB) e regras de acesso aos arquivos.
+-- Protegido para não falhar fora do Supabase (onde o Storage não existe).
+do $$
+begin
+  if to_regclass('storage.buckets') is not null then
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    values ('anexos', 'anexos', false, 10485760, array['application/pdf'])
+    on conflict (id) do update
+      set public = false, file_size_limit = 10485760, allowed_mime_types = array['application/pdf'];
+
+    drop policy if exists "anexos: consultar" on storage.objects;
+    create policy "anexos: consultar" on storage.objects for select to authenticated
+      using (bucket_id = 'anexos' and public.is_membro());
+    drop policy if exists "anexos: enviar" on storage.objects;
+    create policy "anexos: enviar" on storage.objects for insert to authenticated
+      with check (bucket_id = 'anexos' and public.is_membro());
+    drop policy if exists "anexos: excluir" on storage.objects;
+    create policy "anexos: excluir" on storage.objects for delete to authenticated
+      using (bucket_id = 'anexos' and public.is_membro());
+  end if;
+end $$;
+
+-- ---------------------------------------------------------------------
 -- Depois de executar este arquivo, autorize cada pessoa da equipe:
 --   insert into public.membros (email, nome) values ('pessoa@semec.belem.pa.gov.br', 'Nome');
 -- e crie o usuário em Authentication > Users > Add user (com o mesmo e-mail).

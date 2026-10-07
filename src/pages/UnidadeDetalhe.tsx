@@ -4,6 +4,7 @@ import { ArrowLeft, CalendarPlus, Pencil, Trash2 } from 'lucide-react';
 import { Dialogo, Etiqueta, Faixa, Medidor, Nota } from '../components/ui';
 import { FormUnidade, GRUPOS_UNIDADE } from '../components/FormUnidade';
 import { FormAuditoria, auditoriaVazia } from '../components/FormAuditoria';
+import { Anexos } from '../components/Anexos';
 import { CABECALHOS_UNIDADE as C, ROTULOS_ACAO, ROTULOS_PLANO, TEXTOS } from '../data/planilha';
 import { useDados } from '../lib/store';
 import { formatarCep, formatarData, formatarTelefone, fraseado } from '../lib/format';
@@ -76,6 +77,18 @@ export function UnidadeDetalhe() {
             </section>
           ))}
         </div>
+
+        <section className="cartao" aria-labelledby="docs">
+          <div className="cartao__cab">
+            <h2 id="docs" className="titulo-bloco">
+              Documentos
+            </h2>
+            <span className="contagem">Ex.: o PDF do ato de autorização, que comprova a vigência</span>
+          </div>
+          <div className="cartao__corpo">
+            <Anexos entidade="unidade" entidadeId={u.id} />
+          </div>
+        </section>
 
         <section className="cartao">
           <div className="cartao__cab">

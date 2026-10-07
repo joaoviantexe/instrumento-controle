@@ -18,7 +18,7 @@ Cada receita diz **para que serve**, **o passo a passo** e **como saber que deu 
 12. [Ler o Dashboard e os Relatórios](#12-ler-o-dashboard-e-os-relatórios)
 13. [Ver unidades por bairro e distrito](#13-ver-unidades-por-bairro-e-distrito)
 14. [Buscar, filtrar, ordenar e escolher colunas](#14-buscar-filtrar-ordenar-e-escolher-colunas)
-15. [Exportar, imprimir e guardar cópia de segurança](#15-exportar-imprimir-e-guardar-cópia-de-segurança)
+15. [Exportar, imprimir, atualizar por planilha](#15-exportar-imprimir-e-atualizar-por-planilha)
 16. [Usar no celular](#16-usar-no-celular)
 17. [Adicionar ou remover pessoas](#17-adicionar-ou-remover-pessoas)
 18. [Rotina sugerida](#18-rotina-sugerida)
@@ -28,7 +28,7 @@ Cada receita diz **para que serve**, **o passo a passo** e **como saber que deu 
 ## 1. Entrar e se localizar
 
 1. Abra o endereço do site e entre com e-mail e senha. Se aparecer "ainda não está autorizado", veja a [seção 17](#17-adicionar-ou-remover-pessoas).
-2. O **menu lateral** (no celular, o botão ☰) lista as telas na ordem do trabalho: Início e Instruções; Cadastro Unidades e Lista Mestra; Plano de Auditoria, Auditoria Documental e Checklist da Visita; Plano de Ação, Dashboard e Relatórios; Dados e backup.
+2. O **menu lateral** (no celular, o botão ☰) lista as telas na ordem do trabalho: Início e Instruções; Cadastro Unidades e Lista Mestra; Plano de Auditoria, Auditoria Documental e Checklist da Visita; Plano de Ação, Dashboard e Relatórios; Dados e planilhas.
 3. No rodapé do menu: **"Banco compartilhado"** (dados da equipe) ou **"Modo local"** (só neste navegador), e seu e-mail com o botão **sair**.
 4. **`Ctrl+K`** (ou `/`) abre a busca de qualquer tela.
 
@@ -44,11 +44,11 @@ Cada receita diz **para que serve**, **o passo a passo** e **como saber que deu 
 
 1. **Início → Precisa de atenção → "Vigência do ato: vencida"**. Abre o Cadastro Unidades filtrado.
 2. Obtenha o ato renovado (CME ou escola).
-3. Clique na unidade → **Editar**.
+3. Clique na unidade. No cartão **Documentos**, arraste o **PDF do ato** (tipo *Ato de autorização/credenciamento/reconhecimento*): ele comprova a vigência. Depois clique em **Editar**.
 4. Em *Ato de autorização/credenciamento/reconhecimento*, escreva o ato novo, no padrão dos outros (ex.: `12/2026 - CME, DE 20/09/2026`).
 5. Em *Vigência do ato*, digite a nova data (`DD/MM/AAAA`). Para atos sem prazo, escreva `DEFINITIVO`.
 6. **Salvar**. A *Data da atualização* vira a data de hoje.
-7. **Deu certo quando:** a data não está mais em vermelho e o número do painel diminuiu.
+7. **Deu certo quando:** a data não está mais em vermelho, o número do painel diminuiu e o PDF aparece em *Documentos* (a pendência *"sem PDF anexado"* também diminui).
 8. **Ainda sem o ato?** Anote em *Observações cadastrais* (ex.: "Renovação solicitada ao CME em 06/10/2026") e abra uma ação com prazo (seção 10, item `INS-03`).
 
 ## 4. Resolver um ato de autorização "não localizado"
@@ -140,13 +140,19 @@ Para mostrar ou esconder colunas, use **Colunas** (seção 14).
 - **Ordenar:** clique no cabeçalho da coluna (de novo inverte).
 - **Colunas** (Plano de Auditoria e Plano de Ação): botão **Colunas** → marque/desmarque; "Padrão" restaura. A escolha fica salva no navegador.
 
-## 15. Exportar, imprimir e guardar cópia de segurança
+## 14-A. Anexar e consultar PDFs
 
-- **Exportar Excel:** cada lista tem o botão (exporta o que está filtrado); em *Dados e backup → "Exportar Excel"* sai a planilha completa. Vai com valores, não fórmulas.
+1. Em qualquer tela de verificação há uma área **Documentos / Anexar PDF**: na **unidade** (atos), em cada **item da Auditoria Documental** (evidência), na **auditoria** e no **Checklist da Visita** (relatório, comprovantes) e na **ação** (comprovação de conclusão — salve a ação antes).
+2. Arraste o PDF (até 10 MB) ou clique em **Anexar PDF**; escolha o *Tipo de documento* quando houver opções.
+3. Para ver, clique no nome do arquivo: abre em outra aba. Para remover, a lixeira (pede confirmação).
+
+## 15. Exportar, imprimir e atualizar por planilha
+
+- **Exportar Excel:** cada lista tem o botão (exporta o que está filtrado); em *Dados e planilhas → "Exportar Excel"* sai a planilha completa. Vai com valores, não fórmulas.
 - **Imprimir:** Dashboard, Relatórios, Auditoria Documental e Checklist da Visita (A4).
-- **Cópia de segurança:** *Dados e backup → "Baixar cópia"* (arquivo `.json`). Faça semanalmente e antes de grandes mudanças.
-- **Restaurar:** *"Restaurar cópia"* → escolha o `.json` → confirme. **Substitui todos os dados atuais.**
-- **"Restaurar dados originais"** volta ao conteúdo da planilha e **apaga** avaliações e ações: baixe uma cópia antes.
+- **Atualizar os dados com uma planilha:** *Dados e planilhas → "Atualizar dados com uma planilha"* → arraste o `.xlsx` (a planilha original atualizada ou um Excel exportado pelo sistema) → leia o quadro (novos / alterados / sem mudança; clique no número de alterados para ver campo a campo) → **Aplicar**. **Nada é excluído**; só se cria ou altera. Leia os *avisos* (linhas ignoradas e o motivo).
+- **Guardar uma cópia:** *Exportar Excel* semanalmente e antes de grandes mudanças — esse arquivo pode ser reenviado depois pelo passo acima.
+- **"Restaurar dados originais"** volta ao conteúdo da planilha original e **apaga** avaliações e ações: exporte o Excel antes.
 
 ## 16. Usar no celular
 
@@ -161,7 +167,7 @@ Duas etapas no Supabase (conta e autorização): veja `docs/USUARIOS.md`. Sem a 
 | Quando | O quê |
 |---|---|
 | **Todo dia** | Início → Precisa de atenção; atender *Prazo expirado* e *Validação pendente* |
-| **Semanal** | Planejar a semana em lote; revisar ações em andamento; baixar cópia de segurança |
+| **Semanal** | Planejar a semana em lote; revisar ações em andamento; exportar o Excel (cópia) |
 | **Mensal** | Dashboard e Relatórios para a reunião de gestão (Imprimir); revisar pendências do cadastro por distrito |
 | **A cada visita** | Imprimir o checklist → avaliar na Auditoria Documental → registrar ações |
 | **Ao chegar um ato novo** | Cadastro → Editar a unidade (seção 3) |

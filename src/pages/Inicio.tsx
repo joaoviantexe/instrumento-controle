@@ -67,7 +67,7 @@ export function Inicio() {
       <div className="container pagina">
         {d.unidades.length === 0 && (
           <Nota tipo="alerta">
-            O banco de dados está vazio. Acesse <Link to="/dados">Dados e backup</Link> e use{' '}
+            O banco de dados está vazio. Acesse <Link to="/dados">Dados e planilhas</Link> e use{' '}
             <strong>Carregar dados da planilha</strong>.
           </Nota>
         )}

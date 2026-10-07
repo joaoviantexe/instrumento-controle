@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { Acao, Auditoria, Avaliacao, Snapshot, Unidade } from './types';
+import type { Acao, Anexo, Auditoria, Avaliacao, EntidadeAnexo, Snapshot, Unidade } from './types';
 import type { Backend } from './backend/tipos';
 import { ErroChaveDuplicada } from './backend/tipos';
 import {
@@ -23,6 +23,12 @@ interface Derivados {
 
 export interface Dados extends Snapshot, Derivados {
   modo: Backend['modo'];
+  anexos: Anexo[];
+  /** Mensagem quando o recurso de anexos não está disponível (ex.: script do banco desatualizado). */
+  anexosErro: string | null;
+  enviarAnexo(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }): Promise<Anexo>;
+  excluirAnexo(anexo: Anexo): Promise<void>;
+  abrirAnexo(anexo: Anexo): Promise<string>;
   carregando: boolean;
   erro: string | null;
   recarregar(): Promise<void>;
@@ -38,6 +44,8 @@ export interface Dados extends Snapshot, Derivados {
   salvarAcao(a: Acao): Promise<void>;
   excluirAcao(id: string): Promise<void>;
   substituirTudo(s: Snapshot): Promise<void>;
+  /** Grava (cria ou atualiza) os registros informados, sem excluir nenhum outro. */
+  importarRegistros(s: Snapshot): Promise<void>;
 }
 
 const VAZIO: Snapshot = { unidades: [], auditorias: [], avaliacoes: [], acoes: [] };
@@ -47,14 +55,27 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
   const [snap, setSnap] = useState<Snapshot>(VAZIO);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
+  const [anexos, setAnexos] = useState<Anexo[]>([]);
+  const [anexosErro, setAnexosErro] = useState<string | null>(null);
   const snapRef = useRef(snap);
   snapRef.current = snap;
+  const anexosRef = useRef(anexos);
+  anexosRef.current = anexos;
 
   const recarregar = useCallback(async () => {
     try {
       setErro(null);
       const s = await backend.carregar();
       setSnap(s);
+      setCarregando(false);
+      try {
+        setAnexos(await backend.anexos.listar());
+        setAnexosErro(null);
+      } catch (e) {
+        // Anexos são opcionais: o restante do sistema continua funcionando sem eles.
+        setAnexos([]);
+        setAnexosErro((e as Error).message);
+      }
     } catch (e) {
       setErro((e as Error).message);
     } finally {
@@ -107,6 +128,24 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
     };
   }, [snap]);
 
+  /** Remove os PDFs de um registro excluído (melhor esforço: falhas não impedem a exclusão). */
+  const limparAnexos = useCallback(
+    async (dono: (a: Anexo) => boolean) => {
+      const alvo = anexosRef.current.filter(dono);
+      const removidos = new Set<string>();
+      for (const a of alvo) {
+        try {
+          await backend.anexos.excluir(a);
+          removidos.add(a.id);
+        } catch {
+          /* arquivo órfão não atrapalha o uso */
+        }
+      }
+      if (removidos.size) setAnexos((l) => l.filter((x) => !removidos.has(x.id)));
+    },
+    [backend],
+  );
+
   const acoes = useMemo(() => {
     const substituir = <T,>(lista: T[], igual: (x: T) => boolean, novo: T) =>
       lista.some(igual) ? lista.map((x) => (igual(x) ? novo : x)) : [...lista, novo];
@@ -128,6 +167,7 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
           }),
           () => backend.excluir('unidades', { id }),
         );
+        void limparAnexos((a) => a.entidade === 'unidade' && a.entidade_id === id);
         return true;
       },
       async criarAuditoria(dados: Omit<Auditoria, 'id'>) {
@@ -170,6 +210,9 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
             acoes: s.acoes.map((a) => (a.auditoria_id === id ? { ...a, auditoria_id: '' } : a)),
           }),
           () => backend.excluir('auditorias', { id }),
+        );
+        void limparAnexos(
+          (a) => (a.entidade === 'auditoria' && a.entidade_id === id) || (a.entidade === 'avaliacao' && a.entidade_id.startsWith(`${id}:`)),
         );
       },
       async salvarAvaliacao(av: Avaliacao) {
@@ -220,17 +263,38 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
           (s) => ({ ...s, acoes: s.acoes.filter((a) => a.id !== id) }),
           () => backend.excluir('acoes', { id }),
         );
+        void limparAnexos((a) => a.entidade === 'acao' && a.entidade_id === id);
+      },
+      async enviarAnexo(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }) {
+        const a = await backend.anexos.enviar(arquivo, destino);
+        setAnexos((l) => [...l, a]);
+        return a;
+      },
+      async excluirAnexo(anexo: Anexo) {
+        await backend.anexos.excluir(anexo);
+        setAnexos((l) => l.filter((x) => x.id !== anexo.id));
+      },
+      abrirAnexo: (anexo: Anexo) => backend.anexos.abrir(anexo),
+      async importarRegistros(s: Snapshot) {
+        try {
+          await backend.salvarVarios('unidades', s.unidades);
+          await backend.salvarVarios('auditorias', s.auditorias);
+          await backend.salvarVarios('avaliacoes', s.avaliacoes);
+          await backend.salvarVarios('acoes', s.acoes);
+        } finally {
+          await recarregar();
+        }
       },
       async substituirTudo(novo: Snapshot) {
         await backend.substituirTudo(novo);
         await recarregar();
       },
     };
-  }, [backend, executar, recarregar]);
+  }, [backend, executar, recarregar, limparAnexos]);
 
   const valor = useMemo<Dados>(
-    () => ({ ...snap, ...derivados, ...acoes, modo: backend.modo, carregando, erro, recarregar }),
-    [snap, derivados, acoes, backend.modo, carregando, erro, recarregar],
+    () => ({ ...snap, ...derivados, ...acoes, anexos, anexosErro, modo: backend.modo, carregando, erro, recarregar }),
+    [snap, derivados, acoes, anexos, anexosErro, backend.modo, carregando, erro, recarregar],
   );
 
   return <Contexto.Provider value={valor}>{children}</Contexto.Provider>;

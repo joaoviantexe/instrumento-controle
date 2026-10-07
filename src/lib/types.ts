@@ -100,3 +100,21 @@ export interface Snapshot {
   avaliacoes: Avaliacao[];
   acoes: Acao[];
 }
+
+/** A que registro o anexo pertence. */
+export type EntidadeAnexo = 'unidade' | 'auditoria' | 'avaliacao' | 'acao';
+
+/** Metadados de um arquivo PDF anexado (o arquivo em si fica no armazenamento). */
+export interface Anexo {
+  id: string;
+  entidade: EntidadeAnexo;
+  /** Unidade e ação: o id do registro. Avaliação: `ID_AUDITORIA:CÓDIGO_DO_ITEM` (ver chaveAvaliacao). */
+  entidade_id: string;
+  categoria: string;
+  nome: string;
+  tamanho: number;
+  criado_em: string;
+  criado_por: string;
+}
+
+export const chaveAvaliacao = (auditoriaId: string, item: string) => `${auditoriaId}:${item}`;

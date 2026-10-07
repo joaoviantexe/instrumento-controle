@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Pencil, Printer } from 'lucide-react';
 import { Etiqueta, Faixa, Medidor, Nota, useRotulosCartao } from '../components/ui';
 import { Combobox } from '../components/Combobox';
+import { Anexos } from '../components/Anexos';
 import { ITENS_VISITA, ROTULOS_AUDITORIA_DOC, TEXTOS } from '../data/planilha';
 import { useDados } from '../lib/store';
 import { linhasDaAuditoria } from '../lib/calc';
@@ -147,6 +148,18 @@ export function ChecklistVisita() {
           </section>
         ) : (
           id && <Nota tipo="alerta">{`${r.auditoria} ${id} não encontrada.`}</Nota>
+        )}
+
+        {aud && (
+          <section className="cartao nao-imprimir">
+            <div className="cartao__cab">
+              <h2 className="titulo-bloco">Documentos da visita</h2>
+              <span className="contagem">Fotos digitalizadas, ata, comprovantes (PDF)</span>
+            </div>
+            <div className="cartao__corpo">
+              <Anexos entidade="auditoria" entidadeId={aud.id} />
+            </div>
+          </section>
         )}
 
         <Nota>{t.nota}</Nota>

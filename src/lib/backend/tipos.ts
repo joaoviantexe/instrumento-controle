@@ -1,4 +1,4 @@
-import type { Acao, Auditoria, Avaliacao, Snapshot, Unidade } from '../types';
+import type { Acao, Auditoria, Anexo, Avaliacao, EntidadeAnexo, Snapshot, Unidade } from '../types';
 
 export interface Tabelas {
   unidades: Unidade;
@@ -16,8 +16,25 @@ export const CHAVES: { [T in NomeTabela]: (keyof Tabelas[T])[] } = {
   acoes: ['id'],
 };
 
+/** Anexos em PDF: metadados em tabela e arquivos no armazenamento. */
+export interface AnexosApi {
+  listar(): Promise<Anexo[]>;
+  enviar(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }): Promise<Anexo>;
+  /** Devolve um endereço temporário para abrir o PDF. */
+  abrir(anexo: Anexo): Promise<string>;
+  excluir(anexo: Anexo): Promise<void>;
+}
+
+/** O banco ainda não tem a tabela/armazenamento de anexos (script SQL desatualizado). */
+export class AnexosIndisponiveis extends Error {
+  constructor() {
+    super('Os anexos ainda não estão habilitados neste banco. Execute o arquivo supabase/schema.sql atualizado no SQL Editor do Supabase.');
+  }
+}
+
 export interface Backend {
   modo: 'local' | 'supabase';
+  anexos: AnexosApi;
   carregar(): Promise<Snapshot>;
   /** Insere ou atualiza. */
   salvar<T extends NomeTabela>(tabela: T, registro: Tabelas[T]): Promise<void>;
@@ -26,7 +43,7 @@ export interface Backend {
   /** Insere; falha se a chave já existir. */
   inserir<T extends NomeTabela>(tabela: T, registros: Tabelas[T][]): Promise<void>;
   excluir<T extends NomeTabela>(tabela: T, chave: Partial<Tabelas[T]>): Promise<void>;
-  /** Substitui todos os dados (restauração de backup). */
+  /** Substitui todos os dados (restauração dos dados originais). */
   substituirTudo(s: Snapshot): Promise<void>;
 }
 
