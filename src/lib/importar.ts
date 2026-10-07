@@ -57,8 +57,8 @@ interface FolhaMin {
   getRow(n: number): { getCell(c: number): { value: Valor }; cellCount: number };
 }
 
-function lerAba(ws: FolhaMin, esperados: string[], minimo: number): TabelaLida | null {
-  const alvo = new Map(esperados.map((e) => [chave(e), e]));
+function lerAba(ws: FolhaMin, esperados: string[], minimo: number, sinonimos: Record<string, string> = {}): TabelaLida | null {
+  const alvo = new Map([...esperados.map((e) => [chave(e), e] as const), ...Object.entries(sinonimos)]);
   const limite = Math.min(ws.rowCount, 15);
   for (let r = 1; r <= limite; r++) {
     const linha = ws.getRow(r);
@@ -92,17 +92,20 @@ export async function lerPlanilha(arquivo: File): Promise<Planilha> {
   await wb.xlsx.load(await arquivo.arrayBuffer());
   const folhas = wb.worksheets as unknown as FolhaMin[];
 
-  const procurar = (nomes: string[], esperados: string[], minimo: number) => {
+  const procurar = (nomes: string[], esperados: string[], minimo: number, sinonimos: Record<string, string> = {}) => {
     const porNome = folhas.filter((f) => nomes.includes(chave(f.name)));
     for (const f of [...porNome, ...folhas.filter((x) => !porNome.includes(x))]) {
-      const t = lerAba(f, esperados, minimo);
+      const t = lerAba(f, esperados, minimo, sinonimos);
       if (t) return t;
     }
     return undefined;
   };
 
   return {
-    unidades: procurar(['cadastro unidades'], Object.values(CABECALHOS_UNIDADE), 8),
+    unidades: procurar(['cadastro unidades'], Object.values(CABECALHOS_UNIDADE), 8, {
+      'ato de criacao': CABECALHOS_UNIDADE.ato_criacao,
+      'ato de autorizacao/credenciamento/reconhecimento': CABECALHOS_UNIDADE.ato_autorizacao,
+    }),
     auditorias: procurar(['plano de auditoria'], [RP.id, RP.unidade, RP.tipo, RP.prioridade, RP.dataPlanejada, RP.dataRealizada, RP.equipe, RP.situacao, RP.observacoes], 6),
     avaliacoes: procurar(['auditoria documental'], [RD.id, RD.item, RD.situacao, RD.evidencia, RD.achado, RD.requerAcao, RD.prazo, RD.responsavel, RD.situacaoAcao], 5),
     acoes: procurar(['plano de acao'], [RA.id, RA.auditoria, RA.unidade, RA.item, RA.achado, RA.acao, RA.prioridade, RA.responsavel, RA.dataAbertura, RA.prazo, RA.situacao, RA.evidencia, RA.dataConclusao, RA.validacao], 8),

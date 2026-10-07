@@ -6,7 +6,7 @@ export const LIMITE_BYTES = 10 * 1024 * 1024;
 
 /** Categorias de documento de cada tipo de registro (os nomes vêm das colunas da planilha). */
 export const CATEGORIAS: Record<EntidadeAnexo, string[]> = {
-  unidade: [C.ato_autorizacao, C.ato_criacao, 'Outro documento'],
+  unidade: [C.ato_autorizacao, C.ato_criacao, 'Decreto', 'Outro documento'],
   auditoria: ['Relatório da auditoria', 'Comprovante da visita', 'Outro documento'],
   avaliacao: ['Evidência'],
   acao: ['Evidência de conclusão'],

@@ -85,7 +85,7 @@ export function itensDeAtencao(d: Dados): ItemAtencao[] {
     {
       chave: 'ato_autorizacao',
       total: nUn('ato_autorizacao'),
-      rotulo: 'Ato de autorização',
+      rotulo: 'Resolução',
       para: '/unidades?pendencia=ato_autorizacao',
       detalhe: 'Unidades sem ato informado ou marcado como não localizado',
     },
