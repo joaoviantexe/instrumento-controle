@@ -232,7 +232,7 @@ Onde há **verificação ou comprovação de documentos**, é possível anexar e
 
 | Onde | O que anexar | Tipos de documento |
 |---|---|---|
-| **Cadastro Unidades → unidade → Documentos** | O PDF do ato (comprova a **vigência**) | Resolução · Portaria · Decreto · Outro documento |
+| **Cadastro Unidades → unidade → Documentos** | O PDF do ato (comprova a **vigência**) | Autorização de Funcionamento - CME · Decreto · Outro documento · Portaria · Resolução (em ordem alfabética) |
 | **Auditoria Documental → cada item → Detalhes** | A evidência do item verificado (selo 📎 no item) | Evidência |
 | **Auditoria Documental → Documentos da auditoria** e **Checklist da Visita → Documentos da visita** | Relatório, ata, comprovantes da visita | Relatório da auditoria · Comprovante da visita · Outro documento |
 | **Plano de Ação → ação** (depois de salva) | Comprovação da conclusão | Evidência de conclusão |

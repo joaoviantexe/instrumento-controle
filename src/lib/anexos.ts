@@ -5,9 +5,14 @@ import type { Anexo, EntidadeAnexo } from './types';
 export const LIMITE_BYTES = 10 * 1024 * 1024;
 
 /** Categorias de documento de cada tipo de registro (os nomes vêm das colunas da planilha). */
+export const CATEGORIA_AUTORIZACAO_CME = 'Autorização de Funcionamento - CME';
+
+const emOrdem = (l: string[]) => [...l].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+
+/** Em ordem alfabética. */
 export const CATEGORIAS: Record<EntidadeAnexo, string[]> = {
-  unidade: [C.ato_autorizacao, C.ato_criacao, 'Decreto', 'Outro documento'],
-  auditoria: ['Relatório da auditoria', 'Comprovante da visita', 'Outro documento'],
+  unidade: emOrdem([CATEGORIA_AUTORIZACAO_CME, C.ato_autorizacao, C.ato_criacao, 'Decreto', 'Outro documento']),
+  auditoria: emOrdem(['Relatório da auditoria', 'Comprovante da visita', 'Outro documento']),
   avaliacao: ['Evidência'],
   acao: ['Evidência de conclusão'],
 };
@@ -37,7 +42,11 @@ export async function validarPdf(arquivo: File): Promise<string | null> {
 
 /** Ids das unidades que já têm o PDF do ato de autorização anexado. */
 export function unidadesComAto(anexos: Anexo[]): Set<string> {
-  return new Set(anexos.filter((a) => a.entidade === 'unidade' && a.categoria === CATEGORIA_ATO).map((a) => a.entidade_id));
+  return new Set(
+    anexos
+      .filter((a) => a.entidade === 'unidade' && (a.categoria === CATEGORIA_ATO || a.categoria === CATEGORIA_AUTORIZACAO_CME))
+      .map((a) => a.entidade_id),
+  );
 }
 
 /** Impressão digital (SHA-256, em hexadecimal) do conteúdo: arquivos idênticos têm o mesmo valor. */
