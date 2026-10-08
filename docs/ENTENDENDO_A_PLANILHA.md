@@ -1013,7 +1013,7 @@ Nada foi **corrigido, completado ou apagado**: os erros do Cadastro (Parte 6.4) 
 ```mermaid
 flowchart TD
     U["👤 Pessoa na CDE<br/>(navegador: computador ou celular)"]
-    subgraph SITE["O SITE (hospedado na Vercel)"]
+    subgraph SITE["O SITE (hospedado na Cloudflare)"]
         T["🍽️ SALÃO — as telas<br/>src/pages e src/components<br/>(o que você vê e clica)"]
         R["👩‍🍳 COZINHA — as regras e fórmulas<br/>src/lib/calc.ts<br/>(a pontuação, o Excel traduzido)"]
         D["📖 RECEITAS — dados-base<br/>src/data/planilha.json<br/>(Lista Mestra, listas, textos)"]
@@ -1036,13 +1036,13 @@ flowchart TD
 | **Dados-base** | Livro de receitas | A **Lista Mestra**, as listas de opções e os textos **copiados do Excel** | Arquivo `src/data/planilha.json` |
 | **Banco de dados** | Despensa | Onde ficam **as informações que as pessoas digitam** (unidades, auditorias, respostas, ações) | **Supabase** (na nuvem) |
 | **Controle de acesso** | Porteiro | Verifica **quem é você** (login) e **se você está autorizado** (lista `membros`) | Supabase (regras "RLS") + `src/lib/sessao.tsx` |
-| **Hospedagem** | O endereço do restaurante | Mantém o site no ar na internet; a cada alteração do código, publica uma nova versão | **Vercel**, ligada ao GitHub |
+| **Hospedagem** | O endereço do restaurante | Mantém o site no ar na internet; a cada alteração do código, publica uma nova versão | **Cloudflare**, ligada ao GitHub |
 
 ### 9.2 Duas formas de guardar os dados
 
 | | **Modo local** | **Banco compartilhado (Supabase)** |
 |---|---|---|
-| Quando | Sem configuração (padrão para testes) | Com as duas "chaves" configuradas na Vercel |
+| Quando | Sem configuração (padrão para testes) | Com as duas "chaves" configuradas na Cloudflare |
 | Onde ficam os dados | **No navegador** do computador | **Na nuvem**, no banco |
 | Quem vê | **Só** quem usa aquele navegador | **Toda a equipe autorizada** |
 | Login | Não há | E-mail e senha + lista de autorizados |
@@ -1090,7 +1090,7 @@ sequenceDiagram
 
 | Serviço | Para quê | Plano | Observação |
 |---|---|---|---|
-| **Vercel** | Hospedar o site | Gratuito ("Hobby") | ⚠️ Os termos do plano gratuito restringem o uso a projetos **pessoais e sem fins comerciais**; vale conferir se o uso institucional é permitido |
+| **Cloudflare** | Hospedar o site (e guardar os PDFs, no R2) | Gratuito | O plano gratuito permite uso institucional; o R2 tem 10 GB gratuitos e cobra só o que passar disso (o sistema bloqueia antes) |
 | **Supabase** | Banco de dados e login | Gratuito ("Free") | Limite de **500 MB** (o instrumento completo usa uma fração disso). Projetos **sem uso por ~1 semana são pausados** (basta "Restore") |
 | **GitHub** | Guardar o código e histórico | Gratuito | |
 
@@ -1207,7 +1207,7 @@ sequenceDiagram
 | **SIGA** | Sistema informatizado de gestão escolar citado na planilha (matrícula, frequência, calendário). A planilha não explica a sigla. |
 | **Supabase** | Serviço na nuvem que fornece o **banco de dados** e o **login** do site (plano gratuito). |
 | **Tabela dinâmica** | Recurso do Excel que **resume** uma tabela sem fórmulas (aqui: contar escolas por bairro e distrito). |
-| **Vercel** | Serviço que **hospeda** o site (o deixa disponível na internet) e o atualiza a cada mudança do código. |
+| **Cloudflare** | Serviço que **hospeda** o site (o deixa disponível na internet) e o atualiza a cada mudança do código. |
 | **Vigência** | **Prazo de validade** de um ato (ex.: 'até 16/06/2030'). Vencida = o ato precisa ser renovado. |
 | **Índice ponderado** | A **nota** de uma escola (0% a 100%): soma dos pontos ÷ soma dos pesos aplicáveis. |
 
@@ -1406,10 +1406,10 @@ Todas as funções abaixo estão em **`src/lib/calc.ts`** (e conferidas por test
 | `src/components/` | Peças reutilizáveis: menu lateral, formulários, gráficos, busca global, tabelas |
 | `src/styles/global.css` | **A aparência** (cores, fontes, espaçamentos) |
 | `supabase/schema.sql` | O **desenho do banco** de dados e as regras de segurança |
-| `vercel.json` | Configuração da hospedagem |
+| `public/_headers` | Cabeçalhos de segurança e cache da hospedagem |
 | `README.md` | Visão geral do projeto |
 | `docs/MANUAL.md` | **Manual de cada funcionalidade** do site |
-| `docs/IMPLANTACAO.md` | Como **publicar** (Vercel + Supabase) |
+| `docs/IMPLANTACAO.md` | Como **publicar** (Cloudflare + Supabase) |
 | `docs/USUARIOS.md` | Como **adicionar/remover pessoas** |
 | `docs/ENTENDENDO_A_PLANILHA.md` | **Este documento** |
 

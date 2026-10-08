@@ -4,6 +4,5 @@ dist
 .env
 .env.*
 !.env.example
-.vercel
 coverage
 *.tsbuildinfo

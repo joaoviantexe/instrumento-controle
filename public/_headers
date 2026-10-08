@@ -1,4 +1,4 @@
-# Cabeçalhos do Cloudflare Pages (equivalem ao "headers" do vercel.json)
+# Cabeçalhos da hospedagem na Cloudflare
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 

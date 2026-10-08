@@ -37,17 +37,16 @@ e as funções que contam gravações/leituras do mês e o espaço usado no R2. 
    |---|---|---|
    | `SUPABASE_URL` | Texto | endereço do projeto Supabase |
    | `SUPABASE_ANON_KEY` | Texto | chave *anon/publishable* (a mesma do site) |
-   | `ORIGENS` | Texto | endereço(s) do site, sem barra final (ex.: `https://instrumento-controle.vercel.app`), separados por vírgula |
+   | `ORIGENS` | Texto | endereço(s) do site, sem barra final (ex.: `https://instrumento-controle.joaoviantexe.workers.dev`); se tiver mais de um endereço, separe por vírgula |
    | `LINK_SECRET` | **Secret** | texto aleatório longo (30+ caracteres) |
    | `LIMITE_BYTES` | Texto | `9663676416` (9 GB, com folga sobre os 10 GB gratuitos) |
    | `LIMITE_A` | Texto | `900000` (gravações/mês; gratuito: 1 milhão) |
    | `LIMITE_B` | Texto | `9000000` (leituras/mês; gratuito: 10 milhões) |
 5. Anote o endereço do Worker (algo como `https://instrumento-cde-anexos.<seu-subdominio>.workers.dev`).
 
-**C. Ligar o site** — `VITE_ANEXOS_URL` **não** vai no Worker dos anexos: ela é uma variável do **site** (o outro Worker, `instrumento-controle`, ou a Vercel).
+**C. Ligar o site** — `VITE_ANEXOS_URL` **não** vai no Worker dos anexos: ela é uma variável do **site** (o outro Worker, `instrumento-controle`, ).
 1. Abra a hospedagem do **site** e cadastre estas variáveis **de build** (as que começam com `VITE_` são embutidas no código na hora de montar o site):
    - Worker do site na Cloudflare: **Settings → Build → Variables and secrets** (a seção "Runtime" fica bloqueada para sites só com arquivos estáticos).
-   - Vercel: **Settings → Environment Variables**.
 
    | Nome | Valor |
    |---|---|
@@ -80,6 +79,6 @@ O R2 **cobra automaticamente** o que passar dos limites gratuitos (não existe "
 ## Medidor de armazenamento no site
 
 Em **Dados e planilhas → Armazenamento dos anexos (PDF)** aparece a **porcentagem usada e disponível**, o tamanho em uso, quantos anexos e
-quantos arquivos distintos existem. O limite padrão é **1 GB** (Supabase gratuito). Ao usar o R2, defina na Vercel (*Settings → Environment Variables*)
+quantos arquivos distintos existem. O limite padrão é **1 GB** (Supabase gratuito). Ao usar o R2, defina nas variáveis de build do site na Cloudflare
 `VITE_LIMITE_ARMAZENAMENTO_GB=10` e faça um novo deploy. Acima de 80% o site mostra um aviso.
 O medidor conta só os PDFs anexados (não o banco de dados) e já desconta os arquivos idênticos.
