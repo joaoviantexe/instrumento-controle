@@ -28,7 +28,8 @@ limites do mês, confere se o arquivo é um PDF íntegro e entrega o PDF por um 
 e as funções que contam gravações/leituras do mês e o espaço usado no R2. Não apaga dados.
 
 **B. Criar o Worker**
-1. Cloudflare → **Workers & Pages** → **Create** → **Create Worker** → nome `instrumento-cde-anexos` → **Deploy** (com o código de exemplo).
+1. Cloudflare → **Workers & Pages** → **Create** → escolha o modelo **Start with Hello World!** (**não** use "Import a repository" nem "Upload static files": Workers só com arquivos estáticos **não aceitam variáveis nem bindings**) → nome `instrumento-cde-anexos` → **Deploy**.
+   > Se o seu *site* também estiver hospedado como Worker na Cloudflare (por exemplo `instrumento-controle`), ele é **outro** Worker: não o apague nem tente configurá-lo; o Worker dos anexos é separado.
 2. Clique em **Edit code**, apague tudo, cole o conteúdo do arquivo [`worker/index.js`](../worker/index.js) e clique em **Deploy**.
 3. Em **Settings → Bindings → Add → R2 bucket**: *Variable name* `BUCKET`, bucket `instrumento-cde-anexos` → salvar.
 4. Em **Settings → Variables and Secrets**, adicione:
