@@ -248,6 +248,7 @@ Onde há **verificação ou comprovação de documentos**, é possível anexar e
 - Ao excluir uma unidade, auditoria ou ação, os PDFs dela são apagados junto.
 - **Armazenamento:** no modo local, os PDFs ficam neste navegador (IndexedDB); no modo compartilhado, no *Storage* privado do Supabase
   (bucket `anexos`; plano gratuito: 1 GB). Só quem está na tabela `membros` consegue ver os arquivos; os links de abertura expiram em 2 minutos.
+- **Trava de espaço:** novos PDFs são **recusados a partir de 95%** do limite (os idênticos a arquivos já guardados continuam sendo aceitos), para nunca ultrapassar a cota gratuita; aviso a partir de 80%.
 - **Medidor de espaço:** *Dados e planilhas → Armazenamento dos anexos (PDF)* mostra a % usada e disponível (limite padrão de 1 GB; ajustável por `VITE_LIMITE_ARMAZENAMENTO_GB`). Veja também [CLOUDFLARE_R2.md](CLOUDFLARE_R2.md).
 - Os PDFs **não vão** no *Exportar Excel*.
 

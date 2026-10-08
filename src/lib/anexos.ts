@@ -24,7 +24,7 @@ export const CATEGORIAS: Record<EntidadeAnexo, string[]> = {
 export const CATEGORIA_ATO = C.ato_autorizacao;
 
 export function formatarTamanho(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024) return `${Math.round(bytes)} B`;
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
   if (bytes < 1024 ** 3) return `${(bytes / 1024 / 1024).toFixed(1).replace('.', ',')} MB`;
   return `${(bytes / 1024 ** 3).toFixed(2).replace('.', ',')} GB`;
@@ -93,3 +93,18 @@ export function limiteArmazenamentoBytes(): number {
   const bruto = Number((import.meta.env as unknown as Record<string, string | undefined>).VITE_LIMITE_ARMAZENAMENTO_GB);
   return (Number.isFinite(bruto) && bruto > 0 ? bruto : 1) * 1024 * 1024 * 1024;
 }
+
+/** Fração do limite a partir da qual novos envios são bloqueados (margem para não ultrapassar a cota gratuita). */
+export const MARGEM_BLOQUEIO = 0.95;
+
+/** Verifica se cabe mais um arquivo: devolve a mensagem de recusa, ou null se couber. Arquivo idêntico a um já guardado não ocupa espaço. */
+export function verificarEspaco(anexos: Anexo[], tamanho: number, hash: string, limite = limiteArmazenamentoBytes()): string | null {
+  if (hash && anexos.some((a) => a.hash === hash)) return null;
+  const { bytesUsados } = resumirAnexos(anexos);
+  const teto = limite * MARGEM_BLOQUEIO;
+  if (bytesUsados + tamanho <= teto) return null;
+  return `Limite de armazenamento atingido: ${formatarTamanho(bytesUsados)} usados de ${formatarTamanho(limite)} (bloqueio em ${Math.round(MARGEM_BLOQUEIO * 100)}%, para não gerar cobrança). Exclua anexos desnecessários ou amplie o armazenamento.`;
+}
+
+export const armazenamentoCheio = (anexos: Anexo[], limite = limiteArmazenamentoBytes()) =>
+  resumirAnexos(anexos).bytesUsados >= limite * MARGEM_BLOQUEIO;

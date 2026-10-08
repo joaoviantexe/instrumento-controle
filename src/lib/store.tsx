@@ -11,6 +11,7 @@ import {
   type MapaAvaliacoes,
   type ResumoAuditoria,
 } from './calc';
+import { hashArquivo, verificarEspaco } from './anexos';
 import { avisar } from './avisos';
 
 interface Derivados {
@@ -276,6 +277,8 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         void limparAnexos((a) => a.entidade === 'acao' && a.entidade_id === id);
       },
       async enviarAnexo(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }) {
+        const recusa = verificarEspaco(anexosRef.current, arquivo.size, await hashArquivo(arquivo));
+        if (recusa) throw new Error(recusa);
         const { reaproveitado, ...a } = await backend.anexos.enviar(arquivo, destino);
         setAnexos((l) => [...l, a]);
         return { ...a, reaproveitado };

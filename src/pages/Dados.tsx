@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Cloud, Download, FileSpreadsheet, HardDrive, RotateCcw } from 'lucide-react';
 import { ImportarPlanilha } from '../components/ImportarPlanilha';
-import { formatarTamanho, limiteArmazenamentoBytes, resumirAnexos } from '../lib/anexos';
+import { MARGEM_BLOQUEIO, formatarTamanho, limiteArmazenamentoBytes, resumirAnexos } from '../lib/anexos';
 import { formatarPct } from '../lib/format';
 import { Dialogo, Faixa, Nota } from '../components/ui';
 import { useDados } from '../lib/store';
@@ -116,7 +116,11 @@ export function Dados() {
                 {espaco.bytesEconomizados > 0 && <> · {formatarTamanho(espaco.bytesEconomizados)} economizados por arquivos idênticos</>}.
                 O limite é o do plano de armazenamento contratado (padrão de 1 GB, do plano gratuito do Supabase); mede só os PDFs anexados, não o banco de dados.
               </p>
-              {usado >= 0.8 && <Nota tipo="alerta">O armazenamento está acima de 80%. Considere migrar os anexos para outro serviço ou ampliar o plano.</Nota>}
+              {usado >= MARGEM_BLOQUEIO ? (
+                <Nota tipo="alerta">Limite de segurança atingido: novos anexos estão bloqueados (os idênticos a arquivos já guardados ainda são aceitos). Exclua anexos desnecessários ou amplie o armazenamento.</Nota>
+              ) : usado >= 0.8 ? (
+                <Nota tipo="alerta">O armazenamento está acima de 80%. Os envios serão bloqueados em {Math.round(MARGEM_BLOQUEIO * 100)}% para não gerar cobrança.</Nota>
+              ) : null}
             </div>
           </section>
         )}

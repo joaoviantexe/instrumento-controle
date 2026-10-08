@@ -19,6 +19,17 @@
 5. **Ligar o site ao R2 (a desenvolver):** como as chaves não podem ficar no navegador, cria-se um *Cloudflare Worker* (gratuito) que recebe o PDF, confere o login do Supabase e grava/entrega o arquivo no bucket. No site, bastará configurar o endereço desse Worker. Depois disso, os PDFs hoje no Supabase podem ser copiados para o R2.
 6. **Alerta de custo:** Cloudflare → *Notifications* → crie um aviso de uso do R2 e acompanhe também a barra **Armazenamento dos anexos** em *Dados e planilhas*.
 
+## Limitador: para não passar da cota gratuita
+
+O R2 **cobra automaticamente** o que passar dos limites gratuitos (não existe "teto" que interrompa a cobrança). Por isso o site tem **trava própria**:
+
+- **Bloqueio de novos anexos aos 95% do limite** configurado (`VITE_LIMITE_ARMAZENAMENTO_GB`). A mensagem explica o motivo; arquivos **idênticos** a um já guardado continuam sendo aceitos (não ocupam espaço novo).
+- **Aviso aos 80%** em *Dados e planilhas* e, ao atingir o bloqueio, também ao lado do botão **Anexar PDF**.
+- **Configure com folga:** para os 10 GB gratuitos do R2, use `VITE_LIMITE_ARMAZENAMENTO_GB=9` (o bloqueio ocorre então em cerca de 8,5 GB).
+- **Operações (Classe A/B):** os limites (1 milhão de gravações e 10 milhões de leituras por mês) são muito maiores do que um órgão usa — cada anexo gasta poucas operações. Mesmo assim, acompanhe no painel da Cloudflare.
+
+**Limites desta trava (leia):** ela roda no navegador e conta só os PDFs registrados no sistema. Ela **não** impede quem tiver as chaves do R2 de gravar direto no bucket. A proteção definitiva exige a função intermediária (Worker, passo 5), que poderá recusar gravações no servidor, e um **alerta de uso/cobrança** na Cloudflare (*Notifications*). Mantenha as chaves em segredo.
+
 ## Medidor de armazenamento no site
 
 Em **Dados e planilhas → Armazenamento dos anexos (PDF)** aparece a **porcentagem usada e disponível**, o tamanho em uso, quantos anexos e
