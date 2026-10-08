@@ -26,7 +26,8 @@ export const CATEGORIA_ATO = C.ato_autorizacao;
 export function formatarTamanho(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
-  return `${(bytes / 1024 / 1024).toFixed(1).replace('.', ',')} MB`;
+  if (bytes < 1024 ** 3) return `${(bytes / 1024 / 1024).toFixed(1).replace('.', ',')} MB`;
+  return `${(bytes / 1024 ** 3).toFixed(2).replace('.', ',')} GB`;
 }
 
 /**
@@ -85,4 +86,10 @@ export function resumirAnexos(anexos: Anexo[]): ResumoAnexos {
   }
   const usados = [...porChave.values()].reduce((s, t) => s + t, 0);
   return { anexos: anexos.length, arquivos: porChave.size, bytesUsados: usados, pendentes: semHash, bytesEconomizados: total - usados };
+}
+
+/** Limite de armazenamento dos anexos, em GB: padrão 1 GB (plano gratuito do Supabase). Ajustável por VITE_LIMITE_ARMAZENAMENTO_GB. */
+export function limiteArmazenamentoBytes(): number {
+  const bruto = Number((import.meta.env as unknown as Record<string, string | undefined>).VITE_LIMITE_ARMAZENAMENTO_GB);
+  return (Number.isFinite(bruto) && bruto > 0 ? bruto : 1) * 1024 * 1024 * 1024;
 }

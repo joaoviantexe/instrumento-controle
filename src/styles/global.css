@@ -2524,3 +2524,25 @@ main {
 .doc-auditoria[open] > summary {
   border-bottom: 1px solid var(--borda);
 }
+
+/* Armazenamento dos anexos */
+.armazenamento__trilho {
+  height: 14px;
+  background: var(--borda);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.armazenamento__barra {
+  height: 100%;
+  background: var(--verde, #4faf47);
+  border-radius: 999px;
+}
+.armazenamento__barra--alerta {
+  background: var(--perigo, #c0392b);
+}
+.armazenamento__legenda {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 0.9rem;
+}

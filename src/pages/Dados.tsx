@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Cloud, Download, FileSpreadsheet, HardDrive, RotateCcw } from 'lucide-react';
 import { ImportarPlanilha } from '../components/ImportarPlanilha';
+import { formatarTamanho, limiteArmazenamentoBytes, resumirAnexos } from '../lib/anexos';
+import { formatarPct } from '../lib/format';
 import { Dialogo, Faixa, Nota } from '../components/ui';
 import { useDados } from '../lib/store';
 import { useSessao } from '../lib/sessao';
@@ -18,6 +20,9 @@ export function Dados() {
   const [pendente, setPendente] = useState<{ titulo: string; texto: string; dados: Snapshot } | null>(null);
   const [processando, setProcessando] = useState(false);
   const vazio = d.unidades.length === 0;
+  const espaco = resumirAnexos(d.anexos);
+  const limite = limiteArmazenamentoBytes();
+  const usado = Math.min(1, espaco.bytesUsados / limite);
   async function substituir(dados: Snapshot) {
     setProcessando(true);
     try {
@@ -85,6 +90,36 @@ export function Dados() {
         </section>
 
         <ImportarPlanilha />
+
+        {!d.anexosErro && (
+          <section className="cartao">
+            <div className="cartao__cab">
+              <h2 className="titulo-bloco">Armazenamento dos anexos (PDF)</h2>
+              <HardDrive size={22} aria-hidden style={{ color: 'var(--verde-texto)' }} />
+            </div>
+            <div className="cartao__corpo" style={{ display: 'grid', gap: 12 }}>
+              <div className="armazenamento" role="img" aria-label={`${formatarPct(usado)} usado, ${formatarPct(1 - usado)} disponível`}>
+                <div className="armazenamento__trilho">
+                  <div className={'armazenamento__barra' + (usado >= 0.8 ? ' armazenamento__barra--alerta' : '')} style={{ width: `${Math.max(usado * 100, usado > 0 ? 1 : 0)}%` }} />
+                </div>
+                <div className="armazenamento__legenda">
+                  <span>
+                    <strong>{formatarPct(usado)}</strong> usado
+                  </span>
+                  <span>
+                    <strong>{formatarPct(1 - usado)}</strong> disponível
+                  </span>
+                </div>
+              </div>
+              <p className="texto-muted pequeno">
+                {formatarTamanho(espaco.bytesUsados)} de {formatarTamanho(limite)} · {espaco.anexos} anexo(s) em {espaco.arquivos} arquivo(s) distinto(s)
+                {espaco.bytesEconomizados > 0 && <> · {formatarTamanho(espaco.bytesEconomizados)} economizados por arquivos idênticos</>}.
+                O limite é o do plano de armazenamento contratado (padrão de 1 GB, do plano gratuito do Supabase); mede só os PDFs anexados, não o banco de dados.
+              </p>
+              {usado >= 0.8 && <Nota tipo="alerta">O armazenamento está acima de 80%. Considere migrar os anexos para outro serviço ou ampliar o plano.</Nota>}
+            </div>
+          </section>
+        )}
 
         <div className="grade-2">
           <section className="cartao">
