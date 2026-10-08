@@ -59,6 +59,8 @@ Mesmo assim, o passo 1.2 a 1.5 (executar o `schema.sql`, criar usuários e autor
 
 > As variáveis são embutidas no momento do *build*. Se alterá-las depois, faça um novo deploy (*Deployments → ⋯ → Redeploy*).
 
+> Prefere hospedar no Cloudflare Pages (plano gratuito que permite uso institucional)? Veja [CLOUDFLARE_PAGES.md](CLOUDFLARE_PAGES.md).
+
 ## 3-A. Habilitar os anexos em PDF
 
 Os anexos usam uma tabela (`anexos`) e um *bucket* privado do Storage, ambos criados pelo mesmo `supabase/schema.sql`.
