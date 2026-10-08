@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Acao, Anexo, Auditoria, Avaliacao, EntidadeAnexo, Snapshot, Unidade } from './types';
-import type { Backend } from './backend/tipos';
+import type { Backend, EnvioAnexo, ResultadoUnificacao } from './backend/tipos';
 import { ErroChaveDuplicada } from './backend/tipos';
 import {
   indexarAvaliacoes,
@@ -26,7 +26,9 @@ export interface Dados extends Snapshot, Derivados {
   anexos: Anexo[];
   /** Mensagem quando o recurso de anexos não está disponível (ex.: script do banco desatualizado). */
   anexosErro: string | null;
-  enviarAnexo(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }): Promise<Anexo>;
+  enviarAnexo(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }): Promise<EnvioAnexo>;
+  /** Une arquivos idênticos (e migra anexos antigos) para liberar espaço. */
+  unificarAnexos(): Promise<ResultadoUnificacao>;
   excluirAnexo(anexo: Anexo): Promise<void>;
   abrirAnexo(anexo: Anexo): Promise<string>;
   carregando: boolean;
@@ -266,9 +268,16 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         void limparAnexos((a) => a.entidade === 'acao' && a.entidade_id === id);
       },
       async enviarAnexo(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }) {
-        const a = await backend.anexos.enviar(arquivo, destino);
+        const { reaproveitado, ...a } = await backend.anexos.enviar(arquivo, destino);
         setAnexos((l) => [...l, a]);
-        return a;
+        return { ...a, reaproveitado };
+      },
+      async unificarAnexos() {
+        try {
+          return await backend.anexos.unificar();
+        } finally {
+          setAnexos(await backend.anexos.listar());
+        }
       },
       async excluirAnexo(anexo: Anexo) {
         await backend.anexos.excluir(anexo);

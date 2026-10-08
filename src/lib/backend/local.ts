@@ -1,6 +1,7 @@
+import { chaveArquivo, hashArquivo } from '../anexos';
 import type { Anexo, Snapshot } from '../types';
 import { snapshotInicial } from './inicial';
-import { ErroChaveDuplicada, mesmaChave, type AnexosApi, type Backend, type NomeTabela, type Tabelas } from './tipos';
+import { ErroChaveDuplicada, mesmaChave, type AnexosApi, type Backend, type NomeTabela, type ResultadoUnificacao, type Tabelas } from './tipos';
 
 const CHAVE_STORAGE = 'instrumento-cde:dados:v1';
 const NOME_BD_ANEXOS = 'instrumento-cde-anexos';
@@ -39,28 +40,31 @@ export function criarAnexosLocal(): AnexosApi {
       const bd = await abrirBd();
       const lista = await pedido(bd.transaction('meta').objectStore('meta').getAll() as IDBRequest<Anexo[]>);
       bd.close();
-      return lista.sort((a, b) => a.criado_em.localeCompare(b.criado_em));
+      return lista.map((a) => ({ ...a, hash: a.hash ?? '' })).sort((a, b) => a.criado_em.localeCompare(b.criado_em));
     },
     async enviar(arquivo, destino) {
+      const hash = await hashArquivo(arquivo);
       const anexo: Anexo = {
         id: crypto.randomUUID(),
         ...destino,
         nome: arquivo.name,
         tamanho: arquivo.size,
+        hash,
         criado_em: new Date().toISOString(),
         criado_por: '',
       };
       const bd = await abrirBd();
+      const existe = (await pedido(bd.transaction('arquivos').objectStore('arquivos').getKey(hash))) !== undefined;
       const t = bd.transaction(['meta', 'arquivos'], 'readwrite');
       t.objectStore('meta').put(anexo);
-      t.objectStore('arquivos').put(arquivo, anexo.id);
+      if (!existe) t.objectStore('arquivos').put(arquivo, hash);
       await terminar(t);
       bd.close();
-      return anexo;
+      return { ...anexo, reaproveitado: existe };
     },
     async abrir(anexo) {
       const bd = await abrirBd();
-      const blob = await pedido(bd.transaction('arquivos').objectStore('arquivos').get(anexo.id) as IDBRequest<Blob | undefined>);
+      const blob = await pedido(bd.transaction('arquivos').objectStore('arquivos').get(chaveArquivo(anexo)) as IDBRequest<Blob | undefined>);
       bd.close();
       if (!blob) throw new Error('O arquivo não foi encontrado neste navegador.');
       const url = URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
@@ -69,11 +73,36 @@ export function criarAnexosLocal(): AnexosApi {
     },
     async excluir(anexo) {
       const bd = await abrirBd();
+      const restantes = (await pedido(bd.transaction('meta').objectStore('meta').getAll() as IDBRequest<Anexo[]>)).filter(
+        (x) => x.id !== anexo.id && chaveArquivo(x) === chaveArquivo(anexo),
+      );
       const t = bd.transaction(['meta', 'arquivos'], 'readwrite');
       t.objectStore('meta').delete(anexo.id);
-      t.objectStore('arquivos').delete(anexo.id);
+      if (!restantes.length) t.objectStore('arquivos').delete(chaveArquivo(anexo));
       await terminar(t);
       bd.close();
+    },
+    async unificar() {
+      const bd = await abrirBd();
+      const metas = await pedido(bd.transaction('meta').objectStore('meta').getAll() as IDBRequest<Anexo[]>);
+      const res: ResultadoUnificacao = { analisados: 0, removidos: 0, bytesLiberados: 0 };
+      for (const m of metas.filter((x) => !x.hash)) {
+        res.analisados++;
+        const blob = await pedido(bd.transaction('arquivos').objectStore('arquivos').get(m.id) as IDBRequest<Blob | undefined>);
+        if (!blob) continue;
+        const hash = await hashArquivo(blob);
+        const existe = (await pedido(bd.transaction('arquivos').objectStore('arquivos').getKey(hash))) !== undefined;
+        const t = bd.transaction(['meta', 'arquivos'], 'readwrite');
+        if (existe) {
+          res.removidos++;
+          res.bytesLiberados += blob.size;
+        } else t.objectStore('arquivos').put(blob, hash);
+        t.objectStore('arquivos').delete(m.id);
+        t.objectStore('meta').put({ ...m, hash });
+        await terminar(t);
+      }
+      bd.close();
+      return res;
     },
   };
 }

@@ -178,6 +178,9 @@ create table if not exists public.anexos (
   criado_em   timestamptz not null default now(),
   criado_por  text
 );
+-- Impressão digital (SHA-256) do arquivo: anexos idênticos compartilham um único arquivo no Storage.
+alter table public.anexos add column if not exists hash text;
+create index if not exists anexos_hash_idx on public.anexos(hash);
 create index if not exists anexos_entidade_idx on public.anexos(entidade, entidade_id);
 
 create or replace function public.marcar_autoria()

@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { chaveArquivo, hashArquivo } from '../anexos';
 import type { Anexo, Snapshot } from '../types';
-import { AnexosIndisponiveis, CHAVES, ErroChaveDuplicada, type AnexosApi, type Backend, type NomeTabela, type Tabelas } from './tipos';
+import { AnexosIndisponiveis, CHAVES, ErroChaveDuplicada, type AnexosApi, type Backend, type NomeTabela, type ResultadoUnificacao, type Tabelas } from './tipos';
 
 type Env = Record<string, string | undefined>;
 const env = import.meta.env as unknown as Env;
@@ -78,45 +79,88 @@ function ausente(error: { code?: string; message: string }): boolean {
 }
 
 function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
+  const arquivos = () => sb.storage.from(BUCKET);
+  const jaExiste = (e: { message: string; statusCode?: string }) => e.statusCode === '409' || /already exists|Duplicate/i.test(e.message);
+
+  async function listar() {
+    const { data, error } = await sb.from('anexos').select('*').order('criado_em');
+    if (error) {
+      if (ausente(error)) throw new AnexosIndisponiveis();
+      throw new Error(error.message);
+    }
+    return (data ?? []).map((l) => doBanco<Anexo>(l));
+  }
+
+  /** Há outro anexo usando o mesmo arquivo? */
+  async function emUso(chave: string, exceto: string): Promise<boolean> {
+    const { data, error } = await sb.from('anexos').select('id').or(`hash.eq.${chave},id.eq.${chave}`).neq('id', exceto).limit(1);
+    if (error) throw new Error(error.message);
+    return (data ?? []).length > 0;
+  }
+
   return {
-    async listar() {
-      const { data, error } = await sb.from('anexos').select('*').order('criado_em');
-      if (error) {
-        if (ausente(error)) throw new AnexosIndisponiveis();
-        throw new Error(error.message);
-      }
-      return (data ?? []).map((l) => doBanco<Anexo>(l));
-    },
+    listar,
     async enviar(arquivo, destino) {
-      const id = crypto.randomUUID();
-      const caminho = `${id}.pdf`;
-      const up = await sb.storage.from(BUCKET).upload(caminho, arquivo, { contentType: 'application/pdf', upsert: false });
-      if (up.error) {
-        if (ausente(up.error)) throw new AnexosIndisponiveis();
-        throw new Error(up.error.message);
+      const hash = await hashArquivo(arquivo);
+      const { data: igual, error: e0 } = await sb.from('anexos').select('id').eq('hash', hash).limit(1);
+      if (e0) {
+        if (ausente(e0)) throw new AnexosIndisponiveis();
+        throw new Error(e0.message);
+      }
+      const reaproveitado = (igual ?? []).length > 0;
+      if (!reaproveitado) {
+        const up = await arquivos().upload(`${hash}.pdf`, arquivo, { contentType: 'application/pdf', upsert: false });
+        if (up.error && !jaExiste(up.error as { message: string; statusCode?: string })) {
+          if (ausente(up.error)) throw new AnexosIndisponiveis();
+          throw new Error(up.error.message);
+        }
       }
       const { data, error } = await sb
         .from('anexos')
-        .insert(paraBanco({ id, ...destino, nome: arquivo.name, tamanho: arquivo.size }))
+        .insert(paraBanco({ id: crypto.randomUUID(), ...destino, nome: arquivo.name, tamanho: arquivo.size, hash }))
         .select()
         .single();
       if (error) {
-        await sb.storage.from(BUCKET).remove([caminho]); // não deixa arquivo órfão
         if (ausente(error)) throw new AnexosIndisponiveis();
         throw new Error(error.message);
       }
-      return doBanco<Anexo>(data);
+      return { ...doBanco<Anexo>(data), reaproveitado };
     },
     async abrir(anexo) {
-      const { data, error } = await sb.storage.from(BUCKET).createSignedUrl(`${anexo.id}.pdf`, 120);
+      const { data, error } = await arquivos().createSignedUrl(`${chaveArquivo(anexo)}.pdf`, 120);
       if (error || !data) throw new Error(error?.message ?? 'Não foi possível abrir o arquivo.');
       return data.signedUrl;
     },
     async excluir(anexo) {
-      const r = await sb.storage.from(BUCKET).remove([`${anexo.id}.pdf`]);
-      if (r.error) throw new Error(r.error.message);
       const { error } = await sb.from('anexos').delete().eq('id', anexo.id);
       if (error) throw new Error(error.message);
+      if (!(await emUso(chaveArquivo(anexo), anexo.id))) {
+        const r = await arquivos().remove([`${chaveArquivo(anexo)}.pdf`]);
+        if (r.error) throw new Error(r.error.message);
+      }
+    },
+    async unificar() {
+      const res: ResultadoUnificacao = { analisados: 0, removidos: 0, bytesLiberados: 0 };
+      const todos = await listar();
+      const guardados = new Set(todos.filter((a) => a.hash).map((a) => a.hash));
+      for (const a of todos.filter((x) => !x.hash)) {
+        res.analisados++;
+        const baixado = await arquivos().download(`${a.id}.pdf`);
+        if (baixado.error || !baixado.data) continue;
+        const hash = await hashArquivo(baixado.data);
+        if (!guardados.has(hash)) {
+          const up = await arquivos().upload(`${hash}.pdf`, baixado.data, { contentType: 'application/pdf', upsert: false });
+          if (up.error && !jaExiste(up.error as { message: string; statusCode?: string })) throw new Error(up.error.message);
+          guardados.add(hash);
+        } else {
+          res.removidos++;
+          res.bytesLiberados += a.tamanho;
+        }
+        const { error } = await sb.from('anexos').update({ hash }).eq('id', a.id);
+        if (error) throw new Error(error.message);
+        await arquivos().remove([`${a.id}.pdf`]);
+      }
+      return res;
     },
   };
 }

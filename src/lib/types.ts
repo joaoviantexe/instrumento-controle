@@ -113,6 +113,8 @@ export interface Anexo {
   categoria: string;
   nome: string;
   tamanho: number;
+  /** SHA-256 do conteúdo: anexos com o mesmo hash dividem um único arquivo. Vazio nos anexos antigos (ainda não unificados). */
+  hash: string;
   criado_em: string;
   criado_por: string;
 }
