@@ -16,10 +16,22 @@ export const CHAVES: { [T in NomeTabela]: (keyof Tabelas[T])[] } = {
   acoes: ['id'],
 };
 
+export type EnvioAnexo = Anexo & { reaproveitado: boolean };
+
+export interface ResultadoUnificacao {
+  analisados: number;
+  /** Arquivos duplicados apagados. */
+  removidos: number;
+  bytesLiberados: number;
+}
+
 /** Anexos em PDF: metadados em tabela e arquivos no armazenamento. */
 export interface AnexosApi {
   listar(): Promise<Anexo[]>;
-  enviar(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }): Promise<Anexo>;
+  /** Se já existe um arquivo idêntico (mesmo conteúdo), ele é reaproveitado em vez de gravado de novo. */
+  enviar(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }): Promise<EnvioAnexo>;
+  /** Passa os anexos antigos para o armazenamento por conteúdo e apaga as cópias idênticas. */
+  unificar(): Promise<ResultadoUnificacao>;
   /** Devolve um endereço temporário para abrir o PDF. */
   abrir(anexo: Anexo): Promise<string>;
   excluir(anexo: Anexo): Promise<void>;

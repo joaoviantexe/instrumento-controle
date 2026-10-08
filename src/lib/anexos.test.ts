@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { LIMITE_BYTES, formatarTamanho, unidadesComAto, validarPdf, CATEGORIA_ATO } from './anexos';
+import { LIMITE_BYTES, formatarTamanho, hashArquivo, resumirAnexos, unidadesComAto, validarPdf, CATEGORIA_ATO } from './anexos';
 import type { Anexo } from './types';
 
 const pdf = (nome = 'ato.pdf', conteudo = '%PDF-1.7\n...') => new File([conteudo], nome, { type: 'application/pdf' });
@@ -37,5 +37,24 @@ describe('utilitários de anexos', () => {
       { id: '3', entidade: 'acao', entidade_id: 'UN-003', categoria: CATEGORIA_ATO, ...base },
     ];
     expect([...unidadesComAto(lista)]).toEqual(['UN-001']);
+  });
+});
+
+describe('arquivos repetidos', () => {
+  it('o mesmo conteúdo tem o mesmo hash e conteúdos diferentes, não', async () => {
+    const a = await hashArquivo(new Blob(['%PDF-1.4 igual']));
+    expect(a).toMatch(/^[0-9a-f]{64}$/);
+    expect(await hashArquivo(new Blob(['%PDF-1.4 igual']))).toBe(a);
+    expect(await hashArquivo(new Blob(['%PDF-1.4 outro']))).not.toBe(a);
+  });
+
+  it('resume o espaço contando anexos idênticos uma só vez', () => {
+    const base = { entidade: 'unidade', entidade_id: 'U', categoria: '', nome: 'x.pdf', criado_em: '', criado_por: '' } as const;
+    const r = resumirAnexos([
+      { ...base, id: '1', tamanho: 100, hash: 'h1' },
+      { ...base, id: '2', tamanho: 100, hash: 'h1' },
+      { ...base, id: '3', tamanho: 50, hash: '' },
+    ]);
+    expect(r).toEqual({ anexos: 3, arquivos: 2, bytesUsados: 150, pendentes: 1, bytesEconomizados: 100 });
   });
 });

@@ -39,3 +39,37 @@ export async function validarPdf(arquivo: File): Promise<string | null> {
 export function unidadesComAto(anexos: Anexo[]): Set<string> {
   return new Set(anexos.filter((a) => a.entidade === 'unidade' && a.categoria === CATEGORIA_ATO).map((a) => a.entidade_id));
 }
+
+/** Impressão digital (SHA-256, em hexadecimal) do conteúdo: arquivos idênticos têm o mesmo valor. */
+export async function hashArquivo(arquivo: Blob): Promise<string> {
+  const bytes = new Uint8Array(await crypto.subtle.digest('SHA-256', await arquivo.arrayBuffer()));
+  return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+/** Nome do arquivo no armazenamento: pelo conteúdo (hash) ou, nos anexos antigos, pelo id. */
+export const chaveArquivo = (a: Pick<Anexo, 'id' | 'hash'>) => a.hash || a.id;
+
+export interface ResumoAnexos {
+  anexos: number;
+  /** Arquivos realmente guardados (anexos idênticos contam uma vez). */
+  arquivos: number;
+  /** Espaço ocupado hoje. */
+  bytesUsados: number;
+  /** Espaço que uma unificação ainda pode liberar (cópias idênticas ou antigas sem hash). */
+  pendentes: number;
+  /** Quanto o compartilhamento de arquivos idênticos já economiza. */
+  bytesEconomizados: number;
+}
+
+export function resumirAnexos(anexos: Anexo[]): ResumoAnexos {
+  const porChave = new Map<string, number>();
+  let total = 0;
+  let semHash = 0;
+  for (const a of anexos) {
+    total += a.tamanho;
+    if (!a.hash) semHash++;
+    if (!porChave.has(chaveArquivo(a))) porChave.set(chaveArquivo(a), a.tamanho);
+  }
+  const usados = [...porChave.values()].reduce((s, t) => s + t, 0);
+  return { anexos: anexos.length, arquivos: porChave.size, bytesUsados: usados, pendentes: semHash, bytesEconomizados: total - usados };
+}
