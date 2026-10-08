@@ -7,12 +7,16 @@ export const LIMITE_BYTES = 10 * 1024 * 1024;
 /** Categorias de documento de cada tipo de registro (os nomes vêm das colunas da planilha). */
 export const CATEGORIA_AUTORIZACAO_CME = 'Autorização de Funcionamento - CME';
 
-const emOrdem = (l: string[]) => [...l].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+const OUTRO = 'Outro documento';
+
+/** Ordem alfabética, com "Outro documento" sempre por último. */
+const emOrdem = (l: string[]) =>
+  [...l].sort((a, b) => (a === OUTRO ? 1 : b === OUTRO ? -1 : a.localeCompare(b, 'pt-BR')));
 
 /** Em ordem alfabética. */
 export const CATEGORIAS: Record<EntidadeAnexo, string[]> = {
-  unidade: emOrdem([CATEGORIA_AUTORIZACAO_CME, C.ato_autorizacao, C.ato_criacao, 'Decreto', 'Outro documento']),
-  auditoria: emOrdem(['Relatório da auditoria', 'Comprovante da visita', 'Outro documento']),
+  unidade: emOrdem([CATEGORIA_AUTORIZACAO_CME, C.ato_autorizacao, C.ato_criacao, 'Decreto', OUTRO]),
+  auditoria: emOrdem(['Relatório da auditoria', 'Comprovante da visita', OUTRO]),
   avaliacao: ['Evidência'],
   acao: ['Evidência de conclusão'],
 };
