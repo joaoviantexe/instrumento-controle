@@ -44,12 +44,23 @@ e as funções que contam gravações/leituras do mês e o espaço usado no R2. 
    | `LIMITE_B` | Texto | `9000000` (leituras/mês; gratuito: 10 milhões) |
 5. Anote o endereço do Worker (algo como `https://instrumento-cde-anexos.<seu-subdominio>.workers.dev`).
 
-**C. Ligar o site**
-1. Na hospedagem do site (Vercel ou Cloudflare Pages) → variáveis de ambiente: `VITE_ANEXOS_URL` = endereço do Worker (sem barra final) e
-   `VITE_LIMITE_ARMAZENAMENTO_GB` = `9`. Publique de novo.
-2. Entre no site → **Dados e planilhas**. Aparecem as barras de **gravações** e **leituras** do mês. Se houver anexos no Supabase, aparece o botão
+**C. Ligar o site** — `VITE_ANEXOS_URL` **não** vai no Worker dos anexos: ela é uma variável do **site** (o outro Worker, `instrumento-controle`, ou a Vercel).
+1. Abra a hospedagem do **site** e cadastre estas variáveis **de build** (as que começam com `VITE_` são embutidas no código na hora de montar o site):
+   - Worker do site na Cloudflare: **Settings → Build → Variables and secrets** (a seção "Runtime" fica bloqueada para sites só com arquivos estáticos).
+   - Vercel: **Settings → Environment Variables**.
+
+   | Nome | Valor |
+   |---|---|
+   | `VITE_SUPABASE_URL` | endereço do projeto Supabase |
+   | `VITE_SUPABASE_ANON_KEY` | chave *anon/publishable* do Supabase |
+   | **`VITE_ANEXOS_URL`** | endereço do Worker dos anexos, **sem barra no final** (ex.: `https://instrumento-cde-anexos.joaoviantexe.workers.dev`) |
+   | `VITE_LIMITE_ARMAZENAMENTO_GB` | `9` |
+   | `NODE_VERSION` | `20` |
+2. **Publique de novo** o site (novo *deploy* ou *push*): sem isso a variável nova não entra no código.
+3. Entre no site → **Dados e planilhas**. Aparecem as barras de **gravações** e **leituras** do mês. Se houver anexos no Supabase, aparece o botão
    **Mover anexos para o Cloudflare R2** (copia cada arquivo, confere e só então apaga do Supabase; se algum limite for atingido, ele para e informa).
-3. Teste: anexe um PDF em uma unidade, abra-o e confira no painel da Cloudflare (bucket → *Objects*) que o arquivo apareceu.
+4. Teste: anexe um PDF em uma unidade, abra-o e confira no painel da Cloudflare (bucket → *Objects*) que o arquivo apareceu.
+5. Se as barras não aparecerem, a variável `VITE_ANEXOS_URL` não entrou no build: confira o nome (exatamente assim, em maiúsculas) e publique de novo.
 
 **Segurança do Worker:** só responde a quem está logado **e** consta na tabela `membros`; só aceita PDF de até 10 MB cujo conteúdo confere com o hash;
 só libera CORS para os endereços de `ORIGENS`. Os limites são verificados **no servidor**, a cada operação, com contagem compartilhada por toda a equipe.
