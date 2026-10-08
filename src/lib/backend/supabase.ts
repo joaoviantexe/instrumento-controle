@@ -6,7 +6,7 @@ import { AnexosIndisponiveis, CHAVES, ErroChaveDuplicada, type AnexosApi, type B
 type Env = Record<string, string | undefined>;
 const env = import.meta.env as unknown as Env;
 
-/** Aceita os nomes usados pelo painel do Supabase e pela integração Supabase da Vercel. */
+/** Aceita os nomes usados pelo painel do Supabase e por integrações que usam o prefixo NEXT_PUBLIC_. */
 export const SUPABASE_URL = env.VITE_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL || '';
 export const SUPABASE_CHAVE =
   env.VITE_SUPABASE_ANON_KEY ||
@@ -87,6 +87,9 @@ function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
 
   /** Chamada ao Worker, com o login do Supabase. */
   async function worker(caminho: string, init: RequestInit): Promise<Response> {
+    if (!ANEXOS_URL) {
+      throw new Error('Este endereço do site não está ligado ao Cloudflare R2 (falta a variável VITE_ANEXOS_URL), onde estes PDFs estão guardados. Use o site configurado para o R2 ou cadastre a variável e publique de novo.');
+    }
     const token = (await sb.auth.getSession()).data.session?.access_token;
     if (!token) throw new Error('Sessão expirada. Entre novamente.');
     const r = await fetch(ANEXOS_URL + caminho, { ...init, headers: { ...(init.headers as Record<string, string>), Authorization: `Bearer ${token}` } });

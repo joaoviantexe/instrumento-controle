@@ -59,7 +59,7 @@ on conflict (email) do nothing;
 select email, nome, criado_em from public.membros order by email;
 ```
 
-A pessoa já pode entrar em `https://seu-site.vercel.app` com o e-mail e a senha definidos. Se ela estava com a tela de "não autorizado" aberta, basta atualizar a página (`F5`).
+A pessoa já pode entrar em o endereço do site (Cloudflare) com o e-mail e a senha definidos. Se ela estava com a tela de "não autorizado" aberta, basta atualizar a página (`F5`).
 
 ---
 
@@ -78,7 +78,7 @@ Assim que a linha sai de `membros`, a pessoa deixa de ver e de gravar dados, mes
 ## Trocar ou redefinir a senha
 
 - **Pelo painel (recomendado):** *Authentication → Users* → **⋯** ao lado do usuário → defina uma nova senha (ou **Send password recovery** para enviar um link por e-mail). Informe a nova senha à pessoa.
-- Para o link de recuperação funcionar, em *Authentication → URL Configuration* o **Site URL** deve ser o endereço do site na Vercel.
+- Para o link de recuperação funcionar, em *Authentication → URL Configuration* o **Site URL** deve ser o endereço do site na Cloudflare.
 - O envio de e-mails do plano gratuito tem limite baixo por hora; para poucas pessoas, definir a senha pelo painel é mais simples.
 
 ## Listar quem tem acesso

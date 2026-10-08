@@ -23,7 +23,7 @@ portal da SEMEC (`referencia.zip`).
 Também: **anexos em PDF** (ato de autorização/vigência, evidências, relatórios de auditoria e de ações), busca global (`Ctrl+K`), painel "Precisa de atenção", planejamento em lote, colunas configuráveis, layout para celular e impressão em A4.
 
 📖 **[Manual de funcionalidades](docs/MANUAL.md)** — cada tela e recurso, e como a pontuação é calculada.
-🚀 **[Guia de implantação](docs/IMPLANTACAO.md)** — Vercel + Supabase, passo a passo, custo zero.
+🚀 **[Guia de implantação](docs/IMPLANTACAO.md)** — Cloudflare + Supabase, passo a passo, custo zero.
 🛠️ **[Guia prático](docs/GUIA_PRATICO.md)** — passo a passo de cada funcionalidade (ex.: como resolver uma vigência vencida).
 🧭 **[Entendendo a planilha e o site](docs/ENTENDENDO_A_PLANILHA.md)** — guia **para quem não conhece o assunto**: o que o Excel fazia, seus limites e como cada parte virou site.
 👥 **[Gerenciamento de usuários](docs/USUARIOS.md)** — como criar contas, autorizar e remover acessos no Supabase.
@@ -83,7 +83,7 @@ Os textos são copiados exatamente como estão nas células. Para recarregar o b
 **Dados e planilhas → Restaurar dados originais** (apaga avaliações e ações — exporte o Excel antes).
 Para apenas **atualizar** os dados com uma planilha nova, sem apagar nada, use **Dados e planilhas → Atualizar dados com uma planilha**.
 
-🌐 Hospedagem alternativa: [Cloudflare Pages (passo a passo)](docs/CLOUDFLARE_PAGES.md).
+🌐 Hospedagem: [Cloudflare (passo a passo)](docs/HOSPEDAGEM_CLOUDFLARE.md).
 
 ☁️ Armazenamento de PDFs: [passo a passo do Cloudflare R2](docs/CLOUDFLARE_R2.md).
 
