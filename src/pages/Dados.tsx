@@ -29,6 +29,7 @@ export function Dados() {
   useEffect(() => {
     if (d.destinoAnexos === 'r2') void d.usoOperacoes().then(setUso);
   }, [d.destinoAnexos, d.anexos.length]); // eslint-disable-line react-hooks/exhaustive-deps
+  const noR2SemConfig = d.destinoAnexos !== 'r2' && d.anexos.some((a) => a.destino === 'r2');
   const pendentesR2 = d.destinoAnexos === 'r2' ? new Set(d.anexos.filter((a) => a.destino !== 'r2' && a.hash).map((a) => a.hash)).size : 0;
 
   async function migrar() {
@@ -169,6 +170,12 @@ export function Dados() {
               <Nota tipo="alerta">{d.anexosErro}</Nota>
             ) : (
               <>
+                {noR2SemConfig && (
+                  <Nota tipo="alerta">
+                    Há PDFs guardados no <strong>Cloudflare R2</strong>, mas este endereço do site não está ligado a ele (falta a variável <code>VITE_ANEXOS_URL</code>): aqui eles não abrem
+                    e novos PDFs seriam gravados no Supabase. Use o site configurado para o R2 ou cadastre a variável e publique de novo.
+                  </Nota>
+                )}
                 {alertaEspaco === 'bloqueado' && (
                   <Nota tipo="alerta">Limite de segurança atingido: novos anexos estão bloqueados (os idênticos a arquivos já guardados ainda são aceitos). Exclua anexos desnecessários ou amplie o armazenamento.</Nota>
                 )}
