@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Acao, Anexo, Auditoria, Avaliacao, EntidadeAnexo, Snapshot, Unidade } from './types';
-import type { Backend, EnvioAnexo, ResultadoUnificacao } from './backend/tipos';
+import type { Backend, EnvioAnexo } from './backend/tipos';
 import { ErroChaveDuplicada } from './backend/tipos';
 import {
   indexarAvaliacoes,
@@ -27,8 +27,6 @@ export interface Dados extends Snapshot, Derivados {
   /** Mensagem quando o recurso de anexos não está disponível (ex.: script do banco desatualizado). */
   anexosErro: string | null;
   enviarAnexo(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }): Promise<EnvioAnexo>;
-  /** Une arquivos idênticos (e migra anexos antigos) para liberar espaço. */
-  unificarAnexos(): Promise<ResultadoUnificacao>;
   excluirAnexo(anexo: Anexo): Promise<void>;
   abrirAnexo(anexo: Anexo): Promise<string>;
   carregando: boolean;
@@ -61,6 +59,7 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
   const [anexosErro, setAnexosErro] = useState<string | null>(null);
   const snapRef = useRef(snap);
   snapRef.current = snap;
+  const unificando = useRef(false);
   const anexosRef = useRef(anexos);
   anexosRef.current = anexos;
 
@@ -71,8 +70,17 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
       setSnap(s);
       setCarregando(false);
       try {
-        setAnexos(await backend.anexos.listar());
+        const lista = await backend.anexos.listar();
+        setAnexos(lista);
         setAnexosErro(null);
+        // Anexos antigos (sem hash) são unificados sozinhos, uma vez por sessão.
+        if (!unificando.current && lista.some((x) => !x.hash)) {
+          unificando.current = true;
+          void backend.anexos
+            .unificar()
+            .then(async () => setAnexos(await backend.anexos.listar()))
+            .catch(() => undefined);
+        }
       } catch (e) {
         // Anexos são opcionais: o restante do sistema continua funcionando sem eles.
         setAnexos([]);
@@ -271,13 +279,6 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         const { reaproveitado, ...a } = await backend.anexos.enviar(arquivo, destino);
         setAnexos((l) => [...l, a]);
         return { ...a, reaproveitado };
-      },
-      async unificarAnexos() {
-        try {
-          return await backend.anexos.unificar();
-        } finally {
-          setAnexos(await backend.anexos.listar());
-        }
       },
       async excluirAnexo(anexo: Anexo) {
         await backend.anexos.excluir(anexo);

@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Cloud, Download, Layers, FileSpreadsheet, HardDrive, RotateCcw } from 'lucide-react';
+import { Cloud, Download, FileSpreadsheet, HardDrive, RotateCcw } from 'lucide-react';
 import { ImportarPlanilha } from '../components/ImportarPlanilha';
-import { formatarTamanho, resumirAnexos } from '../lib/anexos';
 import { Dialogo, Faixa, Nota } from '../components/ui';
 import { useDados } from '../lib/store';
 import { useSessao } from '../lib/sessao';
@@ -19,26 +18,6 @@ export function Dados() {
   const [pendente, setPendente] = useState<{ titulo: string; texto: string; dados: Snapshot } | null>(null);
   const [processando, setProcessando] = useState(false);
   const vazio = d.unidades.length === 0;
-  const espaco = resumirAnexos(d.anexos);
-
-  async function unificar() {
-    setProcessando(true);
-    try {
-      const r = await d.unificarAnexos();
-      avisar(
-        r.removidos
-          ? `${r.removidos} arquivo(s) repetido(s) unificado(s); ${formatarTamanho(r.bytesLiberados)} liberados.`
-          : r.analisados
-            ? 'Anexos organizados. Não havia arquivos repetidos.'
-            : 'Não há anexos para unificar.',
-      );
-    } catch (e) {
-      avisar('Falha ao unificar: ' + (e as Error).message, 'erro');
-    } finally {
-      setProcessando(false);
-    }
-  }
-
   async function substituir(dados: Snapshot) {
     setProcessando(true);
     try {
@@ -106,50 +85,6 @@ export function Dados() {
         </section>
 
         <ImportarPlanilha />
-
-        {!d.anexosErro && (
-          <section className="cartao">
-            <div className="cartao__cab">
-              <h2 className="titulo-bloco">Espaço dos anexos (PDF)</h2>
-              <Layers size={22} aria-hidden style={{ color: 'var(--verde-texto)' }} />
-            </div>
-            <div className="cartao__corpo" style={{ display: 'grid', gap: 12 }}>
-              <dl className="definicoes" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))' }}>
-                <div>
-                  <dt>Anexos</dt>
-                  <dd className="forte">{espaco.anexos}</dd>
-                </div>
-                <div>
-                  <dt>Arquivos guardados</dt>
-                  <dd className="forte">{espaco.arquivos}</dd>
-                </div>
-                <div>
-                  <dt>Espaço usado</dt>
-                  <dd className="forte">{formatarTamanho(espaco.bytesUsados)}</dd>
-                </div>
-                <div>
-                  <dt>Economizado por compartilhamento</dt>
-                  <dd className="forte">{formatarTamanho(espaco.bytesEconomizados)}</dd>
-                </div>
-              </dl>
-              <p className="texto-muted pequeno">
-                Quando o mesmo PDF é anexado a várias unidades, o sistema identifica que o conteúdo é idêntico e guarda{' '}
-                <strong>um único arquivo</strong> — cada unidade continua com o seu anexo. Novos anexos já fazem isso sozinhos.
-                {espaco.pendentes > 0 && (
-                  <>
-                    {' '}
-                    <strong>{espaco.pendentes}</strong> anexo(s) enviado(s) antes dessa função ainda não foram verificados: use o botão para unificá-los.
-                  </>
-                )}
-              </p>
-              <div>
-                <button type="button" className="btn btn--primario" disabled={processando || espaco.anexos === 0} onClick={() => void unificar()}>
-                  <Layers size={16} aria-hidden /> Unificar arquivos repetidos
-                </button>
-              </div>
-            </div>
-          </section>
-        )}
 
         <div className="grade-2">
           <section className="cartao">

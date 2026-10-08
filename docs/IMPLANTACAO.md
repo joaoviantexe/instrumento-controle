@@ -65,7 +65,7 @@ Os anexos usam uma tabela (`anexos`) e um *bucket* privado do Storage, ambos cri
 **Em um projeto já criado**, basta **executar o arquivo `supabase/schema.sql` inteiro de novo** (SQL Editor → colar → *Run*): ele é
 idempotente e não apaga dados. Para conferir: *Storage* deve listar o bucket **anexos** (privado). Enquanto isso não for feito,
 o resto do sistema funciona normalmente e as áreas de anexo mostram um aviso pedindo a atualização do banco.
-**Reexecute o `schema.sql` também depois desta atualização** (acrescenta a coluna `hash`, usada para guardar PDFs idênticos uma só vez); depois, em *Dados e planilhas*, clique em **Unificar arquivos repetidos** para os PDFs já enviados.
+**Reexecute o `schema.sql` também depois desta atualização** (acrescenta a coluna `hash`, usada para guardar PDFs idênticos uma só vez); os PDFs já enviados são unificados sozinhos na próxima abertura do sistema.
 Limites: 10 MB por PDF; o plano gratuito do Supabase oferece 1 GB de arquivos.
 
 ## 4. Primeiro acesso

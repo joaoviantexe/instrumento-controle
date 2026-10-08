@@ -30,8 +30,8 @@ export function Anexos({ entidade, entidadeId }: { entidade: EntidadeAnexo; enti
           continue;
         }
         try {
-          const r = await d.enviarAnexo(arquivo, { entidade, entidade_id: entidadeId, categoria });
-          avisar(r.reaproveitado ? `"${arquivo.name}" anexado (arquivo idêntico já existia: nenhum espaço extra usado).` : `"${arquivo.name}" anexado.`);
+          await d.enviarAnexo(arquivo, { entidade, entidade_id: entidadeId, categoria });
+          avisar(`"${arquivo.name}" anexado.`);
         } catch (e) {
           avisar('Não foi possível anexar: ' + (e as Error).message, 'erro');
         }
