@@ -1,6 +1,6 @@
 import { useRef, useState, type DragEvent } from 'react';
 import { FileText, Paperclip, Trash2, Upload } from 'lucide-react';
-import { CATEGORIAS, LIMITE_BYTES, formatarTamanho, validarPdf } from '../lib/anexos';
+import { CATEGORIAS, CATEGORIA_ATO, LIMITE_BYTES, formatarTamanho, validarPdf } from '../lib/anexos';
 import { avisar } from '../lib/avisos';
 import { formatarData } from '../lib/format';
 import { useDados } from '../lib/store';
@@ -11,7 +11,7 @@ import { CampoSelect, Dialogo, Nota } from './ui';
 export function Anexos({ entidade, entidadeId }: { entidade: EntidadeAnexo; entidadeId: string }) {
   const d = useDados();
   const categorias = CATEGORIAS[entidade];
-  const [categoria, setCategoria] = useState(categorias[0]);
+  const [categoria, setCategoria] = useState(categorias.includes(CATEGORIA_ATO) ? CATEGORIA_ATO : categorias[0]);
   const [enviando, setEnviando] = useState(false);
   const [arrastando, setArrastando] = useState(false);
   const [excluindo, setExcluindo] = useState<Anexo | null>(null);
