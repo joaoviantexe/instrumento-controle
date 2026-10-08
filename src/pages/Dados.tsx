@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Cloud, Download, FileSpreadsheet, HardDrive, RotateCcw } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import { Cloud, Download, FileSpreadsheet, HardDrive, Paperclip, RotateCcw } from 'lucide-react';
 import { ImportarPlanilha } from '../components/ImportarPlanilha';
 import { MARGEM_BLOQUEIO, formatarTamanho, limiteArmazenamentoBytes, resumirAnexos } from '../lib/anexos';
 import { formatarPct } from '../lib/format';
@@ -72,160 +73,195 @@ export function Dados() {
     ]);
   }
 
+  const [params, setParams] = useSearchParams();
+  const aba = (['planilhas', 'anexos', 'avancado'] as const).find((x) => x === params.get('aba')) ?? 'planilhas';
+  const irPara = (x: string) => setParams(x === 'planilhas' ? {} : { aba: x }, { replace: true });
+  const alertaEspaco = usado >= MARGEM_BLOQUEIO ? 'bloqueado' : usado >= 0.8 ? 'atencao' : null;
+
+  const restaurar = () =>
+    setPendente({
+      titulo: vazio ? 'Carregar dados da planilha' : 'Restaurar dados originais',
+      texto: vazio
+        ? 'Os dados da planilha original serão carregados no banco.'
+        : 'Todos os dados atuais serão substituídos pelo conteúdo original da planilha. Recomenda-se exportar o Excel antes.',
+      dados: snapshotInicial(),
+    });
+
+  const Barra = ({ f, rotulo, detalhe }: { f: number; rotulo: string; detalhe: string }) => (
+    <div className="medicao">
+      <div className="medicao__topo">
+        <span>{rotulo}</span>
+        <span>
+          <strong>{formatarPct(f)}</strong> usado · <strong>{formatarPct(1 - f)}</strong> disponível
+        </span>
+      </div>
+      <div className="armazenamento__trilho" role="img" aria-label={`${rotulo}: ${formatarPct(f)} usado`}>
+        <div className={'armazenamento__barra' + (f >= 0.8 ? ' armazenamento__barra--alerta' : '')} style={{ width: `${Math.max(f * 100, f > 0 ? 1 : 0)}%` }} />
+      </div>
+      <small className="texto-muted">{detalhe}</small>
+    </div>
+  );
+
   return (
     <>
-      <Faixa titulo="Dados e planilhas" sub="Exportação para Excel e atualização dos dados por planilha." />
+      <Faixa titulo="Dados e planilhas" sub="Exportar e atualizar os dados por planilha, acompanhar os anexos em PDF e gerenciar o armazenamento." />
       <div className="container pagina">
         {vazio && (
           <Nota tipo="alerta">
-            O banco de dados está vazio. Use <strong>Carregar dados da planilha</strong> abaixo para importar as{' '}
+            O banco de dados está vazio. Em <strong>Avançado</strong>, use <strong>Carregar dados da planilha</strong> para importar as{' '}
             {PLANILHA.unidades.length} unidades e as {PLANILHA.auditorias.length} auditorias da planilha original.
           </Nota>
         )}
 
-        <section className="cartao">
-          <div className="cartao__cab">
-            <h2 className="titulo-bloco">Armazenamento</h2>
+        <div className="dados-status">
+          {d.modo === 'supabase' ? <Cloud size={20} aria-hidden /> : <HardDrive size={20} aria-hidden />}
+          <div>
+            <strong>{d.modo === 'supabase' ? 'Banco compartilhado (Supabase)' : 'Modo local'}</strong>
+            <span className="texto-muted pequeno">
+              {d.modo === 'supabase'
+                ? ` · projeto ${new URL(SUPABASE_URL).hostname} · sessão: ${email}`
+                : ' · os dados ficam só neste navegador; exporte para Excel com frequência'}
+            </span>
           </div>
-          <div className="cartao__corpo" style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
-            {d.modo === 'supabase' ? (
-              <>
-                <Cloud size={32} aria-hidden style={{ color: 'var(--azul-sec)', flexShrink: 0 }} />
+          <span className="chip chip--azul" title="Onde os novos PDFs são guardados">
+            PDFs: {d.destinoAnexos === 'r2' ? 'Cloudflare R2' : d.destinoAnexos === 'supabase' ? 'Supabase' : 'este navegador'}
+          </span>
+        </div>
+
+        <div className="abas" role="tablist" aria-label="Seções">
+          {(
+            [
+              ['planilhas', 'Planilhas', FileSpreadsheet],
+              ['anexos', 'Anexos (PDF)', Paperclip],
+              ['avancado', 'Avançado', RotateCcw],
+            ] as const
+          ).map(([id, rotulo, Icone]) => (
+            <button key={id} type="button" role="tab" id={`aba-${id}`} aria-selected={aba === id} aria-controls={`painel-${id}`} className={'abas__aba' + (aba === id ? ' abas__aba--ativa' : '')} onClick={() => irPara(id)}>
+              <Icone size={16} aria-hidden /> {rotulo}
+              {id === 'anexos' && alertaEspaco && <span className="abas__alerta" aria-label="Atenção ao espaço" />}
+            </button>
+          ))}
+        </div>
+
+        {aba === 'planilhas' && (
+          <div role="tabpanel" id="painel-planilhas" aria-labelledby="aba-planilhas" className="dados-painel">
+            <section className="cartao">
+              <div className="cartao__corpo dados-linha">
                 <div>
-                  <strong>Banco compartilhado (Supabase)</strong>
-                  <p className="texto-muted">
-                    Os dados ficam no banco do projeto <code>{new URL(SUPABASE_URL).hostname}</code> e são compartilhados por
-                    toda a equipe autorizada. Sessão atual: {email}.
+                  <h2 className="titulo-bloco">Exportar planilha completa</h2>
+                  <p className="texto-muted pequeno">
+                    Gera um arquivo .xlsx com as abas Cadastro Unidades, Lista Mestra, Plano de Auditoria, Auditoria Documental, Plano de Ação e
+                    Relatórios, com os mesmos cabeçalhos da planilha original. Serve também como cópia de segurança.
                   </p>
                 </div>
-              </>
+                <button type="button" className="btn btn--primario" onClick={exportarTudo}>
+                  <Download size={16} aria-hidden /> Exportar Excel
+                </button>
+              </div>
+            </section>
+            <ImportarPlanilha />
+          </div>
+        )}
+
+        {aba === 'anexos' && (
+          <div role="tabpanel" id="painel-anexos" aria-labelledby="aba-anexos" className="dados-painel">
+            {d.anexosErro ? (
+              <Nota tipo="alerta">{d.anexosErro}</Nota>
             ) : (
               <>
-                <HardDrive size={32} aria-hidden style={{ color: 'var(--azul-sec)', flexShrink: 0 }} />
-                <div>
-                  <strong>Modo local</strong>
-                  <p className="texto-muted">
-                    Os dados ficam salvos somente neste navegador, neste computador. Para trabalhar em equipe, configure o
-                    banco compartilhado gratuito (Supabase), conforme o guia de implantação. Exporte para Excel com frequência:
-                    limpar os dados do navegador apaga as informações.
-                  </p>
+                {alertaEspaco === 'bloqueado' && (
+                  <Nota tipo="alerta">Limite de segurança atingido: novos anexos estão bloqueados (os idênticos a arquivos já guardados ainda são aceitos). Exclua anexos desnecessários ou amplie o armazenamento.</Nota>
+                )}
+                {alertaEspaco === 'atencao' && (
+                  <Nota tipo="alerta">O armazenamento está acima de 80%. Os envios serão bloqueados em {Math.round(MARGEM_BLOQUEIO * 100)}% para não gerar cobrança.</Nota>
+                )}
+
+                <div className="metricas">
+                  <div>
+                    <span>Anexos</span>
+                    <strong>{espaco.anexos}</strong>
+                  </div>
+                  <div>
+                    <span>Arquivos distintos</span>
+                    <strong>{espaco.arquivos}</strong>
+                  </div>
+                  <div>
+                    <span>Espaço usado</span>
+                    <strong>{formatarTamanho(espaco.bytesUsados)}</strong>
+                  </div>
+                  <div>
+                    <span>Economizado (idênticos)</span>
+                    <strong>{formatarTamanho(espaco.bytesEconomizados)}</strong>
+                  </div>
                 </div>
+
+                <section className="cartao">
+                  <div className="cartao__cab">
+                    <h2 className="titulo-bloco">Espaço de armazenamento</h2>
+                    <HardDrive size={22} aria-hidden style={{ color: 'var(--verde-texto)' }} />
+                  </div>
+                  <div className="cartao__corpo" style={{ display: 'grid', gap: 16 }}>
+                    <Barra f={usado} rotulo="PDFs anexados" detalhe={`${formatarTamanho(espaco.bytesUsados)} de ${formatarTamanho(limite)}. Mede só os PDFs, não o banco de dados.`} />
+                    <p className="texto-muted pequeno" style={{ margin: 0 }}>
+                      O limite vem de <code>VITE_LIMITE_ARMAZENAMENTO_GB</code>. Novos envios são recusados a partir de {Math.round(MARGEM_BLOQUEIO * 100)}% dele.
+                    </p>
+                  </div>
+                </section>
+
+                {d.destinoAnexos === 'r2' && (
+                  <section className="cartao">
+                    <div className="cartao__cab">
+                      <h2 className="titulo-bloco">Cloudflare R2: operações neste mês</h2>
+                      <Cloud size={22} aria-hidden style={{ color: 'var(--verde-texto)' }} />
+                    </div>
+                    <div className="cartao__corpo" style={{ display: 'grid', gap: 16 }}>
+                      {([['A', 'Gravações', LIMITE_A], ['B', 'Leituras', LIMITE_B]] as const).map(([k, rotulo, lim]) => {
+                        const v = uso ? uso[k] : 0;
+                        return <Barra key={k} f={Math.min(1, v / lim)} rotulo={rotulo} detalhe={`${v.toLocaleString('pt-BR')} de ${lim.toLocaleString('pt-BR')} permitidos no mês`} />;
+                      })}
+                      <p className="texto-muted pequeno" style={{ margin: 0 }}>
+                        O servidor recusa novas gravações e leituras ao atingir esses limites (zeram todo mês), para não gerar cobrança.
+                      </p>
+                    </div>
+                  </section>
+                )}
+
+                {pendentesR2 > 0 && (
+                  <section className="cartao">
+                    <div className="cartao__corpo dados-linha">
+                      <div>
+                        <h2 className="titulo-bloco">Mover anexos para o Cloudflare R2</h2>
+                        <p className="texto-muted pequeno">{pendentesR2} arquivo(s) ainda estão no Supabase. Cada um é copiado, conferido e só então apagado de lá.</p>
+                      </div>
+                      <button type="button" className="btn btn--primario" disabled={processando} onClick={() => void migrar()}>
+                        Mover anexos
+                      </button>
+                    </div>
+                  </section>
+                )}
               </>
             )}
           </div>
-        </section>
-
-        <ImportarPlanilha />
-
-        {!d.anexosErro && (
-          <section className="cartao">
-            <div className="cartao__cab">
-              <h2 className="titulo-bloco">Armazenamento dos anexos (PDF)</h2>
-              <HardDrive size={22} aria-hidden style={{ color: 'var(--verde-texto)' }} />
-            </div>
-            <div className="cartao__corpo" style={{ display: 'grid', gap: 12 }}>
-              <div className="armazenamento" role="img" aria-label={`${formatarPct(usado)} usado, ${formatarPct(1 - usado)} disponível`}>
-                <div className="armazenamento__trilho">
-                  <div className={'armazenamento__barra' + (usado >= 0.8 ? ' armazenamento__barra--alerta' : '')} style={{ width: `${Math.max(usado * 100, usado > 0 ? 1 : 0)}%` }} />
-                </div>
-                <div className="armazenamento__legenda">
-                  <span>
-                    <strong>{formatarPct(usado)}</strong> usado
-                  </span>
-                  <span>
-                    <strong>{formatarPct(1 - usado)}</strong> disponível
-                  </span>
-                </div>
-              </div>
-              <p className="texto-muted pequeno">
-                {formatarTamanho(espaco.bytesUsados)} de {formatarTamanho(limite)} · {espaco.anexos} anexo(s) em {espaco.arquivos} arquivo(s) distinto(s)
-                {espaco.bytesEconomizados > 0 && <> · {formatarTamanho(espaco.bytesEconomizados)} economizados por arquivos idênticos</>}.
-                O limite é o do plano de armazenamento contratado (padrão de 1 GB, do plano gratuito do Supabase); mede só os PDFs anexados, não o banco de dados.
-              </p>
-              {d.destinoAnexos === 'r2' && (
-                <div className="armazenamento" style={{ display: 'grid', gap: 10 }}>
-                  <strong>Cloudflare R2: operações neste mês</strong>
-                  {([['A', 'Gravações', LIMITE_A], ['B', 'Leituras', LIMITE_B]] as const).map(([k, rotulo, lim]) => {
-                    const v = uso ? uso[k] : 0;
-                    const f = Math.min(1, v / lim);
-                    return (
-                      <div key={k}>
-                        <div className="armazenamento__trilho">
-                          <div className={'armazenamento__barra' + (f >= 0.8 ? ' armazenamento__barra--alerta' : '')} style={{ width: `${Math.max(f * 100, f > 0 ? 1 : 0)}%` }} />
-                        </div>
-                        <div className="armazenamento__legenda">
-                          <span>{rotulo}: <strong>{v.toLocaleString('pt-BR')}</strong> de {lim.toLocaleString('pt-BR')}</span>
-                          <span><strong>{formatarPct(f)}</strong> usado · <strong>{formatarPct(1 - f)}</strong> disponível</span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                  <p className="texto-muted pequeno">O servidor recusa novas gravações/leituras ao atingir esses limites (zeram todo mês), para não gerar cobrança.</p>
-                </div>
-              )}
-              {pendentesR2 > 0 && (
-                <div>
-                  <Nota tipo="alerta">{pendentesR2} arquivo(s) ainda estão no Supabase.</Nota>
-                  <button type="button" className="btn btn--primario" style={{ marginTop: 10 }} disabled={processando} onClick={() => void migrar()}>
-                    Mover anexos para o Cloudflare R2
-                  </button>
-                </div>
-              )}
-              {usado >= MARGEM_BLOQUEIO ? (
-                <Nota tipo="alerta">Limite de segurança atingido: novos anexos estão bloqueados (os idênticos a arquivos já guardados ainda são aceitos). Exclua anexos desnecessários ou amplie o armazenamento.</Nota>
-              ) : usado >= 0.8 ? (
-                <Nota tipo="alerta">O armazenamento está acima de 80%. Os envios serão bloqueados em {Math.round(MARGEM_BLOQUEIO * 100)}% para não gerar cobrança.</Nota>
-              ) : null}
-            </div>
-          </section>
         )}
 
-        <div className="grade-2">
-          <section className="cartao">
-            <div className="cartao__cab">
-              <h2 className="titulo-bloco">Planilha completa</h2>
-              <FileSpreadsheet size={22} aria-hidden style={{ color: 'var(--verde-texto)' }} />
-            </div>
-            <div className="cartao__corpo" style={{ display: 'grid', gap: 14 }}>
-              <p className="texto-muted pequeno">
-                Gera um arquivo .xlsx com as abas Cadastro Unidades, Lista Mestra, Plano de Auditoria, Auditoria Documental,
-                Plano de Ação e Relatórios, com os mesmos cabeçalhos da planilha original.
-              </p>
-              <button type="button" className="btn btn--primario" onClick={exportarTudo}>
-                <Download size={16} aria-hidden /> Exportar Excel
-              </button>
-            </div>
-          </section>
-
-          <section className="cartao">
-            <div className="cartao__cab">
-              <h2 className="titulo-bloco">Dados da planilha</h2>
-              <RotateCcw size={22} aria-hidden style={{ color: 'var(--perigo)' }} />
-            </div>
-            <div className="cartao__corpo" style={{ display: 'grid', gap: 14 }}>
-              <p className="texto-muted pequeno">
-                Recarrega o conteúdo original de <em>{PLANILHA.fonte}</em>: {PLANILHA.unidades.length} unidades e{' '}
-                {PLANILHA.auditorias.length} auditorias. Avaliações e ações registradas são apagadas.
-              </p>
-              <button
-                type="button"
-                className={vazio ? 'btn btn--verde' : 'btn btn--perigo'}
-                disabled={processando}
-                onClick={() =>
-                  setPendente({
-                    titulo: vazio ? 'Carregar dados da planilha' : 'Restaurar dados originais',
-                    texto: vazio
-                      ? 'Os dados da planilha original serão carregados no banco.'
-                      : 'Todos os dados atuais serão substituídos pelo conteúdo original da planilha. Recomenda-se exportar o Excel antes.',
-                    dados: snapshotInicial(),
-                  })
-                }
-              >
-                <RotateCcw size={16} aria-hidden /> {vazio ? 'Carregar dados da planilha' : 'Restaurar dados originais'}
-              </button>
-            </div>
-          </section>
-        </div>
+        {aba === 'avancado' && (
+          <div role="tabpanel" id="painel-avancado" aria-labelledby="aba-avancado" className="dados-painel">
+            <section className="cartao cartao--perigo">
+              <div className="cartao__corpo dados-linha">
+                <div>
+                  <h2 className="titulo-bloco">{vazio ? 'Carregar dados da planilha' : 'Restaurar dados originais'}</h2>
+                  <p className="texto-muted pequeno">
+                    Recarrega o conteúdo original de <em>{PLANILHA.fonte}</em>: {PLANILHA.unidades.length} unidades e {PLANILHA.auditorias.length} auditorias.
+                    {!vazio && <> <strong>Avaliações e ações registradas são apagadas.</strong> Exporte o Excel antes.</>}
+                  </p>
+                </div>
+                <button type="button" className={vazio ? 'btn btn--verde' : 'btn btn--perigo'} disabled={processando} onClick={restaurar}>
+                  <RotateCcw size={16} aria-hidden /> {vazio ? 'Carregar dados da planilha' : 'Restaurar dados originais'}
+                </button>
+              </div>
+            </section>
+          </div>
+        )}
       </div>
 
       {pendente && (

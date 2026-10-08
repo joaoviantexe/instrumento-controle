@@ -210,6 +210,8 @@ Para as reuniões de gestão:
 
 ## 12. Dados e planilhas
 
+A tela tem uma faixa de estado (banco usado e onde os PDFs são guardados) e três abas: **Planilhas** (exportar e atualizar por planilha), **Anexos (PDF)** (anexos, arquivos distintos, espaço usado e economizado, barras de armazenamento e de operações do mês no Cloudflare R2, e a migração do Supabase para o R2) e **Avançado** (restaurar os dados originais).
+
 - **Planilha completa**: gera um `.xlsx` com as abas *Cadastro Unidades, Lista Mestra, Plano de Auditoria, Auditoria Documental,
   Plano de Ação* e *Relatórios*, com os mesmos cabeçalhos da planilha original (datas e percentuais formatados, filtros e primeira linha fixa).
 - **Atualizar dados com uma planilha**: envie um `.xlsx` (a planilha original atualizada ou o arquivo gerado por *Exportar Excel*).

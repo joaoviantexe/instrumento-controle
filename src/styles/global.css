@@ -2546,3 +2546,113 @@ main {
   margin-top: 6px;
   font-size: 0.9rem;
 }
+
+/* Dados e planilhas: faixa de estado, abas e métricas */
+.dados-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  color: var(--azul-sec, var(--azul));
+}
+.dados-status > div {
+  flex: 1;
+  min-width: 220px;
+  color: var(--tinta);
+}
+.abas {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid var(--borda);
+  overflow-x: auto;
+}
+.abas__aba {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  position: relative;
+}
+.abas__aba:hover {
+  color: var(--azul);
+}
+.abas__aba:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: -3px;
+}
+.abas__aba--ativa {
+  color: var(--azul);
+  border-bottom-color: var(--verde, #4faf47);
+}
+.abas__alerta {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--perigo, #c0392b);
+}
+.dados-painel {
+  display: grid;
+  gap: 18px;
+}
+.dados-linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.dados-linha > div {
+  flex: 1;
+  min-width: 260px;
+}
+.dados-linha p {
+  margin: 4px 0 0;
+}
+.cartao--perigo {
+  border-color: var(--perigo, #c0392b);
+}
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+}
+.metricas > div {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+}
+.metricas span {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.metricas strong {
+  font-size: 1.5rem;
+  color: var(--azul);
+  font-family: var(--fonte-titulo, inherit);
+}
+.medicao {
+  display: grid;
+  gap: 6px;
+}
+.medicao__topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
