@@ -144,7 +144,7 @@ Para mostrar ou esconder colunas, use **Colunas** (seção 14).
 
 1. Em qualquer tela de verificação há uma área **Documentos / Anexar PDF**: na **unidade** (atos), em cada **item da Auditoria Documental** (evidência), na **auditoria** e no **Checklist da Visita** (relatório, comprovantes) e na **ação** (comprovação de conclusão — salve a ação antes).
 2. Arraste o PDF (até 10 MB) ou clique em **Anexar PDF**; escolha o *Tipo de documento* quando houver opções.
-3. Se o mesmo PDF já foi anexado em outra unidade, o sistema avisa e **não gasta espaço extra**. Para limpar anexos antigos repetidos: *Dados e planilhas → Unificar arquivos repetidos*.
+3. Se o mesmo PDF já foi anexado em outra unidade, o sistema **não gasta espaço extra** (sem aviso na tela). Para limpar anexos antigos repetidos: *Dados e planilhas → Unificar arquivos repetidos*.
 4. Para ver, clique no nome do arquivo: abre em outra aba. Para remover, a lixeira (pede confirmação); o arquivo só some do armazenamento quando nenhum outro anexo o usa.
 
 ## 15. Exportar, imprimir e atualizar por planilha
