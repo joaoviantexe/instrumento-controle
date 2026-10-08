@@ -225,6 +225,73 @@ begin
 end $$;
 
 -- ---------------------------------------------------------------------
+-- Cloudflare R2 (opcional): onde está o arquivo e contador mensal de operações
+-- ---------------------------------------------------------------------
+alter table public.anexos add column if not exists destino text not null default 'supabase';
+
+create table if not exists public.uso_operacoes (
+  mes   text   not null,                       -- AAAA-MM (UTC)
+  tipo  text   not null check (tipo in ('A', 'B')),  -- A = gravações/listagens; B = leituras
+  total bigint not null default 0,
+  primary key (mes, tipo)
+);
+alter table public.uso_operacoes enable row level security;
+drop policy if exists "membros consultam" on public.uso_operacoes;
+create policy "membros consultam" on public.uso_operacoes for select to authenticated
+  using (public.is_membro());
+
+-- Soma uma operação no mês; devolve falso (e não soma) quando passaria do limite.
+create or replace function public.reservar_operacao(p_tipo text, p_qtd integer, p_limite bigint)
+returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_mes   text := to_char(now() at time zone 'utc', 'YYYY-MM');
+  v_total bigint;
+begin
+  if not public.is_membro() then
+    raise exception 'não autorizado';
+  end if;
+  if p_tipo not in ('A', 'B') or p_qtd < 1 then
+    raise exception 'operação inválida';
+  end if;
+  insert into public.uso_operacoes (mes, tipo, total) values (v_mes, p_tipo, 0) on conflict do nothing;
+  update public.uso_operacoes
+     set total = total + p_qtd
+   where mes = v_mes and tipo = p_tipo and total + p_qtd <= p_limite
+   returning total into v_total;
+  return v_total is not null;
+end;
+$$;
+
+-- Espaço ocupado no R2 (arquivos idênticos contam uma vez).
+create or replace function public.bytes_usados_r2()
+returns bigint
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+begin
+  if not public.is_membro() then
+    raise exception 'não autorizado';
+  end if;
+  return coalesce((
+    select sum(t) from (
+      select max(tamanho) as t from public.anexos where destino = 'r2' group by coalesce(nullif(hash, ''), id)
+    ) x
+  ), 0);
+end;
+$$;
+
+revoke all on function public.reservar_operacao(text, integer, bigint) from public;
+revoke all on function public.bytes_usados_r2() from public;
+grant execute on function public.reservar_operacao(text, integer, bigint) to authenticated;
+grant execute on function public.bytes_usados_r2() to authenticated;
+
+-- ---------------------------------------------------------------------
 -- Depois de executar este arquivo, autorize cada pessoa da equipe:
 --   insert into public.membros (email, nome) values ('pessoa@semec.belem.pa.gov.br', 'Nome');
 -- e crie o usuário em Authentication > Users > Add user (com o mesmo e-mail).

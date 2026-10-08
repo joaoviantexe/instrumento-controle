@@ -115,6 +115,8 @@ export interface Anexo {
   tamanho: number;
   /** SHA-256 do conteúdo: anexos com o mesmo hash dividem um único arquivo. Vazio nos anexos antigos (ainda não unificados). */
   hash: string;
+  /** Onde está o arquivo: 'supabase' (Storage), 'r2' (Cloudflare) ou 'local' (navegador). */
+  destino: string;
   criado_em: string;
   criado_por: string;
 }

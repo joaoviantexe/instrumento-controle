@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { LIMITE_BYTES, formatarTamanho, hashArquivo, resumirAnexos, unidadesComAto, validarPdf, CATEGORIA_ATO } from './anexos';
+import { LIMITE_BYTES, formatarTamanho, hashArquivo, resumirAnexos, verificarEspaco, unidadesComAto, validarPdf, CATEGORIA_ATO } from './anexos';
 import type { Anexo } from './types';
 
 const pdf = (nome = 'ato.pdf', conteudo = '%PDF-1.7\n...') => new File([conteudo], nome, { type: 'application/pdf' });
@@ -56,5 +56,21 @@ describe('arquivos repetidos', () => {
       { ...base, id: '3', tamanho: 50, hash: '' },
     ]);
     expect(r).toEqual({ anexos: 3, arquivos: 2, bytesUsados: 150, pendentes: 1, bytesEconomizados: 100 });
+  });
+});
+
+describe('limite de armazenamento', () => {
+  const base = { entidade: 'unidade', entidade_id: 'U', categoria: '', nome: 'x.pdf', criado_em: '', criado_por: '' } as const;
+  const MB = 1024 * 1024;
+  const cheio = [{ ...base, id: '1', tamanho: 95 * MB, hash: 'h1' }];
+
+  it('aceita enquanto couber abaixo da margem e recusa quando passar', () => {
+    expect(verificarEspaco([], 94 * MB, 'n', 100 * MB)).toBeNull();
+    expect(verificarEspaco([], 96 * MB, 'n', 100 * MB)).toContain('Limite de armazenamento atingido');
+    expect(verificarEspaco(cheio, 1, 'n', 100 * MB)).toContain('atingido');
+  });
+
+  it('aceita arquivo idêntico a um já guardado, mesmo no limite', () => {
+    expect(verificarEspaco(cheio, 50 * MB, 'h1', 100 * MB)).toBeNull();
   });
 });

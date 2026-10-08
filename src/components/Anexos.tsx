@@ -1,6 +1,6 @@
 import { useRef, useState, type DragEvent } from 'react';
 import { FileText, Paperclip, Trash2, Upload } from 'lucide-react';
-import { CATEGORIAS, CATEGORIA_ATO, LIMITE_BYTES, formatarTamanho, validarPdf } from '../lib/anexos';
+import { CATEGORIAS, CATEGORIA_ATO, armazenamentoCheio, LIMITE_BYTES, formatarTamanho, validarPdf } from '../lib/anexos';
 import { avisar } from '../lib/avisos';
 import { formatarData } from '../lib/format';
 import { useDados } from '../lib/store';
@@ -17,6 +17,8 @@ export function Anexos({ entidade, entidadeId }: { entidade: EntidadeAnexo; enti
   const [excluindo, setExcluindo] = useState<Anexo | null>(null);
   const entrada = useRef<HTMLInputElement>(null);
   const lista = d.anexos.filter((a) => a.entidade === entidade && a.entidade_id === entidadeId);
+
+  const cheio = armazenamentoCheio(d.anexos);
 
   if (d.anexosErro) return <Nota tipo="alerta">{d.anexosErro}</Nota>;
 
@@ -92,6 +94,11 @@ export function Anexos({ entidade, entidadeId }: { entidade: EntidadeAnexo; enti
         </ul>
       )}
 
+      {cheio && (
+        <Nota tipo="alerta">
+          Armazenamento no limite de segurança: novos arquivos serão recusados (exceto os idênticos a um já guardado). Veja <strong>Dados e planilhas</strong>.
+        </Nota>
+      )}
       <div
         className={'anexos__drop' + (arrastando ? ' anexos__drop--ativo' : '')}
         onDragOver={(e) => {

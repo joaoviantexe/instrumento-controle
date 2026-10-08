@@ -83,4 +83,8 @@ Os textos são copiados exatamente como estão nas células. Para recarregar o b
 **Dados e planilhas → Restaurar dados originais** (apaga avaliações e ações — exporte o Excel antes).
 Para apenas **atualizar** os dados com uma planilha nova, sem apagar nada, use **Dados e planilhas → Atualizar dados com uma planilha**.
 
+🌐 Hospedagem alternativa: [Cloudflare Pages (passo a passo)](docs/CLOUDFLARE_PAGES.md).
+
+☁️ Armazenamento de PDFs: [passo a passo do Cloudflare R2](docs/CLOUDFLARE_R2.md).
+
 🔭 Ideia para o futuro: [integração com o CME](docs/FUTURO_INTEGRACAO_CME.md) (coletar atos e vigências automaticamente).

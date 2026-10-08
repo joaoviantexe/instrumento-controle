@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { Acao, Anexo, Auditoria, Avaliacao, EntidadeAnexo, Snapshot, Unidade } from './types';
-import type { Backend, EnvioAnexo } from './backend/tipos';
+import type { Backend, EnvioAnexo, ResultadoMigracao, UsoOperacoes } from './backend/tipos';
 import { ErroChaveDuplicada } from './backend/tipos';
 import {
   indexarAvaliacoes,
@@ -11,6 +11,7 @@ import {
   type MapaAvaliacoes,
   type ResumoAuditoria,
 } from './calc';
+import { hashArquivo, verificarEspaco } from './anexos';
 import { avisar } from './avisos';
 
 interface Derivados {
@@ -27,6 +28,12 @@ export interface Dados extends Snapshot, Derivados {
   /** Mensagem quando o recurso de anexos não está disponível (ex.: script do banco desatualizado). */
   anexosErro: string | null;
   enviarAnexo(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }): Promise<EnvioAnexo>;
+  /** Onde os novos PDFs são gravados. */
+  destinoAnexos: 'local' | 'supabase' | 'r2';
+  /** Copia para o R2 os PDFs que ainda estão no Supabase (só no modo R2). */
+  migrarAnexos(): Promise<ResultadoMigracao>;
+  /** Operações do mês contadas no servidor (só no modo R2). */
+  usoOperacoes(): Promise<UsoOperacoes | null>;
   excluirAnexo(anexo: Anexo): Promise<void>;
   abrirAnexo(anexo: Anexo): Promise<string>;
   carregando: boolean;
@@ -276,10 +283,20 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         void limparAnexos((a) => a.entidade === 'acao' && a.entidade_id === id);
       },
       async enviarAnexo(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }) {
+        const recusa = verificarEspaco(anexosRef.current, arquivo.size, await hashArquivo(arquivo));
+        if (recusa) throw new Error(recusa);
         const { reaproveitado, ...a } = await backend.anexos.enviar(arquivo, destino);
         setAnexos((l) => [...l, a]);
         return { ...a, reaproveitado };
       },
+      async migrarAnexos() {
+        try {
+          return (await backend.anexos.migrar?.()) ?? { movidos: 0, restantes: 0 };
+        } finally {
+          setAnexos(await backend.anexos.listar());
+        }
+      },
+      usoOperacoes: async () => (await backend.anexos.uso?.()) ?? null,
       async excluirAnexo(anexo: Anexo) {
         await backend.anexos.excluir(anexo);
         setAnexos((l) => l.filter((x) => x.id !== anexo.id));
@@ -303,8 +320,8 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
   }, [backend, executar, recarregar, limparAnexos]);
 
   const valor = useMemo<Dados>(
-    () => ({ ...snap, ...derivados, ...acoes, anexos, anexosErro, modo: backend.modo, carregando, erro, recarregar }),
-    [snap, derivados, acoes, anexos, anexosErro, backend.modo, carregando, erro, recarregar],
+    () => ({ ...snap, ...derivados, ...acoes, anexos, anexosErro, destinoAnexos: backend.anexos.destinoNovo, modo: backend.modo, carregando, erro, recarregar }),
+    [snap, derivados, acoes, anexos, anexosErro, backend, carregando, erro, recarregar],
   );
 
   return <Contexto.Provider value={valor}>{children}</Contexto.Provider>;
