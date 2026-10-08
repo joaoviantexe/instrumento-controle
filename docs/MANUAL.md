@@ -244,8 +244,7 @@ Onde há **verificação ou comprovação de documentos**, é possível anexar e
 - **Arquivos repetidos ocupam espaço uma só vez:** ao anexar, o sistema calcula a impressão digital (SHA-256) do PDF; se já existe um arquivo
   idêntico (mesmo conteúdo, ainda que com outro nome), ele é **reaproveitado** — cada unidade continua com o seu anexo, mas o arquivo é guardado uma única vez.
   Só é apagado do armazenamento quando o último anexo que o usa é excluído.
-- **Anexos enviados antes dessa função:** em *Dados e planilhas → Espaço dos anexos (PDF)* veja anexos, arquivos guardados, espaço usado e economizado,
-  e use **Unificar arquivos repetidos** para verificar os antigos e apagar as cópias idênticas (seguro: nenhum anexo é perdido).
+- **Anexos enviados antes dessa função** são verificados e unificados **automaticamente** na primeira abertura do sistema (nenhum anexo é perdido).
 - Ao excluir uma unidade, auditoria ou ação, os PDFs dela são apagados junto.
 - **Armazenamento:** no modo local, os PDFs ficam neste navegador (IndexedDB); no modo compartilhado, no *Storage* privado do Supabase
   (bucket `anexos`; plano gratuito: 1 GB). Só quem está na tabela `membros` consegue ver os arquivos; os links de abertura expiram em 2 minutos.
