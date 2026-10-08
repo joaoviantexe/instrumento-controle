@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Cloud, Download, FileSpreadsheet, HardDrive, RotateCcw } from 'lucide-react';
 import { ImportarPlanilha } from '../components/ImportarPlanilha';
 import { MARGEM_BLOQUEIO, formatarTamanho, limiteArmazenamentoBytes, resumirAnexos } from '../lib/anexos';
@@ -14,12 +14,38 @@ import { avisar } from '../lib/avisos';
 import { PLANILHA } from '../data/planilha';
 import type { Snapshot } from '../lib/types';
 
+const env = import.meta.env as unknown as Record<string, string | undefined>;
+const LIMITE_A = Number(env.VITE_LIMITE_GRAVACOES) || 900000;
+const LIMITE_B = Number(env.VITE_LIMITE_LEITURAS) || 9000000;
+
 export function Dados() {
   const d = useDados();
   const { email } = useSessao();
   const [pendente, setPendente] = useState<{ titulo: string; texto: string; dados: Snapshot } | null>(null);
   const [processando, setProcessando] = useState(false);
   const vazio = d.unidades.length === 0;
+  const [uso, setUso] = useState<{ A: number; B: number } | null>(null);
+  useEffect(() => {
+    if (d.destinoAnexos === 'r2') void d.usoOperacoes().then(setUso);
+  }, [d.destinoAnexos, d.anexos.length]); // eslint-disable-line react-hooks/exhaustive-deps
+  const pendentesR2 = d.destinoAnexos === 'r2' ? new Set(d.anexos.filter((a) => a.destino !== 'r2' && a.hash).map((a) => a.hash)).size : 0;
+
+  async function migrar() {
+    setProcessando(true);
+    try {
+      const r = await d.migrarAnexos();
+      avisar(
+        r.parouPor
+          ? `Migração interrompida: ${r.parouPor}. ${r.movidos} arquivo(s) movido(s); restam ${r.restantes}.`
+          : `${r.movidos} arquivo(s) movido(s) para o Cloudflare R2.`,
+        r.parouPor ? 'erro' : 'sucesso',
+      );
+    } catch (e) {
+      avisar('Falha na migração: ' + (e as Error).message, 'erro');
+    } finally {
+      setProcessando(false);
+    }
+  }
   const espaco = resumirAnexos(d.anexos);
   const limite = limiteArmazenamentoBytes();
   const usado = Math.min(1, espaco.bytesUsados / limite);
@@ -116,6 +142,35 @@ export function Dados() {
                 {espaco.bytesEconomizados > 0 && <> · {formatarTamanho(espaco.bytesEconomizados)} economizados por arquivos idênticos</>}.
                 O limite é o do plano de armazenamento contratado (padrão de 1 GB, do plano gratuito do Supabase); mede só os PDFs anexados, não o banco de dados.
               </p>
+              {d.destinoAnexos === 'r2' && (
+                <div className="armazenamento" style={{ display: 'grid', gap: 10 }}>
+                  <strong>Cloudflare R2: operações neste mês</strong>
+                  {([['A', 'Gravações', LIMITE_A], ['B', 'Leituras', LIMITE_B]] as const).map(([k, rotulo, lim]) => {
+                    const v = uso ? uso[k] : 0;
+                    const f = Math.min(1, v / lim);
+                    return (
+                      <div key={k}>
+                        <div className="armazenamento__trilho">
+                          <div className={'armazenamento__barra' + (f >= 0.8 ? ' armazenamento__barra--alerta' : '')} style={{ width: `${Math.max(f * 100, f > 0 ? 1 : 0)}%` }} />
+                        </div>
+                        <div className="armazenamento__legenda">
+                          <span>{rotulo}: <strong>{v.toLocaleString('pt-BR')}</strong> de {lim.toLocaleString('pt-BR')}</span>
+                          <span><strong>{formatarPct(f)}</strong> usado · <strong>{formatarPct(1 - f)}</strong> disponível</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <p className="texto-muted pequeno">O servidor recusa novas gravações/leituras ao atingir esses limites (zeram todo mês), para não gerar cobrança.</p>
+                </div>
+              )}
+              {pendentesR2 > 0 && (
+                <div>
+                  <Nota tipo="alerta">{pendentesR2} arquivo(s) ainda estão no Supabase.</Nota>
+                  <button type="button" className="btn btn--primario" style={{ marginTop: 10 }} disabled={processando} onClick={() => void migrar()}>
+                    Mover anexos para o Cloudflare R2
+                  </button>
+                </div>
+              )}
               {usado >= MARGEM_BLOQUEIO ? (
                 <Nota tipo="alerta">Limite de segurança atingido: novos anexos estão bloqueados (os idênticos a arquivos já guardados ainda são aceitos). Exclua anexos desnecessários ou amplie o armazenamento.</Nota>
               ) : usado >= 0.8 ? (

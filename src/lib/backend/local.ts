@@ -36,11 +36,12 @@ function terminar(t: IDBTransaction): Promise<void> {
 
 export function criarAnexosLocal(): AnexosApi {
   return {
+    destinoNovo: 'local',
     async listar() {
       const bd = await abrirBd();
       const lista = await pedido(bd.transaction('meta').objectStore('meta').getAll() as IDBRequest<Anexo[]>);
       bd.close();
-      return lista.map((a) => ({ ...a, hash: a.hash ?? '' })).sort((a, b) => a.criado_em.localeCompare(b.criado_em));
+      return lista.map((a) => ({ ...a, hash: a.hash ?? '', destino: a.destino ?? 'local' })).sort((a, b) => a.criado_em.localeCompare(b.criado_em));
     },
     async enviar(arquivo, destino) {
       const hash = await hashArquivo(arquivo);
@@ -50,6 +51,7 @@ export function criarAnexosLocal(): AnexosApi {
         nome: arquivo.name,
         tamanho: arquivo.size,
         hash,
+        destino: 'local',
         criado_em: new Date().toISOString(),
         criado_por: '',
       };

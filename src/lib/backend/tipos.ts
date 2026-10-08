@@ -25,13 +25,33 @@ export interface ResultadoUnificacao {
   bytesLiberados: number;
 }
 
+export interface ResultadoMigracao {
+  movidos: number;
+  restantes: number;
+  /** Motivo, quando a migração parou antes do fim (limite atingido, falha de rede). */
+  parouPor?: string;
+}
+
+export interface UsoOperacoes {
+  /** Gravações e listagens do mês. */
+  A: number;
+  /** Leituras do mês. */
+  B: number;
+}
+
 /** Anexos em PDF: metadados em tabela e arquivos no armazenamento. */
 export interface AnexosApi {
+  /** Onde os novos arquivos são gravados. */
+  destinoNovo: 'local' | 'supabase' | 'r2';
   listar(): Promise<Anexo[]>;
   /** Se já existe um arquivo idêntico (mesmo conteúdo), ele é reaproveitado em vez de gravado de novo. */
   enviar(arquivo: File, destino: { entidade: EntidadeAnexo; entidade_id: string; categoria: string }): Promise<EnvioAnexo>;
   /** Passa os anexos antigos para o armazenamento por conteúdo e apaga as cópias idênticas. */
   unificar(): Promise<ResultadoUnificacao>;
+  /** Copia para o Cloudflare R2 os arquivos que ainda estão no Supabase (só no modo R2). */
+  migrar?(): Promise<ResultadoMigracao>;
+  /** Operações do mês contadas pelo servidor (só no modo R2). */
+  uso?(): Promise<UsoOperacoes | null>;
   /** Devolve um endereço temporário para abrir o PDF. */
   abrir(anexo: Anexo): Promise<string>;
   excluir(anexo: Anexo): Promise<void>;

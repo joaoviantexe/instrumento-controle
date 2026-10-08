@@ -1,7 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { chaveArquivo, hashArquivo } from '../anexos';
 import type { Anexo, Snapshot } from '../types';
-import { AnexosIndisponiveis, CHAVES, ErroChaveDuplicada, type AnexosApi, type Backend, type NomeTabela, type ResultadoUnificacao, type Tabelas } from './tipos';
+import { AnexosIndisponiveis, CHAVES, ErroChaveDuplicada, type AnexosApi, type Backend, type NomeTabela, type ResultadoMigracao, type ResultadoUnificacao, type Tabelas, type UsoOperacoes } from './tipos';
 
 type Env = Record<string, string | undefined>;
 const env = import.meta.env as unknown as Env;
@@ -78,9 +78,24 @@ function ausente(error: { code?: string; message: string }): boolean {
   return error.code === '42P01' || error.code === 'PGRST205' || /bucket not found|does not exist/i.test(error.message);
 }
 
+/** Endereço do Worker da Cloudflare (R2). Vazio = os PDFs ficam no Supabase Storage. */
+export const ANEXOS_URL = (env.VITE_ANEXOS_URL || '').replace(/\/+$/, '');
+
 function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
   const arquivos = () => sb.storage.from(BUCKET);
   const jaExiste = (e: { message: string; statusCode?: string }) => e.statusCode === '409' || /already exists|Duplicate/i.test(e.message);
+
+  /** Chamada ao Worker, com o login do Supabase. */
+  async function worker(caminho: string, init: RequestInit): Promise<Response> {
+    const token = (await sb.auth.getSession()).data.session?.access_token;
+    if (!token) throw new Error('Sessão expirada. Entre novamente.');
+    const r = await fetch(ANEXOS_URL + caminho, { ...init, headers: { ...(init.headers as Record<string, string>), Authorization: `Bearer ${token}` } });
+    if (!r.ok) {
+      const msg = ((await r.json().catch(() => ({}))) as { erro?: string }).erro;
+      throw new Error(msg || `Falha ao falar com o armazenamento (${r.status}).`);
+    }
+    return r;
+  }
 
   async function listar() {
     const { data, error } = await sb.from('anexos').select('*').order('criado_em');
@@ -88,36 +103,54 @@ function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
       if (ausente(error)) throw new AnexosIndisponiveis();
       throw new Error(error.message);
     }
-    return (data ?? []).map((l) => doBanco<Anexo>(l));
+    return (data ?? []).map((l) => {
+      const a = doBanco<Anexo>(l);
+      return { ...a, destino: a.destino || 'supabase' };
+    });
   }
 
-  /** Há outro anexo usando o mesmo arquivo? */
-  async function emUso(chave: string, exceto: string): Promise<boolean> {
-    const { data, error } = await sb.from('anexos').select('id').or(`hash.eq.${chave},id.eq.${chave}`).neq('id', exceto).limit(1);
+  /** Há outro anexo usando o mesmo arquivo (no mesmo lugar)? */
+  async function emUso(anexo: Anexo): Promise<boolean> {
+    const chave = chaveArquivo(anexo);
+    const { data, error } = await sb
+      .from('anexos')
+      .select('id')
+      .or(`hash.eq.${chave},id.eq.${chave}`)
+      .eq('destino', anexo.destino || 'supabase')
+      .neq('id', anexo.id)
+      .limit(1);
     if (error) throw new Error(error.message);
     return (data ?? []).length > 0;
   }
 
   return {
+    destinoNovo: ANEXOS_URL ? 'r2' : 'supabase',
     listar,
     async enviar(arquivo, destino) {
       const hash = await hashArquivo(arquivo);
-      const { data: igual, error: e0 } = await sb.from('anexos').select('id').eq('hash', hash).limit(1);
+      const { data: igual, error: e0 } = await sb.from('anexos').select('id, destino').eq('hash', hash).limit(1);
       if (e0) {
         if (ausente(e0)) throw new AnexosIndisponiveis();
         throw new Error(e0.message);
       }
+      let onde: string = (igual?.[0] as { destino?: string } | undefined)?.destino || '';
       const reaproveitado = (igual ?? []).length > 0;
       if (!reaproveitado) {
-        const up = await arquivos().upload(`${hash}.pdf`, arquivo, { contentType: 'application/pdf', upsert: false });
-        if (up.error && !jaExiste(up.error as { message: string; statusCode?: string })) {
-          if (ausente(up.error)) throw new AnexosIndisponiveis();
-          throw new Error(up.error.message);
+        if (ANEXOS_URL) {
+          await worker(`/arquivos/${hash}`, { method: 'PUT', body: arquivo });
+          onde = 'r2';
+        } else {
+          const up = await arquivos().upload(`${hash}.pdf`, arquivo, { contentType: 'application/pdf', upsert: false });
+          if (up.error && !jaExiste(up.error as { message: string; statusCode?: string })) {
+            if (ausente(up.error)) throw new AnexosIndisponiveis();
+            throw new Error(up.error.message);
+          }
+          onde = 'supabase';
         }
       }
       const { data, error } = await sb
         .from('anexos')
-        .insert(paraBanco({ id: crypto.randomUUID(), ...destino, nome: arquivo.name, tamanho: arquivo.size, hash }))
+        .insert(paraBanco({ id: crypto.randomUUID(), ...destino, nome: arquivo.name, tamanho: arquivo.size, hash, destino: onde || 'supabase' }))
         .select()
         .single();
       if (error) {
@@ -127,6 +160,10 @@ function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
       return { ...doBanco<Anexo>(data), reaproveitado };
     },
     async abrir(anexo) {
+      if (anexo.destino === 'r2') {
+        const r = await worker('/abrir', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ hash: anexo.hash }) });
+        return ((await r.json()) as { url: string }).url;
+      }
       const { data, error } = await arquivos().createSignedUrl(`${chaveArquivo(anexo)}.pdf`, 120);
       if (error || !data) throw new Error(error?.message ?? 'Não foi possível abrir o arquivo.');
       return data.signedUrl;
@@ -134,7 +171,10 @@ function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
     async excluir(anexo) {
       const { error } = await sb.from('anexos').delete().eq('id', anexo.id);
       if (error) throw new Error(error.message);
-      if (!(await emUso(chaveArquivo(anexo), anexo.id))) {
+      if (await emUso(anexo)) return;
+      if (anexo.destino === 'r2') {
+        await worker(`/arquivos/${anexo.hash}`, { method: 'DELETE' });
+      } else {
         const r = await arquivos().remove([`${chaveArquivo(anexo)}.pdf`]);
         if (r.error) throw new Error(r.error.message);
       }
@@ -142,7 +182,7 @@ function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
     async unificar() {
       const res: ResultadoUnificacao = { analisados: 0, removidos: 0, bytesLiberados: 0 };
       const todos = await listar();
-      const guardados = new Set(todos.filter((a) => a.hash).map((a) => a.hash));
+      const guardados = new Set(todos.filter((a) => a.hash && a.destino === 'supabase').map((a) => a.hash));
       for (const a of todos.filter((x) => !x.hash)) {
         res.analisados++;
         const baixado = await arquivos().download(`${a.id}.pdf`);
@@ -162,6 +202,37 @@ function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
       }
       return res;
     },
+    ...(ANEXOS_URL
+      ? {
+          async migrar(): Promise<ResultadoMigracao> {
+            const pendentes = (await listar()).filter((a) => a.destino !== 'r2' && a.hash);
+            const grupos = [...new Set(pendentes.map((a) => a.hash))];
+            let movidos = 0;
+            for (const hash of grupos) {
+              try {
+                const baixado = await arquivos().download(`${hash}.pdf`);
+                if (baixado.error || !baixado.data) throw new Error(baixado.error?.message ?? 'arquivo não encontrado no Supabase');
+                await worker(`/arquivos/${hash}`, { method: 'PUT', body: baixado.data });
+                const { error } = await sb.from('anexos').update({ destino: 'r2' }).eq('hash', hash).eq('destino', 'supabase');
+                if (error) throw new Error(error.message);
+                await arquivos().remove([`${hash}.pdf`]);
+                movidos++;
+              } catch (e) {
+                return { movidos, restantes: grupos.length - movidos, parouPor: (e as Error).message };
+              }
+            }
+            return { movidos, restantes: 0 };
+          },
+          async uso(): Promise<UsoOperacoes | null> {
+            const mes = new Date().toISOString().slice(0, 7);
+            const { data, error } = await sb.from('uso_operacoes').select('tipo,total').eq('mes', mes);
+            if (error) return null;
+            const soma = { A: 0, B: 0 };
+            for (const l of data ?? []) soma[(l as { tipo: 'A' | 'B' }).tipo] = Number((l as { total: number }).total);
+            return soma;
+          },
+        }
+      : {}),
   };
 }
 
