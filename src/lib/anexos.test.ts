@@ -74,3 +74,26 @@ describe('limite de armazenamento', () => {
     expect(verificarEspaco(cheio, 50 * MB, 'h1', 100 * MB)).toBeNull();
   });
 });
+
+describe('tipos de documento da unidade', () => {
+  it('lista em ordem alfabética, com Outro documento por último, e inclui as resoluções de funcionamento', async () => {
+    const { CATEGORIAS } = await import('./anexos');
+    const l = CATEGORIAS.unidade;
+    expect(l).toContain('Resolução de Autorização de Funcionamento das Unidades Escolares - CME');
+    expect(l).toContain('Resolução de Autorização de Funcionamento das OSCs - CME');
+    expect(l[l.length - 1]).toBe('Outro documento');
+    const meio = l.slice(0, -1);
+    expect(meio).toEqual([...meio].sort((a, b) => a.localeCompare(b, 'pt-BR')));
+  });
+
+  it('as resoluções de funcionamento (e o nome antigo) contam como PDF do ato', () => {
+    const base = { entidade: 'unidade', categoria: '', nome: 'x.pdf', tamanho: 1, hash: '', destino: 'local', criado_em: '', criado_por: '' } as const;
+    const set = unidadesComAto([
+      { ...base, id: '1', entidade_id: 'A', categoria: 'Resolução de Autorização de Funcionamento das OSCs - CME' },
+      { ...base, id: '2', entidade_id: 'B', categoria: 'Resolução de Autorização de Funcionamento das Unidades Escolares - CME' },
+      { ...base, id: '3', entidade_id: 'C', categoria: 'Autorização de Funcionamento - CME' },
+      { ...base, id: '4', entidade_id: 'D', categoria: 'Decreto' },
+    ]);
+    expect([...set].sort()).toEqual(['A', 'B', 'C']);
+  });
+});

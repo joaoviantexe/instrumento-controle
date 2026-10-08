@@ -5,7 +5,11 @@ import type { Anexo, EntidadeAnexo } from './types';
 export const LIMITE_BYTES = 10 * 1024 * 1024;
 
 /** Categorias de documento de cada tipo de registro (os nomes vêm das colunas da planilha). */
-export const CATEGORIA_AUTORIZACAO_CME = 'Autorização de Funcionamento - CME';
+export const CATEGORIA_FUNCIONAMENTO_UE = 'Resolução de Autorização de Funcionamento das Unidades Escolares - CME';
+export const CATEGORIA_FUNCIONAMENTO_OSC = 'Resolução de Autorização de Funcionamento das OSCs - CME';
+/** Nome antigo (substituído pelos dois acima): anexos já enviados com ele continuam valendo como comprovante do ato. */
+const CATEGORIA_FUNCIONAMENTO_ANTIGA = 'Autorização de Funcionamento - CME';
+const CATEGORIAS_DO_ATO = [CATEGORIA_FUNCIONAMENTO_UE, CATEGORIA_FUNCIONAMENTO_OSC, CATEGORIA_FUNCIONAMENTO_ANTIGA];
 
 const OUTRO = 'Outro documento';
 
@@ -15,7 +19,7 @@ const emOrdem = (l: string[]) =>
 
 /** Em ordem alfabética. */
 export const CATEGORIAS: Record<EntidadeAnexo, string[]> = {
-  unidade: emOrdem([CATEGORIA_AUTORIZACAO_CME, C.ato_autorizacao, C.ato_criacao, 'Decreto', OUTRO]),
+  unidade: emOrdem([CATEGORIA_FUNCIONAMENTO_UE, CATEGORIA_FUNCIONAMENTO_OSC, C.ato_autorizacao, C.ato_criacao, 'Decreto', OUTRO]),
   auditoria: emOrdem(['Relatório da auditoria', 'Comprovante da visita', OUTRO]),
   avaliacao: ['Evidência'],
   acao: ['Evidência de conclusão'],
@@ -49,7 +53,7 @@ export async function validarPdf(arquivo: File): Promise<string | null> {
 export function unidadesComAto(anexos: Anexo[]): Set<string> {
   return new Set(
     anexos
-      .filter((a) => a.entidade === 'unidade' && (a.categoria === CATEGORIA_ATO || a.categoria === CATEGORIA_AUTORIZACAO_CME))
+      .filter((a) => a.entidade === 'unidade' && (a.categoria === CATEGORIA_ATO || CATEGORIAS_DO_ATO.includes(a.categoria)))
       .map((a) => a.entidade_id),
   );
 }
