@@ -3,7 +3,7 @@
 Instrumento de Controle da Documentação Escolar — CDE/SEMEC.
 
 Este manual descreve cada tela e recurso da aplicação. A aplicação reproduz as 10 abas da planilha
-`Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC (4).xlsx`, com os mesmos textos, listas, pesos e fórmulas.
+`dados/planilha/Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC (4).xlsx`, com os mesmos textos, listas, pesos e fórmulas.
 
 ## Sumário
 
@@ -105,7 +105,7 @@ Os **53 registros** do Checklist da CDE: 41 itens técnicos (peso 1 a 3) e 12 it
 - Total de pesos e **Exportar Excel**.
 
 A Lista Mestra é a definição do instrumento: não é editável pela interface, para que todas as auditorias usem os mesmos critérios.
-Alterações de critérios devem ser feitas em `scripts/extrair_planilha.py` / na planilha-fonte (ver [README](../README.md)).
+Alterações de critérios devem ser feitas em `scripts/planilha/extrair_planilha.py` / na planilha-fonte (ver [README](../../README.md)).
 
 ## 6. Plano de Auditoria
 
@@ -251,8 +251,8 @@ Onde há **verificação ou comprovação de documentos**, é possível anexar e
 - **Armazenamento:** no modo local, os PDFs ficam neste navegador (IndexedDB); no modo compartilhado, no *Storage* privado do Supabase
   (bucket `anexos`; plano gratuito: 1 GB). Só quem está na tabela `membros` consegue ver os arquivos; os links de abertura expiram em 2 minutos.
 - **Trava de espaço:** novos PDFs são **recusados a partir de 95%** do limite (os idênticos a arquivos já guardados continuam sendo aceitos), para nunca ultrapassar a cota gratuita; aviso a partir de 80%.
-- **Limites mensais de operações (modo Cloudflare R2):** o Worker recusa gravações/leituras ao chegar a 90% da cota gratuita do mês (zera todo mês); *Dados e planilhas* mostra a barra de uso. Veja [CLOUDFLARE_R2.md](CLOUDFLARE_R2.md).
-- **Medidor de espaço:** *Dados e planilhas → Armazenamento dos anexos (PDF)* mostra a % usada e disponível (limite padrão de 1 GB; ajustável por `VITE_LIMITE_ARMAZENAMENTO_GB`). Veja também [CLOUDFLARE_R2.md](CLOUDFLARE_R2.md).
+- **Limites mensais de operações (modo Cloudflare R2):** o Worker recusa gravações/leituras ao chegar a 90% da cota gratuita do mês (zera todo mês); *Dados e planilhas* mostra a barra de uso. Veja [CLOUDFLARE_R2.md](../implantacao/CLOUDFLARE_R2.md).
+- **Medidor de espaço:** *Dados e planilhas → Armazenamento dos anexos (PDF)* mostra a % usada e disponível (limite padrão de 1 GB; ajustável por `VITE_LIMITE_ARMAZENAMENTO_GB`). Veja também [CLOUDFLARE_R2.md](../implantacao/CLOUDFLARE_R2.md).
 - Os PDFs **não vão** no *Exportar Excel*.
 
 ## 13. Como a pontuação é calculada
@@ -291,7 +291,7 @@ de uma auditoria recém-aberta é 0,0% e sobe conforme os itens são avaliados. 
 | Auditoria de alterações | — | Cada registro guarda *quem* e *quando* alterou |
 
 Mudanças feitas por outra pessoa aparecem ao recarregar a página ou ao voltar à aba (a cada 60 s no máximo).
-Veja [IMPLANTACAO.md](IMPLANTACAO.md) para ativar o banco compartilhado.
+Veja [IMPLANTACAO.md](../implantacao/IMPLANTACAO.md) para ativar o banco compartilhado.
 
 ## 16. Origem dos textos
 

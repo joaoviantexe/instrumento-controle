@@ -1,0 +1,2874 @@
+{
+ "descricao": "Atos oficiais (decretos, portarias, resoluções e leis) associados às unidades do cadastro, com a edição e a página do Diário Oficial do Município de Belém onde foram publicados. Gerado a partir dos PDFs em dados/atos-de-criacao, lidos por OCR e conferidos. Ver docs/diario-oficial/ATOS_DE_CRIACAO.md.",
+ "atualizado_em": "2026-10-09",
+ "atos": [
+  {
+   "id": "lei-7183-1981",
+   "tipo": "Lei",
+   "numero": "7.183/1981",
+   "data": "1981-11-11",
+   "ementa": "Denomina \"Augusto Meira Filho\" a unidade municipal de ensino do bairro do Bengui.",
+   "publicacao": null,
+   "referencia": "Texto obtido no portal de legislação do Município (não é uma página do Diário Oficial).",
+   "arquivos": [
+    "EM AUGUSTO MEIRA FILHO.pdf",
+    "EM AUGUSTO MEIRA FILHO..pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-019",
+     "inep": "15040640",
+     "relacao": "denominação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "lei-7481-1990",
+   "tipo": "Lei",
+   "numero": "7.481/1990",
+   "data": "1990-04-25",
+   "ementa": "Denomina \"Solerno Moreira\" a escola municipal da Rua Universal, perto da Rodovia Perimetral.",
+   "publicacao": null,
+   "referencia": "Texto obtido no portal de legislação do Município (não é uma página do Diário Oficial).",
+   "arquivos": [
+    "EM SOLERNO MOREIRA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-121",
+     "inep": "15040984",
+     "relacao": "denominação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "lei-7747-1995",
+   "tipo": "Lei",
+   "numero": "7.747/1995",
+   "data": "1995-01-02",
+   "ementa": "Autoriza o Poder Executivo a criar o Centro de Referência em Educação Ambiental – Escola Bosque \"Professor Eidorfe Moreira\" (Ilha de Caratateua).",
+   "publicacao": null,
+   "referencia": "Publicada no DOM nº 7.926, de 04/01/1995 (página não informada; edição anterior ao acervo digital do painel). Segundo o portal de legislação, foi revogada pela Lei nº 10.143, de 10/02/2025 (DOM nº 15.130).",
+   "arquivos": [
+    "ESCOLA BOSQUE.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-195",
+     "inep": "15140759",
+     "relacao": "criação (autorização)",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-29205-1996",
+   "tipo": "Decreto",
+   "numero": "29.205/1996-PMB",
+   "data": "1996-09-13",
+   "ementa": "Regulamenta o art. 2º da Lei 7.722/94 e institui o Subsistema Educacional de Unidades para o Desenvolvimento Sustentável.",
+   "publicacao": null,
+   "referencia": "Publicado em 19/09/1996. Texto obtido no portal de legislação do Município (não é uma página do Diário Oficial).",
+   "arquivos": [
+    "LICEU MESTRE RAIMUNDO CARDOSO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-125",
+     "inep": "15043061",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-536-2007",
+   "tipo": "Portaria",
+   "numero": "536/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil 1º de Dezembro.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 2
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-008",
+     "inep": "15547299",
+     "relacao": "antecessora",
+     "confianca": "alta",
+     "nota": "O Decreto 96.504/2020 cria a EM Profª Lúcia Soares Castro como \"antiga UEI Primeiro de Dezembro\", no mesmo endereço."
+    }
+   ]
+  },
+  {
+   "id": "portaria-538-2007",
+   "tipo": "Portaria",
+   "numero": "538/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Cremação.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 2,
+    "pagina_final": 3
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-092",
+     "inep": "15543382",
+     "relacao": "antecessora",
+     "confianca": "media",
+     "nota": "A UEI Cremação ficava na Alcindo Cacela, ao lado do posto policial — mesmo endereço da EMEI Venuzina Marinho de Souza (Decreto 95.218/2019)."
+    }
+   ]
+  },
+  {
+   "id": "portaria-539-2007",
+   "tipo": "Portaria",
+   "numero": "539/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Monte Alegre.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 3
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-109",
+     "inep": "15543390",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-540-2007",
+   "tipo": "Portaria",
+   "numero": "540/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Allan Kardec.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 3
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-086",
+     "inep": "15152030",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-541-2007",
+   "tipo": "Portaria",
+   "numero": "541/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Terra Firme.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 3
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-122",
+     "inep": "15543218",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-542-2007",
+   "tipo": "Portaria",
+   "numero": "542/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Santa Rosa.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 3
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-103",
+     "inep": "15152340",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-543-2007",
+   "tipo": "Portaria",
+   "numero": "543/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil São Silvestre.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 3
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-110",
+     "inep": "15170934",
+     "relacao": "antecessora",
+     "confianca": "media",
+     "nota": "A UEI São Silvestre ficava na Passagem São Silvestre, Jurunas — mesmo endereço da EMEI Profª Rosenil Cordeiro da Silva (Decreto 90.970/2018)."
+    }
+   ]
+  },
+  {
+   "id": "portaria-544-2007",
+   "tipo": "Portaria",
+   "numero": "544/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Maguari (UMOJAM).",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 3
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-132",
+     "inep": "15166368",
+     "relacao": "antecessora",
+     "confianca": "media",
+     "nota": "A UEI Maguari ficava no Conjunto Maguari, Al. 8, casa 21 — mesmo endereço da EMEIF Gênesis, criada no mesmo dia em que a UEI foi extinta (Decretos 82.887 e 82.888/2015)."
+    }
+   ]
+  },
+  {
+   "id": "portaria-545-2007",
+   "tipo": "Portaria",
+   "numero": "545/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Pratinha.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 3
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-045",
+     "inep": "15173844",
+     "relacao": "antecessora",
+     "confianca": "baixa",
+     "nota": "UEI Pratinha, na Passagem Santo Afonso. Pode ser a antecessora desta unidade ou da EM Pratinha II — confira."
+    },
+    {
+     "id": "UN-046",
+     "inep": "15547272",
+     "relacao": "antecessora",
+     "confianca": "baixa",
+     "nota": "UEI Pratinha, na Passagem Santo Afonso. Pode ser a antecessora desta unidade ou da EM Pratinha — confira."
+    }
+   ]
+  },
+  {
+   "id": "portaria-546-2007",
+   "tipo": "Portaria",
+   "numero": "546/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil São José.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 3
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-047",
+     "inep": "15181774",
+     "relacao": "antecessora",
+     "confianca": "alta",
+     "nota": "A UEI São José foi extinta pelo Decreto 111.991/2024, que criou no mesmo endereço a EMEI São João Paulo II."
+    }
+   ]
+  },
+  {
+   "id": "portaria-547-2007",
+   "tipo": "Portaria",
+   "numero": "547/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Catalina I.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 4
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "UEI SACRAMENTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-035",
+     "inep": "15543285",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-548-2007",
+   "tipo": "Portaria",
+   "numero": "548/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Catalina II.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 4
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "UEI SACRAMENTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-036",
+     "inep": "15558347",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-549-2007",
+   "tipo": "Portaria",
+   "numero": "549/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Catalina III.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 4
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "UEI SACRAMENTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-037",
+     "inep": "15152324",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-550-2007",
+   "tipo": "Portaria",
+   "numero": "550/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Benguí.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 4
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "UEI SACRAMENTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-021",
+     "inep": "15543234",
+     "relacao": "antecessora",
+     "confianca": "media",
+     "nota": "A UEI Benguí ficava na Rua São Bento, perto do Mercado Novo — mesmo endereço da EMEI Profª Angélica do Carmo Santos Paiva (Decreto 95.488/2020)."
+    }
+   ]
+  },
+  {
+   "id": "portaria-551-2007",
+   "tipo": "Portaria",
+   "numero": "551/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Cordeiro de Farias.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 4
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "UEI SACRAMENTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-048",
+     "inep": "15170845",
+     "relacao": "antecessora",
+     "confianca": "alta",
+     "nota": "A UEI Cordeiro de Farias foi extinta pela Portaria 6064/2018, que transferiu o acervo para a EMEI Profª Cleonice Oliveira Conceição."
+    }
+   ]
+  },
+  {
+   "id": "portaria-552-2007",
+   "tipo": "Portaria",
+   "numero": "552/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Erê.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 4
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "UEI SACRAMENTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-196",
+     "inep": "15558312",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-553-2007",
+   "tipo": "Portaria",
+   "numero": "553/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Sacramenta.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 4
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "UEI SACRAMENTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-204",
+     "inep": "15543412",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-554-2007",
+   "tipo": "Portaria",
+   "numero": "554/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Nossa Senhora do Perpétuo Socorro.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 4
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "UEI SACRAMENTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-217",
+     "inep": "15543226",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-555-2007",
+   "tipo": "Portaria",
+   "numero": "555/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Rosemary Jorge.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 4
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "UEI SACRAMENTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-074",
+     "inep": "15152316",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-556-2007",
+   "tipo": "Portaria",
+   "numero": "556/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Marambaia (antigo Eriberto Meda).",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "EM WILSON BAHIA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-081",
+     "inep": "15152332",
+     "relacao": "antecessora",
+     "confianca": "alta",
+     "nota": "O Decreto 96.723/2020 cria a EMEI Profª Aurora Guimarães Vieira como \"antiga UEI Marambaia\"."
+    }
+   ]
+  },
+  {
+   "id": "portaria-557-2007",
+   "tipo": "Portaria",
+   "numero": "557/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Jesus Maria José.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "EM WILSON BAHIA.pdf",
+    "UEI JESUS MARIA JOSÉ.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-076",
+     "inep": "15558355",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-558-2007",
+   "tipo": "Portaria",
+   "numero": "558/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Wilson Baia.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "EM WILSON BAHIA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-077",
+     "inep": "15577767",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-559-2007",
+   "tipo": "Portaria",
+   "numero": "559/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Providência.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "EM WILSON BAHIA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-079",
+     "inep": "15589021",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-560-2007",
+   "tipo": "Portaria",
+   "numero": "560/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Casa da Amizade.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "EM WILSON BAHIA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-136",
+     "inep": "15543323",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-561-2007",
+   "tipo": "Portaria",
+   "numero": "561/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil COHAB III.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "EM WILSON BAHIA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-131",
+     "inep": "15547302",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-562-2007",
+   "tipo": "Portaria",
+   "numero": "562/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Maracajá.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "EM WILSON BAHIA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-175",
+     "inep": "15152260",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-563-2007",
+   "tipo": "Portaria",
+   "numero": "563/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Rotary Club.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "EM WILSON BAHIA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-164",
+     "inep": "15543404",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-564-2007",
+   "tipo": "Portaria",
+   "numero": "564/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Bacuri.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf",
+    "EM WILSON BAHIA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-160",
+     "inep": "15543358",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-566-2007",
+   "tipo": "Portaria",
+   "numero": "566/2007-PMB",
+   "data": "2007-05-28",
+   "ementa": "Institui a Unidade de Educação Infantil Caripunas.",
+   "publicacao": {
+    "edicao": 10914,
+    "data": "2007-06-12",
+    "pagina": 6
+   },
+   "arquivos": [
+    "UEI'S (INSTITUIÇÃO DAS UNIDADES-FUNPAPA).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-001",
+     "inep": "15548058",
+     "relacao": "antecessora",
+     "confianca": "alta",
+     "nota": "O Decreto 96.781/2020 cria a EMEI Profª Maria Auxiliadora Martins Gonçalves como \"antiga UEI Caripunas\"."
+    }
+   ]
+  },
+  {
+   "id": "portaria-1019-2007",
+   "tipo": "Portaria",
+   "numero": "1.019/2007-PMB",
+   "data": "2007-09-12",
+   "ementa": "Institui a Unidade de Educação Infantil Iza Cunha.",
+   "publicacao": {
+    "edicao": 10985,
+    "data": "2007-09-21",
+    "pagina": 7
+   },
+   "arquivos": [
+    "EM IZA CUNHA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-197",
+     "inep": "15543307",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-1313-2008",
+   "tipo": "Portaria",
+   "numero": "1.313/2008-GABS",
+   "data": "2008-10-08",
+   "ementa": "Institui a EMEIF Profª Alana de Souza Barbosa.",
+   "publicacao": {
+    "edicao": 11241,
+    "data": "2008-10-15",
+    "pagina": 1
+   },
+   "arquivos": [
+    "EM PROFESSORA ALANA DE SOUZA BARBOSA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-031",
+     "inep": "15223000",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-1314-2008",
+   "tipo": "Portaria",
+   "numero": "1.314/2008-GABS",
+   "data": "2008-10-08",
+   "ementa": "Institui a EMEIF Profª Laís Fontoura Aderne.",
+   "publicacao": {
+    "edicao": 11241,
+    "data": "2008-10-15",
+    "pagina": 1
+   },
+   "arquivos": [
+    "EMEIF PROFESSORA LAIS FONTOURA ADERNE.pdf",
+    "EM PROFESSORA ALANA DE SOUZA BARBOSA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-128",
+     "inep": "15223205",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-1221-2009",
+   "tipo": "Portaria",
+   "numero": "1.221/2009-GABS/SEMEC",
+   "data": "2009-12-04",
+   "ementa": "Cria a EMEIF Profª Rita Nery Vanetta, no Conjunto Residencial Tenoné I.",
+   "publicacao": {
+    "edicao": null,
+    "data": "2009-12-15",
+    "pagina": 9
+   },
+   "nota": "A página não mostra o número da edição de 15/12/2009. Informe-o para que o link funcione.",
+   "arquivos": [
+    "EMEIF PROFª RITA NERY VANETTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-154",
+     "inep": "15224040",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-031-2010",
+   "tipo": "Portaria",
+   "numero": "031/2010-GP (Funbosque)",
+   "data": "2010-02-02",
+   "ementa": "Cria a Casa Escola da Pesca, vinculada à Fundação Escola Bosque.",
+   "publicacao": {
+    "edicao": 11556,
+    "data": "2010-02-05",
+    "pagina": 10
+   },
+   "arquivos": [
+    "CASA ESCOLA DA PESCA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-191",
+     "inep": "15219038",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-0436-2010",
+   "tipo": "Portaria",
+   "numero": "0.436/2010-GABS",
+   "data": "2010-05-17",
+   "ementa": "Retifica a Portaria 1.221/2009: o nome da escola passa a ser Profª Rita Nery.",
+   "publicacao": {
+    "edicao": 11628,
+    "data": "2010-05-26",
+    "pagina": 5
+   },
+   "arquivos": [
+    "EMEIF PROFª RITA NERY (RETIFICAÇÃO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-154",
+     "inep": "15224040",
+     "relacao": "retificação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-0629-2010",
+   "tipo": "Portaria",
+   "numero": "0.629/2010-GABS",
+   "data": "2010-06-28",
+   "ementa": "Cria a EMEIF Tapanã, no Conjunto Aldo Almeida, entre a Rua São Clemente e a Rua Sucupira.",
+   "publicacao": {
+    "edicao": 11650,
+    "data": "2010-06-30",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EM TAPANÃ.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-058",
+     "inep": "15237001",
+     "relacao": "criação",
+     "confianca": "media",
+     "nota": "O endereço coincide com o da EM Profª Alda Eutrópio de Souza (Alameda Sucupira, entre a Rua São Clemente). Confirme se é a antiga EMEIF Tapanã."
+    }
+   ]
+  },
+  {
+   "id": "decreto-68678-2011",
+   "tipo": "Decreto",
+   "numero": "68.678/2011-PMB",
+   "data": "2011-12-21",
+   "ementa": "Cria a EMEIF Professor Pedro Demo (Água Boa, Outeiro).",
+   "publicacao": {
+    "edicao": 12005,
+    "data": "2012-01-04",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEIF PROFESSOR PEDRO DEMO.pdf",
+    "EMEIF PROFESSORA MARIA MADALENA TRAVASSOS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-177",
+     "inep": "15159450",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-68679-2011",
+   "tipo": "Decreto",
+   "numero": "68.679/2011-PMB",
+   "data": "2011-12-21",
+   "ementa": "Cria a EMEIF Profª Maria Madalena Travassos (Paraíso, Mosqueiro).",
+   "publicacao": {
+    "edicao": 12005,
+    "data": "2012-01-04",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEIF PROFESSORA MARIA MADALENA TRAVASSOS.pdf",
+    "EMEIF PROFESSOR PEDRO DEMO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-158",
+     "inep": "15159434",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-72135-2012",
+   "tipo": "Decreto",
+   "numero": "72.135/2012-PMB",
+   "data": "2012-11-08",
+   "ementa": "Cria a EMEIF Parque Bolonha (Conjunto Verdejante III, Águas Lindas).",
+   "publicacao": {
+    "edicao": 12212,
+    "data": "2012-11-12",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF PARQUE BOLONHA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-067",
+     "inep": "15161560",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-73552-2013",
+   "tipo": "Decreto",
+   "numero": "73.552/2013-PMB",
+   "data": "2013-01-15",
+   "ementa": "Cria a EMEIF Duas Irmãs (Pratinha).",
+   "publicacao": {
+    "edicao": 12255,
+    "data": "2013-01-18",
+    "pagina": 11,
+    "pagina_final": 12
+   },
+   "arquivos": [
+    "EMEIF DUAS IRMÃS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-043",
+     "inep": "15161544",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-1030-2014",
+   "tipo": "Portaria",
+   "numero": "1.030/2014-GABS",
+   "data": "2014-04-23",
+   "ementa": "Institui a Unidade de Educação Infantil São Gaspar.",
+   "publicacao": {
+    "edicao": 12556,
+    "data": "2014-04-24",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EM SÃO GASPAR.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-032",
+     "inep": "15164160",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-1731-2014",
+   "tipo": "Portaria",
+   "numero": "1.731/2014-GABS",
+   "data": "2014-07-08",
+   "ementa": "Vincula à EMEIF Milton Monte as Unidades Pedagógicas Combu, Nazaré, Nossa Senhora dos Navegantes, São José e Santo Antônio.",
+   "publicacao": {
+    "edicao": 12668,
+    "data": "2014-10-08",
+    "pagina": 6
+   },
+   "arquivos": [
+    "UP's DA EMEIF MILTON MONTE.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-182",
+     "inep": "15161552",
+     "relacao": "vinculação de unidades",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-80450-2014",
+   "tipo": "Decreto",
+   "numero": "80.450/2014-PMB",
+   "data": "2014-08-11",
+   "ementa": "Cria a EMEIF Nova Aliança (Pratinha).",
+   "publicacao": {
+    "edicao": 12719,
+    "data": "2014-12-29",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF NOVA ALIANÇA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-044",
+     "inep": "15166821",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-81011-2014",
+   "tipo": "Decreto",
+   "numero": "81.011/2014-PMB",
+   "data": "2014-10-15",
+   "ementa": "Retifica o Decreto 73.552/2013: o nome passa a ser EMEIF Duas Irmãs Bianca e Adrielly.",
+   "publicacao": {
+    "edicao": 12676,
+    "data": "2014-10-21",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF DUAS IRMÃS (RETIFICAÇÃO - BIANCA E ADRIELLY)).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-043",
+     "inep": "15161544",
+     "relacao": "retificação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "resolucao-21-2014",
+   "tipo": "Resolução",
+   "numero": "21/2014-CME",
+   "data": "2014-11-05",
+   "ementa": "Autoriza, por quatro anos, o funcionamento da Educação Infantil (creche e pré-escola) na UEI Panapaná (Mosqueiro).",
+   "publicacao": {
+    "edicao": 12716,
+    "data": "2014-12-19",
+    "pagina": 6
+   },
+   "arquivos": [
+    "AUT CME UEI PANAPANÁ.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-168",
+     "inep": "15543315",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "resolucao-22-2014",
+   "tipo": "Resolução",
+   "numero": "22/2014-CME",
+   "data": "2014-11-05",
+   "ementa": "Autoriza, por quatro anos, o funcionamento da Educação Infantil na UEI Bacuri (Mosqueiro).",
+   "publicacao": {
+    "edicao": 12716,
+    "data": "2014-12-19",
+    "pagina": 6
+   },
+   "arquivos": [
+    "AUT CME UEI PANAPANÁ.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-160",
+     "inep": "15543358",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-81565-2014",
+   "tipo": "Decreto",
+   "numero": "81.565/2014-PMB",
+   "data": "2014-12-16",
+   "ementa": "Cria a EMEIF Nosso Lar, em tempo integral (Tapanã).",
+   "publicacao": {
+    "edicao": 12718,
+    "data": "2014-12-23",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF NOSSO LAR.pdf",
+    "EMEIF SABINO BARRETO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-057",
+     "inep": "15167690",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-81566-2014",
+   "tipo": "Decreto",
+   "numero": "81.566/2014-PMB",
+   "data": "2014-12-16",
+   "ementa": "Cria a EMEIF Sabino Barreto, em tempo integral (Águas Negras).",
+   "publicacao": {
+    "edicao": 12718,
+    "data": "2014-12-23",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF SABINO BARRETO.pdf",
+    "EMEIF NOSSO LAR.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-124",
+     "inep": "15166830",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-0157-2015",
+   "tipo": "Portaria",
+   "numero": "0157/2015-GABS",
+   "data": "2015-02-23",
+   "ementa": "Institui a Unidade de Educação Infantil Verdejante.",
+   "publicacao": {
+    "edicao": 12792,
+    "data": "2015-04-23",
+    "pagina": 9
+   },
+   "arquivos": [
+    "EM VERDEJANTE.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-068",
+     "inep": "15166813",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-82593-2015",
+   "tipo": "Decreto",
+   "numero": "82.593/2015-PMB",
+   "data": "2015-04-20",
+   "ementa": "Transforma a Unidade Pedagógica Santana do Aurá na EMEIF Santana do Aurá.",
+   "publicacao": {
+    "edicao": 12797,
+    "data": "2015-04-30",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EM SANTANA DO AURÁ.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-070",
+     "inep": "15167380",
+     "relacao": "criação (transformação)",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-82887-2015",
+   "tipo": "Decreto",
+   "numero": "82.887/2015-PMB",
+   "data": "2015-06-02",
+   "ementa": "Cria a EMEIF Gênesis (Conjunto Jardim Maguari, Icoaraci).",
+   "publicacao": {
+    "edicao": 12825,
+    "data": "2015-06-11",
+    "pagina": 4
+   },
+   "arquivos": [
+    "EM GENESIS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-132",
+     "inep": "15166368",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-82888-2015",
+   "tipo": "Decreto",
+   "numero": "82.888/2015-PMB",
+   "data": "2015-06-02",
+   "ementa": "Extingue a UEI Maguari.",
+   "publicacao": {
+    "edicao": 12825,
+    "data": "2015-06-11",
+    "pagina": 5
+   },
+   "arquivos": [
+    "EM GENESIS.pdf",
+    "EM AYRTON SENNA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-132",
+     "inep": "15166368",
+     "relacao": "extinção da antecessora",
+     "confianca": "media",
+     "nota": "A UEI Maguari funcionava no mesmo endereço da EMEIF Gênesis, criada no mesmo dia."
+    }
+   ]
+  },
+  {
+   "id": "decreto-82904-2015",
+   "tipo": "Decreto",
+   "numero": "82.904/2015-PMB",
+   "data": "2015-06-03",
+   "ementa": "Cria a EMEIF Ayrton Senna (Residencial Tocantins, Parque Guajará, Icoaraci).",
+   "publicacao": {
+    "edicao": 12825,
+    "data": "2015-06-11",
+    "pagina": 5
+   },
+   "arquivos": [
+    "EM AYRTON SENNA.pdf",
+    "EMEIF AYRTON SENNA.pdf",
+    "UP AYRTON SENNA (EXTINÇÃO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-147",
+     "inep": "15166376",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-82905-2015",
+   "tipo": "Decreto",
+   "numero": "82.905/2015-PMB",
+   "data": "2015-06-03",
+   "ementa": "Extingue a Unidade Pedagógica Ayrton Senna (Icoaraci).",
+   "publicacao": {
+    "edicao": 12825,
+    "data": "2015-06-11",
+    "pagina": 5
+   },
+   "arquivos": [
+    "UP AYRTON SENNA (EXTINÇÃO).pdf",
+    "EM AYRTON SENNA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-147",
+     "inep": "15166376",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta",
+     "nota": "UP Ayrton Senna, extinta no mesmo dia em que foi criada a EMEIF Ayrton Senna."
+    }
+   ]
+  },
+  {
+   "id": "portaria-2064-2015",
+   "tipo": "Portaria",
+   "numero": "2.064/2015-GABS",
+   "data": "2015-07-21",
+   "ementa": "Institui a Unidade de Educação Infantil Encanto do Saber (Rua Caripunas, Cremação).",
+   "publicacao": {
+    "edicao": 13018,
+    "data": "2016-04-06",
+    "pagina": 4,
+    "pagina_final": 5
+   },
+   "arquivos": [
+    "EM ENCANTO DO SABER.pdf",
+    "UEI ENCANTO DO SABER.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-090",
+     "inep": "15167640",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-0660-2016",
+   "tipo": "Portaria",
+   "numero": "0.660/2016-GABS",
+   "data": "2016-03-16",
+   "ementa": "Institui a EMEI Mosqueiro, anexo da EMEIF Abel Martins.",
+   "publicacao": {
+    "edicao": 13018,
+    "data": "2016-04-06",
+    "pagina": 4
+   },
+   "arquivos": [
+    "EM ENCANTO DO SABER.pdf",
+    "UEI ENCANTO DO SABER.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-172",
+     "inep": "15167402",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-85301-2016",
+   "tipo": "Decreto",
+   "numero": "85.301/2016-PMB",
+   "data": "2016-03-22",
+   "ementa": "Cria a EMEI Revoar das Andorinhas, em tempo integral (Val-de-Cans).",
+   "publicacao": {
+    "edicao": 13035,
+    "data": "2016-05-03",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI REVOAR DAS ANDORINHAS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-201",
+     "inep": "15167348",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-85302-2016",
+   "tipo": "Decreto",
+   "numero": "85.302/2016-PMB",
+   "data": "2016-03-22",
+   "ementa": "Cria a EMEI São Francisco, em tempo integral (Mosqueiro).",
+   "publicacao": {
+    "edicao": 13035,
+    "data": "2016-05-03",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI SÃO FRANCISCO.pdf",
+    "EMEI CANTO DO UIRAPURU.pdf",
+    "EMEI DIREITO DE SER CRIANÇA.pdf",
+    "EMEI MOSQUEIRO.pdf",
+    "EMEI REVOAR DAS ANDORINHAS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-173",
+     "inep": "15167658",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-85303-2016",
+   "tipo": "Decreto",
+   "numero": "85.303/2016-PMB",
+   "data": "2016-03-22",
+   "ementa": "Cria a EMEI Canto do Uirapuru, em tempo integral (Val-de-Cans).",
+   "publicacao": {
+    "edicao": 13035,
+    "data": "2016-05-03",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI SÃO FRANCISCO.pdf",
+    "EMEI CANTO DO UIRAPURU.pdf",
+    "EMEI DIREITO DE SER CRIANÇA.pdf",
+    "EMEI MOSQUEIRO.pdf",
+    "EMEI REVOAR DAS ANDORINHAS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-200",
+     "inep": "15167356",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-85304-2016",
+   "tipo": "Decreto",
+   "numero": "85.304/2016-PMB",
+   "data": "2016-03-22",
+   "ementa": "Cria a EMEI Direito de Ser Criança, em tempo integral (Canudos).",
+   "publicacao": {
+    "edicao": 13035,
+    "data": "2016-05-03",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI SÃO FRANCISCO.pdf",
+    "EMEI CANTO DO UIRAPURU.pdf",
+    "EMEI DIREITO DE SER CRIANÇA.pdf",
+    "EMEI MOSQUEIRO.pdf",
+    "EMEI REVOAR DAS ANDORINHAS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-097",
+     "inep": "15167542",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-85350-2016",
+   "tipo": "Decreto",
+   "numero": "85.350/2016-PMB",
+   "data": "2016-04-01",
+   "ementa": "Cria a EMEI Mosqueiro, anexo da EMEIF Abel Martins.",
+   "publicacao": {
+    "edicao": 13035,
+    "data": "2016-05-03",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI MOSQUEIRO.pdf",
+    "EMEI SÃO FRANCISCO.pdf",
+    "EMEI CANTO DO UIRAPURU.pdf",
+    "EMEI DIREITO DE SER CRIANÇA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-172",
+     "inep": "15167402",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-85697-2016",
+   "tipo": "Decreto",
+   "numero": "85.697/2016-PMB",
+   "data": "2016-05-09",
+   "ementa": "Cria a EMEI Jardim Nova Vida, em tempo integral (Águas Lindas).",
+   "publicacao": {
+    "edicao": 13041,
+    "data": "2016-05-11",
+    "pagina": 5,
+    "pagina_final": 6
+   },
+   "arquivos": [
+    "EMEI JARDIM NOVA VIDA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-064",
+     "inep": "15167488",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-85922-2016",
+   "tipo": "Decreto",
+   "numero": "85.922/2016-PMB",
+   "data": "2016-06-15",
+   "ementa": "Cria a EMEI Cotijuba.",
+   "publicacao": {
+    "edicao": 13069,
+    "data": "2016-06-22",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI COTIJUBA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-189",
+     "inep": "15167763",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-86140-2016",
+   "tipo": "Decreto",
+   "numero": "86.140/2016-PMB",
+   "data": "2016-07-11",
+   "ementa": "Cria a EMEIF Castanheiras (Paracuri, Icoaraci).",
+   "publicacao": {
+    "edicao": 13390,
+    "data": "2017-10-27",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF CASTANHEIRAS.pdf",
+    "EMEI PROFª ELVIRA SACRAMENTO DE QUADROS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-150",
+     "inep": "15168476",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-86315-2016",
+   "tipo": "Decreto",
+   "numero": "86.315/2016-PMB",
+   "data": "2016-08-05",
+   "ementa": "Cria a EMEIF Paulo Almeida Brasil (Conjunto Novo Império, Souza).",
+   "publicacao": {
+    "edicao": 13112,
+    "data": "2016-08-23",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EM PAULO ALMEIDA BRASIL.pdf",
+    "EMEIF PAULO ALMEIDA BRASIL.pdf",
+    "EMEIF CASTANHEIRAS1.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-084",
+     "inep": "15168468",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-86316-2016",
+   "tipo": "Decreto",
+   "numero": "86.316/2016-PMB",
+   "data": "2016-08-05",
+   "ementa": "Cria a EMEIF Castanheiras (Paracuri, Icoaraci).",
+   "publicacao": {
+    "edicao": 13112,
+    "data": "2016-08-23",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF CASTANHEIRAS1.pdf",
+    "EM PAULO ALMEIDA BRASIL.pdf",
+    "EMEIF PAULO ALMEIDA BRASIL.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-150",
+     "inep": "15168476",
+     "relacao": "criação",
+     "confianca": "alta",
+     "nota": "Há dois decretos de criação desta escola (86.140/2016 e 86.316/2016); o cadastro cita o 86.140/2016."
+    }
+   ]
+  },
+  {
+   "id": "decreto-86401-2016",
+   "tipo": "Decreto",
+   "numero": "86.401/2016-PMB",
+   "data": "2016-08-18",
+   "ementa": "Cria a EMEIF Profª Renata Sales Pena (Parque Guajará).",
+   "publicacao": {
+    "edicao": 13145,
+    "data": "2016-10-11",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFª RENATA SALES PENA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-149",
+     "inep": "15168484",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-86757-2016",
+   "tipo": "Decreto",
+   "numero": "86.757/2016-PMB",
+   "data": "2016-11-04",
+   "ementa": "Cria a Escola Municipal de Educação do Campo Maria Clemildes (Comunidade de Caruaru).",
+   "publicacao": {
+    "edicao": 13161,
+    "data": "2016-11-08",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEC MARIA CLEMILDES.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-157",
+     "inep": "15043410",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-86769-2016",
+   "tipo": "Decreto",
+   "numero": "86.769/2016-PMB",
+   "data": "2016-11-09",
+   "ementa": "Retifica o Decreto 86.401/2016: a escola passa a ser de Educação Infantil (EMEI).",
+   "publicacao": {
+    "edicao": 13212,
+    "data": "2017-01-25",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFª RENATA SALES PENA (RETIFICAÇÃO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-149",
+     "inep": "15168484",
+     "relacao": "retificação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-87368-2017",
+   "tipo": "Decreto",
+   "numero": "87.368/2017-PMB",
+   "data": "2017-02-06",
+   "ementa": "Cria a EMEI Profª Elvira Sacramento de Quadros (Conjunto Bosque Araguaia, Tapanã).",
+   "publicacao": {
+    "edicao": 13390,
+    "data": "2017-10-27",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFª ELVIRA SACRAMENTO DE QUADROS.pdf",
+    "EMEIF CASTANHEIRAS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-060",
+     "inep": "15170829",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-89867-2017",
+   "tipo": "Decreto",
+   "numero": "89.867/2017-PMB",
+   "data": "2017-10-02",
+   "ementa": "Cria a EMEI Profª Cleonice Oliveira Conceição (Residencial Campos Elíseos, Tapanã).",
+   "publicacao": {
+    "edicao": 13378,
+    "data": "2017-10-06",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFª CLEONICE OLIVEIRA CONCEIÇÃO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-048",
+     "inep": "15170845",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-89868-2017",
+   "tipo": "Decreto",
+   "numero": "89.868/2017-PMB",
+   "data": "2017-10-02",
+   "ementa": "Cria a EMEI Profª Gilvânia Márcia Barros da Silva (Bengui).",
+   "publicacao": {
+    "edicao": 13378,
+    "data": "2017-10-06",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI PROFª GILVÂNIA MARCIA BARROS DA SILVA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-022",
+     "inep": "15170853",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-90970-2018",
+   "tipo": "Decreto",
+   "numero": "90.970/2018-PMB",
+   "data": "2018-04-04",
+   "ementa": "Cria a EMEI Profª Rosenil Cordeiro da Silva (Passagem São Silvestre, Jurunas).",
+   "publicacao": {
+    "edicao": 13496,
+    "data": "2018-04-12",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFª ROSENIL CORDEIRO DA SILVA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-110",
+     "inep": "15170934",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-91069-2018",
+   "tipo": "Decreto",
+   "numero": "91.069/2018-PMB",
+   "data": "2018-04-24",
+   "ementa": "Cria a EMEIF Profª Maria Lúcia Oliveira Monteiro (Residencial Cordolina Fontelles, Tenoné).",
+   "publicacao": {
+    "edicao": 13512,
+    "data": "2018-05-08",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF PROFESSORA MARIA LUCIA OLIVEIRA MONTEIRO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-151",
+     "inep": "15170861",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-6065-2018",
+   "tipo": "Portaria",
+   "numero": "6065/2018-GABS/SEMEC",
+   "data": "2018-04-25",
+   "ementa": "Extingue a Escola Anexa Castanhal do Mari Mari (INEP 15043266) e transfere o acervo para a EMEC Maria Clemildes.",
+   "publicacao": {
+    "edicao": 13661,
+    "data": "2018-12-27",
+    "pagina": 14,
+    "pagina_final": 15
+   },
+   "arquivos": [
+    "UP CASTANHAL DO MARI MARI (EXTINÇÃO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-157",
+     "inep": "15043410",
+     "relacao": "recebe o acervo",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-91275-2018",
+   "tipo": "Decreto",
+   "numero": "91.275/2018-PMB",
+   "data": "2018-05-21",
+   "ementa": "Cria a EMEI Pratinha (Rodovia Arthur Bernardes).",
+   "publicacao": {
+    "edicao": 13526,
+    "data": "2018-05-28",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI PRATINHA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-045",
+     "inep": "15173844",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-0973-2019",
+   "tipo": "Portaria",
+   "numero": "0.973/2019-GABS/SEMEC",
+   "data": "2019-02-20",
+   "ementa": "Extingue a Unidade Pedagógica do Combu a partir de 01/02/2019, com a inauguração do novo prédio escolar.",
+   "publicacao": {
+    "edicao": 13719,
+    "data": "2019-03-26",
+    "pagina": 6
+   },
+   "arquivos": [
+    "UP COMBU (EXTINÇÃO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-184",
+     "inep": "15172392",
+     "relacao": "extinção da antecessora",
+     "confianca": "media",
+     "nota": "A extinção vale desde 01/02/2019, a mesma data de início da EMEC Sebastião dos Santos Quaresma, na Ilha do Combu."
+    }
+   ]
+  },
+  {
+   "id": "portaria-0974-2019",
+   "tipo": "Portaria",
+   "numero": "0.974/2019-GABS",
+   "data": "2019-02-20",
+   "ementa": "Institui a Escola Anexo Santo Antônio, vinculada à EMEC Sebastião dos Santos Quaresma (Ilha do Combu), a partir de 01/02/2019.",
+   "publicacao": {
+    "edicao": 13719,
+    "data": "2019-03-26",
+    "pagina": 6
+   },
+   "arquivos": [
+    "UP COMBU (EXTINÇÃO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-181",
+     "inep": "15172392",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-93155-2019",
+   "tipo": "Decreto",
+   "numero": "93.155/2019-PMB",
+   "data": "2019-02-20",
+   "ementa": "Cria a Escola Municipal de Educação do Campo Sebastião dos Santos Quaresma (Ilha do Combu).",
+   "publicacao": {
+    "edicao": 13726,
+    "data": "2019-04-04",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEC SÃO SEBASTIÃO DOS SANTOS QUARESMA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-184",
+     "inep": "15172392",
+     "relacao": "criação",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-181",
+     "inep": "15172392",
+     "relacao": "criação da escola-sede",
+     "confianca": "media",
+     "nota": "O cadastro cita este decreto também para o anexo; o anexo foi instituído pela Portaria 0.974/2019."
+    }
+   ]
+  },
+  {
+   "id": "portaria-6064-2018",
+   "tipo": "Portaria",
+   "numero": "6064/2018-GABS/SEMEC",
+   "data": null,
+   "ementa": "Extingue a UEI Cordeiro de Farias (INEP 15547280) a partir de 02/01/2018 e transfere o acervo para a EMEI Profª Cleonice Oliveira Conceição.",
+   "publicacao": {
+    "edicao": 13742,
+    "data": "2019-04-30",
+    "pagina": 11
+   },
+   "nota": "A data da portaria não aparece no título.",
+   "arquivos": [
+    "UEI CORDEIRO DE FARIAS (EXTINÇÃO - EMEI PROFª CLEONICE OLIVEIRA CONCEIÇÃO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-048",
+     "inep": "15170845",
+     "relacao": "recebe o acervo",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-94241-2019",
+   "tipo": "Decreto",
+   "numero": "94.241/2019-PMB",
+   "data": "2019-07-16",
+   "ementa": "Cria a EMEIF Profª Vanda Célia Ferreira de Souza (Residencial Quinta dos Paricás, Icoaraci).",
+   "publicacao": {
+    "edicao": 13798,
+    "data": "2019-07-25",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF PROFESSORA VANDA CÉLIA FERREIRA DE SOUZA.pdf",
+    "EMEI PROFESSORA LUZMARINA DE MELO MUNIZ.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-139",
+     "inep": "15173828",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-94243-2019",
+   "tipo": "Decreto",
+   "numero": "94.243/2019-PMB",
+   "data": "2019-07-16",
+   "ementa": "Cria a EMEI Profª Luzmarina de Melo Muniz (Residencial Quinta dos Paricás, Icoaraci).",
+   "publicacao": {
+    "edicao": 13798,
+    "data": "2019-07-25",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFESSORA LUZMARINA DE MELO MUNIZ.pdf",
+    "EMEIF PROFESSORA VANDA CÉLIA FERREIRA DE SOUZA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-141",
+     "inep": "15173801",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-94448-2019",
+   "tipo": "Decreto",
+   "numero": "94.448/2019-PMB",
+   "data": "2019-08-27",
+   "ementa": "Altera o nome da UMEIF Milton Monte para Escola Municipal de Educação do Campo Milton Monte (Ilha do Combu).",
+   "publicacao": {
+    "edicao": 13826,
+    "data": "2019-09-05",
+    "pagina": 5
+   },
+   "arquivos": [
+    "EMEC MILTON MONTE.pdf",
+    "EMEI ERÊ.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-182",
+     "inep": "15161552",
+     "relacao": "alteração de nome",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-94460-2019",
+   "tipo": "Decreto",
+   "numero": "94.460/2019-PMB",
+   "data": null,
+   "ementa": "Altera o nome da UMEI Erê para EMEI Erê (INEP 15558312), a partir de 22/02/2017.",
+   "publicacao": {
+    "edicao": 13826,
+    "data": "2019-09-05",
+    "pagina": 5
+   },
+   "nota": "A data do decreto não aparece no título; o cadastro informa 28/08/2019.",
+   "arquivos": [
+    "EMEI ERÊ.pdf",
+    "EMEC MILTON MONTE.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-196",
+     "inep": "15558312",
+     "relacao": "alteração de nome",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-94449-2019",
+   "tipo": "Decreto",
+   "numero": "94.449/2019-PMB",
+   "data": "2019-09-10",
+   "ementa": "Cria a nova EMEI Pratinha (Rodovia Arthur Bernardes, Passagem Santo Afonso).",
+   "publicacao": {
+    "edicao": 13831,
+    "data": "2019-09-12",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF PROFESSORA RENILDES NUNES BATISTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-045",
+     "inep": "15173844",
+     "relacao": "criação",
+     "confianca": "baixa",
+     "nota": "Decreto de 2019 que cria uma \"nova EMEI Pratinha\". Pode ser desta unidade ou da EM Pratinha II — confira."
+    },
+    {
+     "id": "UN-046",
+     "inep": "15547272",
+     "relacao": "criação",
+     "confianca": "baixa",
+     "nota": "Decreto de 2019 que cria uma \"nova EMEI Pratinha\". Pode ser desta unidade ou da EM Pratinha — confira."
+    }
+   ]
+  },
+  {
+   "id": "decreto-94463-2019",
+   "tipo": "Decreto",
+   "numero": "94.463/2019-PMB",
+   "data": "2019-09-10",
+   "ementa": "Cria a EMEIF Profª Renildes Nunes Batista (Fidélis).",
+   "publicacao": {
+    "edicao": 13831,
+    "data": "2019-09-12",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF PROFESSORA RENILDES NUNES BATISTA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-193",
+     "inep": "15173895",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-95195-2019",
+   "tipo": "Decreto",
+   "numero": "95.195/2019-PMB",
+   "data": "2019-12-27",
+   "ementa": "Cria a EMEF Profª Maria de Belém Cavalcante Lessa (Residencial Quinta dos Paricás, Icoaraci).",
+   "publicacao": {
+    "edicao": 13907,
+    "data": "2020-01-07",
+    "pagina": 4
+   },
+   "arquivos": [
+    "EMEIF PROFESSORA MARIA DE BELÉM CAVALCANTE LESSA.pdf",
+    "EMEI VENUZINA MARINHO DE SOUZA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-142",
+     "inep": "15173810",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-95218-2019",
+   "tipo": "Decreto",
+   "numero": "95.218/2019-PMB",
+   "data": "2019-12-27",
+   "ementa": "Cria a EMEI Venuzina Marinho de Souza (Profª Vena), na Alcindo Cacela, Cremação.",
+   "publicacao": {
+    "edicao": 13907,
+    "data": "2020-01-07",
+    "pagina": 4
+   },
+   "arquivos": [
+    "EMEI VENUZINA MARINHO DE SOUZA.pdf",
+    "EMEI PROFª VENUZINA MARINHO DE SOUZA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-092",
+     "inep": "15543382",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-95304-2020",
+   "tipo": "Decreto",
+   "numero": "95.304/2020-PMB",
+   "data": "2020-01-08",
+   "ementa": "Altera o nome da EMEIF Madalena Travassos para Escola Municipal de Educação do Campo Madalena Travassos.",
+   "publicacao": {
+    "edicao": 13912,
+    "data": "2020-01-14",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEC MADALENA TRAVASSOS.pdf",
+    "EMEC ANGELUS NASCIMENTO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-158",
+     "inep": "15159434",
+     "relacao": "alteração de nome",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-95305-2020",
+   "tipo": "Decreto",
+   "numero": "95.305/2020-PMB",
+   "data": "2020-01-08",
+   "ementa": "Altera o nome da EMEIF Angelus Nascimento para Escola Municipal de Educação do Campo Angelus Nascimento.",
+   "publicacao": {
+    "edicao": 13912,
+    "data": "2020-01-14",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEC ANGELUS NASCIMENTO.pdf",
+    "EMEC MADALENA TRAVASSOS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-174",
+     "inep": "15043398",
+     "relacao": "antecessora",
+     "confianca": "alta",
+     "nota": "A EMEC Angelus Nascimento (mesmo INEP) foi extinta em 2024 e substituída pela EM Quilombola Arlinda Gomes."
+    }
+   ]
+  },
+  {
+   "id": "decreto-95345-2020",
+   "tipo": "Decreto",
+   "numero": "95.345/2020-PMB",
+   "data": "2020-01-09",
+   "ementa": "Cria a EMEI Profª Círia de Nazaré Tulosa dos Santos (Residencial Quinta dos Paricás, Maracacuera).",
+   "publicacao": {
+    "edicao": 13912,
+    "data": "2020-01-14",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFESSORA CIRIA DE NAZARE TULOSA DOS SANTOS.pdf",
+    "EMEC ANGELUS NASCIMENTO.pdf",
+    "EMEC MADALENA TRAVASSOS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-140",
+     "inep": "15173836",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-95487-2020",
+   "tipo": "Decreto",
+   "numero": "95.487/2020-PMB",
+   "data": "2020-02-03",
+   "ementa": "Cria a EMEI Aldair Neri Lopes (Tapanã).",
+   "publicacao": {
+    "edicao": 13932,
+    "data": "2020-02-11",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI ALDAIR NERI LOPES.pdf",
+    "EMEI PROFª ANGELICA DO CARMO SANTOS PAIVA.pdf",
+    "EMEI PROFº JAIME DA COSTA TEIXEIRA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-059",
+     "inep": "15175570",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-95488-2020",
+   "tipo": "Decreto",
+   "numero": "95.488/2020-PMB",
+   "data": "2020-02-03",
+   "ementa": "Cria a EMEI Profª Angélica do Carmo Santos Paiva (Rua São Bento, Bengui).",
+   "publicacao": {
+    "edicao": 13932,
+    "data": "2020-02-11",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI ALDAIR NERI LOPES.pdf",
+    "EMEI PROFª ANGELICA DO CARMO SANTOS PAIVA.pdf",
+    "EMEI PROFº JAIME DA COSTA TEIXEIRA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-021",
+     "inep": "15543234",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-95513-2020",
+   "tipo": "Decreto",
+   "numero": "95.513/2020-PMB",
+   "data": "2020-02-03",
+   "ementa": "Cria a EMEI Prof. Jaime da Costa Teixeira (Tenoné), considerando a extinção da UEI de mesmo nome.",
+   "publicacao": {
+    "edicao": 13932,
+    "data": "2020-02-11",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI ALDAIR NERI LOPES.pdf",
+    "EMEI PROFª ANGELICA DO CARMO SANTOS PAIVA.pdf",
+    "EMEI PROFº JAIME DA COSTA TEIXEIRA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-152",
+     "inep": "15569616",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-96044-2020",
+   "tipo": "Decreto",
+   "numero": "96.044/2020-PMB",
+   "data": "2020-03-31",
+   "ementa": "Cria a EMEI Prof. Luiz Carlos Acácio Barbosa (Guamá).",
+   "publicacao": {
+    "edicao": 13970,
+    "data": "2020-04-08",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI PROFº LUIZ CARLOS ACACIO BARBOSA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-101",
+     "inep": "15175588",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-96325-2020",
+   "tipo": "Decreto",
+   "numero": "96.325/2020-PMB",
+   "data": "2020-05-19",
+   "ementa": "Cria uma EMEI no Curió-Utinga, publicada com o nome Profª Lúcia Soares Castro (o nome foi retificado para Profª Raimunda Lúcia Guerreiro pelo Decreto 96.503/2020).",
+   "publicacao": {
+    "edicao": 14022,
+    "data": "2020-06-25",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI PROFª RAIMUNDA LÚCIA GUERREIRO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-009",
+     "inep": "15174557",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-96503-2020",
+   "tipo": "Decreto",
+   "numero": "96.503/2020-PMB",
+   "data": "2020-06-16",
+   "ementa": "Retifica o Decreto 96.325/2020: o nome da escola passa a ser EMEI Profª Raimunda Lúcia Guerreiro.",
+   "publicacao": {
+    "edicao": 14051,
+    "data": "2020-08-05",
+    "pagina": 4
+   },
+   "arquivos": [
+    "EMEI PROFª RAIMUNDA LÚCIA GUERREIRO (RETIFICAÇÃO).pdf",
+    "EMEI PROFª LUCIA SOARES CASTRO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-009",
+     "inep": "15174557",
+     "relacao": "retificação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-96504-2020",
+   "tipo": "Decreto",
+   "numero": "96.504/2020-PMB",
+   "data": "2020-06-16",
+   "ementa": "Cria a EMEI Profª Lúcia Soares Castro, antiga UEI Primeiro de Dezembro (Marco).",
+   "publicacao": {
+    "edicao": 14051,
+    "data": "2020-08-05",
+    "pagina": 4
+   },
+   "arquivos": [
+    "EMEI PROFª LUCIA SOARES CASTRO.pdf",
+    "EMEI PROFª RAIMUNDA LÚCIA GUERREIRO (RETIFICAÇÃO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-008",
+     "inep": "15547299",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-96723-2020",
+   "tipo": "Decreto",
+   "numero": "96.723/2020-PMB",
+   "data": "2020-07-20",
+   "ementa": "Cria a EMEI Profª Aurora Guimarães Vieira, antiga UEI Marambaia.",
+   "publicacao": {
+    "edicao": 14044,
+    "data": "2020-07-27",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFª AURORA GUIMARÃES VIEIRA.pdf",
+    "EMEI PROFª MARIA AUXILIADORA MARTINS GONÇALVES.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-081",
+     "inep": "15152332",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-96781-2020",
+   "tipo": "Decreto",
+   "numero": "96.781/2020-PMB",
+   "data": "2020-07-21",
+   "ementa": "Cria a EMEI Profª Maria Auxiliadora Martins Gonçalves, antiga UEI Caripunas (Batista Campos).",
+   "publicacao": {
+    "edicao": 14044,
+    "data": "2020-07-27",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFª MARIA AUXILIADORA MARTINS GONÇALVES.pdf",
+    "EMEI PROFª AURORA GUIMARÃES VIEIRA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-001",
+     "inep": "15548058",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-97641-2020",
+   "tipo": "Decreto",
+   "numero": "97.641/2020-PMB",
+   "data": "2020-10-26",
+   "ementa": "Cria a EMEI Profª Perpétuo Socorro Jesus Figueiredo (Tapanã), com efeitos a partir de 29/10/2020.",
+   "publicacao": null,
+   "referencia": "O PDF é uma cópia digitalizada do decreto assinado, não uma página do Diário Oficial. A edição em que foi publicado ainda não foi identificada.",
+   "arquivos": [
+    "EMEI PROFª PERPETUO SOCORRO JESUS FIGUEIREDO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-061",
+     "inep": "15181901",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-3259-2020",
+   "tipo": "Portaria",
+   "numero": "3.259/2020-GABS",
+   "data": "2020-12-01",
+   "ementa": "Cria a Escola Anexa Profª Suzete Peres Maxwell, vinculada à EMEI Erê (Sacramenta), com efeitos a partir de 01/12/2020.",
+   "publicacao": {
+    "edicao": 14141,
+    "data": "2020-12-16",
+    "pagina": 15
+   },
+   "arquivos": [
+    "ESCOLA ANEXA PROFª SUZETE PERES MAXWELL.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-207",
+     "inep": "15558312",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-582-2024",
+   "tipo": "Portaria",
+   "numero": "582/2024-GABS/SEMEC",
+   "data": "2024-03-21",
+   "ementa": "Extingue a EMEIF do Campo Angelus Nascimento (INEP 15043398) e transfere o acervo para a nova EM de Educação Quilombola de Sucurijuquara Arlinda Gomes.",
+   "publicacao": {
+    "edicao": 14916,
+    "data": "2024-03-25",
+    "pagina": 6
+   },
+   "arquivos": [
+    "DECRETO DE EXTINÇÃO EMEIF SATÉLITE E EMEIFC ANGELUS NASCIMENTO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-174",
+     "inep": "15043398",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta",
+     "nota": "A unidade extinta tinha o mesmo INEP desta escola."
+    }
+   ]
+  },
+  {
+   "id": "portaria-583-2024",
+   "tipo": "Portaria",
+   "numero": "583/2024-GABS/SEMEC",
+   "data": "2024-03-21",
+   "ementa": "Extingue a EMEIF Satélite (INEP 15169979) e transfere o acervo para a nova EM Padre Bruno Sechi.",
+   "publicacao": {
+    "edicao": 14916,
+    "data": "2024-03-25",
+    "pagina": 6
+   },
+   "arquivos": [
+    "DECRETO DE EXTINÇÃO EMEIF SATÉLITE E EMEIFC ANGELUS NASCIMENTO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-030",
+     "inep": "15169979",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta",
+     "nota": "A unidade extinta tinha o mesmo INEP desta escola."
+    }
+   ]
+  },
+  {
+   "id": "portaria-1076-2024",
+   "tipo": "Portaria",
+   "numero": "1.076/2024-GABS/SEMEC",
+   "data": "2024-05-22",
+   "ementa": "Extingue a UEI Aurá (INEP 15166805) e o Anexo UP Bolonha (Parque Bolonha, INEP 15161560) e transfere o acervo para a nova EMEIF Maria da Conceição de Souza.",
+   "publicacao": {
+    "edicao": 14956,
+    "data": "2024-05-23",
+    "pagina": 11
+   },
+   "arquivos": [
+    "EXTINÇÃO (UEI AURÁ) E (EMEIF ANGELUS NSCIMENTO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-065",
+     "inep": "15181847",
+     "relacao": "recebe o acervo",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-067",
+     "inep": "15161560",
+     "relacao": "extinção",
+     "confianca": "media",
+     "nota": "O INEP desta unidade no cadastro (15161560) é o do Anexo UP Bolonha, extinto por esta portaria. Confira a situação da unidade no cadastro."
+    }
+   ]
+  },
+  {
+   "id": "portaria-1077-2024",
+   "tipo": "Portaria",
+   "numero": "1.077/2024-GABS/SEMEC",
+   "data": "2024-05-22",
+   "ementa": "Extingue a EMEIF do Campo Prof. Angelus Nascimento (INEP 15043398) e transfere o acervo para a nova EM de Educação Quilombola do Sucurijuquara Arlinda Gomes.",
+   "publicacao": {
+    "edicao": 14956,
+    "data": "2024-05-23",
+    "pagina": 11
+   },
+   "arquivos": [
+    "EXTINÇÃO (UEI AURÁ) E (EMEIF ANGELUS NSCIMENTO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-174",
+     "inep": "15043398",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-111392-2024",
+   "tipo": "Decreto",
+   "numero": "111.392/2024-PMB",
+   "data": "2024-06-26",
+   "ementa": "Extingue a EMEIF de Educação do Campo Angelus Nascimento (INEP 15043398) e cria a EM de Educação Quilombola de Sucurijuquara Arlinda Gomes.",
+   "publicacao": {
+    "edicao": 14981,
+    "data": "2024-07-01",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEQ DE SUCURIJUQUARA ARLINDA GOMES.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-174",
+     "inep": "15043398",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-111987-2024",
+   "tipo": "Decreto",
+   "numero": "111.987/2024-PMB",
+   "data": "2024-08-13",
+   "ementa": "Cria a EMEIF Maria da Conceição de Souza (Conjunto Jardim Nova Vida, Águas Lindas).",
+   "publicacao": {
+    "edicao": 15018,
+    "data": "2024-08-27",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF MARIA DA CONCEIÇÃO DE SOUZA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-065",
+     "inep": "15181847",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-111988-2024",
+   "tipo": "Decreto",
+   "numero": "111.988/2024-PMB",
+   "data": "2024-08-13",
+   "ementa": "Cria a Escola Anexa Profª Joana Darc Guimarães de Oliveira, da EMEI Rosenil Cordeiro da Silva (Conjunto Alacid Nunes, Guamá).",
+   "publicacao": {
+    "edicao": 15011,
+    "data": "2024-08-16",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI ANETE MONTEIRO RODRIGUES.pdf",
+    "EMEI PROFESSORA JOANA DAR'C GUIMARÃES DE OLIVEIRA1.pdf",
+    "ESOLA ANEXA ARIANA LIVIA AMOEDO DE CASTRO (ANTIGA EA JARDIM DAS OLIVEIRAS).pdf",
+    "UEI SÃO JOSÉ E EMEI SÃO JOÃO PAULO II.pdf",
+    "EMEI SÃO JOÃO PAULO II.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-102",
+     "inep": "15181936",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-111989-2024",
+   "tipo": "Decreto",
+   "numero": "111.989/2024-PMB",
+   "data": "2024-08-13",
+   "ementa": "Cria a EMEI Anete Monteiro Rodrigues.",
+   "publicacao": {
+    "edicao": 15011,
+    "data": "2024-08-16",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI ANETE MONTEIRO RODRIGUES.pdf",
+    "EMEI PROFESSORA JOANA DAR'C GUIMARÃES DE OLIVEIRA1.pdf",
+    "ESOLA ANEXA ARIANA LIVIA AMOEDO DE CASTRO (ANTIGA EA JARDIM DAS OLIVEIRAS).pdf",
+    "UEI SÃO JOSÉ E EMEI SÃO JOÃO PAULO II.pdf",
+    "EMEI SÃO JOÃO PAULO II.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-209",
+     "inep": "15181731",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-111990-2024",
+   "tipo": "Decreto",
+   "numero": "111.990/2024-PMB",
+   "data": "2024-08-13",
+   "ementa": "Cria a Escola Anexa Ariana Lívia Amoedo de Castro (antiga Escola Anexa Jardim das Oliveiras).",
+   "publicacao": {
+    "edicao": 15011,
+    "data": "2024-08-16",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI ANETE MONTEIRO RODRIGUES.pdf",
+    "EMEI PROFESSORA JOANA DAR'C GUIMARÃES DE OLIVEIRA1.pdf",
+    "ESOLA ANEXA ARIANA LIVIA AMOEDO DE CASTRO (ANTIGA EA JARDIM DAS OLIVEIRAS).pdf",
+    "UEI SÃO JOSÉ E EMEI SÃO JOÃO PAULO II.pdf",
+    "EMEI SÃO JOÃO PAULO II.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-071",
+     "inep": "15563472",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-111991-2024",
+   "tipo": "Decreto",
+   "numero": "111.991/2024-PMB",
+   "data": "2024-08-13",
+   "ementa": "Extingue a UEI São José e cria a EMEI São João Paulo II (Rodovia Arthur Bernardes, 576, Pratinha).",
+   "publicacao": {
+    "edicao": 15011,
+    "data": "2024-08-16",
+    "pagina": 2,
+    "pagina_final": 3
+   },
+   "arquivos": [
+    "EMEI ANETE MONTEIRO RODRIGUES.pdf",
+    "EMEI PROFESSORA JOANA DAR'C GUIMARÃES DE OLIVEIRA1.pdf",
+    "ESOLA ANEXA ARIANA LIVIA AMOEDO DE CASTRO (ANTIGA EA JARDIM DAS OLIVEIRAS).pdf",
+    "UEI SÃO JOSÉ E EMEI SÃO JOÃO PAULO II.pdf",
+    "EMEI SÃO JOÃO PAULO II.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-047",
+     "inep": "15181774",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-112806-2024",
+   "tipo": "Decreto",
+   "numero": "112.806/2024-PMB",
+   "data": "2024-11-13",
+   "ementa": "Cria a Escola de Educação Infantil Betinho, anexa da EMEIF Parque Amazônia (Terra Firme).",
+   "publicacao": {
+    "edicao": 15073,
+    "data": "2024-11-14",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI BETINHO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-117",
+     "inep": "15181740",
+     "relacao": "criação como anexo",
+     "confianca": "alta",
+     "nota": "O cadastro cita o Decreto 113.719/2025 como ato de criação; este decreto de 2024 criou a escola como anexa da EMEIF Parque Amazônia."
+    }
+   ]
+  },
+  {
+   "id": "decreto-112888-2024",
+   "tipo": "Decreto",
+   "numero": "112.888/2024-PMB",
+   "data": "2024-11-22",
+   "ementa": "Retifica o Decreto 111.988/2024, que criou a Escola Joana Darc Guimarães de Oliveira.",
+   "publicacao": {
+    "edicao": 15079,
+    "data": "2024-11-26",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFESSORA JOANA DAR'C GUIMARÃES DE OLIVEIRA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-102",
+     "inep": "15181936",
+     "relacao": "retificação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113110-2024",
+   "tipo": "Decreto",
+   "numero": "113.110/2024-PMB",
+   "data": "2024-12-23",
+   "ementa": "Extingue a EMEIF Satélite e cria a Escola Municipal Padre Bruno Sechi (Coqueiro).",
+   "publicacao": {
+    "edicao": 15099,
+    "data": "2024-12-26",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EM PADRE BRUNO SECHI.pdf",
+    "EXTINÇÃO EMEIF SATÉLITE.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-030",
+     "inep": "15169979",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  }
+ ]
+}

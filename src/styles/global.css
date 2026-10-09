@@ -1155,6 +1155,40 @@ main {
   clip: rect(0, 0, 0, 0);
 }
 
+/* Atos do Diário Oficial (página da unidade) */
+.atos-diario {
+  display: grid;
+  gap: 10px;
+}
+.atos-diario .anexos__lista li {
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.atos-diario .anexos__info {
+  flex: 1 1 260px;
+}
+.atos-diario .anexos__lista li > svg {
+  color: var(--azul);
+  margin-top: 2px;
+}
+.atos-diario__titulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  color: var(--tinta);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.atos-diario__ementa {
+  font-size: 0.86rem;
+  color: var(--tinta-2);
+}
+.atos-diario .btn {
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
 /* Auditoria Documental: barra de progresso fixa */
 .aud-barra {
   position: sticky;

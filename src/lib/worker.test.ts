@@ -111,3 +111,54 @@ describe('worker de anexos', () => {
     a.restaurar();
   });
 });
+
+describe('worker: Diário Oficial', () => {
+  function diario(respostas: (accept: string) => Response | Promise<Response>) {
+    const pedidos: { url: string; accept: string }[] = [];
+    const original = globalThis.fetch;
+    globalThis.fetch = (async (url: string, init: RequestInit) => {
+      const accept = (init.headers as Record<string, string>).Accept;
+      pedidos.push({ url: String(url), accept });
+      return respostas(accept);
+    }) as typeof fetch;
+    return { pedidos, restaurar: () => (globalThis.fetch = original) };
+  }
+  const env = ambiente().env;
+  const abrir = (caminho: string) => worker.fetch(new Request('https://w.exemplo' + caminho), env);
+
+  it('entrega a edição como PDF para abrir no navegador, sem exigir login', async () => {
+    const d = diario(() => new Response(pdf));
+    const r = await abrir('/diario/15011.pdf?pagina=2');
+    expect(r.status).toBe(200);
+    expect(r.headers.get('Content-Type')).toBe('application/pdf');
+    expect(r.headers.get('Content-Disposition')).toContain('inline');
+    expect(d.pedidos[0]).toEqual({ url: 'https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios/15011', accept: 'application/octet-stream' });
+    d.restaurar();
+  });
+
+  it('tenta outro formato quando o site devolve os dados da edição em vez do PDF', async () => {
+    const d = diario((accept) => (accept === 'application/octet-stream' ? new Response('{"id":15011}') : new Response(pdf)));
+    expect((await abrir('/diario/15011')).headers.get('Content-Type')).toBe('application/pdf');
+    expect(d.pedidos).toHaveLength(2);
+    d.restaurar();
+  });
+
+  it('explica como achar a edição quando o site da Prefeitura não responde', async () => {
+    const d = diario(() => {
+      throw new Error('recusado');
+    });
+    const r = await abrir('/diario/15011.pdf?pagina=7');
+    expect(r.status).toBe(502);
+    const html = await r.text();
+    expect(html).toContain('edição nº 15011');
+    expect(html).toContain('página 7');
+    d.restaurar();
+  });
+
+  it('só aceita número de edição', async () => {
+    const d = diario(() => new Response(pdf));
+    expect((await abrir('/diario/abc')).status).toBe(401);
+    expect(d.pedidos).toHaveLength(0);
+    d.restaurar();
+  });
+});

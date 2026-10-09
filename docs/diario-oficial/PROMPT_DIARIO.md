@@ -15,7 +15,7 @@ sistema, o banco de dados nem `planilha.json`.
 
 ## Antes de começar
 
-Leia `docs/DIARIO_OFICIAL.md` e os arquivos de `scripts/diario/` (coletar.mjs, analisar.mjs, regras.mjs, texto.mjs). Eles já fazem a
+Leia `docs/diario-oficial/DIARIO_OFICIAL.md` e os arquivos de `scripts/diario/` (coletar.mjs, analisar.mjs, regras.mjs, texto.mjs). Eles já fazem a
 coleta (retomável) e uma primeira associação por regras (INEP e nome). A fonte é a API do painel:
 `GET https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios?start=0&rows=100` (lista, 5.147 edições) e
 `GET .../diarios/{id}` (o PDF, que só vem com `Accept: application/octet-stream`; sem isso o site devolve JSON).

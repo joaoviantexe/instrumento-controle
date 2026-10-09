@@ -5,6 +5,7 @@ import { Dialogo, Etiqueta, Faixa, Medidor, Nota } from '../components/ui';
 import { FormUnidade, GRUPOS_UNIDADE } from '../components/FormUnidade';
 import { FormAuditoria, auditoriaVazia } from '../components/FormAuditoria';
 import { Anexos } from '../components/Anexos';
+import { AtosDiario } from '../components/AtosDiario';
 import { CABECALHOS_UNIDADE as C, ROTULOS_ACAO, ROTULOS_PLANO, TEXTOS } from '../data/planilha';
 import { useDados } from '../lib/store';
 import { formatarCep, formatarData, formatarTelefone, fraseado } from '../lib/format';
@@ -77,6 +78,18 @@ export function UnidadeDetalhe() {
             </section>
           ))}
         </div>
+
+        <section className="cartao" aria-labelledby="atos-diario">
+          <div className="cartao__cab">
+            <h2 id="atos-diario" className="titulo-bloco">
+              Atos no Diário Oficial
+            </h2>
+            <span className="contagem">Decretos, portarias e resoluções da unidade, com a página da publicação</span>
+          </div>
+          <div className="cartao__corpo">
+            <AtosDiario unidadeId={u.id} />
+          </div>
+        </section>
 
         <section className="cartao" aria-labelledby="docs">
           <div className="cartao__cab">

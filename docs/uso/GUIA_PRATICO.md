@@ -161,7 +161,7 @@ O menu vira uma gaveta (☰) e as tabelas viram cartões, um por registro, com o
 
 ## 17. Adicionar ou remover pessoas
 
-Duas etapas no Supabase (conta e autorização): veja `docs/USUARIOS.md`. Sem a autorização, a pessoa entra mas vê "ainda não está autorizado".
+Duas etapas no Supabase (conta e autorização): veja `docs/implantacao/USUARIOS.md`. Sem a autorização, a pessoa entra mas vê "ainda não está autorizado".
 
 ## 18. Rotina sugerida
 

@@ -12,6 +12,9 @@
  *
  * O Worker só atende quem está logado no Supabase e consta na tabela "membros", recusa
  * gravações acima dos limites e confere o conteúdo (PDF íntegro, hash conferido).
+ *
+ * Exceção pública: GET /diario/<número da edição>.pdf entrega a edição do Diário Oficial do Município
+ * (documento público), buscada no painel da Prefeitura, para o navegador abrir na página do ato (#page=N).
  */
 
 const TAMANHO_MAX = 10 * 1024 * 1024;
@@ -72,6 +75,58 @@ async function assinar(env, texto) {
   return Array.from(s, (b) => b.toString(16).padStart(2, '0')).join('');
 }
 
+const DIARIO_API = 'https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios';
+const PAINEL_DIARIO = 'https://sistemas.belem.pa.gov.br/diario/painel';
+const DIARIO = /^\/diario\/(\d{1,7})(?:\.pdf)?$/;
+
+/** Página simples avisando que a edição não pôde ser obtida, com o caminho para achá-la no painel. */
+function avisoDiario(numero, pagina) {
+  const onde = pagina ? `a página ${pagina}` : 'a página do ato';
+  const html = `<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diário Oficial nº ${numero}</title>
+<body style="font-family:system-ui,sans-serif;max-width:40rem;margin:3rem auto;padding:0 1rem;line-height:1.5">
+<h1 style="font-size:1.3rem">Não foi possível abrir a edição nº ${numero} agora</h1>
+<p>O site da Prefeitura não respondeu ou não entregou o PDF. Abra o <a href="${PAINEL_DIARIO}">painel do Diário Oficial</a>,
+procure a edição nº ${numero} e vá até ${onde}.</p></body></html>`;
+  return new Response(html, { status: 502, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
+}
+
+/** Busca a edição no painel do Diário (o PDF só vem quando o pedido aceita octet-stream) e confere se é um PDF. */
+async function buscarEdicao(numero) {
+  for (const accept of ['application/octet-stream', 'application/pdf, */*']) {
+    try {
+      const r = await fetch(`${DIARIO_API}/${numero}`, { headers: { Accept: accept }, signal: AbortSignal.timeout(25000) });
+      if (!r.ok) continue;
+      const corpo = await r.arrayBuffer();
+      if (new TextDecoder().decode(corpo.slice(0, 5)) === '%PDF-') return corpo;
+    } catch {
+      /* tenta o próximo formato */
+    }
+  }
+  return null;
+}
+
+async function diarioOficial(numero, url, ctx) {
+  const cache = typeof caches !== 'undefined' ? caches.default : null;
+  const chave = new Request(`${url.origin}/diario/${numero}.pdf`);
+  const guardada = cache && (await cache.match(chave));
+  if (guardada) return guardada;
+  const corpo = await buscarEdicao(numero);
+  const pagina = Number(url.searchParams.get('pagina')) || 0;
+  if (!corpo) return avisoDiario(numero, pagina);
+  const resposta = new Response(corpo, {
+    headers: {
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `inline; filename="dom-${numero}.pdf"`,
+      // Uma edição publicada não muda: guarda por 30 dias para não pedir de novo ao site da Prefeitura.
+      'Cache-Control': 'public, max-age=2592000',
+      'X-Content-Type-Options': 'nosniff',
+    },
+  });
+  if (cache && ctx) ctx.waitUntil(cache.put(chave, resposta.clone()));
+  return resposta;
+}
+
 const limiteA = (env) => Number(env.LIMITE_A) || 900000;
 const limiteB = (env) => Number(env.LIMITE_B) || 9000000;
 const limiteBytes = (env) => Number(env.LIMITE_BYTES) || 9 * 1024 ** 3;
@@ -83,9 +138,13 @@ async function reservar(env, token, tipo, limite) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(env, request) });
+
+    // Diário Oficial (público): abre a edição no navegador, sem login.
+    const d = DIARIO.exec(url.pathname);
+    if (request.method === 'GET' && d) return diarioOficial(d[1], url, ctx);
 
     // Abertura por link assinado (o navegador não envia o login ao abrir uma nova aba).
     const m = /^\/arquivos\/([0-9a-f]{64})$/.exec(url.pathname);

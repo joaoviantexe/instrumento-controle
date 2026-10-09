@@ -3,7 +3,7 @@ import type { Auditoria, ItemLista, SituacaoItem, Unidade } from '../lib/types';
 
 /**
  * Textos, listas e registros extraídos da planilha
- * "Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC.xlsx" por scripts/extrair_planilha.py.
+ * "Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC.xlsx" por scripts/planilha/extrair_planilha.py.
  * Os textos são idênticos aos das células de origem.
  */
 export const PLANILHA = bruto;

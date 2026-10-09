@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc -b",
-    "extrair": "python3 scripts/extrair_planilha.py",
+    "extrair": "python3 scripts/planilha/extrair_planilha.py",
     "diario:coletar": "node scripts/diario/coletar.mjs",
     "diario:analisar": "node scripts/diario/analisar.mjs"
   },

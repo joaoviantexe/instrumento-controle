@@ -1,7 +1,7 @@
 # Armazenamento dos anexos no Cloudflare R2 (gratuito até 10 GB)
 
 > **Situação:** por padrão o site guarda os PDFs no **Supabase Storage** (1 GB gratuito). Com o **Worker** (código pronto em
-> [`worker/index.js`](../worker/index.js)) e a variável `VITE_ANEXOS_URL`, os novos PDFs passam a ir para o **R2**. Os valores e nomes de menu da Cloudflare são de memória e podem mudar.
+> [`worker/index.js`](../../worker/index.js)) e a variável `VITE_ANEXOS_URL`, os novos PDFs passam a ir para o **R2**. Os valores e nomes de menu da Cloudflare são de memória e podem mudar.
 
 ## Quanto cabe (gratuito) e quanto custa depois
 
@@ -24,13 +24,17 @@ O Worker é uma pequena função gratuita da Cloudflare que fica entre o site e 
 limites do mês, confere se o arquivo é um PDF íntegro e entrega o PDF por um link que **expira em 2 minutos**. Ele acessa o bucket por uma ligação direta
 (*binding*), por isso **não usa** as chaves (Access Key/Secret) criadas no passo 4: você pode apagar esse token (R2 → *Manage API Tokens*) para reduzir risco.
 
+O mesmo Worker também entrega, **sem login**, as edições do Diário Oficial (`/diario/<número>.pdf`), usadas pelos links da seção
+**Atos no Diário Oficial** da página de cada unidade (veja [ATOS_DE_CRIACAO.md](../diario-oficial/ATOS_DE_CRIACAO.md)). Sempre que o
+`worker/index.js` mudar, cole o código novo no painel e clique em **Deploy**.
+
 **A. Atualizar o banco (Supabase)** — rode o `supabase/schema.sql` inteiro de novo (SQL Editor → colar → *Run*). Ele cria a coluna `destino`, a tabela `uso_operacoes`
 e as funções que contam gravações/leituras do mês e o espaço usado no R2. Não apaga dados.
 
 **B. Criar o Worker**
 1. Cloudflare → **Workers & Pages** → **Create** → escolha o modelo **Start with Hello World!** (**não** use "Import a repository" nem "Upload static files": Workers só com arquivos estáticos **não aceitam variáveis nem bindings**) → nome `instrumento-cde-anexos` → **Deploy**.
    > Se o seu *site* também estiver hospedado como Worker na Cloudflare (por exemplo `instrumento-controle`), ele é **outro** Worker: não o apague nem tente configurá-lo; o Worker dos anexos é separado.
-2. Clique em **Edit code**, apague tudo, cole o conteúdo do arquivo [`worker/index.js`](../worker/index.js) e clique em **Deploy**.
+2. Clique em **Edit code**, apague tudo, cole o conteúdo do arquivo [`worker/index.js`](../../worker/index.js) e clique em **Deploy**.
 3. Em **Settings → Bindings → Add → R2 bucket**: *Variable name* `BUCKET`, bucket `instrumento-cde-anexos` → salvar.
 4. Em **Settings → Variables and Secrets**, adicione:
    | Nome | Tipo | Valor |
