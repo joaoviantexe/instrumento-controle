@@ -16,7 +16,7 @@ Recomendado para uso real: **B**. Siga os passos 1 a 4 abaixo; para a opção A 
 
 1. Crie uma conta em <https://supabase.com> e clique em **New project** (região mais próxima, ex.: *South America (São Paulo)*).
    Anote a senha do banco (não é usada pela aplicação).
-2. No menu **SQL Editor**, clique em **New query**, cole **todo** o conteúdo de [`supabase/schema.sql`](../supabase/schema.sql) e clique em **Run**.
+2. No menu **SQL Editor**, clique em **New query**, cole **todo** o conteúdo de [`supabase/schema.sql`](../../supabase/schema.sql) e clique em **Run**.
    O script cria as tabelas (`unidades`, `auditorias`, `avaliacoes`, `acoes`, `membros`), as regras de segurança (RLS)
    e o registro automático de *quem* e *quando* alterou. Pode ser executado de novo sem perder dados.
 3. **Crie os usuários da equipe**: *Authentication → Users → Add user → Create new user*, informe e-mail e senha e marque **Auto Confirm User**.

@@ -3,7 +3,7 @@
 para src/data/planilha.json, usado como base inicial da aplicação.
 
 Uso:
-    python3 scripts/extrair_planilha.py "Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC (4).xlsx"
+    python3 scripts/planilha/extrair_planilha.py "dados/planilha/Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC (4).xlsx"
 
 Os textos são copiados exatamente como estão nas células da planilha.
 """
@@ -18,7 +18,7 @@ import openpyxl
 
 warnings.filterwarnings("ignore")
 
-RAIZ = Path(__file__).resolve().parent.parent
+RAIZ = Path(__file__).resolve().parents[2]
 SAIDA = RAIZ / "src" / "data" / "planilha.json"
 
 

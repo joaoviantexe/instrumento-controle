@@ -981,7 +981,7 @@ Não existe nenhuma fórmula que **avise** de uma **vigência de ato vencida** (
 
 #### Como os **dados** foram carregados (transparência total)
 
-Os dados do Excel foram lidos **por um programa** (`scripts/extrair_planilha.py`), não digitados. Foram aplicadas **apenas 3 normalizações técnicas**, para o sistema funcionar:
+Os dados do Excel foram lidos **por um programa** (`scripts/planilha/extrair_planilha.py`), não digitados. Foram aplicadas **apenas 3 normalizações técnicas**, para o sistema funcionar:
 
 1. **Espaços sobrando** no começo e no fim de cada texto foram removidos (ex.: ` 0340863- 021` passou a `0340863- 021`; o espaço do meio foi mantido).
 2. **Números inteiros guardados como decimal** (`981994474.0`) viraram texto sem o `.0` (`981994474`).
@@ -1084,7 +1084,7 @@ sequenceDiagram
 1. **Login**: quem não está logado só vê a tela de entrada.
 2. **Lista de autorizados**: mesmo logado, **só vê dados** quem tem o e-mail na tabela `membros`. Isso é verificado **pelo próprio banco** a cada leitura e gravação — **não dá para burlar mexendo no navegador**.
 3. **Chave pública (`anon`)**: a "chave" que o site usa é **pública por natureza**; ela **sozinha não abre nada** — o porteiro (RLS) é quem decide.
-4. **Dados pessoais**: o cadastro contém **nomes, matrículas e telefones de servidores**. Por isso: cadastro aberto **desligado**, senhas fortes e autorização **só para quem precisa** (LGPD). O passo a passo está em `docs/USUARIOS.md`.
+4. **Dados pessoais**: o cadastro contém **nomes, matrículas e telefones de servidores**. Por isso: cadastro aberto **desligado**, senhas fortes e autorização **só para quem precisa** (LGPD). O passo a passo está em `docs/implantacao/USUARIOS.md`.
 
 ### 9.6 O que custa
 
@@ -1098,7 +1098,7 @@ sequenceDiagram
 
 | Quero… | Como |
 |---|---|
-| **Adicionar uma pessoa à equipe** | Criar a conta em *Authentication → Users* **e** autorizar o e-mail em `membros` → `docs/USUARIOS.md` |
+| **Adicionar uma pessoa à equipe** | Criar a conta em *Authentication → Users* **e** autorizar o e-mail em `membros` → `docs/implantacao/USUARIOS.md` |
 | **Cadastrar uma escola nova** | Site → **Cadastro Unidades → Nova unidade** |
 | **Corrigir dados de uma escola** | Abrir a unidade → **Editar** |
 | **Planejar várias auditorias** | **Plano de Auditoria** → marcar as caixas → **Planejar em lote** |
@@ -1393,10 +1393,10 @@ Todas as funções abaixo estão em **`src/lib/calc.ts`** (e conferidas por test
 
 | Arquivo / pasta | O que é |
 |---|---|
-| `Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC (4).xlsx` | **A planilha original** (fonte de tudo) |
-| `referencia.zip` | O site da Prefeitura usado como **referência de design** |
+| `dados/planilha/Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC (4).xlsx` | **A planilha original** (fonte de tudo) |
+| `docs/referencias/portal-semec.zip` | O site da Prefeitura usado como **referência de design** |
 | `src/data/planilha.json` | **Todos os dados e textos da planilha**, extraídos automaticamente (217 unidades, 53 itens, 217 auditorias, listas e textos) |
-| `scripts/extrair_planilha.py` | O programa que **lê o Excel e gera** o arquivo acima |
+| `scripts/planilha/extrair_planilha.py` | O programa que **lê o Excel e gera** o arquivo acima |
 | `src/lib/calc.ts` | **As fórmulas do Excel** traduzidas (pontos, índices, contagens, dias restantes…) |
 | `src/lib/calc.test.ts` e `src/lib/__fixtures__/` | **Testes** que comprovam que os cálculos do site **batem com o Excel** |
 | `src/lib/backend/` | Como os dados são **guardados** (modo local e Supabase) |
@@ -1408,10 +1408,10 @@ Todas as funções abaixo estão em **`src/lib/calc.ts`** (e conferidas por test
 | `supabase/schema.sql` | O **desenho do banco** de dados e as regras de segurança |
 | `public/_headers` | Cabeçalhos de segurança e cache da hospedagem |
 | `README.md` | Visão geral do projeto |
-| `docs/MANUAL.md` | **Manual de cada funcionalidade** do site |
-| `docs/IMPLANTACAO.md` | Como **publicar** (Cloudflare + Supabase) |
-| `docs/USUARIOS.md` | Como **adicionar/remover pessoas** |
-| `docs/ENTENDENDO_A_PLANILHA.md` | **Este documento** |
+| `docs/uso/MANUAL.md` | **Manual de cada funcionalidade** do site |
+| `docs/implantacao/IMPLANTACAO.md` | Como **publicar** (Cloudflare + Supabase) |
+| `docs/implantacao/USUARIOS.md` | Como **adicionar/remover pessoas** |
+| `docs/uso/ENTENDENDO_A_PLANILHA.md` | **Este documento** |
 
 ---
 

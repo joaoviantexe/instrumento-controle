@@ -1,13 +1,14 @@
 import { readFileSync } from 'node:fs';
+import { basename } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { snapshotInicial } from './backend/inicial';
 import { lerPlanilha, planejarImportacao, registrosParaGravar } from './importar';
 
-const ARQUIVO = 'Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC (4).xlsx';
+const ARQUIVO = 'dados/planilha/Instrumento_Controle_Documentacao_Escolar_CDE_SEMEC (4).xlsx';
 
 async function original() {
   const buf = readFileSync(ARQUIVO);
-  return lerPlanilha(new File([buf], ARQUIVO));
+  return lerPlanilha(new File([buf], basename(ARQUIVO)));
 }
 
 describe('importação de planilha', () => {

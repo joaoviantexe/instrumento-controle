@@ -28,5 +28,6 @@ npm run diario:analisar -- diario-pdfs         # lê os PDFs e grava diario-said
 
 - A associação é por regras (INEP, depois nome da unidade); não usa IA. Nomes antigos de escolas sem INEP no texto caem em `duvidosos.json`.
 - PDFs escaneados (edições antigas) não têm texto e ainda não passam por OCR.
-- Os links diretos para o PDF não abrem no navegador (a mesma URL devolve o PDF só com o cabeçalho `Accept` do painel), então o anexo
-  deve guardar edição, data e página, e não depender de um link colado.
+- O endereço do painel não abre o PDF no navegador (a mesma URL devolve o PDF só com o cabeçalho `Accept` do painel). Para o site,
+  o Worker da Cloudflare entrega a edição em `/diario/<número>.pdf` e o link abre na página do ato — veja
+  [ATOS_DE_CRIACAO.md](ATOS_DE_CRIACAO.md#o-link-para-a-página-do-diário).
