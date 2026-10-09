@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc -b",
-    "extrair": "python3 scripts/extrair_planilha.py"
+    "extrair": "python3 scripts/extrair_planilha.py",
+    "diario:coletar": "node scripts/diario/coletar.mjs",
+    "diario:analisar": "node scripts/diario/analisar.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -30,6 +32,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "pdfjs-dist": "^4.10.38",
     "typescript": "~6.0.2",
     "vite": "^8.3.3",
     "vitest": "^5.0.3"

@@ -6,3 +6,7 @@ dist
 !.env.example
 coverage
 *.tsbuildinfo
+
+# Diário Oficial: PDFs baixados e resultados da análise (ficam só no computador de quem roda)
+diario-pdfs
+diario-saida
