@@ -136,6 +136,15 @@ describe('worker: Diário Oficial', () => {
     d.restaurar();
   });
 
+  it('trata "0015011" e "15011" como a mesma edição e recusa o número zero', async () => {
+    const d = diario(() => new Response(pdf));
+    expect((await abrir('/diario/0015011.pdf')).status).toBe(200);
+    expect(d.pedidos[0].url).toBe('https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios/15011');
+    expect((await abrir('/diario/000')).status).toBe(400);
+    expect(d.pedidos).toHaveLength(1);
+    d.restaurar();
+  });
+
   it('tenta outro formato quando o site devolve os dados da edição em vez do PDF', async () => {
     const d = diario((accept) => (accept === 'application/octet-stream' ? new Response('{"id":15011}') : new Response(pdf)));
     expect((await abrir('/diario/15011')).headers.get('Content-Type')).toBe('application/pdf');
@@ -184,6 +193,8 @@ describe('worker: lista de edições e CORS do Diário', () => {
     expect(await r.json()).toEqual(lista);
     expect(f.urls[0]).toBe('https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios?start=200&rows=100');
     expect(r.headers.get('Access-Control-Allow-Origin')).toBe('https://site.exemplo');
+    // A varredura precisa ver as edições novas: a lista não fica guardada no navegador.
+    expect(r.headers.get('Cache-Control')).toBe('no-cache');
     f.restaurar();
   });
 

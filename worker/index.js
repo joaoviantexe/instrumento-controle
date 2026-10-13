@@ -98,7 +98,7 @@ async function edicoesDiario(url) {
     const r = await fetch(`${DIARIO_API}?start=${start}&rows=${rows}`, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(25000) });
     if (r.ok) {
       const dados = await r.json();
-      return new Response(JSON.stringify(dados), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600' } });
+      return new Response(JSON.stringify(dados), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' } });
     }
   } catch {
     /* responde com o erro abaixo */
@@ -172,7 +172,12 @@ export default {
     // Diário Oficial (público): abre a edição no navegador e alimenta a varredura do site, sem login.
     if (request.method === 'GET' && url.pathname === '/diario/edicoes') return comCors(env, request, await edicoesDiario(url));
     const d = DIARIO.exec(url.pathname);
-    if (request.method === 'GET' && d) return comCors(env, request, await diarioOficial(d[1], url, ctx));
+    if (request.method === 'GET' && d) {
+      // "0015011" e "15011" são a mesma edição: sem isso, cada variação furaria o cache e geraria um pedido novo à Prefeitura.
+      const numero = String(Number(d[1]));
+      if (numero === '0') return comCors(env, request, new Response('Edição inválida.', { status: 400 }));
+      return comCors(env, request, await diarioOficial(numero, url, ctx));
+    }
 
     // Abertura por link assinado (o navegador não envia o login ao abrir uma nova aba).
     const m = /^\/arquivos\/([0-9a-f]{64})$/.exec(url.pathname);

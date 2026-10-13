@@ -14,10 +14,24 @@ export function carregarPdfjs(): Promise<Pdfjs> {
   return carregado;
 }
 
+type TrabalhadorPdf = InstanceType<Pdfjs['PDFWorker']>;
+const trabalhadores: TrabalhadorPdf[] = [];
+
+/** Worker do pdf.js de uma "vaga" da varredura: reaproveitado em todas as edições, em vez de criar um por PDF. */
+export function trabalhadorPdf(pdfjs: Pdfjs, vaga: number): TrabalhadorPdf {
+  return (trabalhadores[vaga] ??= new pdfjs.PDFWorker());
+}
+
+/** Libera os workers (ao fim da varredura). */
+export function encerrarTrabalhadores() {
+  while (trabalhadores.length) trabalhadores.pop()?.destroy();
+}
+
 /** Texto de cada página do PDF, na ordem em que o PDF o escreve (uma linha por linha do documento). */
-export async function extrairPaginas(pdfjs: Pdfjs, dados: ArrayBuffer): Promise<PaginaTexto[]> {
-  const doc = await pdfjs.getDocument({ data: new Uint8Array(dados), verbosity: 0, isEvalSupported: false }).promise;
+export async function extrairPaginas(pdfjs: Pdfjs, dados: ArrayBuffer, worker?: TrabalhadorPdf): Promise<PaginaTexto[]> {
+  const tarefa = pdfjs.getDocument({ data: new Uint8Array(dados), verbosity: 0, isEvalSupported: false, ...(worker ? { worker } : {}) });
   try {
+    const doc = await tarefa.promise;
     const paginas: PaginaTexto[] = [];
     for (let i = 1; i <= doc.numPages; i++) {
       const pag = await doc.getPage(i);
@@ -29,6 +43,7 @@ export async function extrairPaginas(pdfjs: Pdfjs, dados: ArrayBuffer): Promise<
     }
     return paginas;
   } finally {
-    await doc.destroy();
+    // Também quando o PDF é inválido (a promessa rejeita): encerra a tarefa e o documento. O worker compartilhado continua vivo.
+    await tarefa.destroy();
   }
 }

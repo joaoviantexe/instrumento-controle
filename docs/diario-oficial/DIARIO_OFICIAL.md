@@ -14,6 +14,11 @@ edição) e é lido na hora; só o texto dos atos sobre escolas fica guardado, n
   em `ORIGENS`.
 - Leva algumas horas para as ~5.000 edições. Pode **Pausar** e **Continuar** depois (mesmo fechando a aba): o progresso fica salvo no
   navegador. Os campos "Da edição nº" / "Até a edição nº" limitam a faixa.
+- A varredura pausa sozinha se você trocar de aba dentro do site (por exemplo, ir para "Planilha") ou sair da página: fique na aba
+  "Diário Oficial". Se a aba do navegador ficar em segundo plano ela continua, mas o navegador pode deixá-la mais lenta; prefira mantê-la
+  visível (ou numa janela à parte). Edições que dão erro vão para o fim da fila e são tentadas de novo ao clicar em **Continuar**.
+- O Worker guarda cada edição por 30 dias no cache da Cloudflare, mas esse cache só funciona num domínio próprio; em `*.workers.dev`
+  cada abertura volta a pedir o PDF ao site da Prefeitura (funciona, só é mais lento).
 - Edições digitalizadas (sem texto) e as que derem erro ficam listadas no resultado para tratar depois.
 - **Baixar resultado** gera `varredura-diario-oficial-AAAA-MM-DD.json` com cada ato achado (edição, data, página, tipo, número,
   título e texto). A associação às unidades é feita sobre esse arquivo, com revisão: nomes atuais, nomes antigos e INEP sugerem as
