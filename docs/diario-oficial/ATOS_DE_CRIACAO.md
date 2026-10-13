@@ -1,5 +1,7 @@
 # Atos de criação no Diário Oficial
 
+> Atualização de 13/10/2026: a varredura completa do Diário acrescentou atos além destes PDFs; veja [VARREDURA_RESULTADO.md](VARREDURA_RESULTADO.md). Os números abaixo são os da primeira leitura (94 PDFs).
+
 Os 94 PDFs da pasta [`dados/atos-de-criacao`](../../dados/atos-de-criacao) foram lidos e cada ato foi associado às unidades do
 cadastro. O site **não usa os arquivos**: cada ato aparece na página da unidade (seção **Atos no Diário Oficial**) com um link que
 abre a edição do Diário Oficial do Município de Belém (DOM) **já na página do ato**. Nada foi gravado no banco de dados.
@@ -77,7 +79,7 @@ Duas suposições ainda precisam de confirmação:
 
 | Ato | Motivo |
 |---|---|
-| Portaria 1.221/2009-GABS/SEMEC (Rita Nery) | A página (DOM de 15/12/2009, p. 9) não mostra o número da edição. **Informe o número da edição de 15/12/2009** no painel e o link passa a funcionar. |
+| ~~Portaria 1.221/2009-GABS/SEMEC (Rita Nery)~~ | **Resolvido** pela varredura de 13/10/2026: é a edição 11.523, de 15/12/2009. |
 | Decreto 97.641/2020-PMB (Perpétuo Socorro Jesus Figueiredo) | O PDF é uma cópia digitalizada do decreto assinado, não uma página do DOM. **Falta descobrir a edição e a página** em que foi publicado (provavelmente entre 27 e 30/10/2020). |
 | Lei 7.183/1981 (Augusto Meira Filho), Lei 7.481/1990 (Solerno Moreira), Decreto 29.205/1996 (Liceu Mestre Raimundo Cardoso) | Os PDFs vêm do portal de legislação do Município, não do DOM. |
 | Lei 7.747/1995 (Escola Bosque) | Publicada no DOM nº 7.926, de 04/01/1995, edição anterior ao acervo digital. O portal de legislação informa que a lei foi **revogada pela Lei 10.143/2025** (DOM nº 15.130, de 10/02/2025). |

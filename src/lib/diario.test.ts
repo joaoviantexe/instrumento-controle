@@ -52,6 +52,40 @@ describe('atos do Diário Oficial (dados)', () => {
   });
 });
 
+describe('varredura do Diário (dados)', () => {
+  it('a Portaria 1.221/2009 (Rita Nery Vanetta) tem a edição achada pela varredura', () => {
+    const a = ATOS_DIARIO.find((x) => x.id === 'portaria-1221-2009')!;
+    expect(a.publicacao).toMatchObject({ edicao: 11523, data: '2009-12-15', pagina: 9 });
+    expect(linkDiario(a.publicacao, 'https://w.exemplo')).toBe('https://w.exemplo/diario/11523.pdf?pagina=9#page=9');
+    expect(a.nota ?? '').not.toMatch(/número da edição/);
+  });
+
+  it('todo ato que veio da varredura (sem PDF de origem) tem edição, página e data de publicação', () => {
+    const daVarredura = ATOS_DIARIO.filter((a) => a.arquivos.length === 0 && a.publicacao);
+    expect(daVarredura.length).toBeGreaterThan(30);
+    for (const a of daVarredura) {
+      expect(a.publicacao!.edicao, a.id).toBeGreaterThan(10000);
+      expect(a.publicacao!.pagina, a.id).toBeGreaterThan(0);
+    }
+  });
+
+  it('o ato de criação que o cadastro cita para cada unidade está associado a ela', () => {
+    const chave = (tipo: string, numero: string) => `${tipo.slice(0, 4).toUpperCase()}|${numero.split('/')[0].replace(/[.\s]/g, '').replace(/^0+/, '')}`;
+    const porChave = new Map<string, Set<string>>();
+    for (const a of ATOS_DIARIO) for (const v of a.unidades) porChave.set(chave(a.tipo, a.numero), (porChave.get(chave(a.tipo, a.numero)) ?? new Set()).add(v.id));
+    let conferidas = 0;
+    for (const u of PLANILHA.unidades) {
+      const m = /^\s*(DECRETO|PORTARIA)\s+N\S*\s*([0-9][0-9.]*)/i.exec(u.ato_criacao || '');
+      if (!m) continue;
+      const k = chave(m[1], m[2]);
+      if (!porChave.has(k)) continue; // ato que a varredura não viu (edições antigas só em imagem)
+      conferidas++;
+      expect(porChave.get(k)!.has(u.id), `${u.id}: ${u.ato_criacao}`).toBe(true);
+    }
+    expect(conferidas).toBeGreaterThan(90);
+  });
+});
+
 describe('links e textos', () => {
   const pub = { edicao: 15011, data: '2024-08-16', pagina: 2, pagina_final: 3 };
 
