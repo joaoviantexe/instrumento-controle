@@ -22,23 +22,27 @@ export function ResolucoesCme({ unidadeId }: { unidadeId: string }) {
   return (
     <div className="atos-diario">
       <ul className="anexos__lista">
-        {lista.map(({ resolucao, vinculo, situacao }) => (
-          <li key={resolucao.id}>
-            <Gavel size={20} aria-hidden />
-            <div className="anexos__info">
-              <span className="atos-diario__titulo">
-                {tituloResolucao(resolucao)}
-                <span className="chip chip--azul">{vinculo.relacao}</span>
-                {situacao !== 'alta' && <span className={'chip ' + CLASSE_SITUACAO_VINCULO[situacao]}>{ROTULO_CONFIANCA[situacao]}</span>}
-              </span>
-              <span className="atos-diario__ementa">{resolucao.descricao}</span>
-              {vinculo.nota && <small>{vinculo.nota}</small>}
-            </div>
-            <a className="btn btn--contorno btn--pequeno" href={resolucao.url} target="_blank" rel="noopener noreferrer" title="Abrir o PDF no site do CME">
-              <ExternalLink size={14} aria-hidden /> Abrir PDF
-            </a>
-          </li>
-        ))}
+        {lista.map(({ resolucao, vinculo, situacao, conferencia }) => {
+          // Depois de confirmada, a explicação automática da dúvida deixa de valer: fica só a observação de quem conferiu.
+          const nota = situacao === 'confirmado' ? conferencia?.nota : vinculo.nota;
+          return (
+            <li key={resolucao.id}>
+              <Gavel size={20} aria-hidden />
+              <div className="anexos__info">
+                <span className="atos-diario__titulo">
+                  {tituloResolucao(resolucao)}
+                  <span className="chip chip--azul">{vinculo.relacao}</span>
+                  {situacao !== 'alta' && <span className={'chip ' + CLASSE_SITUACAO_VINCULO[situacao]}>{ROTULO_CONFIANCA[situacao]}</span>}
+                </span>
+                <span className="atos-diario__ementa">{resolucao.descricao}</span>
+                {nota && <small>{nota}</small>}
+              </div>
+              <a className="btn btn--contorno btn--pequeno" href={resolucao.url} target="_blank" rel="noopener noreferrer" title="Abrir o PDF no site do CME">
+                <ExternalLink size={14} aria-hidden /> Abrir PDF
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

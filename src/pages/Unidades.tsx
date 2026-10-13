@@ -58,7 +58,7 @@ export function Unidades() {
   );
 
   const pendencia = PENDENCIAS.find((p) => p.chave === f.pendencia);
-  const ctxPend = useMemo(() => contextoPendencia(d.anexos), [d.anexos]);
+  const ctxPend = useMemo(() => contextoPendencia(d.anexos, d.mapaConferencias), [d.anexos, d.mapaConferencias]);
   const filtradas = useMemo(() => {
     const lista = d.unidades.filter(
       (u) =>

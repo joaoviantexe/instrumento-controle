@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, ExternalLink, Undo2, X } from 'lucide-react';
+import { Check, ExternalLink, Pencil, Undo2, X } from 'lucide-react';
 import { CampoArea, CampoSelect, CampoTexto, Dialogo, Nota } from './ui';
+import { PdfsRedundantes } from './PdfsRedundantes';
 import { PAINEL_CME, RESOLUCOES_CME } from '../lib/cme';
-import { atosDiarioSemLink, itensCme, itensDiario, unidadesSemResolucao, type ItemConferencia } from '../lib/conferencias';
+import { anexosRedundantes, atosDiarioSemLink, itensCme, itensDiario, unidadesSemResolucao, type ItemConferencia } from '../lib/conferencias';
 import { ATOS_DIARIO, PAINEL_DIARIO, ROTULO_CONFIANCA } from '../lib/diario';
 import { avisar } from '../lib/avisos';
 import { formatarData } from '../lib/format';
@@ -35,6 +36,8 @@ export function ConferenciaAtos() {
   const [filtro, setFiltro] = useState<Filtro>('pendentes');
   const [recusando, setRecusando] = useState<ItemConferencia | null>(null);
   const [motivo, setMotivo] = useState('');
+  const [editando, setEditando] = useState<ItemConferencia | null>(null);
+  const [observacao, setObservacao] = useState('');
   const [salvando, setSalvando] = useState<string | null>(null);
   const [quantos, setQuantos] = useState({ cme: PAGINA, diario: PAGINA });
   const filtrar = (f: Filtro) => {
@@ -49,6 +52,7 @@ export function ConferenciaAtos() {
   const diario = useMemo(() => itensDiario(ATOS_DIARIO, d.mapaConferencias), [d.mapaConferencias]);
   const semResolucao = useMemo(() => unidadesSemResolucao(d.unidades, RESOLUCOES_CME, d.mapaConferencias), [d.unidades, d.mapaConferencias]);
   const semLink = useMemo(() => atosDiarioSemLink(ATOS_DIARIO), []);
+  const redundantes = useMemo(() => anexosRedundantes(d.anexos, RESOLUCOES_CME, ATOS_DIARIO, d.mapaConferencias), [d.anexos, d.mapaConferencias]);
 
   const aberto = (i: ItemConferencia) => !i.conferencia;
   const mostrar = (i: ItemConferencia) =>
@@ -59,6 +63,19 @@ export function ConferenciaAtos() {
     try {
       await d.conferir({ fonte: item.fonte, ato_id: item.ato_id, unidade_id: item.unidade_id, decisao, nota });
       avisar(decisao === 'confirmado' ? 'Associação confirmada.' : 'Associação recusada: ela some da página da unidade.');
+    } catch (e) {
+      avisar('Não foi possível salvar: ' + (e as Error).message, 'erro');
+    } finally {
+      setSalvando(null);
+    }
+  }
+
+  async function salvarObservacao(item: ItemConferencia, nota: string) {
+    if (!item.conferencia) return;
+    setSalvando(item.chave);
+    try {
+      await d.conferir({ fonte: item.fonte, ato_id: item.ato_id, unidade_id: item.unidade_id, decisao: item.conferencia.decisao, nota });
+      avisar('Observação salva.');
     } catch (e) {
       avisar('Não foi possível salvar: ' + (e as Error).message, 'erro');
     } finally {
@@ -110,7 +127,7 @@ export function ConferenciaAtos() {
                     <strong>{i.titulo}</strong> <span className="chip chip--azul">{i.relacao}</span>
                     <br />
                     <span className="pequeno">{i.descricao}</span>
-                    {i.nota && (
+                    {!c && i.nota && (
                       <>
                         <br />
                         <small className="texto-muted">{i.nota}</small>
@@ -138,9 +155,14 @@ export function ConferenciaAtos() {
                         </a>
                       )}
                       {c ? (
-                        <button type="button" className="btn btn--neutro btn--pequeno" disabled={salvando === i.chave} onClick={() => void desfazer(i)}>
-                          <Undo2 size={14} aria-hidden /> Desfazer
-                        </button>
+                        <>
+                          <button type="button" className="btn btn--neutro btn--pequeno" disabled={salvando === i.chave} onClick={() => { setObservacao(c.nota); setEditando(i); }}>
+                            <Pencil size={14} aria-hidden /> Observação
+                          </button>
+                          <button type="button" className="btn btn--neutro btn--pequeno" disabled={salvando === i.chave} onClick={() => void desfazer(i)}>
+                            <Undo2 size={14} aria-hidden /> Desfazer
+                          </button>
+                        </>
                       ) : (
                         <>
                           <button type="button" className="btn btn--verde btn--pequeno" disabled={salvando === i.chave} onClick={() => void decidir(i, 'confirmado')}>
@@ -203,6 +225,10 @@ export function ConferenciaAtos() {
               <strong>{pendentesDiario.toLocaleString('pt-BR')}</strong>
             </div>
             <div>
+              <span>PDFs já cobertos por link</span>
+              <strong>{redundantes.length.toLocaleString('pt-BR')}</strong>
+            </div>
+            <div>
               <span>Atos do Diário sem link</span>
               <strong>{semLink.length.toLocaleString('pt-BR')}</strong>
             </div>
@@ -229,6 +255,8 @@ export function ConferenciaAtos() {
         </div>
         <div className="cartao__corpo">{tabela(diario, 'Nenhum ato do Diário neste filtro.', 'diario')}</div>
       </section>
+
+      <PdfsRedundantes achou={achou} />
 
       <section className="cartao">
         <div className="cartao__cab">
@@ -332,6 +360,25 @@ export function ConferenciaAtos() {
           })()}
         </div>
       </section>
+
+      {editando && (
+        <Dialogo
+          titulo="Observação da conferência"
+          confirmar="Salvar"
+          aoFechar={() => setEditando(null)}
+          aoConfirmar={() => {
+            const item = editando;
+            setEditando(null);
+            void salvarObservacao(item, observacao.trim());
+          }}
+        >
+          <p>
+            {editando.titulo} em <strong>{nome(editando.unidade_id)}</strong>. Esta observação aparece na página da unidade no lugar da explicação automática da dúvida.
+            Deixe em branco para não mostrar nada.
+          </p>
+          <CampoArea rotulo="Observação" valor={observacao} aoMudar={setObservacao} dica="Ex.: conferido no PDF; é a mesma escola." />
+        </Dialogo>
+      )}
 
       {recusando && (
         <Dialogo

@@ -1,6 +1,7 @@
+import { CATEGORIAS_PDF_CME, CATEGORIAS_PDF_DIARIO } from './anexos';
 import { RESOLUCOES_CME, tituloResolucao, type ResolucaoCme } from './cme';
-import { ATOS_DIARIO, linkDiario, referenciaDiario, tituloAto, type AtoDiario, type Confianca } from './diario';
-import type { Unidade } from './types';
+import { ATOS_DIARIO, PAINEL_DIARIO as PAINEL_DIARIO_URL, linkDiario, referenciaDiario, tituloAto, type AtoDiario, type Confianca } from './diario';
+import type { Anexo, Unidade } from './types';
 
 /** De onde vem o ato: resoluções do CME ou Diário Oficial do Município. */
 export type FonteAto = 'cme' | 'diario';
@@ -137,4 +138,62 @@ export function atosDiarioSemLink(atos: AtoDiario[] = ATOS_DIARIO): { ato: AtoDi
       ato,
       motivo: ato.publicacao ? 'Falta o número da edição do Diário.' : ato.referencia || 'Sem edição do Diário identificada.',
     }));
+}
+
+/** Uma associação já confirmada no texto do ato ou pela conferência: serve de prova, ao contrário das "prováveis". */
+const segura = (situacao: SituacaoVinculo | 'recusado') => situacao === 'alta' || situacao === 'confirmado';
+
+/** Unidades com ao menos uma resolução do CME associada (as recusadas na conferência não contam). */
+export function unidadesComResolucaoCme(resolucoes: ResolucaoCme[] = RESOLUCOES_CME, mapa?: MapaConferencias): Set<string> {
+  return new Set(
+    resolucoes.flatMap((r) => r.unidades.filter((v) => situacaoDoVinculo(mapa, 'cme', r.id, v.id, v.confianca) !== 'recusado').map((v) => v.id)),
+  );
+}
+
+/** Relações do Diário que são o ato de criação, instituição ou nome da unidade (o que um PDF de "Decreto" ou "Ato de criação" costuma ser). */
+const relacaoDeCriacao = (relacao: string) =>
+  relacao.startsWith('criação') || ['instituição', 'transformação', 'denominação', 'alteração de nome', 'retificação'].includes(relacao);
+
+/** Um PDF enviado à mão que o site já tem como link, e os atos que o substituem. */
+export interface AnexoRedundante {
+  anexo: Anexo;
+  /** De onde vem o link que o substitui. */
+  fonte: FonteAto;
+  equivalentes: { titulo: string; referencia: string; url: string }[];
+}
+
+/**
+ * PDFs enviados à mão (Decreto, Ato de criação, Ato de autorização e resoluções do CME) cuja unidade já tem o ato como link do
+ * CME ou do Diário. Só conta o link seguro (confirmado no texto ou pela conferência) e, no Diário, com número de edição: um link
+ * "provável" ou sem edição não substitui o PDF. A decisão final de apagar é de quem confere: o nome do arquivo não prova que
+ * é o mesmo ato.
+ */
+export function anexosRedundantes(
+  anexos: Anexo[],
+  resolucoes: ResolucaoCme[] = RESOLUCOES_CME,
+  atos: AtoDiario[] = ATOS_DIARIO,
+  mapa?: MapaConferencias,
+): AnexoRedundante[] {
+  const cmePorUnidade = new Map<string, AnexoRedundante['equivalentes']>();
+  for (const r of resolucoes)
+    for (const v of r.unidades)
+      if (segura(situacaoDoVinculo(mapa, 'cme', r.id, v.id, v.confianca)))
+        cmePorUnidade.set(v.id, [...(cmePorUnidade.get(v.id) ?? []), { titulo: tituloResolucao(r), referencia: `Site do CME · ${v.relacao}`, url: r.url }]);
+  const diarioPorUnidade = new Map<string, AnexoRedundante['equivalentes']>();
+  for (const a of atos) {
+    const link = linkDiario(a.publicacao);
+    if (!a.publicacao?.edicao) continue;
+    for (const v of a.unidades)
+      if (relacaoDeCriacao(v.relacao) && segura(situacaoDoVinculo(mapa, 'diario', a.id, v.id, v.confianca)))
+        diarioPorUnidade.set(v.id, [...(diarioPorUnidade.get(v.id) ?? []), { titulo: tituloAto(a), referencia: `${referenciaDiario(a.publicacao)} · ${v.relacao}`, url: link ?? PAINEL_DIARIO_URL }]);
+  }
+  const saida: AnexoRedundante[] = [];
+  for (const anexo of anexos) {
+    if (anexo.entidade !== 'unidade') continue;
+    const cme = CATEGORIAS_PDF_CME.includes(anexo.categoria) ? cmePorUnidade.get(anexo.entidade_id) : undefined;
+    const diario = CATEGORIAS_PDF_DIARIO.includes(anexo.categoria) ? diarioPorUnidade.get(anexo.entidade_id) : undefined;
+    if (cme?.length) saida.push({ anexo, fonte: 'cme', equivalentes: cme });
+    else if (diario?.length) saida.push({ anexo, fonte: 'diario', equivalentes: diario });
+  }
+  return saida;
 }

@@ -1,5 +1,5 @@
 import dados from '../data/atos-diario.json';
-import { situacaoDoVinculo, type MapaConferencias, type SituacaoVinculo } from './conferencias';
+import { chaveDe, situacaoDoVinculo, type Conferencia, type MapaConferencias, type SituacaoVinculo } from './conferencias';
 import { formatarData } from './format';
 
 /** Onde o ato foi publicado no Diário Oficial do Município de Belém (DOM). */
@@ -74,6 +74,8 @@ export interface AtoDaUnidade {
   ato: AtoDiario;
   vinculo: VinculoUnidade;
   situacao: SituacaoVinculo;
+  /** Decisão de quem conferiu (a observação própria dela, quando houver). */
+  conferencia: Conferencia | undefined;
 }
 
 /** Atos ligados a uma unidade, do mais antigo para o mais recente. As recusadas na conferência não aparecem. */
@@ -82,7 +84,12 @@ export function atosDaUnidade(unidadeId: string, atos: AtoDiario[] = ATOS_DIARIO
     .flatMap((ato) =>
       ato.unidades
         .filter((v) => v.id === unidadeId)
-        .map((vinculo) => ({ ato, vinculo, situacao: situacaoDoVinculo(conferencias, 'diario', ato.id, vinculo.id, vinculo.confianca) })),
+        .map((vinculo) => ({
+          ato,
+          vinculo,
+          situacao: situacaoDoVinculo(conferencias, 'diario', ato.id, vinculo.id, vinculo.confianca),
+          conferencia: conferencias?.get(chaveDe({ fonte: 'diario', ato_id: ato.id, unidade_id: vinculo.id })),
+        })),
     )
     .filter((x): x is AtoDaUnidade => x.situacao !== 'recusado')
     .sort((a, b) => (a.ato.data || a.ato.publicacao?.data || '').localeCompare(b.ato.data || b.ato.publicacao?.data || ''));

@@ -1,9 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { PLANILHA } from '../data/planilha';
 import { criarConferenciasLocal } from './backend/local';
-import { RESOLUCOES_CME, resolucoesDaUnidade } from './cme';
-import { atosDiarioSemLink, chaveDe, indexarConferencias, itensCme, itensDiario, situacaoDoVinculo, unidadesSemResolucao, type Conferencia } from './conferencias';
-import { ATOS_DIARIO, atosDaUnidade } from './diario';
+import { CATEGORIA_FUNCIONAMENTO_UE } from './anexos';
+import { RESOLUCOES_CME, resolucoesDaUnidade, type ResolucaoCme } from './cme';
+import { contextoPendencia } from './pendencias';
+import type { Anexo } from './types';
+import { anexosRedundantes, atosDiarioSemLink, chaveDe, indexarConferencias, itensCme, itensDiario, situacaoDoVinculo, unidadesSemResolucao, type Conferencia } from './conferencias';
+import { ATOS_DIARIO, atosDaUnidade, type AtoDiario } from './diario';
 
 const conf = (c: Pick<Conferencia, 'fonte' | 'ato_id' | 'unidade_id' | 'decisao'>): Conferencia => ({ nota: '', conferido_por: 'a@b', conferido_em: '2026-10-13T12:00:00Z', ...c });
 
@@ -87,5 +90,87 @@ describe('conferências no modo local', () => {
     expect(chaveDe(lista[0])).toBe('cme|res-2018-072|UN-003');
     await api.excluir(chave);
     expect(await api.listar()).toEqual([]);
+  });
+});
+
+describe('PDFs enviados que já estão como link', () => {
+  const anexo = (entidade_id: string, categoria: string, id = `${entidade_id}-${categoria}`): Anexo => ({
+    id,
+    entidade: 'unidade',
+    entidade_id,
+    categoria,
+    nome: 'ato.pdf',
+    tamanho: 1000,
+    hash: id,
+    destino: 'supabase',
+    criado_em: '2026-01-01T00:00:00Z',
+    criado_por: '',
+  });
+  const cme = (conf: 'alta' | 'media' | 'baixa'): ResolucaoCme[] => [
+    { id: 'r1', ano: 2018, numero: '072', descricao: 'Autoriza...', url: 'https://cme-website.cdn.prismic.io/x.pdf', unidades: [{ id: 'UN-003', inep: '1', relacao: 'autorização de funcionamento', confianca: conf }] },
+  ];
+  const diario = (edicao: number | null): AtoDiario[] => [
+    {
+      id: 'decreto-1-2020',
+      tipo: 'Decreto',
+      numero: '1/2020',
+      data: '2020-01-02',
+      ementa: 'Cria a escola.',
+      publicacao: { edicao, data: '2020-01-03', pagina: 2 },
+      arquivos: [],
+      unidades: [{ id: 'UN-003', inep: '1', relacao: 'criação', confianca: 'alta' }],
+    },
+  ];
+
+  it('só aponta o PDF cuja unidade tem o ato como link seguro, na categoria certa', () => {
+    const anexos = [anexo('UN-003', CATEGORIA_FUNCIONAMENTO_UE), anexo('UN-003', 'Outro documento'), anexo('UN-004', CATEGORIA_FUNCIONAMENTO_UE)];
+    const r = anexosRedundantes(anexos, cme('alta'), [], undefined);
+    expect(r.map((x) => x.anexo.id)).toEqual(['UN-003-' + CATEGORIA_FUNCIONAMENTO_UE]);
+    expect(r[0].fonte).toBe('cme');
+    expect(r[0].equivalentes[0].url).toMatch(/^https:\/\/cme-website/);
+  });
+
+  it('um link apenas provável ou a conferir não justifica apagar o PDF; confirmado pela conferência, sim', () => {
+    const anexos = [anexo('UN-003', CATEGORIA_FUNCIONAMENTO_UE)];
+    expect(anexosRedundantes(anexos, cme('media'), [], undefined)).toHaveLength(0);
+    expect(anexosRedundantes(anexos, cme('baixa'), [], undefined)).toHaveLength(0);
+    const confirmado = indexarConferencias([conf({ fonte: 'cme', ato_id: 'r1', unidade_id: 'UN-003', decisao: 'confirmado' })]);
+    expect(anexosRedundantes(anexos, cme('media'), [], confirmado)).toHaveLength(1);
+    const recusado = indexarConferencias([conf({ fonte: 'cme', ato_id: 'r1', unidade_id: 'UN-003', decisao: 'recusado' })]);
+    expect(anexosRedundantes(anexos, cme('alta'), [], recusado)).toHaveLength(0);
+  });
+
+  it('no Diário o ato precisa ter número de edição (sem link, o PDF não é redundante)', () => {
+    const anexos = [anexo('UN-003', 'Decreto')];
+    expect(anexosRedundantes(anexos, [], diario(15011), undefined)).toHaveLength(1);
+    expect(anexosRedundantes(anexos, [], diario(null), undefined)).toHaveLength(0);
+    expect(anexosRedundantes(anexos, [], [], undefined)).toHaveLength(0);
+  });
+
+  it('PDFs de outras entidades (auditoria, ação) nunca são apontados', () => {
+    const a = { ...anexo('UN-003', CATEGORIA_FUNCIONAMENTO_UE), entidade: 'auditoria' as const };
+    expect(anexosRedundantes([a], cme('alta'), [], undefined)).toHaveLength(0);
+  });
+
+  it('a pendência "sem PDF do ato" aceita a resolução do CME ligada à unidade', () => {
+    const sem = contextoPendencia([], undefined);
+    const algumaUnidadeComCme = RESOLUCOES_CME[0].unidades[0].id;
+    expect(sem.comPdfDoAto.has(algumaUnidadeComCme)).toBe(true);
+    const todasRecusadas = indexarConferencias(
+      RESOLUCOES_CME.flatMap((r) => r.unidades.map((v) => conf({ fonte: 'cme', ato_id: r.id, unidade_id: v.id, decisao: 'recusado' }))),
+    );
+    expect(contextoPendencia([], todasRecusadas).comPdfDoAto.size).toBe(0);
+    const comPdf = contextoPendencia([anexo('UN-999', CATEGORIA_FUNCIONAMENTO_UE)], todasRecusadas);
+    expect(comPdf.comPdfDoAto.has('UN-999')).toBe(true);
+  });
+
+  it('depois de confirmada, a observação própria substitui a explicação automática', () => {
+    const r = RESOLUCOES_CME.find((x) => x.unidades.some((v) => v.confianca === 'media'))!;
+    const v = r.unidades.find((x) => x.confianca === 'media')!;
+    const mapa = indexarConferencias([{ ...conf({ fonte: 'cme', ato_id: r.id, unidade_id: v.id, decisao: 'confirmado' }), nota: 'Conferido no PDF.' }]);
+    const item = resolucoesDaUnidade(v.id, RESOLUCOES_CME, mapa).find((x) => x.resolucao.id === r.id)!;
+    expect(item.situacao).toBe('confirmado');
+    expect(item.conferencia?.nota).toBe('Conferido no PDF.');
+    expect(v.nota).toBeTruthy(); // a explicação automática continua no arquivo de dados, mas não é mostrada
   });
 });

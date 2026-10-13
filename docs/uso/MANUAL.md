@@ -242,7 +242,7 @@ Onde há **verificação ou comprovação de documentos**, é possível anexar e
 - **Anexar:** arraste o PDF para a área tracejada ou clique em **Anexar PDF** (vários de uma vez). Escolha o *Tipo de documento* quando houver mais de um.
 - **Abrir:** clique no nome do arquivo (abre em nova aba). **Excluir:** ícone da lixeira, com confirmação.
 - **Regras:** só PDF (o conteúdo é conferido, não apenas a extensão), de até **10 MB**. Cada anexo guarda nome, tamanho, data e quem anexou.
-- **Filtro útil:** *Cadastro Unidades → Pendências cadastrais → "Resolução: sem PDF anexado"* lista quem ainda não tem o PDF do ato.
+- **Filtro útil:** *Cadastro Unidades → Pendências cadastrais → "Ato de autorização: sem PDF anexado nem resolução do CME"* lista quem ainda não tem o PDF do ato.
 - **Arquivos repetidos ocupam espaço uma só vez:** ao anexar, o sistema calcula a impressão digital (SHA-256) do PDF; se já existe um arquivo
   idêntico (mesmo conteúdo, ainda que com outro nome), ele é **reaproveitado** — cada unidade continua com o seu anexo, mas o arquivo é guardado uma única vez.
   Só é apagado do armazenamento quando o último anexo que o usa é excluído.

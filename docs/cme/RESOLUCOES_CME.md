@@ -8,6 +8,11 @@ Em **Dados e planilhas → Conferência de atos** ficam reunidos os pendentes:
 
 - **Resoluções do CME e atos do Diário a conferir:** cada associação "Provável — confira" ou "A conferir", com o PDF para abrir. **Confirmar** a troca por "Conferido pela CDE" na página da unidade; **Recusar** (com motivo opcional) a tira de lá. O filtro "Já conferidos" permite **Desfazer**.
 - **Unidades sem resolução do CME** e **atos do Diário sem link** para a edição, com busca por unidade.
+- **PDFs enviados que já estão no Diário ou no CME:** PDFs de "Decreto", "Ato de criação", "Ato de autorização" e resoluções do CME cuja unidade já tem o ato como link **confirmado** (e, no Diário, com número de edição). Você abre o PDF e o link, marca os que são o mesmo documento e exclui; nada vem marcado e a exclusão pede confirmação. O ato continua acessível pelo link.
+
+Ao confirmar uma associação, a explicação automática da dúvida ("Ligação por nome antigo…") deixa de aparecer na página da unidade. O botão **Observação** permite escrever um texto próprio, que passa a aparecer no lugar dela.
+
+A pendência "Ato de autorização: sem PDF anexado nem resolução do CME" considera cumprida a unidade que tem o PDF anexado **ou** uma resolução do CME associada, então apagar o PDF duplicado não cria pendência nova.
 
 As decisões ficam na tabela `conferencias` do Supabase (só a decisão, com o e-mail de quem conferiu e a data; os atos e os PDFs continuam no código e no site do CME). Quem tem acesso ao sistema pode conferir; não há um papel separado de administrador. **Antes de usar, execute de novo o `supabase/schema.sql` no SQL Editor** para criar a tabela; sem ela o painel avisa e as associações aparecem como no arquivo de dados.
 
