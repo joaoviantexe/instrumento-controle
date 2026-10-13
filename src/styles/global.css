@@ -1189,6 +1189,25 @@ main {
   text-decoration: none;
 }
 
+/* Varredura do Diário Oficial (Dados e planilhas) */
+.varredura__faixa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 16px;
+}
+.varredura__faixa .campo {
+  width: 170px;
+}
+.varredura__faixa small {
+  padding-bottom: 10px;
+}
+.varredura__botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 /* Auditoria Documental: barra de progresso fixa */
 .aud-barra {
   position: sticky;

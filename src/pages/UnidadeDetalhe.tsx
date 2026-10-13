@@ -6,6 +6,7 @@ import { FormUnidade, GRUPOS_UNIDADE } from '../components/FormUnidade';
 import { FormAuditoria, auditoriaVazia } from '../components/FormAuditoria';
 import { Anexos } from '../components/Anexos';
 import { AtosDiario } from '../components/AtosDiario';
+import { ResolucoesCme } from '../components/ResolucoesCme';
 import { CABECALHOS_UNIDADE as C, ROTULOS_ACAO, ROTULOS_PLANO, TEXTOS } from '../data/planilha';
 import { useDados } from '../lib/store';
 import { formatarCep, formatarData, formatarTelefone, fraseado } from '../lib/format';
@@ -88,6 +89,18 @@ export function UnidadeDetalhe() {
           </div>
           <div className="cartao__corpo">
             <AtosDiario unidadeId={u.id} />
+          </div>
+        </section>
+
+        <section className="cartao" aria-labelledby="resolucoes-cme">
+          <div className="cartao__cab">
+            <h2 id="resolucoes-cme" className="titulo-bloco">
+              Resoluções do CME
+            </h2>
+            <span className="contagem">Autorização, renovação e credenciamento, com o PDF no site do Conselho</span>
+          </div>
+          <div className="cartao__corpo">
+            <ResolucoesCme unidadeId={u.id} />
           </div>
         </section>
 
