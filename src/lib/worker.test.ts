@@ -162,3 +162,43 @@ describe('worker: Diário Oficial', () => {
     d.restaurar();
   });
 });
+
+describe('worker: lista de edições e CORS do Diário', () => {
+  const env = ambiente().env;
+  const pedir = (caminho: string, origem = 'https://site.exemplo') => worker.fetch(new Request('https://w.exemplo' + caminho, { headers: { Origin: origem } }), env);
+  function falso(resposta: () => Response) {
+    const urls: string[] = [];
+    const original = globalThis.fetch;
+    globalThis.fetch = (async (url: string) => {
+      urls.push(String(url));
+      return resposta();
+    }) as typeof fetch;
+    return { urls, restaurar: () => (globalThis.fetch = original) };
+  }
+
+  it('repassa a lista de edições do painel, com CORS para o site', async () => {
+    const lista = { response: { numFound: 1, start: 0, docs: [{ id: '15011', data_publicacao: '2024-08-16T03:00:00Z' }] } };
+    const f = falso(() => new Response(JSON.stringify(lista)));
+    const r = await pedir('/diario/edicoes?start=200&rows=100');
+    expect(r.status).toBe(200);
+    expect(await r.json()).toEqual(lista);
+    expect(f.urls[0]).toBe('https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios?start=200&rows=100');
+    expect(r.headers.get('Access-Control-Allow-Origin')).toBe('https://site.exemplo');
+    f.restaurar();
+  });
+
+  it('recusa parâmetros fora do limite sem consultar o painel', async () => {
+    const f = falso(() => new Response('{}'));
+    expect((await pedir('/diario/edicoes?rows=5000')).status).toBe(400);
+    expect((await pedir('/diario/edicoes?start=-1')).status).toBe(400);
+    expect(f.urls).toHaveLength(0);
+    f.restaurar();
+  });
+
+  it('a edição em PDF também sai com CORS para o site (e não para outras origens)', async () => {
+    const f = falso(() => new Response(pdf));
+    expect((await pedir('/diario/15011.pdf')).headers.get('Access-Control-Allow-Origin')).toBe('https://site.exemplo');
+    expect((await pedir('/diario/15011.pdf', 'https://outro.exemplo')).headers.get('Access-Control-Allow-Origin')).toBeNull();
+    f.restaurar();
+  });
+});

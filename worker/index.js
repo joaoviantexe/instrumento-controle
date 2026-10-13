@@ -13,8 +13,9 @@
  * O Worker só atende quem está logado no Supabase e consta na tabela "membros", recusa
  * gravações acima dos limites e confere o conteúdo (PDF íntegro, hash conferido).
  *
- * Exceção pública: GET /diario/<número da edição>.pdf entrega a edição do Diário Oficial do Município
- * (documento público), buscada no painel da Prefeitura, para o navegador abrir na página do ato (#page=N).
+ * Exceção pública (o Diário Oficial do Município é público):
+ *   GET /diario/<número da edição>.pdf   a edição, buscada no painel da Prefeitura, para o navegador abrir na página do ato (#page=N)
+ *   GET /diario/edicoes?start=0&rows=100 a lista de edições (número, data e arquivo), usada pela varredura do site
  */
 
 const TAMANHO_MAX = 10 * 1024 * 1024;
@@ -79,6 +80,32 @@ const DIARIO_API = 'https://sistemas.belem.pa.gov.br/diario-consulta-api/diarios
 const PAINEL_DIARIO = 'https://sistemas.belem.pa.gov.br/diario/painel';
 const DIARIO = /^\/diario\/(\d{1,7})(?:\.pdf)?$/;
 
+/** Acrescenta o CORS do site a uma resposta (inclusive às guardadas no cache), para a varredura poder lê-la. */
+function comCors(env, request, resposta) {
+  const r = new Response(resposta.body, resposta);
+  for (const [k, v] of Object.entries(cors(env, request))) r.headers.set(k, v);
+  return r;
+}
+
+/** Lista de edições do painel, de 100 em 100 (a mais recente primeiro). */
+async function edicoesDiario(url) {
+  const start = Number(url.searchParams.get('start') || 0);
+  const rows = Number(url.searchParams.get('rows') || 100);
+  if (!Number.isInteger(start) || start < 0 || start > 1e6 || !Number.isInteger(rows) || rows < 1 || rows > 100) {
+    return new Response(JSON.stringify({ erro: 'Parâmetros inválidos.' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+  }
+  try {
+    const r = await fetch(`${DIARIO_API}?start=${start}&rows=${rows}`, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(25000) });
+    if (r.ok) {
+      const dados = await r.json();
+      return new Response(JSON.stringify(dados), { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600' } });
+    }
+  } catch {
+    /* responde com o erro abaixo */
+  }
+  return new Response(JSON.stringify({ erro: 'O site da Prefeitura não respondeu.' }), { status: 502, headers: { 'Content-Type': 'application/json' } });
+}
+
 /** Página simples avisando que a edição não pôde ser obtida, com o caminho para achá-la no painel. */
 function avisoDiario(numero, pagina) {
   const onde = pagina ? `a página ${pagina}` : 'a página do ato';
@@ -142,9 +169,10 @@ export default {
     const url = new URL(request.url);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(env, request) });
 
-    // Diário Oficial (público): abre a edição no navegador, sem login.
+    // Diário Oficial (público): abre a edição no navegador e alimenta a varredura do site, sem login.
+    if (request.method === 'GET' && url.pathname === '/diario/edicoes') return comCors(env, request, await edicoesDiario(url));
     const d = DIARIO.exec(url.pathname);
-    if (request.method === 'GET' && d) return diarioOficial(d[1], url, ctx);
+    if (request.method === 'GET' && d) return comCors(env, request, await diarioOficial(d[1], url, ctx));
 
     // Abertura por link assinado (o navegador não envia o login ao abrir uma nova aba).
     const m = /^\/arquivos\/([0-9a-f]{64})$/.exec(url.pathname);
