@@ -296,3 +296,29 @@ grant execute on function public.bytes_usados_r2() to authenticated;
 --   insert into public.membros (email, nome) values ('pessoa@semec.belem.pa.gov.br', 'Nome');
 -- e crie o usuário em Authentication > Users > Add user (com o mesmo e-mail).
 -- ---------------------------------------------------------------------
+
+-- ---------------------------------------------------------------------
+-- Conferência de atos (Diário Oficial e resoluções do CME)
+-- Guarda a decisão de quem conferiu uma associação ato → unidade: "confirmado" (vira
+-- confirmada na página da unidade) ou "recusado" (a associação deixa de aparecer).
+-- Só decisões: os atos e os links ficam no código (src/data), não neste banco.
+-- ---------------------------------------------------------------------
+create table if not exists public.conferencias (
+  fonte          text not null check (fonte in ('cme', 'diario')),
+  ato_id         text not null,
+  unidade_id     text not null,
+  decisao        text not null check (decisao in ('confirmado', 'recusado')),
+  nota           text,
+  atualizado_em  timestamptz not null default now(),
+  atualizado_por text,
+  primary key (fonte, ato_id, unidade_id)
+);
+
+drop trigger if exists marcar_atualizacao on public.conferencias;
+create trigger marcar_atualizacao before insert or update on public.conferencias
+  for each row execute function public.marcar_atualizacao();
+
+alter table public.conferencias enable row level security;
+drop policy if exists "membros autorizados" on public.conferencias;
+create policy "membros autorizados" on public.conferencias for all to authenticated
+  using (public.is_membro()) with check (public.is_membro());

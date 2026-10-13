@@ -1,16 +1,19 @@
 import { ExternalLink, Landmark } from 'lucide-react';
-import { atosDaUnidade, DIARIO_URL, linkDiario, PAINEL_DIARIO, referenciaDiario, ROTULO_CONFIANCA, tituloAto } from '../lib/diario';
+import { CLASSE_SITUACAO_VINCULO } from '../lib/conferencias';
+import { useDados } from '../lib/store';
+import { ATOS_DIARIO, atosDaUnidade, DIARIO_URL, linkDiario, PAINEL_DIARIO, referenciaDiario, ROTULO_CONFIANCA, tituloAto } from '../lib/diario';
 
 /** Atos do Diário Oficial ligados à unidade, cada um com o link que abre a edição na página do ato. */
 export function AtosDiario({ unidadeId }: { unidadeId: string }) {
-  const lista = atosDaUnidade(unidadeId);
+  const { mapaConferencias } = useDados();
+  const lista = atosDaUnidade(unidadeId, ATOS_DIARIO, mapaConferencias);
   if (lista.length === 0) {
     return <p className="texto-muted">Nenhum ato do Diário Oficial associado a esta unidade ainda.</p>;
   }
   return (
     <div className="atos-diario">
       <ul className="anexos__lista">
-        {lista.map(({ ato, vinculo }) => {
+        {lista.map(({ ato, vinculo, situacao }) => {
           const link = linkDiario(ato.publicacao);
           return (
             <li key={ato.id}>
@@ -19,9 +22,7 @@ export function AtosDiario({ unidadeId }: { unidadeId: string }) {
                 <span className="atos-diario__titulo">
                   {tituloAto(ato)}
                   <span className="chip chip--azul">{vinculo.relacao}</span>
-                  {vinculo.confianca !== 'alta' && (
-                    <span className={'chip ' + (vinculo.confianca === 'media' ? 'chip--parcial' : 'chip--nc')}>{ROTULO_CONFIANCA[vinculo.confianca]}</span>
-                  )}
+                  {situacao !== 'alta' && <span className={'chip ' + CLASSE_SITUACAO_VINCULO[situacao]}>{ROTULO_CONFIANCA[situacao]}</span>}
                 </span>
                 <span className="atos-diario__ementa">{ato.ementa}</span>
                 <small>

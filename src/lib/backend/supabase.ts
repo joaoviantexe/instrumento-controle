@@ -1,7 +1,8 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { chaveArquivo, hashArquivo } from '../anexos';
+import type { Conferencia } from '../conferencias';
 import type { Anexo, Snapshot } from '../types';
-import { AnexosIndisponiveis, CHAVES, ErroChaveDuplicada, type AnexosApi, type Backend, type NomeTabela, type ResultadoMigracao, type ResultadoUnificacao, type Tabelas, type UsoOperacoes } from './tipos';
+import { AnexosIndisponiveis, ConferenciasIndisponiveis, CHAVES, ErroChaveDuplicada, type AnexosApi, type Backend, type ConferenciasApi, type NomeTabela, type ResultadoMigracao, type ResultadoUnificacao, type Tabelas, type UsoOperacoes } from './tipos';
 
 type Env = Record<string, string | undefined>;
 const env = import.meta.env as unknown as Env;
@@ -239,6 +240,42 @@ function criarAnexosSupabase(sb: SupabaseClient): AnexosApi {
   };
 }
 
+function criarConferenciasSupabase(sb: SupabaseClient): ConferenciasApi {
+  const dalinha = (l: Record<string, unknown>): Conferencia => ({
+    fonte: l.fonte as Conferencia['fonte'],
+    ato_id: String(l.ato_id),
+    unidade_id: String(l.unidade_id),
+    decisao: l.decisao as Conferencia['decisao'],
+    nota: String(l.nota ?? ''),
+    conferido_por: String(l.atualizado_por ?? ''),
+    conferido_em: String(l.atualizado_em ?? ''),
+  });
+  const falhar = (error: { code?: string; message: string }): never => {
+    if (ausente(error)) throw new ConferenciasIndisponiveis();
+    throw new Error(error.message);
+  };
+  return {
+    async listar() {
+      const { data, error } = await sb.from('conferencias').select('*').order('atualizado_em');
+      if (error) falhar(error);
+      return (data ?? []).map(dalinha);
+    },
+    async salvar(c) {
+      const { data, error } = await sb
+        .from('conferencias')
+        .upsert({ fonte: c.fonte, ato_id: c.ato_id, unidade_id: c.unidade_id, decisao: c.decisao, nota: c.nota || null }, { onConflict: 'fonte,ato_id,unidade_id' })
+        .select()
+        .single();
+      if (error) falhar(error);
+      return dalinha(data as Record<string, unknown>);
+    },
+    async excluir(chave) {
+      const { error } = await sb.from('conferencias').delete().eq('fonte', chave.fonte).eq('ato_id', chave.ato_id).eq('unidade_id', chave.unidade_id);
+      if (error) falhar(error);
+    },
+  };
+}
+
 export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
 
   async function inserirEmLotes(tabela: NomeTabela, registros: object[]) {
@@ -251,6 +288,7 @@ export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
   return {
     modo: 'supabase',
     anexos: criarAnexosSupabase(sb),
+    conferencias: criarConferenciasSupabase(sb),
     async carregar(): Promise<Snapshot> {
       const [unidades, auditorias, avaliacoes, acoes] = await Promise.all([
         lerTudo(sb, 'unidades'),

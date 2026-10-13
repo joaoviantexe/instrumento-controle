@@ -2,6 +2,15 @@
 
 Cada unidade tem, na sua página, a seção **Resoluções do CME**: as resoluções do Conselho Municipal de Educação de Belém que autorizam, renovam, prorrogam ou credenciam a unidade, com o botão **Abrir PDF**. O PDF abre direto no site do CME ([cmebelem.com.br/resolucoes](https://www.cmebelem.com.br/resolucoes)); nada é copiado para o armazenamento do sistema.
 
+## Conferindo no site
+
+Em **Dados e planilhas → Conferência de atos** ficam reunidos os pendentes:
+
+- **Resoluções do CME e atos do Diário a conferir:** cada associação "Provável — confira" ou "A conferir", com o PDF para abrir. **Confirmar** a troca por "Conferido pela CDE" na página da unidade; **Recusar** (com motivo opcional) a tira de lá. O filtro "Já conferidos" permite **Desfazer**.
+- **Unidades sem resolução do CME** e **atos do Diário sem link** para a edição, com busca por unidade.
+
+As decisões ficam na tabela `conferencias` do Supabase (só a decisão, com o e-mail de quem conferiu e a data; os atos e os PDFs continuam no código e no site do CME). Quem tem acesso ao sistema pode conferir; não há um papel separado de administrador. **Antes de usar, execute de novo o `supabase/schema.sql` no SQL Editor** para criar a tabela; sem ela o painel avisa e as associações aparecem como no arquivo de dados.
+
 ## Resumo
 
 - **568 resoluções** do CME ligadas a **193 das 217 unidades** (641 vínculos): 506 confirmados no texto, 123 prováveis e 12 a conferir.

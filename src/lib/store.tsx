@@ -12,6 +12,7 @@ import {
   type ResumoAuditoria,
 } from './calc';
 import { hashArquivo, verificarEspaco } from './anexos';
+import { indexarConferencias, type ChaveConferencia, type Conferencia, type Decisao, type FonteAto, type MapaConferencias } from './conferencias';
 import { avisar } from './avisos';
 
 interface Derivados {
@@ -36,6 +37,15 @@ export interface Dados extends Snapshot, Derivados {
   usoOperacoes(): Promise<UsoOperacoes | null>;
   excluirAnexo(anexo: Anexo): Promise<void>;
   abrirAnexo(anexo: Anexo): Promise<string>;
+  /** Decisões de quem conferiu as associações de atos (Diário Oficial e CME). */
+  conferencias: Conferencia[];
+  mapaConferencias: MapaConferencias;
+  /** Mensagem quando a conferência não está disponível (ex.: script do banco desatualizado). */
+  conferenciasErro: string | null;
+  /** Confirma ou recusa uma associação ato → unidade. */
+  conferir(c: { fonte: FonteAto; ato_id: string; unidade_id: string; decisao: Decisao; nota?: string }): Promise<void>;
+  /** Desfaz a decisão: a associação volta a ser a do arquivo de dados. */
+  desfazerConferencia(chave: ChaveConferencia): Promise<void>;
   carregando: boolean;
   erro: string | null;
   recarregar(): Promise<void>;
@@ -64,6 +74,8 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
   const [erro, setErro] = useState<string | null>(null);
   const [anexos, setAnexos] = useState<Anexo[]>([]);
   const [anexosErro, setAnexosErro] = useState<string | null>(null);
+  const [conferencias, setConferencias] = useState<Conferencia[]>([]);
+  const [conferenciasErro, setConferenciasErro] = useState<string | null>(null);
   const snapRef = useRef(snap);
   snapRef.current = snap;
   const unificando = useRef(false);
@@ -92,6 +104,14 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         // Anexos são opcionais: o restante do sistema continua funcionando sem eles.
         setAnexos([]);
         setAnexosErro((e as Error).message);
+      }
+      try {
+        setConferencias(await backend.conferencias.listar());
+        setConferenciasErro(null);
+      } catch (e) {
+        // Opcional como os anexos: sem a tabela, as associações aparecem como no arquivo de dados.
+        setConferencias([]);
+        setConferenciasErro((e as Error).message);
       }
     } catch (e) {
       setErro((e as Error).message);
@@ -302,6 +322,14 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         setAnexos((l) => l.filter((x) => x.id !== anexo.id));
       },
       abrirAnexo: (anexo: Anexo) => backend.anexos.abrir(anexo),
+      async conferir(c: { fonte: FonteAto; ato_id: string; unidade_id: string; decisao: Decisao; nota?: string }) {
+        const salva = await backend.conferencias.salvar({ ...c, nota: c.nota ?? '' });
+        setConferencias((l) => [...l.filter((x) => !(x.fonte === c.fonte && x.ato_id === c.ato_id && x.unidade_id === c.unidade_id)), salva]);
+      },
+      async desfazerConferencia(chave: ChaveConferencia) {
+        await backend.conferencias.excluir(chave);
+        setConferencias((l) => l.filter((x) => !(x.fonte === chave.fonte && x.ato_id === chave.ato_id && x.unidade_id === chave.unidade_id)));
+      },
       async importarRegistros(s: Snapshot) {
         try {
           await backend.salvarVarios('unidades', s.unidades);
@@ -320,8 +348,8 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
   }, [backend, executar, recarregar, limparAnexos]);
 
   const valor = useMemo<Dados>(
-    () => ({ ...snap, ...derivados, ...acoes, anexos, anexosErro, destinoAnexos: backend.anexos.destinoNovo, modo: backend.modo, carregando, erro, recarregar }),
-    [snap, derivados, acoes, anexos, anexosErro, backend, carregando, erro, recarregar],
+    () => ({ ...snap, ...derivados, ...acoes, anexos, anexosErro, conferencias, mapaConferencias: indexarConferencias(conferencias), conferenciasErro, destinoAnexos: backend.anexos.destinoNovo, modo: backend.modo, carregando, erro, recarregar }),
+    [snap, derivados, acoes, anexos, anexosErro, conferencias, conferenciasErro, backend, carregando, erro, recarregar],
   );
 
   return <Contexto.Provider value={valor}>{children}</Contexto.Provider>;

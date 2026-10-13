@@ -1,3 +1,4 @@
+import type { Conferencia, ChaveConferencia } from '../conferencias';
 import type { Acao, Auditoria, Anexo, Avaliacao, EntidadeAnexo, Snapshot, Unidade } from '../types';
 
 export interface Tabelas {
@@ -64,9 +65,26 @@ export class AnexosIndisponiveis extends Error {
   }
 }
 
+/** Decisões de quem conferiu as associações de atos (Diário Oficial e CME). Ficam fora do restante dos dados: importar planilha ou restaurar não as apaga. */
+export interface ConferenciasApi {
+  listar(): Promise<Conferencia[]>;
+  /** Cria ou atualiza a decisão sobre uma associação. */
+  salvar(c: Omit<Conferencia, 'conferido_em' | 'conferido_por'>): Promise<Conferencia>;
+  /** Desfaz a decisão: a associação volta a ser a do arquivo de dados. */
+  excluir(chave: ChaveConferencia): Promise<void>;
+}
+
+/** O banco ainda não tem a tabela de conferências (script SQL desatualizado). */
+export class ConferenciasIndisponiveis extends Error {
+  constructor() {
+    super('A conferência de atos ainda não está habilitada neste banco. Execute o arquivo supabase/schema.sql atualizado no SQL Editor do Supabase.');
+  }
+}
+
 export interface Backend {
   modo: 'local' | 'supabase';
   anexos: AnexosApi;
+  conferencias: ConferenciasApi;
   carregar(): Promise<Snapshot>;
   /** Insere ou atualiza. */
   salvar<T extends NomeTabela>(tabela: T, registro: Tabelas[T]): Promise<void>;

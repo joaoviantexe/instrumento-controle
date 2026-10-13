@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Cloud, Download, FileSpreadsheet, HardDrive, Landmark, Paperclip, RotateCcw } from 'lucide-react';
+import { ClipboardCheck, Cloud, Download, FileSpreadsheet, HardDrive, Landmark, Paperclip, RotateCcw } from 'lucide-react';
+import { ConferenciaAtos } from '../components/ConferenciaAtos';
 import { ImportarPlanilha } from '../components/ImportarPlanilha';
 import { VarreduraDiario } from '../components/VarreduraDiario';
 import { MARGEM_BLOQUEIO, formatarTamanho, limiteArmazenamentoBytes, resumirAnexos } from '../lib/anexos';
@@ -76,7 +77,7 @@ export function Dados() {
   }
 
   const [params, setParams] = useSearchParams();
-  const aba = (['planilhas', 'anexos', 'diario', 'avancado'] as const).find((x) => x === params.get('aba')) ?? 'planilhas';
+  const aba = (['planilhas', 'anexos', 'diario', 'atos', 'avancado'] as const).find((x) => x === params.get('aba')) ?? 'planilhas';
   const irPara = (x: string) => setParams(x === 'planilhas' ? {} : { aba: x }, { replace: true });
   const alertaEspaco = usado >= MARGEM_BLOQUEIO ? 'bloqueado' : usado >= 0.8 ? 'atencao' : null;
 
@@ -136,6 +137,7 @@ export function Dados() {
               ['planilhas', 'Planilhas', FileSpreadsheet],
               ['anexos', 'Anexos (PDF)', Paperclip],
               ['diario', 'Diário Oficial', Landmark],
+              ['atos', 'Conferência de atos', ClipboardCheck],
               ['avancado', 'Avançado', RotateCcw],
             ] as const
           ).map(([id, rotulo, Icone]) => (
@@ -256,6 +258,12 @@ export function Dados() {
         {aba === 'diario' && (
           <div role="tabpanel" id="painel-diario" aria-labelledby="aba-diario" className="dados-painel">
             <VarreduraDiario />
+          </div>
+        )}
+
+        {aba === 'atos' && (
+          <div role="tabpanel" id="painel-atos" aria-labelledby="aba-atos" className="dados-painel">
+            <ConferenciaAtos />
           </div>
         )}
 
