@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Check, ExternalLink, Pencil, Undo2, X } from 'lucide-react';
 import { CampoArea, CampoSelect, CampoTexto, Dialogo, Nota } from './ui';
 import { PdfsRedundantes } from './PdfsRedundantes';
+import { ATOS_SEM_UNIDADE, linkDoAto, referenciaDoAto } from '../lib/atosSemUnidade';
 import { PAINEL_CME, RESOLUCOES_CME } from '../lib/cme';
 import { anexosRedundantes, atosDiarioSemLink, itensCme, itensDiario, unidadesSemResolucao, type ItemConferencia } from '../lib/conferencias';
-import { ATOS_DIARIO, PAINEL_DIARIO, ROTULO_CONFIANCA } from '../lib/diario';
+import { ATOS_DIARIO, DIARIO_URL, PAINEL_DIARIO, ROTULO_CONFIANCA } from '../lib/diario';
 import { avisar } from '../lib/avisos';
 import { formatarData } from '../lib/format';
 import { useDados } from '../lib/store';
@@ -52,6 +53,8 @@ export function ConferenciaAtos() {
   const diario = useMemo(() => itensDiario(ATOS_DIARIO, d.mapaConferencias), [d.mapaConferencias]);
   const semResolucao = useMemo(() => unidadesSemResolucao(d.unidades, RESOLUCOES_CME, d.mapaConferencias), [d.unidades, d.mapaConferencias]);
   const semLink = useMemo(() => atosDiarioSemLink(ATOS_DIARIO), []);
+  const semUnidade = ATOS_SEM_UNIDADE;
+  const [maisSemUnidade, setMaisSemUnidade] = useState(PAGINA);
   const redundantes = useMemo(() => anexosRedundantes(d.anexos, RESOLUCOES_CME, ATOS_DIARIO, d.mapaConferencias), [d.anexos, d.mapaConferencias]);
 
   const aberto = (i: ItemConferencia) => !i.conferencia;
@@ -229,6 +232,10 @@ export function ConferenciaAtos() {
               <strong>{redundantes.length.toLocaleString('pt-BR')}</strong>
             </div>
             <div>
+              <span>Atos sem unidade no cadastro</span>
+              <strong>{semUnidade.length.toLocaleString('pt-BR')}</strong>
+            </div>
+            <div>
               <span>Atos do Diário sem link</span>
               <strong>{semLink.length.toLocaleString('pt-BR')}</strong>
             </div>
@@ -257,6 +264,76 @@ export function ConferenciaAtos() {
       </section>
 
       <PdfsRedundantes achou={achou} />
+
+      <section className="cartao">
+        <div className="cartao__cab">
+          <h2 className="titulo-bloco">Atos achados sem unidade no cadastro</h2>
+          <span className="contagem">{semUnidade.length} atos</span>
+        </div>
+        <div className="cartao__corpo" style={{ display: 'grid', gap: 12 }}>
+          <p className="texto-muted pequeno" style={{ margin: 0 }}>
+            Documentos que o CME ou o Diário publicaram sobre criação, credenciamento ou funcionamento de escola, mas que não casam com nenhuma unidade do cadastro: entidades
+            e escolas de outra rede, ou unidades ainda não cadastradas. Abra o PDF; se for uma unidade nossa, cadastre-a ou corrija o nome no cadastro. A rotina semanal do CME
+            acrescenta aqui o que não conseguir associar.
+          </p>
+          {(() => {
+            const termo = normalizar(busca.trim());
+            const todos = semUnidade.filter((a) => !termo || normalizar(`${a.titulo} ${a.descricao}`).includes(termo));
+            const lista = todos.slice(0, maisSemUnidade);
+            if (todos.length === 0) return <p className="texto-muted">Nenhum ato neste filtro.</p>;
+            return (
+              <>
+                <div className="tabela-wrap">
+                  <table className="tabela">
+                    <thead>
+                      <tr>
+                        <th>Ato</th>
+                        <th>Por que está aqui</th>
+                        <th>Abrir</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {lista.map((a) => {
+                        const link = linkDoAto(a, DIARIO_URL);
+                        return (
+                          <tr key={a.id}>
+                            <td>
+                              <strong>{a.titulo}</strong> <span className="chip chip--azul">{a.fonte === 'cme' ? 'CME' : 'Diário'}</span>
+                              <br />
+                              <span className="pequeno">{a.descricao}</span>
+                              <br />
+                              <small className="texto-muted">{referenciaDoAto(a)}</small>
+                            </td>
+                            <td className="pequeno">{a.motivo}</td>
+                            <td>
+                              {link ? (
+                                <a className="btn btn--contorno btn--pequeno" href={link} target="_blank" rel="noopener noreferrer">
+                                  <ExternalLink size={14} aria-hidden /> Abrir PDF
+                                </a>
+                              ) : (
+                                <a className="btn btn--neutro btn--pequeno" href={PAINEL_DIARIO} target="_blank" rel="noopener noreferrer">
+                                  <ExternalLink size={14} aria-hidden /> Painel do Diário
+                                </a>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                {todos.length > lista.length && (
+                  <p style={{ margin: 0 }}>
+                    <button type="button" className="btn btn--neutro btn--pequeno" onClick={() => setMaisSemUnidade((n) => n + PAGINA)}>
+                      Mostrar mais {Math.min(PAGINA, todos.length - lista.length)} (restam {todos.length - lista.length})
+                    </button>
+                  </p>
+                )}
+              </>
+            );
+          })()}
+        </div>
+      </section>
 
       <section className="cartao">
         <div className="cartao__cab">

@@ -207,3 +207,16 @@ São unidades ativas para as quais o site do CME não tem resolução com o nome
 ## Quando uma unidade tem várias resoluções
 
 A seção lista da mais antiga para a mais recente: a autorização inicial, as renovações e as prorrogações. Unidades que mudaram de nome (ex.: a antiga UEI que virou EMEI) mostram também as resoluções do nome antigo, marcadas como "Provável — confira" com a explicação na nota.
+
+## Atualização automática (toda segunda-feira)
+
+O workflow `.github/workflows/atualizar-cme.yml` roda toda segunda-feira (e pode ser disparado em *Actions → Atualizar resoluções do CME → Run workflow*). Ele:
+
+1. busca a lista pública do site do CME e separa as resoluções que ainda não conhecia (`scripts/cme/conhecidas.json`);
+2. ignora normas gerais, calendários e validação de estudos;
+3. liga cada resolução nova às unidades: **confiança alta** quando o próprio cadastro a cita no "Ato de autorização" (ex.: `072/2018 - CME`); **provável** quando o nome da unidade aparece por inteiro na descrição ou no nome do arquivo; **a conferir** quando há mais de uma unidade com nome parecido;
+4. abre um **pull request** com o resultado (e uma tabela do que foi ligado). As prováveis e a conferir aparecem em *Conferência de atos*; as que não casam com nenhuma unidade entram em *Atos achados sem unidade no cadastro*.
+
+Nada é aprovado sozinho: o pull request precisa ser mesclado, e cada associação provável continua pedindo a sua confirmação. Para rodar à mão: `npm run cme:atualizar` (use `-- --seco` para só ver o que faria).
+
+**Para o workflow abrir pull requests** é preciso liberar, uma vez, em *Settings → Actions → General → Workflow permissions*, a opção **Allow GitHub Actions to create and approve pull requests**. Como o pull request é aberto pelo próprio GitHub Actions, os testes automáticos não rodam nele sozinhos; abra-o e rode `npm test` ou peça a revisão antes de mesclar.
