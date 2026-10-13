@@ -2622,6 +2622,9 @@ main {
   gap: 4px;
   border-bottom: 2px solid var(--borda);
   overflow-x: auto;
+  /* sem isso o pai (grid) cresce até caber todas as abas e a página inteira ganha rolagem horizontal no celular */
+  min-width: 0;
+  overflow-y: hidden;
 }
 .abas__aba {
   all: unset;
@@ -2658,6 +2661,10 @@ main {
 .dados-painel {
   display: grid;
   gap: 18px;
+}
+/* itens de grid não encolhem abaixo do conteúdo: tabelas largas esticariam o cartão (e a página) no celular */
+.dados-painel > * {
+  min-width: 0;
 }
 .dados-linha {
   display: flex;

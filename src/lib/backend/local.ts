@@ -1,7 +1,8 @@
 import { chaveArquivo, hashArquivo } from '../anexos';
+import { chaveDe, type Conferencia } from '../conferencias';
 import type { Anexo, Snapshot } from '../types';
 import { snapshotInicial } from './inicial';
-import { ErroChaveDuplicada, mesmaChave, type AnexosApi, type Backend, type NomeTabela, type ResultadoUnificacao, type Tabelas } from './tipos';
+import { ErroChaveDuplicada, mesmaChave, type AnexosApi, type Backend, type ConferenciasApi, type NomeTabela, type ResultadoUnificacao, type Tabelas } from './tipos';
 
 const CHAVE_STORAGE = 'instrumento-cde:dados:v1';
 const NOME_BD_ANEXOS = 'instrumento-cde-anexos';
@@ -109,6 +110,39 @@ export function criarAnexosLocal(): AnexosApi {
   };
 }
 
+const CHAVE_CONFERENCIAS = 'instrumento-cde:conferencias:v1';
+
+/** Conferências do modo local: ficam no localStorage, separadas dos dados principais. */
+export function criarConferenciasLocal(): ConferenciasApi {
+  const ler = (): Conferencia[] => {
+    try {
+      return JSON.parse(localStorage.getItem(CHAVE_CONFERENCIAS) || '[]') as Conferencia[];
+    } catch {
+      return [];
+    }
+  };
+  const gravar = (l: Conferencia[]) => {
+    try {
+      localStorage.setItem(CHAVE_CONFERENCIAS, JSON.stringify(l));
+    } catch (e) {
+      throw new Error('Não foi possível salvar no navegador: ' + (e as Error).message);
+    }
+  };
+  return {
+    async listar() {
+      return ler();
+    },
+    async salvar(c) {
+      const nova: Conferencia = { ...c, nota: c.nota ?? '', conferido_por: '', conferido_em: new Date().toISOString() };
+      gravar([...ler().filter((x) => chaveDe(x) !== chaveDe(nova)), nova]);
+      return nova;
+    },
+    async excluir(chave) {
+      gravar(ler().filter((x) => chaveDe(x) !== chaveDe(chave)));
+    },
+  };
+}
+
 function ler(): Snapshot | null {
   try {
     const bruto = localStorage.getItem(CHAVE_STORAGE);
@@ -137,6 +171,7 @@ export function criarBackendLocal(): Backend {
   return {
     modo: 'local',
     anexos: criarAnexosLocal(),
+    conferencias: criarConferenciasLocal(),
     async carregar() {
       const salvo = ler();
       if (salvo) dados = salvo;

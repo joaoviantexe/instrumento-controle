@@ -1,4 +1,5 @@
 import dados from '../data/resolucoes-cme.json';
+import { situacaoDoVinculo, type MapaConferencias, type SituacaoVinculo } from './conferencias';
 import type { Confianca } from './diario';
 
 /** Resolução do Conselho Municipal de Educação de Belém (CME), publicada em https://www.cmebelem.com.br/resolucoes. */
@@ -30,12 +31,21 @@ export const PAINEL_CME = 'https://www.cmebelem.com.br/resolucoes';
 /** "Resolução nº 072/2018 - CME" */
 export const tituloResolucao = (r: Pick<ResolucaoCme, 'numero' | 'ano'>) => `Resolução nº ${r.numero}/${r.ano} - CME`;
 
-/** Resoluções ligadas a uma unidade, da mais antiga para a mais recente. */
-export function resolucoesDaUnidade(
-  unidadeId: string,
-  resolucoes: ResolucaoCme[] = RESOLUCOES_CME,
-): { resolucao: ResolucaoCme; vinculo: VinculoResolucao }[] {
+/** Associação de uma resolução a uma unidade, com a situação depois da conferência. */
+export interface ResolucaoDaUnidade {
+  resolucao: ResolucaoCme;
+  vinculo: VinculoResolucao;
+  situacao: SituacaoVinculo;
+}
+
+/** Resoluções ligadas a uma unidade, da mais antiga para a mais recente. As recusadas na conferência não aparecem. */
+export function resolucoesDaUnidade(unidadeId: string, resolucoes: ResolucaoCme[] = RESOLUCOES_CME, conferencias?: MapaConferencias): ResolucaoDaUnidade[] {
   return resolucoes
-    .flatMap((resolucao) => resolucao.unidades.filter((v) => v.id === unidadeId).map((vinculo) => ({ resolucao, vinculo })))
+    .flatMap((resolucao) =>
+      resolucao.unidades
+        .filter((v) => v.id === unidadeId)
+        .map((vinculo) => ({ resolucao, vinculo, situacao: situacaoDoVinculo(conferencias, 'cme', resolucao.id, vinculo.id, vinculo.confianca) })),
+    )
+    .filter((x): x is ResolucaoDaUnidade => x.situacao !== 'recusado')
     .sort((a, b) => a.resolucao.ano - b.resolucao.ano || a.resolucao.numero.localeCompare(b.resolucao.numero, 'pt-BR', { numeric: true }));
 }
