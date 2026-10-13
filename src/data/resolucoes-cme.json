@@ -1,0 +1,3521 @@
+{
+ "descricao": "Resoluções do Conselho Municipal de Educação de Belém (CME) associadas às unidades do cadastro, com o link do PDF no site do CME (https://www.cmebelem.com.br/resolucoes). O PDF não é copiado para o sistema. Ver docs/cme/RESOLUCOES_CME.md.",
+ "atualizado_em": "2026-10-13",
+ "resolucoes": [
+  {
+   "id": "res-1996-004",
+   "ano": 1996,
+   "numero": "04",
+   "descricao": "Autoriza o funcionamento do Ensino Supletivo de 1º Grau - de 1ª a 4ª etapa - da Escola Municipal de 1º Grau \"Professor Walter Leite Caminha\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqJZBR5LeNNTxfp-_Res.04_96_AutorizaofuncionamentodoEnsinoSupletivode1%C2%BAGrau%E2%80%93de1%C2%AAa4%C2%AAetapa%E2%80%93daEscolaMunicipalde1%C2%BAGrau%E2%80%9CProfessorWalterLeiteCaminha%E2%80%9D..pdf",
+   "unidades": [
+    {
+     "id": "UN-038",
+     "inep": "15043088",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-1996-005",
+   "ano": 1996,
+   "numero": "05",
+   "descricao": "Autoriza à Escola Municipal Professor Walter Leite Caminha: - a regularização para funcionamento de Ensino de 1º Grau, da 1ª a 8ª Séries; e - a validação de Estudos dos Concluintes da 5ª série do 1º Grau, realizados no ano letivo de 1994.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqJZbx5LeNNTxfqU_RES05_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-038",
+     "inep": "15043088",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-1998-004",
+   "ano": 1998,
+   "numero": "04",
+   "descricao": "Autorização de Expedição de Documento de Alunos da Escola Municipal Maria Amoras de Oliveira.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqJfvR5LeNNTxfvq_Res.04_98_Autoriza%C3%A7%C3%A3odeexpedi%C3%A7%C3%A3odeDocumentodealunosdaEscolasMunicipalMariaAmorasdeOliveira..pdf",
+   "unidades": [
+    {
+     "id": "UN-020",
+     "inep": "15040704",
+     "relacao": "outro",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-1999-008",
+   "ano": 1999,
+   "numero": "08",
+   "descricao": "Autoriza o funcionamento da Escola Municipal de Educação Infantil e Ensino Fundamental Professora Maria Madalena Raad.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqJhyx5LeNNTxfxe_Res.08_99_AutorizaofuncionamentodaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamentalProfessoraMariaMadalenaRaad..pdf",
+   "unidades": [
+    {
+     "id": "UN-126",
+     "inep": "15042995",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-1999-009",
+   "ano": 1999,
+   "numero": "09",
+   "descricao": "Autoriza o funcionamento de Educação Infantil e Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Profa. Ernestina Rodrigues\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqJiGR5LeNNTxfxs_Res.09_99_AutorizaofuncionamentodeEduca%C3%A7%C3%A3oInfantileEduca%C3%A7%C3%A3odeJovenseAdultosdaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamental%27%27ProfessoraErnestinaRodrigues%27%27.pdf",
+   "unidades": [
+    {
+     "id": "UN-015",
+     "inep": "15040909",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-1999-012",
+   "ano": 1999,
+   "numero": "12",
+   "descricao": "Autoriza o funcionamento do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental Prof. Remigio Fernandez.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk85-iol0Zci9Y6x_Res.012_99_AutorizaofuncionamentodoEnsinoFundamentaldaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamentalProf.Rem%C3%ADgioFernandez..pdf",
+   "unidades": [
+    {
+     "id": "UN-170",
+     "inep": "15043428",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-1999-013",
+   "ano": 1999,
+   "numero": "13",
+   "descricao": "Autoriza a Expedição de Documentos e Valida os estudos de alunos da Escola Municipal de Ensino Fundamental Prof. Remigio Fernandez.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk86niol0Zci9Y7d_Res.013_99_AutorizaaExpedi%C3%A7%C3%A3odeDocumentoseValidaosestudosdealunosdaEscolaMunicipaldeEnsinoFundamentalProf.Rem%C3%ADgioFernandez..pdf",
+   "unidades": [
+    {
+     "id": "UN-170",
+     "inep": "15043428",
+     "relacao": "outro",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-005",
+   "ano": 2000,
+   "numero": "05",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Profa. Maria Heloisa de Castro\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9CLSol0Zci9ZCZ_Res005_2000_AutorizaofuncionamentodoEnsinoFundamentaldaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamentalProfa.MariaHeloisadeCastro.pdf",
+   "unidades": [
+    {
+     "id": "UN-055",
+     "inep": "15043029",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-006",
+   "ano": 2000,
+   "numero": "06",
+   "descricao": "Autoriza o funcionamento em caráter definitivo, do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental \"Profª. Donatila Santana Lopes\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9C7iol0Zci9ZDB_Res006_2000_Autorizaofuncionamentoemcar%C3%A1terdefinitivo%2CdoEnsinoFundamentaldaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamentalProfa.DonatilaSantana..pdf",
+   "unidades": [
+    {
+     "id": "UN-169",
+     "inep": "15043401",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-007",
+   "ano": 2000,
+   "numero": "07",
+   "descricao": "Autoriza o funcionamento em caráter definitivo, do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental \"Profª. Amália Von Paumgartten\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9JHyol0Zci9ZJ6_Res007_2000_Autorizaofuncionamentoemcar%C3%A1terdefinitivo%2CdoEnsinoFundamentaldaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamentalProfa.Am%C3%A1liaPaumgartten..pdf",
+   "unidades": [
+    {
+     "id": "UN-096",
+     "inep": "15040682",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-008",
+   "ano": 2000,
+   "numero": "08",
+   "descricao": "Autorizo o funcionamento em caráter definitivo, do Ensino Fundamental de 1ª a 4ª séries e/ou Ciclos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Angelus Nascimento\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9Jviol0Zci9ZKP_RES008~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-174",
+     "inep": "15043398",
+     "relacao": "autorização de funcionamento",
+     "confianca": "media",
+     "nota": "Ligação por nome antigo: \"Angelus Nascimento\" consta como nome antigo da unidade no cadastro."
+    }
+   ]
+  },
+  {
+   "id": "res-2000-009",
+   "ano": 2000,
+   "numero": "09",
+   "descricao": "Prorroga a autorização de funcionamento em caráter Provisório do Ensino Fundamental de 1ª a 4ª séries e/ou Ciclos e 1ª a 4ª etapas da Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Profa. Inês Maroja\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9KNCol0Zci9ZLd_RES009~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-211",
+     "inep": "15039269",
+     "relacao": "prorrogação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-012",
+   "ano": 2000,
+   "numero": "12",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Monsenhor José Maria Azevedo\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9LXCol0Zci9ZMi_RES012~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-192",
+     "inep": "15043053",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-013",
+   "ano": 2000,
+   "numero": "13",
+   "descricao": "Autoriza o funcionamento em caráter definitivo, do Ensino Fundamental - Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Profª. Madalena Raad\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9Lriol0Zci9ZM9_RES013~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-126",
+     "inep": "15042995",
+     "relacao": "autorização de funcionamento",
+     "confianca": "media",
+     "nota": "Ato cita \"Madalena Raad\" (sem \"Maria\" e sem \"Correa\"); associada à EM Maria Madalena Correa Raad por inferência do sobrenome."
+    }
+   ]
+  },
+  {
+   "id": "res-2000-015",
+   "ano": 2000,
+   "numero": "15",
+   "descricao": "Autoriza o funcionamento em caráter definitivo, a Educação de Jovens e Adultos do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Miguel Pernambuco Filho\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9Maiol0Zci9ZOB_RES015~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-003",
+     "inep": "15040720",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-016",
+   "ano": 2000,
+   "numero": "16",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação Infantil, da Escola Municipal de Educação Infantil e Ensino Fundamental \"Professor Miguel de Pernambuco Filho\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9NFCol0Zci9ZO6_RES016~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-003",
+     "inep": "15040720",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-025",
+   "ano": 2000,
+   "numero": "25",
+   "descricao": "Autoriza o funcionamento em Caráter Provisória da Educação Infantil e do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental \"Deputado João Carlos Batista\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9QBiol0Zci9ZRj_RES025~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-026",
+     "inep": "15535827",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-026",
+   "ano": 2000,
+   "numero": "26",
+   "descricao": "Autoriza o funcionamento em Caráter Definitivo, do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Walter Leite Caminha\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9QXSol0Zci9ZR1_Res026_2000_Autorizaofuncionamentoemcar%C3%A1terdefinitivo%2CdoEnsinoFundamentaldaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamentalProf.WalterLeiteCaminha..pdf",
+   "unidades": [
+    {
+     "id": "UN-038",
+     "inep": "15043088",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-032",
+   "ano": 2000,
+   "numero": "32",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. João Nelson Ribeiro\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9R4yol0Zci9ZTh_RES032~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-216",
+     "inep": "15040917",
+     "relacao": "autorização de funcionamento",
+     "confianca": "media",
+     "nota": "Ato cita só o nome base \"João Nelson Ribeiro\"; existe também a variante UN-212 (João Nelson Ribeiro I). Associada à base."
+    }
+   ]
+  },
+  {
+   "id": "res-2000-034",
+   "ano": 2000,
+   "numero": "34",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação de Jovens e Adultos (1ª e 2ª etapas) da Escola Municipal de Educação Infantil e Ensino Fundamental \"Profa. Amália Paumgartten\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9S-Col0Zci9ZUS_RES034~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-096",
+     "inep": "15040682",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-035",
+   "ano": 2000,
+   "numero": "35",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação Infantil e do Ensino Fundamental, da Escola Municipal de Educação Infantil e Ensino Fundamental \"Liceu Escola de Artes e Ofícios Mestre Raimundo Cardoso\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9TUyol0Zci9ZUw_RES035~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-125",
+     "inep": "15043061",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-036",
+   "ano": 2000,
+   "numero": "36",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação Infantil e do Ensino Fundamental, da Escola Municipal de Educação Infantil e Ensino Fundamental \"Parque Amazônia\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9T_iol0Zci9ZVf_Res036_2000_Autorizaofuncionamentoemcar%C3%A1terprovis%C3%B3riodaEduca%C3%A7%C3%A3odeJovenseAdultosdaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamentalParqueAmaz%C3%B4nia..pdf",
+   "unidades": [
+    {
+     "id": "UN-119",
+     "inep": "15155170",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2000-037",
+   "ano": 2000,
+   "numero": "37",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação Infantil e do Ensino Fundamental, da Escola Municipal de Educação Infantil e Ensino Fundamental \"Centro de Referência em Educação Ambiental Escola Bosque Prof. Eidorfe Moreira\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9UZyol0Zci9ZWI_RES037~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-195",
+     "inep": "15140759",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2001-004",
+   "ano": 2001,
+   "numero": "04",
+   "descricao": "Autoriza o funcionamento em caráter definitivo, do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental \"Comandante Klautau\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zk9WYyol0Zci9ZY5_RE004_01_E.M.ComandanteKlautau_DefinitivoEns.Fundamental.pdf",
+   "unidades": [
+    {
+     "id": "UN-210",
+     "inep": "15041123",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2001-013",
+   "ano": 2001,
+   "numero": "13",
+   "descricao": "Autoriza o funcionamento em caráter definitivo, da modalidade de Educação de Jovens e Adultos no nível do Ensino Fundamental, da Escola Municipal de Educação Infantil e Ensino Fundamental \"Stelina Valmont\",",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlTgoKWtHYXtT1GO_RE013_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-118",
+     "inep": "15040674",
+     "relacao": "autorização de funcionamento",
+     "confianca": "media",
+     "nota": "Ato cita \"Stelina Valmont\"; cadastro tem EM Maria Stellina Valmont (grafia/nome abreviado)."
+    }
+   ]
+  },
+  {
+   "id": "res-2001-014",
+   "ano": 2001,
+   "numero": "14",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Maria Luíza Pinto do Amaral\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlTg5KWtHYXtT1GP_RE014_01_Autorizaofuncionamentoemcar%C3%A1terprovis%C3%B3riodaEduca%C3%A7%C3%A3odeJovenseAdultosdaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamental%E2%80%9CMariaLu%C3%ADzaPintodoAmaral%E2%80%9D..pdf",
+   "unidades": [
+    {
+     "id": "UN-213",
+     "inep": "15040941",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2001-016",
+   "ano": 2001,
+   "numero": "16",
+   "descricao": "Autoriza o funcionamento em caráter definitivo do Ensino Fundamental - 1º segmento e da Modalidade Educação de Jovens e Adultos da Escola de Educação Infantil e Ensino Fundamental \"Inês de Mendonça Maroja\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlThgaWtHYXtT1GZ_RE016_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-211",
+     "inep": "15039269",
+     "relacao": "autorização de funcionamento",
+     "confianca": "media",
+     "nota": "Ato cita \"Inês de Mendonça Maroja\"; cadastro tem EM Inês Maroja (nome abreviado, mesma pessoa homenageada nas resoluções 2000-p9)."
+    }
+   ]
+  },
+  {
+   "id": "res-2001-017",
+   "ano": 2001,
+   "numero": "17",
+   "descricao": "Autoriza o funcionamento em caráter Provisório do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental \"Inês de Mendonça Maroja\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlThx6WtHYXtT1Gl_RE017_01_Autorizaofuncionamentoemcar%C3%A1terProvis%C3%B3riodoEnsinoFundamentaldaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamental%E2%80%9CIn%C3%AAsdeMendon%C3%A7aMaroja%E2%80%9D..pdf",
+   "unidades": [
+    {
+     "id": "UN-211",
+     "inep": "15039269",
+     "relacao": "autorização de funcionamento",
+     "confianca": "media",
+     "nota": "Ato cita \"Inês de Mendonça Maroja\"; cadastro tem EM Inês Maroja (nome abreviado)."
+    }
+   ]
+  },
+  {
+   "id": "res-2001-018",
+   "ano": 2001,
+   "numero": "18",
+   "descricao": "Autoriza o funcionamento em Caráter Provisório da Educação Infantil e do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental Monsenhor José Maria Azevedo.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlTiDaWtHYXtT1Gn_RE018_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-192",
+     "inep": "15043053",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2001-019",
+   "ano": 2001,
+   "numero": "19",
+   "descricao": "Autoriza o funcionamento em Caráter Provisório da Educação Infantil e do Ensino Fundamental e da Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Palmira Lins de Carvalho\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlTiZqWtHYXtT1Gw_RE019_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-080",
+     "inep": "15142264",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2002-001",
+   "ano": 2002,
+   "numero": "01",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação Infantil e Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental \"Maria Amoras Oliveira\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqKIXR5LeNNTxgJt_RE001_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-020",
+     "inep": "15040704",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2002-002",
+   "ano": 2002,
+   "numero": "02",
+   "descricao": "Autoriza o funcionamento em Caráter Definitivo do Ensino Fundamental da Escola Municipal de Ensino Fundamental \"Ernestina Rodrigues\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlTjBaWtHYXtT1HF_RE002_02_E.M.ErnestinaRodrigues_DefinitivoEns.Fundamental.pdf",
+   "unidades": [
+    {
+     "id": "UN-015",
+     "inep": "15040909",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2002-003",
+   "ano": 2002,
+   "numero": "03",
+   "descricao": "Autoriza o funcionamento em caráter Provisório do Ensino Fundamental da Escola Municipal de Educação Infantil e Ensino Fundamental \"Ruy da Silveira Brito\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqKIpx5LeNNTxgKA_RE003_02_Autorizaofuncionamentoemcar%C3%A1terProvis%C3%B3riodoEnsinoFundamentaldaEscolaMunicipaldeEduca%C3%A7%C3%A3oInfantileEnsinoFundamental%E2%80%9CRuydaSilveiraBrito%E2%80%9D..pdf",
+   "unidades": [
+    {
+     "id": "UN-010",
+     "inep": "15040968",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2002-006",
+   "ano": 2002,
+   "numero": "06",
+   "descricao": "Autoriza o funcionamento da Educação de Jovens e Adultos na Escola Municipal de Ensino Fundamental \"Avertano Rocha\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlTkDqWtHYXtT1HU_RE006_02_AutorizaofuncionamentodaEduca%C3%A7%C3%A3odeJovenseAdultosnaEscolaMunicipaldeEnsinoFundamental%E2%80%9CAvertanoRocha%E2%80%9D..pdf",
+   "unidades": [
+    {
+     "id": "UN-135",
+     "inep": "15043037",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2002-008",
+   "ano": 2002,
+   "numero": "08",
+   "descricao": "Autoriza a Expedição de Documentos e valida os estudos de alunos e ex-alunos da Escola Municipal de Ensino Fundamental \"Parque Amazônia\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlTkiaWtHYXtT1HW_RE008_02_AutorizaaExpedi%C3%A7%C3%A3odeDocumentosevalidaosestudosdealunoseex-alunosdaEscolaMunicipaldeEnsinoFundamental%E2%80%9CParqueAmaz%C3%B4nia%E2%80%9D..pdf",
+   "unidades": [
+    {
+     "id": "UN-119",
+     "inep": "15155170",
+     "relacao": "outro",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2002-010",
+   "ano": 2002,
+   "numero": "10",
+   "descricao": "Autoriza o funcionamento em caráter provisório do Ensino Fundamental, na modalidade Educação de Jovens e Adultos na Escola Municipal de Educação Infantil e Ensino Fundamental \"Rotary\" e dá outras providências.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqKMLh5LeNNTxgLq_RE010_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-111",
+     "inep": "15040780",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2002-011",
+   "ano": 2002,
+   "numero": "11",
+   "descricao": "Credencia o Centro Comunitário \"Unidos Venceremos\", como Entidade Mantenedora da Escola de Educação Infantil Unidos Venceremos.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqKMgB5LeNNTxgLy_RE011_02_CredenciaMantenedoraCentroCom.UnidosVenceremos.pdf",
+   "unidades": [
+    {
+     "id": "UN-023",
+     "inep": "15574172",
+     "relacao": "credenciamento",
+     "confianca": "media",
+     "nota": "Entidade mantenedora: Centro Comunitário Unidos Venceremos; unidade do cadastro leva o nome Instituto Unidos Venceremos (mesma escola de educação infantil Unidos Venceremos). Associação por entidade/nome."
+    }
+   ]
+  },
+  {
+   "id": "res-2002-012",
+   "ano": 2002,
+   "numero": "12",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação Infantil, do Ensino Fundamental em Ciclos e da Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Nestor Nonato de Lima\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqKM0B5LeNNTxgL6_RE012_02_Autorizaofuncionamentoemcar%C3%A1terprovis%C3%B3riodaEduca%C3%A7%C3%A3oInfantil%2CdoEnsinoFundamentalemCiclosedaEduca%C3%A7%C3%A3odeJovenseAdultosdaEscolaMunicipalNestorNonato.pdf",
+   "unidades": [
+    {
+     "id": "UN-088",
+     "inep": "15040836",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2002-013",
+   "ano": 2002,
+   "numero": "13",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação Infantil e do Ensino Fundamental na Modalidade de Jovens e Adultos na Escola Municipal de Educação Infantil e Ensino Fundamental \"Ogilvanise Moreira de Moura\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqKNGB5LeNNTxgMD_RE013_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-127",
+     "inep": "15519430",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2002-016",
+   "ano": 2002,
+   "numero": "16",
+   "descricao": "Autoriza o funcionamento da Educação Infantil, do Ensino Fundamental em Ciclos e da Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Abel Martins e Silva\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXKUaWtHYXtT2RR_RE016_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-163",
+     "inep": "15043274",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2003-001",
+   "ano": 2003,
+   "numero": "01",
+   "descricao": "Prorroga a autorização de funcionamento em caráter temporário, do Ensino Fundamental e Educação de Jovens e Adultos da Escola Municipal de Ensino fundamental \"Remígio Fernandez\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXhcKWtHYXtT2r-_RE001_03.E.M.Rem%C3%ADgioFernandes.pdf",
+   "unidades": [
+    {
+     "id": "UN-170",
+     "inep": "15043428",
+     "relacao": "prorrogação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2003-002",
+   "ano": 2003,
+   "numero": "02",
+   "descricao": "Credencia o Centro Comunitário N. Sra. do Perpétuo Socorro, como Entidade Mantenedora da Escola de Educação Infantil Nossa Senhora do Perpétuo Socorro.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZqKSUR5LeNNTxgNo_RE002_03.EscoladeEd.InfantilN.Sra.doPerp%C3%A9tuoSocorro.pdf",
+   "unidades": [
+    {
+     "id": "UN-018",
+     "inep": "15174603",
+     "relacao": "credenciamento",
+     "confianca": "media",
+     "nota": "Entidade mantenedora (Centro Comunitário N. Sra. do Perpétuo Socorro) casa com a unidade de mesmo nome; não é a EM Perpétuo Socorro (UN-217) nem a EM Prof. Perpétuo Socorro Jesus Figueiredo (UN-061)."
+    }
+   ]
+  },
+  {
+   "id": "res-2003-003",
+   "ano": 2003,
+   "numero": "03",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação Infantil, do Ensino Fundamental em Ciclos (I, II) e da Educação de Jovens e Adultos da Escola Municipal de Educação Infantil e Ensino Fundamental \"Ciro das Chagas Pimenta\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXiDaWtHYXtT2st_RE003_03E.M.CiroPimenta.pdf",
+   "unidades": [
+    {
+     "id": "UN-148",
+     "inep": "15548066",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2003-004",
+   "ano": 2003,
+   "numero": "04",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação Infantil e do Ensino Fundamental na Modalidade de Educação de Jovens e Adultos na Escola Municipal de Educação Infantil e Ensino Fundamental \"Ida de Oliveira\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXjHKWtHYXtT2uJ_RE004_03E.M.IdaOliveira.pdf",
+   "unidades": [
+    {
+     "id": "UN-078",
+     "inep": "15043592",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2003-007",
+   "ano": 2003,
+   "numero": "07",
+   "descricao": "Autoriza o funcionamento em caráter provisório da Educação Infantil da Escola Associação de Pais e Educadores \"Moaraná\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXkD6WtHYXtT2u7_RE007_03EscolaAss.dePaiseEducadoresMoaran%C3%A1.pdf",
+   "unidades": [
+    {
+     "id": "UN-093",
+     "inep": "15098338",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2003-008",
+   "ano": 2003,
+   "numero": "08",
+   "descricao": "Credencia a Associação de Pais e Educadores \"Moaraná\" em Belém, como Entidade Mantenedora da Escola de Educação Infantil \"Moaraná\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXkaqWtHYXtT2vg_RE008_03.pdf",
+   "unidades": [
+    {
+     "id": "UN-093",
+     "inep": "15098338",
+     "relacao": "credenciamento",
+     "confianca": "media",
+     "nota": "Credenciamento da entidade mantenedora Associação de Pais e Educadores Moaraná; casa com a unidade de mesmo nome."
+    }
+   ]
+  },
+  {
+   "id": "res-2003-017",
+   "ano": 2003,
+   "numero": "17",
+   "descricao": "Credencia e Autoriza o funcionamento, em caráter provisório, da Educação Infantil da Ação Social da Matinha Creche Irmã Dulce.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXmRaWtHYXtT2xl_RE017_03.pdf",
+   "unidades": [
+    {
+     "id": "UN-198",
+     "inep": "15516512",
+     "relacao": "credenciamento",
+     "confianca": "media",
+     "nota": "Entidade/creche: Ação Social da Matinha (Creche Irmã Dulce); ato também autoriza funcionamento provisório."
+    }
+   ]
+  },
+  {
+   "id": "res-2003-019",
+   "ano": 2003,
+   "numero": "19",
+   "descricao": "Credencia e Autoriza o funcionamento, em caráter provisório, da Educação Infantil no Grupo Assistencial Solar do Acalanto.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXmsKWtHYXtT2ys_RE019_03.pdf",
+   "unidades": [
+    {
+     "id": "UN-017",
+     "inep": "15040887",
+     "relacao": "credenciamento",
+     "confianca": "media",
+     "nota": "Grupo Assistencial Solar do Acalanto casa com o Anexo Solar Acalanto da EM Benvinda de França Messias; ato também autoriza funcionamento provisório."
+    }
+   ]
+  },
+  {
+   "id": "res-2003-023",
+   "ano": 2003,
+   "numero": "23",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, do Nível de Ensino Médio na Escola Municipal de Educação Básica e Profissional Prof. Eidorfe Moreira.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXphKWtHYXtT28Y_RE023_03.pdf",
+   "unidades": [
+    {
+     "id": "UN-195",
+     "inep": "15140759",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2003-025",
+   "ano": 2003,
+   "numero": "25",
+   "descricao": "Credencia e autoriza o funcionamento, em caráter provisório, da Educação Infantil na Associação dos Amigos da Terra Firme.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXrSaWtHYXtT2-y_Re025_03.pdf",
+   "unidades": [
+    {
+     "id": "UN-116",
+     "inep": "15564215",
+     "relacao": "credenciamento",
+     "confianca": "media",
+     "nota": "Entidade Associação dos Amigos da Terra Firme; ato também autoriza funcionamento provisório. Não é a EM Terra Firme (UN-122)."
+    }
+   ]
+  },
+  {
+   "id": "res-2003-026",
+   "ano": 2003,
+   "numero": "26",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação Infantil e Ensino Fundamental na Escola Municipal de Educação Infantil e Ensino Fundamental \"Manuel Freitas\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXriaWtHYXtT2_D_RE026_03.pdf",
+   "unidades": [
+    {
+     "id": "UN-114",
+     "inep": "15040798",
+     "relacao": "autorização de funcionamento",
+     "confianca": "media",
+     "nota": "Ato grafa \"Manuel Freitas\"; cadastro tem EM Manuela Freitas (grafia)."
+    }
+   ]
+  },
+  {
+   "id": "res-2004-001",
+   "ano": 2004,
+   "numero": "01",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação Infantil e Ensino Fundamental (CB I e II) na Escola Municipal de Educação Infantil e Ensino Fundamental \"Theódor Badotti\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXs8aWtHYXtT3Ai_RE001_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-155",
+     "inep": "15140600",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2004-003",
+   "ano": 2004,
+   "numero": "03",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, do Curso de Educação Profissional Técnico em Meio Ambiente na Escola Municipal de Educação Básica e Profissional Professor Eidorfe Moreira.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXtYKWtHYXtT3A9_RE003_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-195",
+     "inep": "15140759",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2004-006",
+   "ano": 2004,
+   "numero": "06",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Unidade Municipal de Educação Infantil \"Itaiteua\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXxtaWtHYXtT3FQ_RE006_04_Autorizaofuncionamento%2Cemcar%C3%A1terprovis%C3%B3rio%2CdaUnidadeMunicipaldeEduca%C3%A7%C3%A3oInfantil%E2%80%9CItaiteua%E2%80%9D..pdf",
+   "unidades": [
+    {
+     "id": "UN-176",
+     "inep": "15543242",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2004-009",
+   "ano": 2004,
+   "numero": "09",
+   "descricao": "Autoriza o funcionamento em caráter provisório, da Educação Infantil, do Ensino Fundamental em Ciclos (I, II) e da Educação de Jovens e Adultos (I e II totalidades) da Escola Municipal de Educação Infantil e Ensino Fundamental \"Cordolina Fontelles de Lima\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlXz_KWtHYXtT3H2_RE009_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-042",
+     "inep": "15569632",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2004-010",
+   "ano": 2004,
+   "numero": "10",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação Infantil e do Ensino Fundamental na modalidade Educação de Jovens e Adultos na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Francisco Nunes\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlYD96WtHYXtT3Te_RE010_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-016",
+     "inep": "15040801",
+     "relacao": "autorização de funcionamento",
+     "confianca": "media",
+     "nota": "Ato cita \"Prof. Francisco Nunes\"; associada à EM Francisco da Silva Nunes por nome abreviado."
+    }
+   ]
+  },
+  {
+   "id": "res-2004-011",
+   "ano": 2004,
+   "numero": "11",
+   "descricao": "Prorroga a autorização de funcionamento, em caráter temporário, do Ensino Fundamental e Educação de Jovens e Adultos da Escola Municipal de Ensino Fundamental \"Remígio Fernandez\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlYEL6WtHYXtT3Tk_RE011_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-170",
+     "inep": "15043428",
+     "relacao": "prorrogação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2004-014",
+   "ano": 2004,
+   "numero": "14",
+   "descricao": "Credencia a entidade mantenedora Centro Social e Cultural Dr. Osvaldo de Melo e autoriza o funcionamento, em caráter provisório, da Educação Infantil na Escola em Regime de Convênio \"Nossa Senhora da Conceição\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlYFBKWtHYXtT3T__RE014_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-138",
+     "inep": "15582051",
+     "relacao": "credenciamento",
+     "confianca": "media",
+     "nota": "Entidade mantenedora Centro Social e Cultural Dr. Osvaldo de Melo (escola em convênio \"Nossa Senhora da Conceição\"); ato também autoriza funcionamento provisório."
+    }
+   ]
+  },
+  {
+   "id": "res-2004-015",
+   "ano": 2004,
+   "numero": "15",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação Infantil da Escola Comunitária do Tapanã.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlYFV6WtHYXtT3UJ_Re015_04_Autorizaofuncionamento%2Cemcar%C3%A1terprovis%C3%B3rio%2CdaEduca%C3%A7%C3%A3oInfantildaEscolaComunit%C3%A1riadoTapan%C3%A3..pdf",
+   "unidades": [
+    {
+     "id": "UN-049",
+     "inep": "15586022",
+     "relacao": "autorização de funcionamento",
+     "confianca": "baixa",
+     "nota": "\"Escola Comunitária do Tapanã\" não consta com esse nome; possível relação com Associação C. do Bairro do Tapanã (UN-049), sem confirmação. Conferir."
+    }
+   ]
+  },
+  {
+   "id": "res-2004-016",
+   "ano": 2004,
+   "numero": "16",
+   "descricao": "Autorizar o Funcionamento da Educação Infantil, Ensino Fundamental (Ciclos I e II) e Educação de Jovens e Adultos (1ª e 2ª Totalidades e/ou equivalente de sua organização) da Escola Municipal \"Silvio Leandro de Moraes\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlYF9KWtHYXtT3UY_RE016_~1.PDF",
+   "unidades": [
+    {
+     "id": "UN-033",
+     "inep": "15558363",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2004-018",
+   "ano": 2004,
+   "numero": "18",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação Infantil, na Unidade de Educação Infantil Santo Agostinho, integrante da Rede Municipal de Ensino.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlYH0aWtHYXtT3VR_Re018_04_CredenciaaEntidadeMantenedoraCentroEducacionalIdadeCriativaSCLtda%E2%80%93CEICeautorizaofuncionamento%2Cemcar%C3%A1terprovis%C3%B3rio%2CdaEduca%C3%A7%C3%A3oInfantil..pdf",
+   "unidades": [
+    {
+     "id": "UN-115",
+     "inep": "15543374",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2004-020",
+   "ano": 2004,
+   "numero": "20",
+   "descricao": "Autoriza o funcionamento provisório da Educação de Jovens e Adultos - EJA, na Escola Municipal \"Anna Barreau Mininéia\" e dá outras providências.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlYIkqWtHYXtT3Vn_Re020_04_Autorizaofuncionamentoprovis%C3%B3riodaEduca%C3%A7%C3%A3odeJovenseAdultos%E2%80%93EJA%2CnaEscolaMunicipal%E2%80%9CAnnaBarreauMinin%C3%A9ia%E2%80%9Ded%C3%A1outrasprovid%C3%AAncias..pdf",
+   "unidades": [
+    {
+     "id": "UN-159",
+     "inep": "15043347",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2004-021",
+   "ano": 2004,
+   "numero": "21",
+   "descricao": "Prorroga a autorização em caráter provisório, da Educação de Jovens e Adultos - EJA, da Escola Municipal \"Monsenhor José Maria Azevedo\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlYUZqWtHYXtT3Zb_Re021_04_Prorrogaaautoriza%C3%A7%C3%A3oemcar%C3%A1terprovis%C3%B3rio%2CdaEduca%C3%A7%C3%A3odeJovenseAdultos%E2%80%93EJA%2CdaEscolaMunicipal%E2%80%9CMonsenhorJos%C3%A9MariaAzevedo%E2%80%9D..pdf",
+   "unidades": [
+    {
+     "id": "UN-192",
+     "inep": "15043053",
+     "relacao": "prorrogação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2004-023",
+   "ano": 2004,
+   "numero": "23",
+   "descricao": "Prorroga a autorização de funcionamento, em caráter provisório, da Educação de Jovens e Adultos - EJA, da Escola Municipal Profª Maria Luiza Pinto do Amaral",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZlYVG6WtHYXtT3Zm_Re023_04_Prorrogaaautoriza%C3%A7%C3%A3odefuncionamento%2Cemcar%C3%A1terprovis%C3%B3rio%2CdaEduca%C3%A7%C3%A3odeJovenseAdultos%E2%80%93EJA%2CdaEscolaMunicipalProf%C2%AAMariaLuizaPintodoAmaral..pdf",
+   "unidades": [
+    {
+     "id": "UN-213",
+     "inep": "15040941",
+     "relacao": "prorrogação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2005-003",
+   "ano": 2005,
+   "numero": "03",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação de Jovens e Adultos (1ª e 2ª totalidades) - EJA, da Escola Municipal Comandante Klautau.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zl9V1Zm069VX1dNC_Re003_05_E.M.ComandanteKlautau.pdf",
+   "unidades": [
+    {
+     "id": "UN-210",
+     "inep": "15041123",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2005-004",
+   "ano": 2005,
+   "numero": "04",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, dos Ciclos de Formação III e IV do Ensino Fundamental, da Escola Municipal de Educação Infantil e Ensino Fundamental Prof. Abel Martins e Silva.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zl9WM5m069VX1dNI_Re004_05_E.M.AbelMartins.pdf",
+   "unidades": [
+    {
+     "id": "UN-163",
+     "inep": "15043274",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2005-005",
+   "ano": 2005,
+   "numero": "05",
+   "descricao": "Autoriza o funcionamento, em caráter provisório, da Educação de Jovens e Adultos (1ª e 2ª Totalidades), da Escola Municipal de Ensino Fundamental Prof. Josino Viana.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zl9Wppm069VX1dNN_Re005_05_E.M.JosinoViana.pdf",
+   "unidades": [
+    {
+     "id": "UN-202",
+     "inep": "15040933",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2005-006",
+   "ano": 2005,
+   "numero": "06",
+   "descricao": "Autoriza o funcionamento, em caráter definitivo, o funcionamento da Educação de Jovens e Adultos (1ª e 2ª Totalidades), da Escola Municipal de Ensino Fundamental Prof. João Nelson Ribeiro.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zl9W95m069VX1dNQ_Re006_05_E.M.Jo%C3%A3oNelsonRibeiro.pdf",
+   "unidades": [
+    {
+     "id": "UN-216",
+     "inep": "15040917",
+     "relacao": "autorização de funcionamento",
+     "confianca": "media",
+     "nota": "Ato cita só o nome base \"João Nelson Ribeiro\"; existe também a variante UN-212 (João Nelson Ribeiro I). Associada à base."
+    }
+   ]
+  },
+  {
+   "id": "res-2011-033",
+   "ano": 2011,
+   "numero": "33",
+   "descricao": "Autoriza definitivamente o funcionamento do Ensino Fundamental - Ciclos de Formação I e II, na Escola Municipal de Educação Infantil e Ensino Fundamental \"Cordolina Fontelles de Lima\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZoQALx5LeNNTwtjz_Res33_11E.M.CordolinaFontellesdeLima-DefinitivaCFIeII.pdf",
+   "unidades": [
+    {
+     "id": "UN-042",
+     "inep": "15569632",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2014-004",
+   "ano": 2014,
+   "numero": "04",
+   "descricao": "Autoriza o funcionamento da Educação Infantil, na Unidade de Educação Infantil \"Pratinha\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/aUQMq3NYClf9oZXs_Res04_14UEIPratinha-Educa%C3%A7%C3%A3oInfantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-045",
+     "inep": "15173844",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2014-021",
+   "ano": 2014,
+   "numero": "21",
+   "descricao": "Autoriza o funcionamento da Educação Infantil, na Unidade de Educação Infantil Panapaná - Distrito de Mosqueiro - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZofzRB5LeNNTw0lS_Res21_14UEIPanapan%C3%A1-Educa%C3%A7%C3%A3oInfantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-168",
+     "inep": "15543315",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2014-023",
+   "ano": 2014,
+   "numero": "23",
+   "descricao": "Autoriza o funcionamento da Educação Infantil, na Unidade de Educação Infantil Maracajá - Distrito de Mosqueiro - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zof5cx5LeNNTw0qN_Res23_14UEIMaracaj%C3%A1-Educa%C3%A7%C3%A3oInfantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-175",
+     "inep": "15152260",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2015-006",
+   "ano": 2015,
+   "numero": "06",
+   "descricao": "Autoriza o funcionamento da Educação Infantil, na Unidade de Educação Infantil \"Terra Firme\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZogJDh5LeNNTw00R_Res06_15UEITerraFirme-Educa%C3%A7%C3%A3oInfantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-122",
+     "inep": "15543218",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2015-014",
+   "ano": 2015,
+   "numero": "14",
+   "descricao": "Autoriza o funcionamento da Educação Infantil, na Unidade de Educação Infantil \"Sacramenta\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZogMlR5LeNNTw02F_Res14_15UEISacramenta-Educa%C3%A7%C3%A3oInfantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-204",
+     "inep": "15543412",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2015-026",
+   "ano": 2015,
+   "numero": "26",
+   "descricao": "Autoriza o funcionamento do Ensino Fundamental - Ciclos de Formação I e II, na Escola Municipal de Educação Infantil e Ensino Fundamental \"Duas Irmãs Bianca e Adriely\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZogVvx5LeNNTw055_Res26_15E.M.DuasIrm%C3%A3sBiancaeAdriely-CFIeII.pdf",
+   "unidades": [
+    {
+     "id": "UN-043",
+     "inep": "15161544",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2015-030",
+   "ano": 2015,
+   "numero": "30",
+   "descricao": "Autoriza o funcionamento do Ensino Fundamental - Ciclos de Formação I a IV e Educação de Jovens e Adultos - 1ª a 4ª Totalidades na Escola Municipal de Educação Infantil e Ensino Fundamental \"Maria Stellina Vamont\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zogmbh5LeNNTw0_K_Res30_15E.M.M%C2%AAStellinaValmont-CFIaIVe1%C2%AAa4%C2%AATotalidades.pdf",
+   "unidades": [
+    {
+     "id": "UN-118",
+     "inep": "15040674",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-038",
+   "ano": 2018,
+   "numero": "38",
+   "descricao": "Autoriza o funcionamento da Educação Infantil e Ensino Fundamenta - CF I e II, na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Silvio Nascimento\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpZ5iR5LeNNTxM2X_Res038_18-E.M.Prof.SilvioNascimento-Autoriza%C3%A7%C3%A3o.pdf",
+   "unidades": [
+    {
+     "id": "UN-089",
+     "inep": "15040976",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-039",
+   "ano": 2018,
+   "numero": "39",
+   "descricao": "Autoriza o funcionamento da Educação Infantil, Ensino Fundamental - CF I a IV e Educação de Jovens e Adultos - 1ª a 4ª Totalidades, na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof.ª Anna Barreau Meninéia\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpZ6Gh5LeNNTxM25_Res039_18-E.M.Prof.AnaBarreau-Autoriza%C3%A7%C3%A3o.pdf",
+   "unidades": [
+    {
+     "id": "UN-159",
+     "inep": "15043347",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-048",
+   "ano": 2018,
+   "numero": "48",
+   "descricao": "Autoriza o funcionamento da Educação Infantil, na Escola Municipal de Educação Infantil \"Prof.ª Renata Sales Pena\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaAmh5LeNNTxM_O_Res048_18-E.M.-Renata-Sales.pdf",
+   "unidades": [
+    {
+     "id": "UN-149",
+     "inep": "15168484",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-049",
+   "ano": 2018,
+   "numero": "49",
+   "descricao": "Autoriza o funcionamento do Ensino Fundamental - Ciclos de Formação I e II, na Escola Municipal de Ensino Fundamental \"Prof. José Alves Cunha\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaA4h5LeNNTxM_Y_Res049_18-E.M.-Jos%C3%A9-Alves-Cunha.pdf",
+   "unidades": [
+    {
+     "id": "UN-054",
+     "inep": "15563464",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-059",
+   "ano": 2018,
+   "numero": "59",
+   "descricao": "Autoriza o funcionamento da Educação Infantil, Ensino Fundamental - Ciclos de Formação I ao IV e Educação de Jovens e Adultos - 1ª a 4ª Totalidades, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Remígio Fernandez\" - Distrito de Mosqueiro - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaHBx5LeNNTxNHT_Res059_18-E.M.-Rem%C3%ADgio-Fernandez.pdf",
+   "unidades": [
+    {
+     "id": "UN-170",
+     "inep": "15043428",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-060",
+   "ano": 2018,
+   "numero": "60",
+   "descricao": "Renova a autorização o funcionamento do Ensino Fundamental - Ciclos de Formação III e IV, ministrados na Escola Municipal de Ensino Fundamental \"Prof. Avertano Rocha\" - Distrito Icoaraci - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaHYx5LeNNTxNIK_Res060_18-E.M.-Avertano-Rocha.pdf",
+   "unidades": [
+    {
+     "id": "UN-135",
+     "inep": "15043037",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-066",
+   "ano": 2018,
+   "numero": "66",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil-Pré-escola e Ensino Fundamental - CF I e II, na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Antônio de Carvalho Brasil\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaJoh5LeNNTxNKA_Res066_18-E.M.-Antonio-de-Carvalho-Brasil.pdf",
+   "unidades": [
+    {
+     "id": "UN-087",
+     "inep": "15040879",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-067",
+   "ano": 2018,
+   "numero": "67",
+   "descricao": "Renova a autorização de funcionamento do Ensino Fundamental - CF I ao IV e Educação de Jovens e Adultos - 1ª a 4ª Totalidades, na Escola Municipal Ensino Fundamental \"Padre Leandro Pinheiro\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaKLh5LeNNTxNKa_Res067_18-E.M.-Padre-Leandro-Pinheiro.pdf",
+   "unidades": [
+    {
+     "id": "UN-100",
+     "inep": "15040950",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-072",
+   "ano": 2018,
+   "numero": "72",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Pré-escola e Ensino Fundamental - Ciclos de Formação I e II, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Miguel Pernambuco Filho\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaMdR5LeNNTxNMp_Res072_18-E.M.-Miguel-Pernambuco-Filho.pdf",
+   "unidades": [
+    {
+     "id": "UN-003",
+     "inep": "15040720",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2018-080",
+   "ano": 2018,
+   "numero": "80",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Pré-escola e Ensino Fundamental - Ciclos de Formação I ao IV, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof.ª Inês de Mendonça Maroja\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaaWB5LeNNTxNVR_Res080_18-E.M.-In%C3%AAs-M.-Maroja.pdf",
+   "unidades": [
+    {
+     "id": "UN-211",
+     "inep": "15039269",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-008",
+   "ano": 2019,
+   "numero": "08",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Creche e Pré-escola na Unidade de Educação Infantil Alan Kardec - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpahCR5LeNNTxNY1_Res08_19-UEI-Alan-Kardec.pdf",
+   "unidades": [
+    {
+     "id": "UN-086",
+     "inep": "15152030",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-009",
+   "ano": 2019,
+   "numero": "09",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Jardim I e II, do Ensino Fundamental - Ciclos de Formação I ao IV e na modalidade Educação de Jovens e Adultos - 1ª a 4ª Totalidades, ministrados na Escola Municipal de Ensino Fundamental \"Parque Bolonha\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpahfR5LeNNTxNY-_Res09_19-E.M.-Parque-Bolonha.pdf",
+   "unidades": [
+    {
+     "id": "UN-067",
+     "inep": "15161560",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-010",
+   "ano": 2019,
+   "numero": "10",
+   "descricao": "Renova a autorização de funcionamento do Ensino Fundamental - Ciclos de Formação I ao IV e na modalidade Educação de Jovens e Adultos - 1ª a 4ª Totalidades, ministrados na Escola Municipal de Ensino Fundamental \"Prof. Alfredo Chaves\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpah1h5LeNNTxNZJ_Res10_19-E.M.-Alfredo-Chaves.pdf",
+   "unidades": [
+    {
+     "id": "UN-134",
+     "inep": "15043002",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-011",
+   "ano": 2019,
+   "numero": "11",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Pré-escola, Ensino Fundamental - Ciclos de Formação I ao IV e na modalidade Educação de Jovens e Adultos - 1ª a 4ª Totalidades, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Desembargador Maroja Neto\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaiWB5LeNNTxNZS_Res11_19-E.M.-Maroja-Neto.pdf",
+   "unidades": [
+    {
+     "id": "UN-171",
+     "inep": "15043355",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-012",
+   "ano": 2019,
+   "numero": "12",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Pré-escola, ministrado na Escola Municipal de Educação Infantil \"Prof.ª Laís Fontoura Aderne\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaimR5LeNNTxNZa_Res12_19-La%C3%ADs-Aderne.pdf",
+   "unidades": [
+    {
+     "id": "UN-128",
+     "inep": "15223205",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-028",
+   "ano": 2019,
+   "numero": "28",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil-Pré-escola ministrada na UP Florestan Fernandes e Educação Infantil-Pré-escola, Ensino Fundamental - CF I a IV e na modalidade Educação de Jovens e Adultos - 1ª a 4ª Totalidades, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Florestan Fernandes\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpaqmR5LeNNTxNcg_Res28_19-E.M.FlorestanFernandes-Renova%C3%A7%C3%A3odeAutoriza%C3%A7%C3%A3o.pdf",
+   "unidades": [
+    {
+     "id": "UN-040",
+     "inep": "15558304",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-041",
+     "inep": "15558304",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-033",
+   "ano": 2019,
+   "numero": "33",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Pré-escola, Ensino Fundamental - Ciclos de Formação I ao IV e na modalidade Educação de Jovens e Adultos - 1ª a 4ª Totalidades, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Honorato Filgueiras\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpavfx5LeNNTxNeR_Res33_19-E.M.HonoratoFilgueiras-Renova%C3%A7%C3%A3odeAutoriza%C3%A7%C3%A3o.pdf",
+   "unidades": [
+    {
+     "id": "UN-107",
+     "inep": "15040712",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-040",
+   "ano": 2019,
+   "numero": "40",
+   "descricao": "Renova a Autorização de funcionamento da Educação Infantil da Escola Municipal de Educação Infantil Professora \"Rosenil Cordeiro da Silva\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpaxpx5LeNNTxNfb_Res40_19-EMEIROSENIL.pdf",
+   "unidades": [
+    {
+     "id": "UN-110",
+     "inep": "15170934",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-042",
+   "ano": 2019,
+   "numero": "42",
+   "descricao": "Renova a Autorização de funcionamento da Educação Infantil, na Unidade de Educação Infantil \"Casa da Amizade\" - Distrito de Icoaraci - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpayGB5LeNNTxNf3_Res42_19-UEICasadaAmizade-Educa%C3%A7%C3%A3oInfantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-136",
+     "inep": "15543323",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-045",
+   "ano": 2019,
+   "numero": "45",
+   "descricao": "Renova a Autorização de funcionamento da Educação Infantil, na Unidade de Educação Infantil \"Santa Rosa\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpazOh5LeNNTxNhB_Res45_19-UEISantaRosa-Educa%C3%A7%C3%A3oInfantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-103",
+     "inep": "15152340",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-047",
+   "ano": 2019,
+   "numero": "47",
+   "descricao": "Renova a Autorização de funcionamento da Educação Infantil, na Escola Municipal de Educação Infantil \"Prof.ª Rita Nery\" - Distrito de Icoaraci, município de Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpa1pR5LeNNTxNiV_Res47_19-E.M.Prof.%C2%AARitaNery-Ed.Infantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-154",
+     "inep": "15224040",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-048",
+   "ano": 2019,
+   "numero": "48",
+   "descricao": "Renova a Autorização de funcionamento da Educação Infantil, na Unidade Municipal de Educação Infantil \"Nossa Senhora do Perpétuo Socorro\" - Município de Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpa17B5LeNNTxNiZ_Res48_19-UEIN.S.Perp%C3%A9tuoSocorro.pdf",
+   "unidades": [
+    {
+     "id": "UN-217",
+     "inep": "15543226",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-050",
+   "ano": 2019,
+   "numero": "50",
+   "descricao": "Renova a Autorização de funcionamento da Educação Infantil, na Escola Municipal de Educação Infantil \"São Francisco\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpa2YR5LeNNTxNij_Res50_19-EMEIS%C3%83OFRANCISCO.pdf",
+   "unidades": [
+    {
+     "id": "UN-173",
+     "inep": "15167658",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-056",
+   "ano": 2019,
+   "numero": "56",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Pré-escola - Jardim I e II e Ensino Fundamental - Ciclos de Formação I ao IV e na modalidade Educação de Jovens e Adultos - 1ª a 4ª Totalidades, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Rotary\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpa7Wx5LeNNTxNkU_Res56_19-E.M.Rotary.pdf",
+   "unidades": [
+    {
+     "id": "UN-111",
+     "inep": "15040780",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-058",
+   "ano": 2019,
+   "numero": "58",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Jardim I e II ministrados na Unidade Pedagógica Grupo de Amigos Casa da Criança Santa Inês e Educação Infantil - Pré-escola e Ensino Fundamental - Ciclos de formação I a IV, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof.ª Alzira Pernambuco\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgI7R5LeNNTxPuR_Res58_19-E.M.AlziraPernambuco.pdf",
+   "unidades": [
+    {
+     "id": "UN-004",
+     "inep": "15040860",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-006",
+     "inep": "15040860",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-059",
+   "ano": 2019,
+   "numero": "59",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Creche - Pré-escola ministrados na Unidade Pedagógica Visconde de Inhaúma e Educação Infantil - Pré-escola e Ensino Fundamental - Ciclos de Formação I e II e da modalidade Educação de Jovens e Adultos 3ª e 4ª Totalidades, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof.ª Palmira de Oliveira Gabriel\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgLkR5LeNNTxPuu_Res59_19-E.M.PalmiradeO.Gabriel.pdf",
+   "unidades": [
+    {
+     "id": "UN-203",
+     "inep": "15040844",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-065",
+   "ano": 2019,
+   "numero": "65",
+   "descricao": "Renova a autorização de funcionamento do Ensino Fundamental - CF I ao IV, ministrados na Escola Municipal de Ensino Fundamental \"Prof. Manuela Freitas\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgN4R5LeNNTxPvL_Res65_19-E.M.ManuelaFreitas.pdf",
+   "unidades": [
+    {
+     "id": "UN-114",
+     "inep": "15040798",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-066",
+   "ano": 2019,
+   "numero": "66",
+   "descricao": "Renova a Autorização de funcionamento da Educação Infantil - Creche e Pré-escola, na Unidade de Educação Infantil \"Guamá\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgOFx5LeNNTxPvP_Res66_19-UEIGuam%C3%A1-Educa%C3%A7%C3%A3oInfantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-099",
+     "inep": "15558320",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2019-067",
+   "ano": 2019,
+   "numero": "67",
+   "descricao": "Renova a autorização de funcionamento do Ensino Fundamental - CF I e II, ministrados na Escola Municipal de Ensino Fundamental \"Prof. Augusto Meira Filho\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgOYx5LeNNTxPvS_Res67_19-E.M.AugustoMeiraFilho.pdf",
+   "unidades": [
+    {
+     "id": "UN-019",
+     "inep": "15040640",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2020-004",
+   "ano": 2020,
+   "numero": "04",
+   "descricao": "Autoriza o funcionamento da Educação Infantil - Creche e Pré-escola, ministrados na Escola Municipal de Educação Infantil Cotijuba, Ilha de Cotijuba/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgP7h5LeNNTxPvm_Res04_20-EMEICotijuba-Ed.Infantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-189",
+     "inep": "15167763",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2020-008",
+   "ano": 2020,
+   "numero": "08",
+   "descricao": "Renova a autorização de funcionamento da Educação Infantil - Pré-escola, ofertado na Unidade Pedagógica \"Alameda das Palmeiras\", do Ensino Fundamental - CF I e II na modalidade Educação de Jovens e Adultos - 1ª e 4ª Totalidades, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Ciro das Chagas Pimenta\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgR6B5LeNNTxPwe_Res08_20-E.M.CirodasC.Pimenta-CFIeIIeEJA1%C2%AAa4%C2%AATot-2-.pdf",
+   "unidades": [
+    {
+     "id": "UN-148",
+     "inep": "15548066",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2020-012",
+   "ano": 2020,
+   "numero": "12",
+   "descricao": "Renova a Autorização de funcionamento da Educação Infantil - Creche e Pré-Escola, na Unidade de Educação Infantil \"COHAB III\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgT0R5LeNNTxPxA_Res12_20-UEICOHABIII-Educa%C3%A7%C3%A3oInfantil.pdf",
+   "unidades": [
+    {
+     "id": "UN-131",
+     "inep": "15547302",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2020-013",
+   "ano": 2020,
+   "numero": "13",
+   "descricao": "Autoriza o funcionamento do Ensino Fundamental - CF I e II, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof.ª Maria Lúcia Oliveira Monteiro\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgUDR5LeNNTxPxJ_Res13_20-EMEIMariaL%C3%BAciaOliveiraMonteiro-CFIeII.pdf",
+   "unidades": [
+    {
+     "id": "UN-151",
+     "inep": "15170861",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2020-022",
+   "ano": 2020,
+   "numero": "22",
+   "descricao": "Renova autorização de funcionamento da Educação Infantil - Pré-escola, na Unidade Pedagógica Fidélis, e do Ensino Fundamental - CF I a IV e na modalidade Educação de Jovens e Adultos - 1ª a 4ª Totalidades, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof. Helder Fialho Dias\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpgXYx5LeNNTxPyV_Res22_20-EMHelderFialho-Ed.Infantil%2CCFIaIVeEJA-1%C2%AAa4%C2%AATot..pdf",
+   "unidades": [
+    {
+     "id": "UN-186",
+     "inep": "15569624",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2020-027",
+   "ano": 2020,
+   "numero": "27",
+   "descricao": "Renova autorização de funcionamento da Educação Infantil e Ciclo de Formação I e II ministrados na Unidade Pedagógica Associação dos Moradores do Conjunto Verdejante IV e do Ensino Fundamental - CF I ao IV e na modalidade Educação de Jovens e Adultos - 1ª a 4ª Totalidades, ministrados na Escola Municipal de Educação Infantil e Ensino Fundamental \"Olga Benário\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpgc3h5LeNNTxPzi_Res27_20-EMOlgaBen%C3%A1rio-CFIaoIV%2CEJA1%C2%AAa4%C2%AATot..pdf",
+   "unidades": [
+    {
+     "id": "UN-066",
+     "inep": "15573826",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2020-028",
+   "ano": 2020,
+   "numero": "28",
+   "descricao": "Renova autorização de funcionamento da Educação Infantil - Pré-escola, do Ensino Fundamental - CF I ao IV ministrados em seus Anexos e Educação Infantil - Pré-escola, Ensino Fundamental - CF I ao IV e na modalidade Educação de Jovens e Adultos - 1ª a 4ª Totalidades, e do Curso Técnico em Meio Ambiente (Integrado, Subsequente e Concomitante), assim como, autorização para implantação e implementação do Projeto de Certificação de Competência do Ensino Fundamental ministrados na Fundação Centro de Referência em Educação Escola Bosque \"Prof. Eidorfe Moreira\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpgdmh5LeNNTxPzs_Res28_20-EMEidorfeMoreira-Ed.Infantil%2CCFIaoIVeEJA-1%C2%AAa4%C2%AATot.eCursoT%C3%A9cnicoemMeioAmbiente.pdf",
+   "unidades": [
+    {
+     "id": "UN-195",
+     "inep": "15140759",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2020-031",
+   "ano": 2020,
+   "numero": "31",
+   "descricao": "Renova a Autorização de funcionamento da Educação Infantil - Creche e Pré-escola, na Unidade de Educação Infantil \"Itaiteua\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/aN2rHZ5xUNkB1Yxj_Resolu%C3%A7%C3%A3o31.2020.pdf",
+   "unidades": [
+    {
+     "id": "UN-176",
+     "inep": "15543242",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2020-032",
+   "ano": 2020,
+   "numero": "32",
+   "descricao": "Autoriza o funcionamento da Educação Infantil - Creche e Pré-escola, na Escola Municipal de Educação Infantil \"Prof.ª Ciria de Nazaré Tulosa dos Santos\" - Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/aN2tHJ5xUNkB1Yxx_Resolu%C3%A7%C3%A3o32.2020.pdf",
+   "unidades": [
+    {
+     "id": "UN-140",
+     "inep": "15173836",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2022-005",
+   "ano": 2022,
+   "numero": "05",
+   "descricao": "Autoriza o Funcionamento do Ensino Fundamental/Ciclos de Formação I e II, ministrados na Escola Municipal de Ensino Fundamental Prof.ª Maria de Belém Cavalcante Lessa, situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkeOR5LeNNTxRdr_Res_05_2022_AutorizaoFuncionamento-ciclosdeForma%C3%A7%C3%A3oIeII.pdf",
+   "unidades": [
+    {
+     "id": "UN-142",
+     "inep": "15173810",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2022-007",
+   "ano": 2022,
+   "numero": "07",
+   "descricao": "Renovação da Autorização de Funcionamento da Educação Infantil/Pré-escola e nos anos iniciais do Ensino Fundamental/Ciclos de Formação I e II ministrados na Escola Municipal de Ensino Infantil e Ensino Fundamental Nova Aliança situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkfJR5LeNNTxReM_Res_07_2022_Renova%C3%A7%C3%A3odaAutoriza%C3%A7%C3%A3odeFuncionamentodaEduca%C3%A7%C3%A3oInfantilEFNovaAlian%C3%A7a.pdf",
+   "unidades": [
+    {
+     "id": "UN-044",
+     "inep": "15166821",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2022-012",
+   "ano": 2022,
+   "numero": "12",
+   "descricao": "Autorizar o Funcionamento da Educação Infantil - Creche e Pré-escola - ofertada na Escola Municipal de Educação Infantil Professora Lúcia Soares Castro, situada no município de Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpkg4B5LeNNTxRfp_Res_012_2022_L%C3%BAciaSoaresCastro.pdf",
+   "unidades": [
+    {
+     "id": "UN-008",
+     "inep": "15547299",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2022-013",
+   "ano": 2022,
+   "numero": "13",
+   "descricao": "Autorizar o Funcionamento da Educação Infantil - Creche e Pré-escola - ofertada pela Escola Municipal de Educação Infantil Professora Luzmarina de Melo Muniz, situada no município de Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkhKh5LeNNTxRgA_Res_013_2022_LuzMarina.pdf",
+   "unidades": [
+    {
+     "id": "UN-141",
+     "inep": "15173801",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-003",
+   "ano": 2023,
+   "numero": "03",
+   "descricao": "Renovação da Autorização de Funcionamento do Ensino Fundamental - 1º ao 9º ano - Ciclos de Formação I ao IV e Educação de Jovens, Adultos e Idosos (EJAI) - 4º ao 9º ano - Ciclos de Formação I ao IV e Educação de Jovens, Adultos e Idosos (EJAI) - 4º ao 9º ano - 2ª a 4ª Totalidades do Conhecimento ofertadas no Liceu Escola Mestre Raimundo Cardoso situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkkER5LeNNTxRjK_Res03_2023_Ren.aAutoriza%C3%A7%C3%A3odefuncionamentodoEnsinoFundamentaleEJAInoLiceuEscolaMestreRaimundoCardoso.pdf",
+   "unidades": [
+    {
+     "id": "UN-125",
+     "inep": "15043061",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-004",
+   "ano": 2023,
+   "numero": "04",
+   "descricao": "Renovação da Autorização de Funcionamento da Educação Infantil - pré-escolar - Ensino Fundamental - 1º ao 9º ano - Ciclos de Formação I ao IV ofertadas na Escola Municipal Professor Ruy da Silveira brito e unidade anexa Lions Club situadas em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpkkpx5LeNNTxRjt_Res04_2023_Renova%C3%A7%C3%A3odaAutoriza%C3%A7%C3%A3odeFuncionamentodaEduca%C3%A7%C3%A3oInfantilRuydaSilveiraBrito.pdf",
+   "unidades": [
+    {
+     "id": "UN-010",
+     "inep": "15040968",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-005",
+   "ano": 2023,
+   "numero": "05",
+   "descricao": "Autorização de Funcionamento da Educação Infantil - Creche da Escola Municipal Professora Raimunda Lúcia Guerreiro situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpkk3x5LeNNTxRj3_Res05_2023_Autoriza%C3%A7%C3%A3odefuncionamentodaEduca%C3%A7%C3%A3oInfantilnaEMRaimundaL%C3%BAciaguerreiro.pdf",
+   "unidades": [
+    {
+     "id": "UN-009",
+     "inep": "15174557",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-007",
+   "ano": 2023,
+   "numero": "07",
+   "descricao": "Autorização de Funcionamento da Educação Infantil - creche e pré-escola - ofertada na Unidade de Educação Infantil Providência situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpklfx5LeNNTxRkW_Res07_2023_AutorizaofuncionamentodaEduca%C3%A7%C3%A3oInfantildaUEIProvid%C3%AAncia.pdf",
+   "unidades": [
+    {
+     "id": "UN-079",
+     "inep": "15589021",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-009",
+   "ano": 2023,
+   "numero": "09",
+   "descricao": "Renovação da Autorização de Funcionamento para Educação Infantil - pré-escola e Ensino Fundamental - Ciclos I e II ofertadas na Escola Municipal de Educação Infantil e Ensino Fundamental Sabino Barreto situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkmEx5LeNNTxRll_Res09_2023_Renova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentoSabinoBarreto.pdf",
+   "unidades": [
+    {
+     "id": "UN-124",
+     "inep": "15166830",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-010",
+   "ano": 2023,
+   "numero": "10",
+   "descricao": "Renovação da Autorização de Funcionamento para Educação Infantil - Pré-escola (Jardim I e II) e Ensino Fundamental - Ciclos I e II (1º ao 5º ano) ofertadas na Escola Municipal de Educação Infantil e Ensino Fundamental Prof.ª Alda Eutrópio de Souza situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpkmex5LeNNTxRly_Res010_2023_Renova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentoProf%C2%AAAldaeutr%C3%B3pio.pdf",
+   "unidades": [
+    {
+     "id": "UN-058",
+     "inep": "15237001",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-011",
+   "ano": 2023,
+   "numero": "11",
+   "descricao": "Renovação da Autorização de Funcionamento para Educação infantil - pré-escola e Ensino Fundamental - Ciclos I, II, III e IV ofertadas na Escola Municipal de Educação Infantil e Ensino Fundamental Prof.ª Amália Paumgartten situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpkn4h5LeNNTxRn2_Res011_2023_Renova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentoProf%C2%AAAm%C3%A1liaPaumgartten.pdf",
+   "unidades": [
+    {
+     "id": "UN-096",
+     "inep": "15040682",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-012",
+   "ano": 2023,
+   "numero": "12",
+   "descricao": "Autorização de Funcionamento para Educação Infantil - creche e pré-escola ofertada na Escola Municipal de Educação Infantil Prof.ª Venuzina Marinho de Souza situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkoOx5LeNNTxRoG_Res012_2023_Autoriza%C3%A7%C3%A3odefuncionamentoVenuzinaMarinho.pdf",
+   "unidades": [
+    {
+     "id": "UN-092",
+     "inep": "15543382",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-013",
+   "ano": 2023,
+   "numero": "13",
+   "descricao": "Autorização de Funcionamento da Educação Infantil - pré-escola (Jardim I e II) e Ensino Fundamental (Ciclos de Formação I e II - 1º ao 5º ano) ofertadas na Escola Municipal de Educação do Campo Sebastião dos Santos Quaresma e unidade anexa Santo Antônio.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkovB5LeNNTxRom_Res13_2023_Autoriza%C3%A7%C3%A3odefuncionamentoSebasti%C3%A3odossantosquaresmaeunidadeanexasantoant%C3%B4nio.pdf",
+   "unidades": [
+    {
+     "id": "UN-181",
+     "inep": "15172392",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-184",
+     "inep": "15172392",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-018",
+   "ano": 2023,
+   "numero": "18",
+   "descricao": "Dispõe sobre Credenciamento e Autorização de Funcionamento da Educação Infantil (Creche e pré-escola) ofertadas na Creche Escola Iris aos Olhos de Deus situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkrLB5LeNNTxRqh_Res18_2023_Credenciamentoeautoriza%C3%A7%C3%A3odefuncionamentocrecheIrisaosolhosdeDeus.pdf",
+   "unidades": [
+    {
+     "id": "UN-063",
+     "inep": "15175626",
+     "relacao": "credenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-019",
+   "ano": 2023,
+   "numero": "19",
+   "descricao": "Dispõe sobre Autorização de Funcionamento da Educação Infantil (Creche e pré-escola) ofertadas na Escola Municipal de Educação Infantil Angélica do Carmo Santos Paiva situada em Belém/PA.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpkreh5LeNNTxRqr_Res19_2023_Autoriza%C3%A7%C3%A3odefuncionamentodaescolaAngelicadoCarmoSantosPaiva.pdf",
+   "unidades": [
+    {
+     "id": "UN-021",
+     "inep": "15543234",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-020",
+   "ano": 2023,
+   "numero": "20",
+   "descricao": "Dispõe sobre Renovação de Autorização de Funcionamento da Educação Infantil (creche e pré-escola) ofertada na Escola Municipal de Educação Infantil Erê e Escola Anexa Suzete Peres Maxwell.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkryB5LeNNTxRq0_Res20_2023_Renova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentodaeduca%C3%A7%C3%A3oinfantilnaescolaEr%C3%AAeanexoSuzeteperesMaxwell.pdf",
+   "unidades": [
+    {
+     "id": "UN-196",
+     "inep": "15558312",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-207",
+     "inep": "15558312",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-022",
+   "ano": 2023,
+   "numero": "22",
+   "descricao": "Dispõe sobre Renovação da Autorização de Funcionamento a Ed. Infantil (Pré-Escola - Jardim I e II) e Ensino Fundamental (Ciclos de Formação I, II, III e IV - 1º ao 9º ano) ofertadas na Escola Municipal de Educação Infantil e Ensino Fundamental \"Prof.ª Terezinha Souza\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpksoR5LeNNTxRrP_Res22_2023_Renova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentodaeduca%C3%A7%C3%A3oinfantilnaescolaProf%C2%AATerezinhaSouza.pdf",
+   "unidades": [
+    {
+     "id": "UN-071",
+     "inep": "15563472",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-073",
+     "inep": "15563472",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-023",
+   "ano": 2023,
+   "numero": "23",
+   "descricao": "Renovação de Autorização de Funcionamento para oferta da Educação Infantil (Jardim I e II) Ensino Fundamental (Ciclos I e II), na Escola Municipal de Educação do Campo Maria Clemildes.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpks5x5LeNNTxRre_Res23_2023_Renova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odaeduca%C3%A7%C3%A3oinfantilnaescolaMariaClemildes.pdf",
+   "unidades": [
+    {
+     "id": "UN-157",
+     "inep": "15043410",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-024",
+   "ano": 2023,
+   "numero": "24",
+   "descricao": "Renovação de Autorização de Funcionamento para oferta da Educação Infantil (Creche e Pré-escola), na Unidade de Educação Infantil Bacuri.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpktHR5LeNNTxRrz_Res24_2023_Renova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentodaeduca%C3%A7%C3%A3oinfantilnaUEIBacuri.pdf",
+   "unidades": [
+    {
+     "id": "UN-160",
+     "inep": "15543358",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-025",
+   "ano": 2023,
+   "numero": "25",
+   "descricao": "Autorização de Funcionamento para oferta da Educação Infantil (Jardim I e II) Ensino Fundamental (Ciclos de Formação I e II), na Escola Municipal de Educação Infantil e Ensino Fundamental Professora Renildes Nunes Batista.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpktxh5LeNNTxRr-_Res25_2023_Autoriza%C3%A7%C3%A3odefuncionamentoparaeduca%C3%A7%C3%A3oinfantilprof%C2%AARenildesNunesBatista.pdf",
+   "unidades": [
+    {
+     "id": "UN-193",
+     "inep": "15173895",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-026",
+   "ano": 2023,
+   "numero": "26",
+   "descricao": "Autorização de Funcionamento para oferta da Educação Infantil (Berçário II, Maternal I e II e Jardim I e II), na Unidade de Educação Infantil Encanto do Saber.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkuzB5LeNNTxRso_Res26_2023_Autoriza%C3%A7%C3%A3odefuncionamentoparaaeduca%C3%A7%C3%A3oinfantilnaUEIEncantodoSaber.pdf",
+   "unidades": [
+    {
+     "id": "UN-090",
+     "inep": "15167640",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-027",
+   "ano": 2023,
+   "numero": "27",
+   "descricao": "Renovação de Autorização de Funcionamento para oferta de Educação Infantil (Pré-escola) e Ensino Fundamental (Ciclos I e II), na Escola Municipal de Educação Infantil e Ensino Fundamental Professora Amância Pantoja.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkvFR5LeNNTxRss_Res27_2023_Renova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentodaeduca%C3%A7%C3%A3oinfantilProf%C2%AAAm%C3%A2nciaPantoja.pdf",
+   "unidades": [
+    {
+     "id": "UN-199",
+     "inep": "15040690",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-028",
+   "ano": 2023,
+   "numero": "28",
+   "descricao": "Renovação de Autorização de Funcionamento para oferta de Educação Infantil (Maternal II, Jardim I e II), Ensino Fundamental (Ciclos de Formação I e II) e EJA (Totalidades 1ª, 2ª, 3ª e 4ª) na Escola Municipal de Educação Infantil e Ensino Fundamental Maria Heloísa de Castro e Escola Anexa Amigos Solidários.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkvhB5LeNNTxRs9_Res28_2023_Renova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentodaeduca%C3%A7%C3%A3oinfantilnaescolaMariaHelo%C3%ADsaCastroeanexoAmigosSolid%C3%A1rios.pdf",
+   "unidades": [
+    {
+     "id": "UN-055",
+     "inep": "15043029",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-029",
+   "ano": 2023,
+   "numero": "29",
+   "descricao": "Recredenciamento da entidade mantenedora Sociedade Beneficente Pequeninos de Cristo - SBPC e Renovação de Autorização de Funcionamento para oferta de Educação Infantil (Creche e Pré-escola) na Creche Professora Edelburga Queiroz.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpkv3h5LeNNTxRtQ_Res29_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odaentidademantenedoraSociedadeBeneficientePequeninosdeCristoenaCrecheProf%C2%AAAdelburgaqueiroz.pdf",
+   "unidades": [
+    {
+     "id": "UN-143",
+     "inep": "15157245",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-030",
+   "ano": 2023,
+   "numero": "30",
+   "descricao": "Recredenciamento da entidade mantenedora Sociedade Comunitária São João Batista e Renovação de Autorização de Funcionamento para oferta de Educação Infantil (Creche e Pré-escola) na Creche Escola São João Batista.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkwKB5LeNNTxRtz_Res30_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentodaentidademantenedoraSociedadeComunit%C3%A1riaS%C3%A3oJo%C3%A3oBatistaecrecheescolaS%C3%A3oJo%C3%A3oBatista.pdf",
+   "unidades": [
+    {
+     "id": "UN-129",
+     "inep": "15174735",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-031",
+   "ano": 2023,
+   "numero": "31",
+   "descricao": "Recredenciamento da entidade mantenedora Associação dos Moradores do Carmelândia e Renovação de Autorização de Funcionamento para oferta de Educação Infantil (Creche e Pré-escola) na instituição Sistema de Ensino Infantil Professor Guilherme Tomaz.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpkw_B5LeNNTxRuT_Res31_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odaentidademantenedoraassocia%C3%A7%C3%A3odosmoradoresdocarmel%C3%A2ndiaenainstitui%C3%A7%C3%A3oProf%C2%BAGuilhermeTomaz.pdf",
+   "unidades": [
+    {
+     "id": "UN-039",
+     "inep": "15171760",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-032",
+   "ano": 2023,
+   "numero": "32",
+   "descricao": "Recredenciamento da entidade mantenedora Associação Beneficente São Carlos do Brasil e Renovação de Autorização de Funcionamento para oferta de Educação Infantil (Creche e Pré-escola) na Creche e Pré-Escola Luna Flexa Ribeiro.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZpkxSR5LeNNTxRuh_Res32_2023_Recrdenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odaentidademantenedoraAssocia%C3%A7%C3%A3oBeneficienteS%C3%A3oCarlosBrasilenacrecheLunaFlexaRibeiro.pdf",
+   "unidades": [
+    {
+     "id": "UN-034",
+     "inep": "15159469",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-033",
+   "ano": 2023,
+   "numero": "33",
+   "descricao": "Recredenciamento da entidade mantenedora Associação dos Amigos da Terra Firme e Renovação de Autorização de Funcionamento para oferta de Educação Infantil (Creche e Pré-escola) na Escola de Educação Infantil Associação dos Amigos da Terra Firme.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpkxkh5LeNNTxRuv_Res33_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentodaentidademantenedoraAssocia%C3%A7%C3%A3odosAmigosdaTerraFirme.pdf",
+   "unidades": [
+    {
+     "id": "UN-116",
+     "inep": "15564215",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-035",
+   "ano": 2023,
+   "numero": "35",
+   "descricao": "Recredenciamento da entidade mantenedora Associação Comunitário de Apoio à Cabanagem e Renovação de Autorização de Funcionamento da Educação Infantil (Creche e Pré-escola), no Centro Educacional de Ensino Infantil Mundo Encantado.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zpk0dh5LeNNTxRxQ_Res35_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odaeduca%C3%A7%C3%A3oinfantildaentidademantenedoraAssocia%C3%A7%C3%A3oComunit%C3%A1riadeapoioaCabanagemeC.EducacionalMundoEnc.pdf",
+   "unidades": [
+    {
+     "id": "UN-024",
+     "inep": "15173860",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-036",
+   "ano": 2023,
+   "numero": "36",
+   "descricao": "Recredenciamento da Entidade Mantenedora União dos Amigos do Bairro da Sacramenta e Renovação de Autorização de Funcionamento para oferta da Educação Infantil (Creche e Pré-escola) na Escola de Educação Infantil Amiguinhos da Sacramenta.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplAkx5LeNNTxR4T_Res36_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odaeduca%C3%A7%C3%A3oinfantildaentidademantenedorauni%C3%A3odosamigosdoBairrodaSacramentaEamiguinhosdasacramenta.pdf",
+   "unidades": [
+    {
+     "id": "UN-208",
+     "inep": "15521907",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-037",
+   "ano": 2023,
+   "numero": "37",
+   "descricao": "Recredenciamento e Renovação de Autorização de Funcionamento para oferta da Educação Infantil (Pré-escola) no Centro Comunitário Nossa Senhora do Perpétuo Socorro.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplBXh5LeNNTxR4u_Res37_2023_Recredenciamentoerenova%C3%A7%C3%A3odefuncionamentodaeduca%C3%A7%C3%A3oinfantilnoCentroComunit%C3%A1rioNossaSenhoradoPerpetuoSocorro.pdf",
+   "unidades": [
+    {
+     "id": "UN-018",
+     "inep": "15174603",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-038",
+   "ano": 2023,
+   "numero": "38",
+   "descricao": "Recredenciamento e Renovação de Autorização de Funcionamento para oferta da Educação Infantil (Creche e Pré-escola) da Associação dos Moradores do Residencial Bom Jesus.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplBqR5LeNNTxR4__Res38_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odaeduca%C3%A7%C3%A3oinfantilAssocia%C3%A7%C3%A3odosmoradoresdoRedencialBomJesus.pdf",
+   "unidades": [
+    {
+     "id": "UN-050",
+     "inep": "15174565",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-039",
+   "ano": 2023,
+   "numero": "39",
+   "descricao": "Recredenciamento e renovação de Autorização de Funcionamento para oferta da Educação Infantil (Creche) na Creche Lar Cordeirinhos de Deus.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplB-x5LeNNTxR5R_Res39_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odefuncionamentodaeduca%C3%A7%C3%A3oinfantilnacrecheLarCordeirinhosdeDeus.pdf",
+   "unidades": [
+    {
+     "id": "UN-013",
+     "inep": "15159477",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-040",
+   "ano": 2023,
+   "numero": "40",
+   "descricao": "Recredenciamento da Entidade Mantenedora Associação Comunitária dos Moradores da Alameda dos Palmeiras e Gabrielle I e II e Renovação de Autorização de Funcionamento para oferta da Educação Infantil (Creche e Pré-Escola) na Escola Comunitária dos Moradores da alameda das Palmeiras.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplCYB5LeNNTxR5b_Res40_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odaentidademantenedoraA.C.MDAAlamedadasPalmeiraseGabrielleIEIIEEscolaC.MdaAlamedadasPalmeiras.pdf",
+   "unidades": [
+    {
+     "id": "UN-146",
+     "inep": "15174751",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2023-042",
+   "ano": 2023,
+   "numero": "42",
+   "descricao": "Recredenciamento e Renovação de Autorização de Funcionamento para oferta da Educação Infantil (Creche e Pré-escola) no Centro Comunitário Educacional São Francisco de Assis.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplE9R5LeNNTxR6P_Res42_2023_Recredenciamentoerenova%C3%A7%C3%A3odeautoriza%C3%A7%C3%A3odaeduca%C3%A7%C3%A3oinfantilnoCentroComunitarioeducacionalS%C3%A3oFranciscodeAssis.pdf",
+   "unidades": [
+    {
+     "id": "UN-051",
+     "inep": "15096378",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-002",
+   "ano": 2024,
+   "numero": "02",
+   "descricao": "Recredencia a Entidade Mantenedora \"Centro Social e Cultural Dr. Osvaldo Melo\" e renova a autorização da oferta de Educação Infantil (Pré-escola) na Instituição Educacional \"Centro Social e Cultural Dr. Osvaldo Melo\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplH0x5LeNNTxR6z_Res02_2024-CentroSocialeCulturalDr.OsvaldoMelo.pdf",
+   "unidades": [
+    {
+     "id": "UN-138",
+     "inep": "15582051",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-004",
+   "ano": 2024,
+   "numero": "04",
+   "descricao": "Recredencia a Entidade Mantenedora \"Associação dos Moradores das Passagens Santa Rita e Joana D'Arc\" e renova a autorização da oferta da Educação Infantil (Pré-escola) na Instituição Educacional \"Associação dos Moradores das Passagens Santa Rita e Joana D'Arc\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplJCx5LeNNTxR7d_Res04_2024-Associa%C3%A7%C3%A3oJoanaD%27Arc.pdf",
+   "unidades": [
+    {
+     "id": "UN-214",
+     "inep": "15174573",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-005",
+   "ano": 2024,
+   "numero": "05",
+   "descricao": "Recredencia a Entidade Mantenedora \"Associação dos Moradores Morada de Deus I e II\" e renova autorização da oferta da Educação Infantil (Creche e Pré-escola) na Instituição Educacional \"Centro Educacional Mundo da Imaginação\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplJYh5LeNNTxR7j_Res05_2024-Associa%C3%A7%C3%A3oMoradadeDeusIeII.pdf",
+   "unidades": [
+    {
+     "id": "UN-137",
+     "inep": "15174620",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-006",
+   "ano": 2024,
+   "numero": "06",
+   "descricao": "Renova a autorização da oferta de Educação Infantil (Creche e Pré-escola) na Instituição Educacional \"Unidade de Educação Infantil Catalina III\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplKkR5LeNNTxR7w_Res06_2024-UEICatalinaIII.pdf",
+   "unidades": [
+    {
+     "id": "UN-037",
+     "inep": "15152324",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-007",
+   "ano": 2024,
+   "numero": "07",
+   "descricao": "Recredencia a Entidade Mantenedora \"Associação de Pais e Educadores Moaraná\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na Instituição Educacional \"Associação de Pais e Educadores Moaraná\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplK_h5LeNNTxR71_Res07_2024-Associa%C3%A7%C3%A3oMoaran%C3%A1.pdf",
+   "unidades": [
+    {
+     "id": "UN-093",
+     "inep": "15098338",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-008",
+   "ano": 2024,
+   "numero": "08",
+   "descricao": "Renova a autorização da oferta de Educação Infantil (Creche e Pré-escola) e Ensino Fundamental (Ciclos I e II) na Instituição Educacional \"Escola de Educação Infantil e Ensino Fundamental Castanheiras\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplLSR5LeNNTxR73_Res08_2024-EMEIFCastanheiras.pdf",
+   "unidades": [
+    {
+     "id": "UN-150",
+     "inep": "15168476",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-009",
+   "ano": 2024,
+   "numero": "09",
+   "descricao": "Recredencia a Entidade Mantenedora \"Centro Catequético de Promoção Humana Santa Isabel da Hungria\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na Instituição Educacional \"Oásis infantil São João Antônio Farina\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplMCB5LeNNTxR8A_Res09_2024-CentroSantaIzabeldaHungria.pdf",
+   "unidades": [
+    {
+     "id": "UN-095",
+     "inep": "15098125",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-010",
+   "ano": 2024,
+   "numero": "10",
+   "descricao": "Recredencia a entidade mantenedora \"Ação Social da Matinha\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Escola Irmã Dulce\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplMjB5LeNNTxR8F_Res010_2024-A%C3%A7%C3%A3oSocialdaMatinha.pdf",
+   "unidades": [
+    {
+     "id": "UN-198",
+     "inep": "15516512",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-011",
+   "ano": 2024,
+   "numero": "11",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Creche e Pré-escola), Ensino Fundamental (Ciclos I e II) e Educação de Jovens, Adultos e Idosos (1ª a 4ª Totalidades) na instituição de educação básica \"EMEIF Comandante Klautau\" e anexa \"UP São José\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplNlx5LeNNTxR8W_Res011_2024-EMEIFComandanteKlautau.pdf",
+   "unidades": [
+    {
+     "id": "UN-206",
+     "inep": "15041123",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-210",
+     "inep": "15041123",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-012",
+   "ano": 2024,
+   "numero": "12",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) e Ensino Fundamental (Ciclos I e II) na instituição de educação básica \"EMEIF Silvio Leandro\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09ciJbqstJ98AHH_Res012_2024-EMEIFSilvioLeandro-vrscorrigida-.pdf",
+   "unidades": [
+    {
+     "id": "UN-033",
+     "inep": "15558363",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-013",
+   "ano": 2024,
+   "numero": "13",
+   "descricao": "Recredencia a entidade mantenedora \"Associação Comunitária do Bairro do Tapanã\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Associação Comunitária do Bairro do Tapanã\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplOfR5LeNNTxR8j_Res013_2024-Associa%C3%A7%C3%A3oTapan%C3%A3.pdf",
+   "unidades": [
+    {
+     "id": "UN-049",
+     "inep": "15586022",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-014",
+   "ano": 2024,
+   "numero": "14",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Pré-escola) e Ensino Fundamental (Ciclos I e II) e Educação de Jovens, Adultos e Idosos (1ª a 4ª Totalidades) na instituição de educação básica \"EMEIF Edson Luís\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplO2B5LeNNTxR8q_Res014_2024-EMEIFEdsonLuis.pdf",
+   "unidades": [
+    {
+     "id": "UN-098",
+     "inep": "15558282",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-015",
+   "ano": 2024,
+   "numero": "15",
+   "descricao": "Recredencia a entidade mantenedora \"Associação dos Moradores do Bairro do Guamá\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Escola de Educação Infantil Santa Helena\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplPOh5LeNNTxR9N_Res015_2024-Associa%C3%A7%C3%A3oMoradoresGuam%C3%A1.pdf",
+   "unidades": [
+    {
+     "id": "UN-094",
+     "inep": "15572137",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-024",
+   "ano": 2024,
+   "numero": "24",
+   "descricao": "Renova a autorização da oferta do Ensino Fundamental (Ciclos I ao IV) e EJAI (Totalidades 1ª à 4ª) na instituição de educação básica \"EMEF Prof.ª Donatila Santana Lopes\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplZcx5LeNNTxSAk_Res024_2024-EMDonatilaLopes.pdf",
+   "unidades": [
+    {
+     "id": "UN-169",
+     "inep": "15043401",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-025",
+   "ano": 2024,
+   "numero": "25",
+   "descricao": "Renova a autorização da oferta de Educação Infantil (Pré-escola) e Ensino Fundamental (Ciclos I ao IV) e EJAI (Totalidades 1ª à 4ª) na instituição de educação básica \"EMEIF Benvinda de França Messias\" e escola anexa \"Solar do Acalanto\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplaYB5LeNNTxSA6_Res025_2024-EMBenvindadeMessias.pdf",
+   "unidades": [
+    {
+     "id": "UN-014",
+     "inep": "15040887",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-017",
+     "inep": "15040887",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-026",
+   "ano": 2024,
+   "numero": "26",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Creche) na instituição de educação básica \"Unidade de Educação Infantil Wilson Bahia de Souza\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplaqB5LeNNTxSA__Res026_2024-WilsonBahiadeSouza.pdf",
+   "unidades": [
+    {
+     "id": "UN-077",
+     "inep": "15577767",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-028",
+   "ano": 2024,
+   "numero": "28",
+   "descricao": "Recredencia a entidade mantenedora \"Associação Santa Rita de Cássia\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Associação Santa Rita de Cássia\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Zplbwx5LeNNTxSBt_Res028_2024-Associa%C3%A7%C3%A3oSantaRitadeC%C3%A1ssia.pdf",
+   "unidades": [
+    {
+     "id": "UN-113",
+     "inep": "15173739",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-029",
+   "ano": 2024,
+   "numero": "29",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Unidade de Educação Infantil Santo Agostinho\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/ZplcfR5LeNNTxSB3_Res029_2024-SantoAgostinho.pdf",
+   "unidades": [
+    {
+     "id": "UN-115",
+     "inep": "15543374",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-033",
+   "ano": 2024,
+   "numero": "33",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) e Ensino Fundamental (Ciclo I) na instituição de educação básica \"EMEIF Profª Ogilvanise Moreira de Moura\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09PS5bqstJ98ABV_Res033_2024-EMEIFOgilvaniseMoura.pdf",
+   "unidades": [
+    {
+     "id": "UN-127",
+     "inep": "15519430",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-034",
+   "ano": 2024,
+   "numero": "34",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Pré-escola) e Ensino Fundamental (Ciclos I e II) na instituição de educação básica \"EMEIF Prof Paulo Almeida Brasil\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09P3JbqstJ98AB4_Res034_2024-EMEIFProfPauloAlmeidaBrasil.pdf",
+   "unidades": [
+    {
+     "id": "UN-084",
+     "inep": "15168468",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-036",
+   "ano": 2024,
+   "numero": "36",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Pré-escola) e Ensino Fundamental, (Ciclos I e II) na instituição de educação básica \"EMEIF Santana Aura\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09RCZbqstJ98ACT_Res036_2024-EMEIFSantanaAura.pdf",
+   "unidades": [
+    {
+     "id": "UN-070",
+     "inep": "15167380",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-037",
+   "ano": 2024,
+   "numero": "37",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Creche e Pré-escola), na instituição de educação básica \"Unidade de Educação Infantil Isa Cunha\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09RC5bqstJ98ACV_Res037_2024-UEIIsaCunha.pdf",
+   "unidades": [
+    {
+     "id": "UN-197",
+     "inep": "15543307",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-038",
+   "ano": 2024,
+   "numero": "38",
+   "descricao": "Recredencia a entidade mantenedora \"Centro Comunitário São Paulo\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Escola São Sebastião\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09RCpbqstJ98ACU_Res037_2024-EscolaS%C3%A3oSebati%C3%A3o.pdf",
+   "unidades": [
+    {
+     "id": "UN-130",
+     "inep": "15559343",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-039",
+   "ano": 2024,
+   "numero": "39",
+   "descricao": "Renova a autorização da oferta de Educação Infantil Pré-escola, Ensino Fundamental I (Ciclos I ao IV) na instituição de educação básica \"EMEIF Professor Pedro Demo\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09RDJbqstJ98ACW_Res038_2024-EMEIFProfessorPedroDemo.pdf",
+   "unidades": [
+    {
+     "id": "UN-177",
+     "inep": "15159450",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-040",
+   "ano": 2024,
+   "numero": "40",
+   "descricao": "Renova a autorização da oferta da Educação Infantil Pré-escola, Ensino Fundamental (Ciclos I ao IV) e EJAI (Totalidades 1º ao 4º) na instituição de educação básica \"EMEIF Deputado João Carlos Batista\" e escola anexo \"Nova Esperança\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09RDZbqstJ98ACX_Res040_2024-EMEIFDeputadoJo%C3%A3oCarloseEscolaAnexoNovaEsperan%C3%A7a.pdf",
+   "unidades": [
+    {
+     "id": "UN-026",
+     "inep": "15535827",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-041",
+   "ano": 2024,
+   "numero": "41",
+   "descricao": "Renova a autorização da oferta do Ensino Fundamental (Ciclos I ao IV) e da EJAI (Totalidades 1º ao 4º na instituição de educação básica \"EMEF Prof.ª Maria Madalena Corrêa Raad\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09RDpbqstJ98ACY_Res041_2024-EMEFProf%C2%AAMariaMadalenaCorr%C3%AAaRaad.pdf",
+   "unidades": [
+    {
+     "id": "UN-126",
+     "inep": "15042995",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-042",
+   "ano": 2024,
+   "numero": "42",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Pré-escola) e do Ensino Fundamental, (ciclo I) na instituição da educação básica \"EMEIF Prof.ª Alana de Souza Barboza\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09RD5bqstJ98ACZ_Res042_2024-EMEIFProf%C2%AAAlanadeSouzaBarboza.pdf",
+   "unidades": [
+    {
+     "id": "UN-031",
+     "inep": "15223000",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-043",
+   "ano": 2024,
+   "numero": "43",
+   "descricao": "Renova a autorização da oferta da Educação do Ensino Fundamental (Ciclos I ao IV) e da EJAI (Totalidades 1º a 4º) na instituição de educação básica \"EMEF Prof. Abel Martins e Silva\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z09REJbqstJ98ACa_Res043_2024-EMEFProfAbelMartinseSilva.pdf",
+   "unidades": [
+    {
+     "id": "UN-163",
+     "inep": "15043274",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-046",
+   "ano": 2024,
+   "numero": "46",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Pré-escola), na instituição de educação básica \"EMEI Gênesis\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z4pdNZbqstJ99km8_Res046_2024-EMEIG%C3%AAnesis.pdf",
+   "unidades": [
+    {
+     "id": "UN-132",
+     "inep": "15166368",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-047",
+   "ano": 2024,
+   "numero": "47",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Pré-escola), Ensino Fundamental (Ciclos I ao IV) e EJAI (Totalidade 1ª) na instituição de educação básica \"EMEC Milton Monte\" e anexos \"UP Nossa Senhora dos Navegantes\" e \"EMEC São José\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z4pfo5bqstJ99kpX_Res047_2024-EMECMiltonMonte.pdf",
+   "unidades": [
+    {
+     "id": "UN-182",
+     "inep": "15161552",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-048",
+   "ano": 2024,
+   "numero": "48",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Instituição Filippo Smaldone\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z4pgR5bqstJ99kp__Res048_2024-InstituloFilippoSmaldone.pdf",
+   "unidades": [
+    {
+     "id": "UN-012",
+     "inep": "15041743",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-049",
+   "ano": 2024,
+   "numero": "49",
+   "descricao": "Renova a autorização da oferta do Ensino Fundamental (Ciclos I ao IV) e EJAI (Totalidades 1ª a 4ª) na instituição de educação básica \"EMEF Prof.ª Maria Luiza Pinto Amaral\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z4phJpbqstJ99krE_Res049_2024-Prof.%C2%AAMariaLuizaPintoAmaral.pdf",
+   "unidades": [
+    {
+     "id": "UN-213",
+     "inep": "15040941",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2024-050",
+   "ano": 2024,
+   "numero": "50",
+   "descricao": "Renova a autorização da oferta do Ensino Fundamental (Ciclos I e II) e EJAI (Totalidades 1ª a 4ª) na instituição de educação básica \"EMEF Prof Paulo Freire\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Z4phw5bqstJ99krr_Res050_2024-Prof.PauloFreire.pdf",
+   "unidades": [
+    {
+     "id": "UN-153",
+     "inep": "15558290",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-001",
+   "ano": 2025,
+   "numero": "01",
+   "descricao": "Renova a autorização da oferta de Educação Infantil (Creche e Pré-escola) na instituição de Educação básica \"EMEI Professor Jaime da Costa Teixeira\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/5mYqpv3AZ3Y3yCGL_Res01eparecerprofJaime.pdf",
+   "unidades": [
+    {
+     "id": "UN-152",
+     "inep": "15569616",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-002",
+   "ano": 2025,
+   "numero": "02",
+   "descricao": "Autoriza o Funcionamento da Educação Infantil (Creche e Pré-escola) e Ensino Fundamental (Ciclos I e II) na instituição de educação básica \"EMEIF Maria da Conceição de Souza\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/YupJ9wQPtQ3SvdvI_Res02eparecermariadaconcei%C3%A7%C3%A3o.pdf",
+   "unidades": [
+    {
+     "id": "UN-065",
+     "inep": "15181847",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-003",
+   "ano": 2025,
+   "numero": "03",
+   "descricao": "Renova a autorização da oferta de Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"EMEI Canto do Uirapuru\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/MSCKEYw_GMGz14Jp_Res03eparecercantodouirapuru.pdf",
+   "unidades": [
+    {
+     "id": "UN-200",
+     "inep": "15167356",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-004",
+   "ano": 2025,
+   "numero": "04",
+   "descricao": "Renova a autorização da oferta de Educação Fundamental (Ciclos I e II) na instituição de educação básica \"EMEF Monsenhor José Maria Azevedo\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/X3VuwuCtx8dC7EyI_res04_2025_EMEFMonsenhorJos%C3%A9MariaAzevedo.pdf",
+   "unidades": [
+    {
+     "id": "UN-192",
+     "inep": "15043053",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-005",
+   "ano": 2025,
+   "numero": "05",
+   "descricao": "Renova a autorização da oferta de Educação Infantil (Creche e Pré-escola) na Unidade de Educação Infantil Rotary Clube de Belém.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/tvZ80kDrPSkU97y5_Res05eparecerrotaryclube.pdf",
+   "unidades": [
+    {
+     "id": "UN-164",
+     "inep": "15543404",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-006",
+   "ano": 2025,
+   "numero": "06",
+   "descricao": "Renova a autorização da oferta de Educação Infantil (Pré-escola) e do Ensino Fundamental (Ciclos I e II) na instituição de educação básica \"EMEIF Ayrton Senna\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/PB_DzVDtJLDJT71e_Res06eparacerayrtonsenna.pdf",
+   "unidades": [
+    {
+     "id": "UN-147",
+     "inep": "15166376",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-007",
+   "ano": 2025,
+   "numero": "07",
+   "descricao": "Recredencia a entidade mantenedora \"Fundação Acolher\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Escola Fundação Acolher\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/CVMA1ugjsX9PkZDl_Res07eparecerfunda%C3%A7%C3%A3oacolher.pdf",
+   "unidades": [
+    {
+     "id": "UN-165",
+     "inep": "15159442",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-008",
+   "ano": 2025,
+   "numero": "08",
+   "descricao": "Renova a autorização da oferta de Educação Fundamental (Ciclos I e II) e da Educação de Jovens, Adultos e Idosos (Totalidades 1ª a 4ª)  na instituição de educação básica \"EMEF Josino Viana\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/BTOzCxE1-0HZSDE7_Res08eparecerJosinoViana.pdf",
+   "unidades": [
+    {
+     "id": "UN-202",
+     "inep": "15040933",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-009",
+   "ano": 2025,
+   "numero": "09",
+   "descricao": "Recredencia a entidade mantenedora \"Instituto Unidos Venceremos\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Instituto Unidos Venceremos\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/e6G7UwCsGg2AFDuI_Res09eparecerunidosvenceremos.pdf",
+   "unidades": [
+    {
+     "id": "UN-023",
+     "inep": "15574172",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-010",
+   "ano": 2025,
+   "numero": "10",
+   "descricao": "Renova autorização para o funcionamento da Educação Infantil (Creche e Pré-escola) na \"UP Barão de Mamoré\" e do Ensino Fundamental (Ciclos de Formação I ao IV) na \"EMEIF Professor Francisco da Silva Nunes\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/5uCY__x4Zfuf08kr_Res10eparecebar%C3%A3odemamor%C3%A9.pdf",
+   "unidades": [
+    {
+     "id": "UN-002",
+     "inep": "15040801",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-016",
+     "inep": "15040801",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-011",
+   "ano": 2025,
+   "numero": "11",
+   "descricao": "Renova autorização para o funcionamento da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"UEI Rosemary Jorge\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/m1oK8EMMsjUopJoC_Res11eparecerRosemaryJorge.pdf",
+   "unidades": [
+    {
+     "id": "UN-074",
+     "inep": "15152316",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-012",
+   "ano": 2025,
+   "numero": "12",
+   "descricao": "Autoriza o funcionamento da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"UEI São Gaspar\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/LFDbGsHZ-882NQBq_Res12eparecerUEIS%C3%A3oGaspar.pdf",
+   "unidades": [
+    {
+     "id": "UN-032",
+     "inep": "15164160",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-013",
+   "ano": 2025,
+   "numero": "13",
+   "descricao": "Renova autorização para o funcionamento do Ensino Fundamental (Ciclos de Formação I a IV) e da EJAI (1ª a 4ª totalidade) na instituição de educação básica \"EMEF Professor Walter Leite Caminha\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/o3YyDGLneFBv4Cl9_Res13eparecerWalterLeite.pdf",
+   "unidades": [
+    {
+     "id": "UN-038",
+     "inep": "15043088",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-014",
+   "ano": 2025,
+   "numero": "14",
+   "descricao": "Renova autorização para o funcionamento da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"UEI Monte Alegre\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/fOIXCAn5fjZjv5nR_Res14eUEIMontealegre.pdf",
+   "unidades": [
+    {
+     "id": "UN-109",
+     "inep": "15543390",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-015",
+   "ano": 2025,
+   "numero": "15",
+   "descricao": "Autoriza o funcionamento da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"EMEI Professora Gilvânia Márcia de Barros da Silva\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/RFx93x5h3ZF-5yjC_Res15eparecerGilv%C3%A2nia.pdf",
+   "unidades": [
+    {
+     "id": "UN-022",
+     "inep": "15170853",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-016",
+   "ano": 2025,
+   "numero": "16",
+   "descricao": "Renova autorização para o funcionamento da Educação Infantil (Creche e Pré-escola) e o Ensino Fundamental (Ciclos I e II) na instituição de educação básica \"EMEIF Professor Almerindo Trindade\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/OOaVR8VLink2Aig8_Res16epareceralmerindo.pdf",
+   "unidades": [
+    {
+     "id": "UN-215",
+     "inep": "15040852",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-017",
+   "ano": 2025,
+   "numero": "17",
+   "descricao": "Renova autorização para o funcionamento da Educação Infantil (Creche e Pré-escola), do Ensino Fundamental (Ciclos de Formação I a IV) e da EJAI (I a IV Totalidades) na instituição de educação básica \"EMEIF Professor Gabriel Lage da Silva\" e em sua unidade anexa \"UP Nossa Senhora Aparecida\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/9SsvXUREoBirfopX_Res17eparecerGabrielLage.pdf",
+   "unidades": [
+    {
+     "id": "UN-053",
+     "inep": "15043070",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-018",
+   "ano": 2025,
+   "numero": "18",
+   "descricao": "Renova autorização para o funcionamento da Educação Infantil (Creche e Pré-escola) e Ensino Fundamental (Ciclo de Formação I) na instituição de educação básica \"EMEIF de Educação no Campo Maria Madalena Travassos\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/xFjFcpT4DaDkrr60_Res18eparecerMariaMadalena.pdf",
+   "unidades": [
+    {
+     "id": "UN-158",
+     "inep": "15159434",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-020",
+   "ano": 2025,
+   "numero": "20",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica Escola Municipal Revoar das Andorinhas.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/aPqIWbpReVYa3oDC_Res20_2025_Revoardasandorinhas.pdf",
+   "unidades": [
+    {
+     "id": "UN-201",
+     "inep": "15167348",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-021",
+   "ano": 2025,
+   "numero": "21",
+   "descricao": "Recredencia a entidade mantenedora \"Fundação Criança Feliz\" e renova a autorização da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Fundação Criança Feliz\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/aPqIzLpReVYa3oDL_Res21_2025_OSCFunda%C3%A7%C3%A3oCrian%C3%A7aFeliz.pdf",
+   "unidades": [
+    {
+     "id": "UN-156",
+     "inep": "15173879",
+     "relacao": "recredenciamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-022",
+   "ano": 2025,
+   "numero": "22",
+   "descricao": "Dispõe sobre a concessão de prazo de 1 (um) ano para regularização das novas escolas da Rede Municipal de Educação de Belém oriundas de antigas unidades anexas, bem como das escolas que passaram a ter nova nomenclatura.",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/V6IDj9-vqBvj5OSF_res22_2025_Regulariza%C3%A7%C3%A3odasnovasescolasdaRedeMunicipaldeEduca%C3%A7%C3%A3odeBel%C3%A9m-anexosenomes-.pdf",
+   "unidades": [
+    {
+     "id": "UN-007",
+     "inep": "15181677",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-027",
+     "inep": "15181642",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-028",
+     "inep": "15181863",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-029",
+     "inep": "15181685",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-030",
+     "inep": "15169979",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-046",
+     "inep": "15547272",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-056",
+     "inep": "15181979",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-061",
+     "inep": "15181901",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-062",
+     "inep": "15181723",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-069",
+     "inep": "15181880",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-083",
+     "inep": "15181871",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-085",
+     "inep": "15181669",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-091",
+     "inep": "15181790",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-102",
+     "inep": "15181936",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-108",
+     "inep": "15181820",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-117",
+     "inep": "15181740",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-120",
+     "inep": "15181634",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-174",
+     "inep": "15043398",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-178",
+     "inep": "15181855",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-179",
+     "inep": "15181855",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-180",
+     "inep": "15181766",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-183",
+     "inep": "15181766",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-187",
+     "inep": "15181855",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-188",
+     "inep": "15181855",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-190",
+     "inep": "15181855",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-191",
+     "inep": "15219038",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-205",
+     "inep": "15181693",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-209",
+     "inep": "15181731",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-212",
+     "inep": "15181782",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-024",
+   "ano": 2025,
+   "numero": "24",
+   "descricao": "Renova a autorização da oferta Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Escola Municipal Catalina I\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/XBepFNeN5NYvwOsz_res24_2025_EscolaMunicipalCatalinaI.pdf",
+   "unidades": [
+    {
+     "id": "UN-035",
+     "inep": "15543285",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-025",
+   "ano": 2025,
+   "numero": "25",
+   "descricao": "Renova a autorização da oferta do Ensino Fundamental (Ciclos I e II) e EJAI (Totalidades I, II, III e IV) na instituição de educação básica \"Escola Municipal Prof. Solerno Moreira\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/t7a7Je3TxXD3W6Yx_res25_2025_EscolaMunicipalProfSolernoMoreira.pdf",
+   "unidades": [
+    {
+     "id": "UN-121",
+     "inep": "15040984",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-026",
+   "ano": 2025,
+   "numero": "26",
+   "descricao": "Autoriza o Funcionamento da Educação Infantil (Pré-escola) na instituição de educação básica \"Escola Municipal Jesus, Maria e José\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/gdvDnoHRd1D9mzsz_res26_2025_EscolaMunicipalJesus%2CMariaeJos%C3%A9.pdf",
+   "unidades": [
+    {
+     "id": "UN-076",
+     "inep": "15558355",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-027",
+   "ano": 2025,
+   "numero": "27",
+   "descricao": "Autoriza o Funcionamento do Ensino Fundamental (Ciclos III e IV) e da EJAI (Totalidades, I, II, III e IV) na instituição de educação básica \"Escola Municipal Prof.ª Vanda Célia Ferreira de Souza\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/YEbGrEgoiCTCg4Qv_res27_2025_EscolaMunicipalProf%C2%AAVandaC%C3%A9liaFerreiradeSouza.pdf",
+   "unidades": [
+    {
+     "id": "UN-139",
+     "inep": "15173828",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-028",
+   "ano": 2025,
+   "numero": "28",
+   "descricao": "Renova a autorização da oferta do Ensino Fundamental (Ciclos III e IV) e da EJAI (Totalidades I, II, III e IV) na instituição de educação básica \"Escola Municipal Prof. João Nelson Ribeiro\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/mTMmT-aSAKsb6xhT_res28_2025_EscolaMunicipalProfJo%C3%A3oNelsonRibeiro.pdf",
+   "unidades": [
+    {
+     "id": "UN-216",
+     "inep": "15040917",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-031",
+   "ano": 2025,
+   "numero": "31",
+   "descricao": "Renova a autorização da oferta do ensino fundamental (Ciclos I e II) na instituição de educação básica \"Escola Municipal Theodor Badotti\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/U1pK-Qao2cxtYSlH_res31_2025_EscolaMunicipalTheodorBadotti.pdf",
+   "unidades": [
+    {
+     "id": "UN-155",
+     "inep": "15140600",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-032",
+   "ano": 2025,
+   "numero": "32",
+   "descricao": "Renova a autorização da oferta do Ensino Fundamental (Ciclos I e II) e da modalidade de ensino EJAI (Totalidades 1º e 4º) na instituição básica \"Escola Municipal Professora Ida Oliveira\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/SfFgieDIPeTgnEPp_res32_2025_EscolaMunicipalProfessoraIdaOliveira.pdf",
+   "unidades": [
+    {
+     "id": "UN-078",
+     "inep": "15043592",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2025-033",
+   "ano": 2025,
+   "numero": "33",
+   "descricao": "Renova a autorização da oferta da Educação Infantil (Pré-escola), do Ensino Fundamental (Ciclo I ao IV) e da modalidade de ensino EJAI (1ª a 4ª Totalidade) na instituição de educação básica \"Escola Municipal Nestor Nonato de Lima\" e nas suas escolas anexas \"Osvaldo de Caldas Brito\" e \"Unidade Pedagógica União\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/V7bRB63WK9_baTcs_res33_2025_EscolaMunicipalNestorNonatodeLimaeescolasanexasOsvaldodeCaldasBritoeUnidadePedag%C3%B3gicaUni%C3%A3o.pdf",
+   "unidades": [
+    {
+     "id": "UN-088",
+     "inep": "15040836",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-105",
+     "inep": "15040836",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-106",
+     "inep": "15040836",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2026-003",
+   "ano": 2026,
+   "numero": "03",
+   "descricao": "Renova a autorização da oferta do Ensino Fundamental (Ciclos I, II, III e IV) e da Educação de Jovens, Adultos e Idosos - EJAI (Totalidades I, II, III e IV) na instituição de educação básica \"Escola Municipal República de Portugal\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/Gf_49zD0mBTxPYE0_Res03_2026_EMRep%C3%BAblicadePortugal.pdf",
+   "unidades": [
+    {
+     "id": "UN-082",
+     "inep": "15040992",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2026-004",
+   "ano": 2026,
+   "numero": "04",
+   "descricao": "Renova a autorização da oferta de ensino de Educação Infantil (Jardim I e II), do Ensino Fundamental (Ciclos I, II, III e IV) e da Educação de Jovens, Adultos e Idosos - EJAI (Totalidades I, II, III e IV) na instituição de educação básica \"Escola Municipal Palmira Lins de Carvalho\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/blIzzkRJIBasxM4T_Res04_2026_EMPalmiraLinsdeCarvalho.pdf",
+   "unidades": [
+    {
+     "id": "UN-080",
+     "inep": "15142264",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2026-008",
+   "ano": 2026,
+   "numero": "08",
+   "descricao": "Renova a autorização de funcionamento da oferta da Educação Infantil (Creche e Pré-escola) na instituição de educação básica \"Escola Municipal Catalina II\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/S1yoN0-25z9BZ95B_Res08_2026_EMCatalinaII.pdf",
+   "unidades": [
+    {
+     "id": "UN-036",
+     "inep": "15558347",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2026-009",
+   "ano": 2026,
+   "numero": "09",
+   "descricao": "Renova a autorização de funcionamento da oferta da Educação Infantil (Pré-escola) e do Ensino Fundamental (Ciclos de Formação l, II, III e IV) na instituição de educação básica \"Escola Municipal Lauro Chaves\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/VRdpo5F91vOMNigL_Res09_2026_EMLauroChaves.pdf",
+   "unidades": [
+    {
+     "id": "UN-161",
+     "inep": "15043371",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2026-010",
+   "ano": 2026,
+   "numero": "10",
+   "descricao": "Renova a autorização de funcionamento da oferta da Educação Infantil (Pré-escola) e do Ensino Fundamenlal (Ciclos de Formação I e II) na instituição de educação básica \"Escola Municipal Prof.ª Maria Amoras de Oliveira\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/RIpj0SbxZHxh3Cyy_Res10_2026_EMProfaMariaAmorasdeOliveira.pdf",
+   "unidades": [
+    {
+     "id": "UN-020",
+     "inep": "15040704",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2026-011",
+   "ano": 2026,
+   "numero": "11",
+   "descricao": "Renova a autorização de funcionamento da Oferta da Educação Infantil (Pré-escola) e do Ensino Fundamental (Ciclos de Formação I e II) na instituição de educação básica \"Escola Municipal Prof.ª Ernestina Rodrigues\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/nRQBF4XVhGSRyyqi_Res11_2026_EMProfaErnestinaRodrigues.pdf",
+   "unidades": [
+    {
+     "id": "UN-015",
+     "inep": "15040909",
+     "relacao": "renovação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "res-2026-012",
+   "ano": 2026,
+   "numero": "12",
+   "descricao": "Prorroga a autorização de funcionamento da oferta da Educação Infantil (Creche e Pré-escola), do Ensino Fundamental (Ciclos de Formação l, II, III e IV) e da Educação de Jovens, Adultos e Idosos - EJAI (Totalidades I, II, III e IV) na instituição de educação básica \"Escola Municipal Parque Amazônia\".",
+   "url": "https://cme-website.cdn.prismic.io/cme-website/f86dJlNWgLgGzV07_Res12_2026_EMParqueAmaz%C3%B4nia.pdf",
+   "unidades": [
+    {
+     "id": "UN-119",
+     "inep": "15155170",
+     "relacao": "prorrogação de autorização",
+     "confianca": "alta"
+    }
+   ]
+  }
+ ]
+}
