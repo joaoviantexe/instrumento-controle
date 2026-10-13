@@ -13,7 +13,9 @@ export function AtosDiario({ unidadeId }: { unidadeId: string }) {
   return (
     <div className="atos-diario">
       <ul className="anexos__lista">
-        {lista.map(({ ato, vinculo, situacao }) => {
+        {lista.map(({ ato, vinculo, situacao, conferencia }) => {
+          // Depois de confirmada, a explicação automática da dúvida deixa de valer: fica só a observação de quem conferiu.
+          const nota = situacao === 'confirmado' ? conferencia?.nota : vinculo.nota;
           const link = linkDiario(ato.publicacao);
           return (
             <li key={ato.id}>
@@ -27,7 +29,7 @@ export function AtosDiario({ unidadeId }: { unidadeId: string }) {
                 <span className="atos-diario__ementa">{ato.ementa}</span>
                 <small>
                   {ato.publicacao ? referenciaDiario(ato.publicacao) : ato.referencia}
-                  {vinculo.nota && <> · {vinculo.nota}</>}
+                  {nota && <> · {nota}</>}
                   {ato.nota && <> · {ato.nota}</>}
                 </small>
               </div>

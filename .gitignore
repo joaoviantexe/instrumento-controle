@@ -10,3 +10,6 @@ coverage
 # Diário Oficial: PDFs baixados e resultados da análise (ficam só no computador de quem roda)
 diario-pdfs
 diario-saida
+
+# Relatório da última atualização do CME (vira o texto do pull request)
+scripts/cme/ultimo-relatorio.md

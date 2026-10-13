@@ -8,6 +8,11 @@ Em **Dados e planilhas → Conferência de atos** ficam reunidos os pendentes:
 
 - **Resoluções do CME e atos do Diário a conferir:** cada associação "Provável — confira" ou "A conferir", com o PDF para abrir. **Confirmar** a troca por "Conferido pela CDE" na página da unidade; **Recusar** (com motivo opcional) a tira de lá. O filtro "Já conferidos" permite **Desfazer**.
 - **Unidades sem resolução do CME** e **atos do Diário sem link** para a edição, com busca por unidade.
+- **PDFs enviados que já estão no Diário ou no CME:** PDFs de "Decreto", "Ato de criação", "Ato de autorização" e resoluções do CME cuja unidade já tem o ato como link **confirmado** (e, no Diário, com número de edição). Você abre o PDF e o link, marca os que são o mesmo documento e exclui; nada vem marcado e a exclusão pede confirmação. O ato continua acessível pelo link.
+
+Ao confirmar uma associação, a explicação automática da dúvida ("Ligação por nome antigo…") deixa de aparecer na página da unidade. O botão **Observação** permite escrever um texto próprio, que passa a aparecer no lugar dela.
+
+A pendência "Ato de autorização: sem PDF anexado nem resolução do CME" considera cumprida a unidade que tem o PDF anexado **ou** uma resolução do CME associada, então apagar o PDF duplicado não cria pendência nova.
 
 As decisões ficam na tabela `conferencias` do Supabase (só a decisão, com o e-mail de quem conferiu e a data; os atos e os PDFs continuam no código e no site do CME). Quem tem acesso ao sistema pode conferir; não há um papel separado de administrador. **Antes de usar, execute de novo o `supabase/schema.sql` no SQL Editor** para criar a tabela; sem ela o painel avisa e as associações aparecem como no arquivo de dados.
 
@@ -202,3 +207,16 @@ São unidades ativas para as quais o site do CME não tem resolução com o nome
 ## Quando uma unidade tem várias resoluções
 
 A seção lista da mais antiga para a mais recente: a autorização inicial, as renovações e as prorrogações. Unidades que mudaram de nome (ex.: a antiga UEI que virou EMEI) mostram também as resoluções do nome antigo, marcadas como "Provável — confira" com a explicação na nota.
+
+## Atualização automática (toda segunda-feira)
+
+O workflow `.github/workflows/atualizar-cme.yml` roda toda segunda-feira (e pode ser disparado em *Actions → Atualizar resoluções do CME → Run workflow*). Ele:
+
+1. busca a lista pública do site do CME e separa as resoluções que ainda não conhecia (`scripts/cme/conhecidas.json`);
+2. ignora normas gerais, calendários e validação de estudos;
+3. liga cada resolução nova às unidades: **confiança alta** quando o próprio cadastro a cita no "Ato de autorização" (ex.: `072/2018 - CME`); **provável** quando o nome da unidade aparece por inteiro na descrição ou no nome do arquivo; **a conferir** quando há mais de uma unidade com nome parecido;
+4. abre um **pull request** com o resultado (e uma tabela do que foi ligado). As prováveis e a conferir aparecem em *Conferência de atos*; as que não casam com nenhuma unidade entram em *Atos achados sem unidade no cadastro*.
+
+Nada é aprovado sozinho: o pull request precisa ser mesclado, e cada associação provável continua pedindo a sua confirmação. Para rodar à mão: `npm run cme:atualizar` (use `-- --seco` para só ver o que faria).
+
+**Para o workflow abrir pull requests** é preciso liberar, uma vez, em *Settings → Actions → General → Workflow permissions*, a opção **Allow GitHub Actions to create and approve pull requests**. Como o pull request é aberto pelo próprio GitHub Actions, os testes automáticos não rodam nele sozinhos; abra-o e rode `npm test` ou peça a revisão antes de mesclar.

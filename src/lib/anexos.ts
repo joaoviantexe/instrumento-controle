@@ -26,6 +26,10 @@ export const CATEGORIAS: Record<EntidadeAnexo, string[]> = {
 };
 /** O PDF do ato de autorização é o documento que comprova a vigência. */
 export const CATEGORIA_ATO = C.ato_autorizacao;
+/** Categorias de PDF que o link do CME substitui (o PDF da resolução já está no site do Conselho). */
+export const CATEGORIAS_PDF_CME = [...CATEGORIAS_DO_ATO, C.ato_autorizacao];
+/** Categorias de PDF que o link do Diário Oficial substitui (decreto ou portaria publicado numa edição do Diário). */
+export const CATEGORIAS_PDF_DIARIO = [C.ato_criacao, 'Decreto'];
 
 export function formatarTamanho(bytes: number): string {
   if (bytes < 1024) return `${Math.round(bytes)} B`;

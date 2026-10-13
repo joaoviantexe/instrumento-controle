@@ -2,6 +2,7 @@ import { CABECALHOS_UNIDADE as C, ROTULOS_ACAO, ROTULOS_PLANO } from '../data/pl
 import { acaoAtrasada, vigenciaVencida } from './calc';
 import type { Dados } from './store';
 import { unidadesComAto } from './anexos';
+import { unidadesComResolucaoCme, type MapaConferencias } from './conferencias';
 import type { Anexo, Unidade } from './types';
 
 const NAO_LOCALIZADO = 'NÃO LOCALIZADO';
@@ -9,11 +10,13 @@ const NAO_LOCALIZADO = 'NÃO LOCALIZADO';
 /** Pendências cadastrais (passo 1 das Instruções: atos legais, vigência e responsáveis). */
 /** Dados extras que algumas pendências precisam além da própria unidade. */
 export interface ContextoPendencia {
-  /** Unidades que já têm o PDF do ato de autorização anexado. */
+  /** Unidades que já têm o ato de autorização: o PDF anexado ou a resolução do CME ligada à unidade. */
   comPdfDoAto: Set<string>;
 }
 
-export const contextoPendencia = (anexos: Anexo[]): ContextoPendencia => ({ comPdfDoAto: unidadesComAto(anexos) });
+export const contextoPendencia = (anexos: Anexo[], conferencias?: MapaConferencias): ContextoPendencia => ({
+  comPdfDoAto: new Set([...unidadesComAto(anexos), ...unidadesComResolucaoCme(undefined, conferencias)]),
+});
 
 export const PENDENCIAS: { chave: string; rotulo: string; teste: (u: Unidade, ctx: ContextoPendencia) => boolean }[] = [
   { chave: 'ato_criacao', rotulo: `${C.ato_criacao}: não informado`, teste: (u) => !u.ato_criacao },
@@ -24,7 +27,7 @@ export const PENDENCIAS: { chave: string; rotulo: string; teste: (u: Unidade, ct
   },
   {
     chave: 'sem_pdf_ato',
-    rotulo: `${C.ato_autorizacao}: sem PDF anexado`,
+    rotulo: `${C.ato_autorizacao}: sem PDF anexado nem resolução do CME`,
     teste: (u, ctx) => !ctx.comPdfDoAto.has(u.id),
   },
   { chave: 'vigencia_vazia', rotulo: `${C.vigencia_ato}: não informada`, teste: (u) => !u.vigencia_ato },
@@ -50,7 +53,7 @@ export interface ItemAtencao {
 /** O que precisa de atenção agora: reúne, em um só lugar, os problemas que a planilha esconderia em abas diferentes. */
 export function itensDeAtencao(d: Dados): ItemAtencao[] {
   const pend = (chave: string) => PENDENCIAS.find((p) => p.chave === chave)!;
-  const ctx = contextoPendencia(d.anexos);
+  const ctx = contextoPendencia(d.anexos, d.mapaConferencias);
   const nUn = (chave: string) => d.unidades.filter((u) => pend(chave).teste(u, ctx)).length;
   const ncCriticas = d.auditorias.reduce((s, a) => s + (d.resumos.get(a.id)?.ncCriticas ?? 0), 0);
   return [

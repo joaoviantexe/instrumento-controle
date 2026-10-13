@@ -1,0 +1,35 @@
+name: Atualizar resoluções do CME
+
+# Toda segunda-feira (e quando alguém pedir): busca as resoluções novas no site do CME, liga às unidades pelo cadastro e pelo nome
+# e abre um pull request com o resultado. O que não for ligado com segurança aparece em Dados e planilhas → Conferência de atos.
+on:
+  schedule:
+    - cron: '17 11 * * 1' # segunda, 08:17 em Belém
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Buscar e ligar as resoluções novas
+        run: node scripts/cme/atualizar.mjs
+      - name: Abrir o pull request (só se houver mudança)
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automacao/resolucoes-cme
+          commit-message: 'Resoluções novas do CME'
+          title: 'Resoluções novas do CME'
+          body-path: scripts/cme/ultimo-relatorio.md
+          add-paths: |
+            src/data/resolucoes-cme.json
+            src/data/atos-sem-unidade.json
+            scripts/cme/conhecidas.json
+          delete-branch: true

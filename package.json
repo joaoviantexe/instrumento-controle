@@ -11,6 +11,7 @@
     "test": "vitest run",
     "typecheck": "tsc -b",
     "extrair": "python3 scripts/planilha/extrair_planilha.py",
+    "cme:atualizar": "node scripts/cme/atualizar.mjs",
     "diario:coletar": "node scripts/diario/coletar.mjs",
     "diario:analisar": "node scripts/diario/analisar.mjs"
   },
