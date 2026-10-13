@@ -17,26 +17,28 @@ export function ResolucoesCme({ unidadeId }: { unidadeId: string }) {
     );
   }
   return (
-    <ul className="anexos__lista">
-      {lista.map(({ resolucao, vinculo }) => (
-        <li key={resolucao.id}>
-          <Gavel size={20} aria-hidden />
-          <div className="anexos__info">
-            <span className="atos-diario__titulo">
-              {tituloResolucao(resolucao)}
-              <span className="chip chip--azul">{vinculo.relacao}</span>
-              {vinculo.confianca !== 'alta' && (
-                <span className={'chip ' + (vinculo.confianca === 'media' ? 'chip--parcial' : 'chip--nc')}>{ROTULO_CONFIANCA[vinculo.confianca]}</span>
-              )}
-            </span>
-            <span className="atos-diario__ementa">{resolucao.descricao}</span>
-            {vinculo.nota && <small>{vinculo.nota}</small>}
-          </div>
-          <a className="btn btn--contorno btn--pequeno" href={resolucao.url} target="_blank" rel="noopener noreferrer" title="Abrir o PDF no site do CME">
-            <ExternalLink size={14} aria-hidden /> Abrir PDF
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div className="atos-diario">
+      <ul className="anexos__lista">
+        {lista.map(({ resolucao, vinculo }) => (
+          <li key={resolucao.id}>
+            <Gavel size={20} aria-hidden />
+            <div className="anexos__info">
+              <span className="atos-diario__titulo">
+                {tituloResolucao(resolucao)}
+                <span className="chip chip--azul">{vinculo.relacao}</span>
+                {vinculo.confianca !== 'alta' && (
+                  <span className={'chip ' + (vinculo.confianca === 'media' ? 'chip--parcial' : 'chip--nc')}>{ROTULO_CONFIANCA[vinculo.confianca]}</span>
+                )}
+              </span>
+              <span className="atos-diario__ementa">{resolucao.descricao}</span>
+              {vinculo.nota && <small>{vinculo.nota}</small>}
+            </div>
+            <a className="btn btn--contorno btn--pequeno" href={resolucao.url} target="_blank" rel="noopener noreferrer" title="Abrir o PDF no site do CME">
+              <ExternalLink size={14} aria-hidden /> Abrir PDF
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
