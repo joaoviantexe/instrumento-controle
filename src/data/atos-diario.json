@@ -1,6 +1,6 @@
 {
- "descricao": "Atos oficiais (decretos, portarias, resoluções e leis) associados às unidades do cadastro, com a edição e a página do Diário Oficial do Município de Belém onde foram publicados. Gerado a partir dos PDFs em dados/atos-de-criacao, lidos por OCR e conferidos. Ver docs/diario-oficial/ATOS_DE_CRIACAO.md.",
- "atualizado_em": "2026-10-09",
+ "descricao": "Atos oficiais (decretos, portarias, resoluções e leis) associados às unidades do cadastro, com a edição e a página do Diário Oficial do Município de Belém onde foram publicados. Os 94 primeiros PDFs foram lidos por OCR e conferidos; o restante vem da varredura das edições do painel do Diário (aba Dados e planilhas → Diário Oficial) e da leitura dos atos. Ver docs/diario-oficial/ATOS_DE_CRIACAO.md.",
+ "atualizado_em": "2026-10-13",
  "atos": [
   {
    "id": "lei-7183-1981",
@@ -858,17 +858,40 @@
    ]
   },
   {
+   "id": "portaria-800-2009",
+   "tipo": "Portaria",
+   "numero": "0800/2009",
+   "data": "2009-09-11",
+   "ementa": "Ratifica o funcionamento da EMEF Rotary.",
+   "publicacao": {
+    "edicao": 11467,
+    "data": "2009-09-18",
+    "pagina": 2,
+    "pagina_final": 3
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-111",
+     "inep": "15040780",
+     "relacao": "autorização de funcionamento",
+     "confianca": "alta",
+     "nota": "Não confundir com UN-164 (EM Rotary Club, Mosqueiro); o nome exato \"Rotary\" corresponde a UN-111 (Jurunas)."
+    }
+   ]
+  },
+  {
    "id": "portaria-1221-2009",
    "tipo": "Portaria",
    "numero": "1.221/2009-GABS/SEMEC",
    "data": "2009-12-04",
    "ementa": "Cria a EMEIF Profª Rita Nery Vanetta, no Conjunto Residencial Tenoné I.",
    "publicacao": {
-    "edicao": null,
+    "edicao": 11523,
     "data": "2009-12-15",
-    "pagina": 9
+    "pagina": 9,
+    "pagina_final": 11
    },
-   "nota": "A página não mostra o número da edição de 15/12/2009. Informe-o para que o link funcione.",
    "arquivos": [
     "EMEIF PROFª RITA NERY VANETTA.pdf"
    ],
@@ -901,6 +924,28 @@
      "inep": "15219038",
      "relacao": "criação",
      "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-107-2010",
+   "tipo": "Portaria",
+   "numero": "107/2010-GABS/SEMEC",
+   "data": "2010-02-03",
+   "ementa": "Extingue a Unidade Pedagógica São João Batista (anexo da EM João Carlos Batista) e remaneja alunos e funcionários para a escola.",
+   "publicacao": {
+    "edicao": 11566,
+    "data": "2010-02-24",
+    "pagina": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-026",
+     "inep": "15535827",
+     "relacao": "recebe o acervo",
+     "confianca": "media",
+     "nota": "A UP extinta não consta no cadastro; a escola-sede \"João Carlos Batista\" é associada a UN-026 (EM Deputado João Carlos Batista, Cabanagem) por nome, sem endereço no ato."
     }
    ]
   },
@@ -948,6 +993,28 @@
      "relacao": "criação",
      "confianca": "media",
      "nota": "O endereço coincide com o da EM Profª Alda Eutrópio de Souza (Alameda Sucupira, entre a Rua São Clemente). Confirme se é a antiga EMEIF Tapanã."
+    }
+   ]
+  },
+  {
+   "id": "portaria-62-2011",
+   "tipo": "Portaria",
+   "numero": "0062/2011-GABS",
+   "data": null,
+   "ementa": "Cria a Unidade Pedagógica Bacabeira, vinculada à EMEF Abel Martins.",
+   "publicacao": {
+    "edicao": 11805,
+    "data": "2011-02-28",
+    "pagina": 2
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-163",
+     "inep": "15043274",
+     "relacao": "vinculação de unidades",
+     "confianca": "alta",
+     "nota": "A UP Bacabeira não consta no cadastro; a sede Abel Martins é UN-163. Data do ato não aparece no trecho."
     }
    ]
   },
@@ -1047,6 +1114,29 @@
    ]
   },
   {
+   "id": "decreto-73832-2013",
+   "tipo": "Decreto",
+   "numero": "73.832/2013-PMB",
+   "data": "2013-01-23",
+   "ementa": "Cria a Escola Municipal de Educação Infantil e Ensino Fundamental Milton Monte (Ilha do Combu).",
+   "publicacao": {
+    "edicao": 12260,
+    "data": "2013-01-25",
+    "pagina": 2,
+    "pagina_final": 3
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-182",
+     "inep": "15161552",
+     "relacao": "criação",
+     "confianca": "alta",
+     "nota": "Cadastro: EM de Educação do Campo Milton Monte (Furo São Benedito, Ilha do Combu), criada no cadastro por decreto de 2019."
+    }
+   ]
+  },
+  {
    "id": "portaria-1030-2014",
    "tipo": "Portaria",
    "numero": "1.030/2014-GABS",
@@ -1088,29 +1178,6 @@
      "id": "UN-182",
      "inep": "15161552",
      "relacao": "vinculação de unidades",
-     "confianca": "alta"
-    }
-   ]
-  },
-  {
-   "id": "decreto-80450-2014",
-   "tipo": "Decreto",
-   "numero": "80.450/2014-PMB",
-   "data": "2014-08-11",
-   "ementa": "Cria a EMEIF Nova Aliança (Pratinha).",
-   "publicacao": {
-    "edicao": 12719,
-    "data": "2014-12-29",
-    "pagina": 2
-   },
-   "arquivos": [
-    "EMEIF NOVA ALIANÇA.pdf"
-   ],
-   "unidades": [
-    {
-     "id": "UN-044",
-     "inep": "15166821",
-     "relacao": "criação",
      "confianca": "alta"
     }
    ]
@@ -1233,6 +1300,95 @@
    ]
   },
   {
+   "id": "decreto-80450-2014",
+   "tipo": "Decreto",
+   "numero": "80.450/2014-PMB",
+   "data": "2014-08-11",
+   "ementa": "Cria a EMEIF Nova Aliança (Pratinha).",
+   "publicacao": {
+    "edicao": 12719,
+    "data": "2014-12-29",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF NOVA ALIANÇA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-044",
+     "inep": "15166821",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-3026-2014",
+   "tipo": "Portaria",
+   "numero": "3.026/2014-GABS",
+   "data": null,
+   "ementa": "Institui a Unidade Pedagógica “Allana Barboza” (texto cortado, sem endereço).",
+   "publicacao": {
+    "edicao": 12722,
+    "data": "2015-01-06",
+    "pagina": 6
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-027",
+     "inep": "15181642",
+     "relacao": "instituição",
+     "confianca": "baixa",
+     "nota": "Ver nota de UN-031. Verificação inconclusiva: Trecho cortado sem endereço; UP 'Allana Barboza' não pode ser ligada a 027 (criada em 2025) com segurança."
+    },
+    {
+     "id": "UN-028",
+     "inep": "15181863",
+     "relacao": "instituição",
+     "confianca": "baixa",
+     "nota": "Ver nota de UN-031. Verificação inconclusiva: Trecho cortado sem endereço; ligação com a II criada em 2025 é só suposição pelo nome."
+    },
+    {
+     "id": "UN-031",
+     "inep": "15223000",
+     "relacao": "instituição",
+     "confianca": "baixa",
+     "nota": "Não dá para saber se é a atual Profa. Alana de Souza Barboza (UN-031) ou as Alana de Souza Barboza I/II (UN-027/028), criadas em 2025. Verificação inconclusiva: Trecho cortado sem endereço; escola existente desde 2008 com nome parecido, mas nada mostra qual unidade a UP é."
+    }
+   ]
+  },
+  {
+   "id": "portaria-106-2015",
+   "tipo": "Portaria",
+   "numero": "0.106/2015-GABS",
+   "data": null,
+   "ementa": "Institui a Unidade Pedagógica Jardim Nova Vida, anexo da EMEIF Olga Benário (Águas Lindas).",
+   "publicacao": {
+    "edicao": 12771,
+    "data": "2015-03-20",
+    "pagina": 5,
+    "pagina_final": 6
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-064",
+     "inep": "15167488",
+     "relacao": "instituição da unidade pedagógica antecessora",
+     "confianca": "media",
+     "nota": "Unidade Pedagógica Jardim Nova Vida seria a antecessora da EM Jardim Nova Vida (criada pelo Decreto 85.697/2016); mesmo nome e bairro, mas ato não menciona a escola atual."
+    },
+    {
+     "id": "UN-066",
+     "inep": "15573826",
+     "relacao": "vinculação de unidades",
+     "confianca": "alta",
+     "nota": "Escola-sede à qual a unidade pedagógica é vinculada como anexo."
+    }
+   ]
+  },
+  {
    "id": "portaria-0157-2015",
    "tipo": "Portaria",
    "numero": "0157/2015-GABS",
@@ -1252,6 +1408,29 @@
      "inep": "15166813",
      "relacao": "instituição",
      "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-697-2015",
+   "tipo": "Portaria",
+   "numero": "0.697/2015-GABS",
+   "data": null,
+   "ementa": "Institui a Unidade Pedagógica Professor Pedro Demo (Água Boa, Outeiro).",
+   "publicacao": {
+    "edicao": 12792,
+    "data": "2015-04-23",
+    "pagina": 9,
+    "pagina_final": 10
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-177",
+     "inep": "15159450",
+     "relacao": "instituição",
+     "confianca": "media",
+     "nota": "Ato fala em Avenida Paulo Costa, 9, Água Boa, DAOUT; cadastro de UN-177 está em Água Boa (Outeiro), criação por Decreto 68.678/2011. Unidade pedagógica de mesmo nome; conferir se é a mesma unidade. Verificação inconclusiva: Mesmo nome e bairro, mas a escola foi criada em 2011 e o endereço do ato (Av. Paulo Costa 9) difere do cadastro; a UP instituída em 2015 pode ser outra unidade, e 'instituição' não vale para a escola."
     }
    ]
   },
@@ -1377,6 +1556,30 @@
    ]
   },
   {
+   "id": "portaria-0660-2016",
+   "tipo": "Portaria",
+   "numero": "0.660/2016-GABS",
+   "data": "2016-03-16",
+   "ementa": "Institui a EMEI Mosqueiro, anexo da EMEIF Abel Martins.",
+   "publicacao": {
+    "edicao": 13018,
+    "data": "2016-04-06",
+    "pagina": 4
+   },
+   "arquivos": [
+    "EM ENCANTO DO SABER.pdf",
+    "UEI ENCANTO DO SABER.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-172",
+     "inep": "15167402",
+     "relacao": "instituição",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
    "id": "portaria-2064-2015",
    "tipo": "Portaria",
    "numero": "2.064/2015-GABS",
@@ -1396,30 +1599,6 @@
     {
      "id": "UN-090",
      "inep": "15167640",
-     "relacao": "instituição",
-     "confianca": "alta"
-    }
-   ]
-  },
-  {
-   "id": "portaria-0660-2016",
-   "tipo": "Portaria",
-   "numero": "0.660/2016-GABS",
-   "data": "2016-03-16",
-   "ementa": "Institui a EMEI Mosqueiro, anexo da EMEIF Abel Martins.",
-   "publicacao": {
-    "edicao": 13018,
-    "data": "2016-04-06",
-    "pagina": 4
-   },
-   "arquivos": [
-    "EM ENCANTO DO SABER.pdf",
-    "UEI ENCANTO DO SABER.pdf"
-   ],
-   "unidades": [
-    {
-     "id": "UN-172",
-     "inep": "15167402",
      "relacao": "instituição",
      "confianca": "alta"
     }
@@ -1580,6 +1759,29 @@
    ]
   },
   {
+   "id": "portaria-3063-2014",
+   "tipo": "Portaria",
+   "numero": "3.063/2014-GABS",
+   "data": "2014-12-10",
+   "ementa": "Institui a Unidade de Educação Infantil Aurá (Conjunto Verdejante IV, Águas Lindas).",
+   "publicacao": {
+    "edicao": 13052,
+    "data": "2016-05-30",
+    "pagina": 5,
+    "pagina_final": 6
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-065",
+     "inep": "15181847",
+     "relacao": "instituição",
+     "confianca": "baixa",
+     "nota": "UN-065 tem Aurá como nome antigo (criação 111.987/2024, Rua Oito de Março, Conj. Nova Vida, Águas Lindas); ato dá Conjunto Verdejante IV, mesmo bairro. Inferência por nome antigo e bairro. Verificação inconclusiva: Nome antigo 'Aurá' e bairro coincidem, mas o endereço do ato (Conj. Verdejante IV, Qd 04, Rua 04, nº 16) difere do cadastro (Rua Oito de Março, Conj. Nova Vida) e não há prova de que a UEI Aurá de 2014 seja a antecessora de UN-065."
+    }
+   ]
+  },
+  {
    "id": "decreto-85922-2016",
    "tipo": "Decreto",
    "numero": "85.922/2016-PMB",
@@ -1597,30 +1799,6 @@
     {
      "id": "UN-189",
      "inep": "15167763",
-     "relacao": "criação",
-     "confianca": "alta"
-    }
-   ]
-  },
-  {
-   "id": "decreto-86140-2016",
-   "tipo": "Decreto",
-   "numero": "86.140/2016-PMB",
-   "data": "2016-07-11",
-   "ementa": "Cria a EMEIF Castanheiras (Paracuri, Icoaraci).",
-   "publicacao": {
-    "edicao": 13390,
-    "data": "2017-10-27",
-    "pagina": 2
-   },
-   "arquivos": [
-    "EMEIF CASTANHEIRAS.pdf",
-    "EMEI PROFª ELVIRA SACRAMENTO DE QUADROS.pdf"
-   ],
-   "unidades": [
-    {
-     "id": "UN-150",
-     "inep": "15168476",
      "relacao": "criação",
      "confianca": "alta"
     }
@@ -1747,30 +1925,6 @@
    ]
   },
   {
-   "id": "decreto-87368-2017",
-   "tipo": "Decreto",
-   "numero": "87.368/2017-PMB",
-   "data": "2017-02-06",
-   "ementa": "Cria a EMEI Profª Elvira Sacramento de Quadros (Conjunto Bosque Araguaia, Tapanã).",
-   "publicacao": {
-    "edicao": 13390,
-    "data": "2017-10-27",
-    "pagina": 2
-   },
-   "arquivos": [
-    "EMEI PROFª ELVIRA SACRAMENTO DE QUADROS.pdf",
-    "EMEIF CASTANHEIRAS.pdf"
-   ],
-   "unidades": [
-    {
-     "id": "UN-060",
-     "inep": "15170829",
-     "relacao": "criação",
-     "confianca": "alta"
-    }
-   ]
-  },
-  {
    "id": "decreto-89867-2017",
    "tipo": "Decreto",
    "numero": "89.867/2017-PMB",
@@ -1813,6 +1967,76 @@
      "inep": "15170853",
      "relacao": "criação",
      "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-86140-2016",
+   "tipo": "Decreto",
+   "numero": "86.140/2016-PMB",
+   "data": "2016-07-11",
+   "ementa": "Cria a EMEIF Castanheiras (Paracuri, Icoaraci).",
+   "publicacao": {
+    "edicao": 13390,
+    "data": "2017-10-27",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF CASTANHEIRAS.pdf",
+    "EMEI PROFª ELVIRA SACRAMENTO DE QUADROS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-150",
+     "inep": "15168476",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-87368-2017",
+   "tipo": "Decreto",
+   "numero": "87.368/2017-PMB",
+   "data": "2017-02-06",
+   "ementa": "Cria a EMEI Profª Elvira Sacramento de Quadros (Conjunto Bosque Araguaia, Tapanã).",
+   "publicacao": {
+    "edicao": 13390,
+    "data": "2017-10-27",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEI PROFª ELVIRA SACRAMENTO DE QUADROS.pdf",
+    "EMEIF CASTANHEIRAS.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-060",
+     "inep": "15170829",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-90139-2017",
+   "tipo": "Decreto",
+   "numero": "90.139/2017-PMB",
+   "data": "2017-11-21",
+   "ementa": "Retifica o Decreto 81.565/2014: a escola passa a ser EMEI Nosso Lar (e não EMEIF).",
+   "publicacao": {
+    "edicao": 13438,
+    "data": "2018-01-15",
+    "pagina": 2
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-057",
+     "inep": "15167690",
+     "relacao": "retificação",
+     "confianca": "alta",
+     "nota": "Retifica o decreto de criação (81.565/2014) citado no cadastro."
     }
    ]
   },
@@ -1863,6 +2087,29 @@
    ]
   },
   {
+   "id": "decreto-91275-2018",
+   "tipo": "Decreto",
+   "numero": "91.275/2018-PMB",
+   "data": "2018-05-21",
+   "ementa": "Cria a EMEI Pratinha (Rodovia Arthur Bernardes).",
+   "publicacao": {
+    "edicao": 13526,
+    "data": "2018-05-28",
+    "pagina": 3
+   },
+   "arquivos": [
+    "EMEI PRATINHA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-045",
+     "inep": "15173844",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
    "id": "portaria-6065-2018",
    "tipo": "Portaria",
    "numero": "6065/2018-GABS/SEMEC",
@@ -1882,29 +2129,6 @@
      "id": "UN-157",
      "inep": "15043410",
      "relacao": "recebe o acervo",
-     "confianca": "alta"
-    }
-   ]
-  },
-  {
-   "id": "decreto-91275-2018",
-   "tipo": "Decreto",
-   "numero": "91.275/2018-PMB",
-   "data": "2018-05-21",
-   "ementa": "Cria a EMEI Pratinha (Rodovia Arthur Bernardes).",
-   "publicacao": {
-    "edicao": 13526,
-    "data": "2018-05-28",
-    "pagina": 3
-   },
-   "arquivos": [
-    "EMEI PRATINHA.pdf"
-   ],
-   "unidades": [
-    {
-     "id": "UN-045",
-     "inep": "15173844",
-     "relacao": "criação",
      "confianca": "alta"
     }
    ]
@@ -1953,6 +2177,13 @@
      "inep": "15172392",
      "relacao": "instituição",
      "confianca": "alta"
+    },
+    {
+     "id": "UN-184",
+     "inep": "15172392",
+     "relacao": "vinculação de unidades",
+     "confianca": "media",
+     "nota": "Escola sede à qual o anexo é vinculado. Sem verificação independente."
     }
    ]
   },
@@ -2162,6 +2393,95 @@
    ]
   },
   {
+   "id": "portaria-2572-2019",
+   "tipo": "Portaria",
+   "numero": "2.572/2019-GABS/SEMEC",
+   "data": "2019-09-10",
+   "ementa": "Extingue a Unidade Pedagógica Fidélis (Outeiro) em razão da criação da Nova EMEIEF Profª Renildes Nunes Batista.",
+   "publicacao": {
+    "edicao": 13831,
+    "data": "2019-09-12",
+    "pagina": 5
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-193",
+     "inep": "15173895",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta"
+    }
+   ],
+   "nota": "Também publicado nas edições 13831."
+  },
+  {
+   "id": "portaria-2573-2019",
+   "tipo": "Portaria",
+   "numero": "2.573/2019-GABS/SEMEC",
+   "data": "2019-09-10",
+   "ementa": "Extingue a UEI São Silvestre (INEP 15538281) em razão da criação da Nova EMEI Profª Rosenil Cordeiro da Silva (Jurunas).",
+   "publicacao": {
+    "edicao": 13831,
+    "data": "2019-09-12",
+    "pagina": 5
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-110",
+     "inep": "15170934",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta"
+    }
+   ],
+   "nota": "Também publicado nas edições 13831."
+  },
+  {
+   "id": "portaria-2574-2019",
+   "tipo": "Portaria",
+   "numero": "2.574/2019-GABS/SEMEC",
+   "data": "2019-09-10",
+   "ementa": "Extingue a UEI Cordeiro de Farias (INEP 15547280) em razão da criação da Nova EMEI Profª Cleonice Oliveira da Conceição (Decreto 89.867/2017).",
+   "publicacao": {
+    "edicao": 13831,
+    "data": "2019-09-12",
+    "pagina": 5
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-048",
+     "inep": "15170845",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta",
+     "nota": "Decreto 89.867/2017 é o de criação de UN-048 no cadastro."
+    }
+   ]
+  },
+  {
+   "id": "portaria-2575-2019",
+   "tipo": "Portaria",
+   "numero": "2.575/2019-GABS/SEMEC",
+   "data": "2019-09-10",
+   "ementa": "Extingue a Escola Anexo Castanhal de Mari Mari (INEP 15043266) em razão da criação da Nova EMEC Maria Clemildes.",
+   "publicacao": {
+    "edicao": 13831,
+    "data": "2019-09-12",
+    "pagina": 5,
+    "pagina_final": 6
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-157",
+     "inep": "15043410",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta"
+    }
+   ],
+   "nota": "Também publicado nas edições 13831."
+  },
+  {
    "id": "decreto-95195-2019",
    "tipo": "Decreto",
    "numero": "95.195/2019-PMB",
@@ -2284,6 +2604,51 @@
    ]
   },
   {
+   "id": "portaria-304-2020",
+   "tipo": "Portaria",
+   "numero": "0304/2020-GABS/SEMEC",
+   "data": "2020-01-27",
+   "ementa": "Extingue a Unidade de Educação Infantil Benguí e encaminha o acervo à EMEI Profª Angélica do Carmo Santos Paiva (Benguí).",
+   "publicacao": {
+    "edicao": 13925,
+    "data": "2020-01-31",
+    "pagina": 13
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-021",
+     "inep": "15543234",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta",
+     "nota": "Extingue a UEI Benguí (antecessora, mesmo endereço Rua São Bento; nome antigo \"Benguí\" já consta no cadastro) e destina o acervo a UN-021."
+    }
+   ]
+  },
+  {
+   "id": "portaria-305-2020",
+   "tipo": "Portaria",
+   "numero": "0305/2020-GABS/SEMEC",
+   "data": "2020-01-27",
+   "ementa": "Extingue a Unidade de Educação Infantil Profº Jaime da Costa Teixeira e encaminha o acervo à nova EMEI de mesmo nome (Tenoné).",
+   "publicacao": {
+    "edicao": 13925,
+    "data": "2020-01-31",
+    "pagina": 13,
+    "pagina_final": 14
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-152",
+     "inep": "15569616",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta",
+     "nota": "Mesmo endereço (Rua Tancredo Neves, 72); antecessora de mesmo nome (UEI) extinta, acervo para a nova EMEI."
+    }
+   ]
+  },
+  {
    "id": "decreto-95487-2020",
    "tipo": "Decreto",
    "numero": "95.487/2020-PMB",
@@ -2401,54 +2766,13 @@
      "inep": "15174557",
      "relacao": "criação",
      "confianca": "alta"
-    }
-   ]
-  },
-  {
-   "id": "decreto-96503-2020",
-   "tipo": "Decreto",
-   "numero": "96.503/2020-PMB",
-   "data": "2020-06-16",
-   "ementa": "Retifica o Decreto 96.325/2020: o nome da escola passa a ser EMEI Profª Raimunda Lúcia Guerreiro.",
-   "publicacao": {
-    "edicao": 14051,
-    "data": "2020-08-05",
-    "pagina": 4
-   },
-   "arquivos": [
-    "EMEI PROFª RAIMUNDA LÚCIA GUERREIRO (RETIFICAÇÃO).pdf",
-    "EMEI PROFª LUCIA SOARES CASTRO.pdf"
-   ],
-   "unidades": [
-    {
-     "id": "UN-009",
-     "inep": "15174557",
-     "relacao": "retificação",
-     "confianca": "alta"
-    }
-   ]
-  },
-  {
-   "id": "decreto-96504-2020",
-   "tipo": "Decreto",
-   "numero": "96.504/2020-PMB",
-   "data": "2020-06-16",
-   "ementa": "Cria a EMEI Profª Lúcia Soares Castro, antiga UEI Primeiro de Dezembro (Marco).",
-   "publicacao": {
-    "edicao": 14051,
-    "data": "2020-08-05",
-    "pagina": 4
-   },
-   "arquivos": [
-    "EMEI PROFª LUCIA SOARES CASTRO.pdf",
-    "EMEI PROFª RAIMUNDA LÚCIA GUERREIRO (RETIFICAÇÃO).pdf"
-   ],
-   "unidades": [
+    },
     {
      "id": "UN-008",
      "inep": "15547299",
      "relacao": "criação",
-     "confianca": "alta"
+     "confianca": "baixa",
+     "nota": "O texto nomeia Lúcia Soares Castro (UN-008), mas o cadastro atribui a criação de UN-008 ao Decreto 96.504/2020 e este decreto ao UN-009; endereço (Passagem Dionísio Bentes, Curió-Utinga) não coincide com nenhuma. Conferir. Sem verificação independente."
     }
    ]
   },
@@ -2501,6 +2825,98 @@
    ]
   },
   {
+   "id": "portaria-2101-2020",
+   "tipo": "Portaria",
+   "numero": "2.101/2020-GABS/SEMEC",
+   "data": "2020-07-20",
+   "ementa": "Extingue a UEI Marambaia e encaminha o acervo à EMEI Profª Aurora Guimarães Vieira.",
+   "publicacao": {
+    "edicao": 14044,
+    "data": "2020-07-27",
+    "pagina": 7
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-081",
+     "inep": "15152332",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta",
+     "nota": "Antecessora: UEI Marambaia, mesmo endereço da escola criada pelo Decreto 96.723/2020."
+    }
+   ]
+  },
+  {
+   "id": "portaria-2206-2020",
+   "tipo": "Portaria",
+   "numero": "2.206/2020-GABS/SEMEC",
+   "data": "2020-07-21",
+   "ementa": "Extingue a UEI Caripunas e encaminha o acervo à EMEI Profª Maria Auxiliadora Martins Gonçalves.",
+   "publicacao": {
+    "edicao": 14044,
+    "data": "2020-07-27",
+    "pagina": 7
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-001",
+     "inep": "15548058",
+     "relacao": "extinção da antecessora",
+     "confianca": "alta",
+     "nota": "Antecessora: UEI Caripunas (Rua dos Caripunas, 1909); acervo vai para a UN-001."
+    }
+   ]
+  },
+  {
+   "id": "decreto-96503-2020",
+   "tipo": "Decreto",
+   "numero": "96.503/2020-PMB",
+   "data": "2020-06-16",
+   "ementa": "Retifica o Decreto 96.325/2020: o nome da escola passa a ser EMEI Profª Raimunda Lúcia Guerreiro.",
+   "publicacao": {
+    "edicao": 14051,
+    "data": "2020-08-05",
+    "pagina": 4
+   },
+   "arquivos": [
+    "EMEI PROFª RAIMUNDA LÚCIA GUERREIRO (RETIFICAÇÃO).pdf",
+    "EMEI PROFª LUCIA SOARES CASTRO.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-009",
+     "inep": "15174557",
+     "relacao": "retificação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-96504-2020",
+   "tipo": "Decreto",
+   "numero": "96.504/2020-PMB",
+   "data": "2020-06-16",
+   "ementa": "Cria a EMEI Profª Lúcia Soares Castro, antiga UEI Primeiro de Dezembro (Marco).",
+   "publicacao": {
+    "edicao": 14051,
+    "data": "2020-08-05",
+    "pagina": 4
+   },
+   "arquivos": [
+    "EMEI PROFª LUCIA SOARES CASTRO.pdf",
+    "EMEI PROFª RAIMUNDA LÚCIA GUERREIRO (RETIFICAÇÃO).pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-008",
+     "inep": "15547299",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
    "id": "decreto-97641-2020",
    "tipo": "Decreto",
    "numero": "97.641/2020-PMB",
@@ -2517,6 +2933,35 @@
      "inep": "15181901",
      "relacao": "criação",
      "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-3234-2020",
+   "tipo": "Portaria",
+   "numero": "3.234/2020-GABS",
+   "data": "2020-12-03",
+   "ementa": "Institui a Escola Anexo Santa Isabel da Hungria, vinculada à EMEI Profª Rosenil Cordeiro da Silva (Guamá).",
+   "publicacao": {
+    "edicao": 14137,
+    "data": "2020-12-10",
+    "pagina": 7
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-095",
+     "inep": "15098125",
+     "relacao": "instituição",
+     "confianca": "media",
+     "nota": "Nome (Isabel/Izabel) e endereço (Passagem Guerra Passos, 442) coincidem com o cadastro, que porém registra a unidade como OSC (Centro Catequético de Promoção Humana Santa Izabel da Hungria), não como anexo da Rosenil."
+    },
+    {
+     "id": "UN-110",
+     "inep": "15170934",
+     "relacao": "vinculação de unidades",
+     "confianca": "alta",
+     "nota": "Escola à qual o anexo é vinculado."
     }
    ]
   },
@@ -2540,8 +2985,38 @@
      "inep": "15558312",
      "relacao": "criação",
      "confianca": "alta"
+    },
+    {
+     "id": "UN-196",
+     "inep": "15558312",
+     "relacao": "vinculação de unidades",
+     "confianca": "media",
+     "nota": "Escola à qual o anexo é vinculado. Sem verificação independente."
     }
    ]
+  },
+  {
+   "id": "lei-9844-2022",
+   "tipo": "Lei",
+   "numero": "9.844/2022-PMB",
+   "data": "2022-08-16",
+   "ementa": "Denomina de Escola Municipal Parque Amazônia Juiz Cláudio Rendeiro a Escola Municipal Parque Amazônia (Terra Firme).",
+   "publicacao": {
+    "edicao": 14545,
+    "data": "2022-08-24",
+    "pagina": 40
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-119",
+     "inep": "15155170",
+     "relacao": "denominação",
+     "confianca": "alta",
+     "nota": "Nome exato e bairro (Terra Firme) coincidem; endereço do ato (Rua 27 de Setembro, 196) difere do cadastro (Av. Celso Malcher, 445, prédio alugado). O cadastro ainda traz o nome sem o complemento 'Juiz Cláudio Rendeiro'. Ato duplicado na varredura (14545-p40-LEI-9844 e -2)."
+    }
+   ],
+   "nota": "Também publicado nas edições 14545."
   },
   {
    "id": "portaria-582-2024",
@@ -2588,6 +3063,73 @@
      "relacao": "extinção da antecessora",
      "confianca": "alta",
      "nota": "A unidade extinta tinha o mesmo INEP desta escola."
+    }
+   ]
+  },
+  {
+   "id": "portaria-707-2024",
+   "tipo": "Portaria",
+   "numero": "707/2024-GABS/SEMEC",
+   "data": null,
+   "ementa": "Extingue o Anexo Grupo Espírita Jardim das Oliveiras da EMEF Terezinha Souza e destina o acervo à nova Escola Anexa Ariana Lívia Amoedo de Castro.",
+   "publicacao": {
+    "edicao": 14932,
+    "data": "2024-04-18",
+    "pagina": 10,
+    "pagina_final": 11
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-071",
+     "inep": "15563472",
+     "relacao": "recebe o acervo",
+     "confianca": "alta",
+     "nota": "Endereço da nova anexa (Rua José Hassegawa, 143) coincide com o cadastro. Data do ato não consta do trecho."
+    },
+    {
+     "id": "UN-073",
+     "inep": "15563472",
+     "relacao": "vinculação de unidades",
+     "confianca": "media",
+     "nota": "Escola-sede à qual a anexa nova é vinculada; o ato não trata dela diretamente."
+    }
+   ]
+  },
+  {
+   "id": "portaria-715-2024",
+   "tipo": "Portaria",
+   "numero": "715/2024-GABS/SEMEC",
+   "data": "2024-04-18",
+   "ementa": "Extingue o Centro Catequético de Promoção Humana Santa Izabel da Hungria e destina o acervo à nova Escola Anexa Prof. Joana D'arc Guimarães de Oliveira da EMEI Rosenil Cordeiro.",
+   "publicacao": {
+    "edicao": 14934,
+    "data": "2024-04-22",
+    "pagina": 7,
+    "pagina_final": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-095",
+     "inep": "15098125",
+     "relacao": "extinção",
+     "confianca": "alta",
+     "nota": "Nome confere; porém o endereço citado no ato (Alameda Intendente Dionizio Auzier Bentes, 73) é o da UN-102, enquanto o cadastro da UN-095 traz Passagem Guerra Passos 442. Conferir. A UN-095 consta ATIVA no cadastro."
+    },
+    {
+     "id": "UN-102",
+     "inep": "15181936",
+     "relacao": "recebe o acervo",
+     "confianca": "alta",
+     "nota": "Nome e endereço da UN-102; foi criada como anexa e depois retificada para EMEI (Decreto 112.888/2024 e Portaria 2.800/2024)."
+    },
+    {
+     "id": "UN-110",
+     "inep": "15170934",
+     "relacao": "vinculação de unidades",
+     "confianca": "media",
+     "nota": "Escola à qual a nova anexa seria vinculada; vínculo depois desfeito pela retificação."
     }
    ]
   },
@@ -2668,29 +3210,6 @@
    ]
   },
   {
-   "id": "decreto-111987-2024",
-   "tipo": "Decreto",
-   "numero": "111.987/2024-PMB",
-   "data": "2024-08-13",
-   "ementa": "Cria a EMEIF Maria da Conceição de Souza (Conjunto Jardim Nova Vida, Águas Lindas).",
-   "publicacao": {
-    "edicao": 15018,
-    "data": "2024-08-27",
-    "pagina": 2
-   },
-   "arquivos": [
-    "EMEIF MARIA DA CONCEIÇÃO DE SOUZA.pdf"
-   ],
-   "unidades": [
-    {
-     "id": "UN-065",
-     "inep": "15181847",
-     "relacao": "criação",
-     "confianca": "alta"
-    }
-   ]
-  },
-  {
    "id": "decreto-111988-2024",
    "tipo": "Decreto",
    "numero": "111.988/2024-PMB",
@@ -2714,6 +3233,13 @@
      "inep": "15181936",
      "relacao": "criação",
      "confianca": "alta"
+    },
+    {
+     "id": "UN-110",
+     "inep": "15170934",
+     "relacao": "vinculação de unidades",
+     "confianca": "baixa",
+     "nota": "Escola-sede da anexa; vínculo depois desfeito pela retificação (Decreto 112.888/2024). Sem verificação independente."
     }
    ]
   },
@@ -2800,6 +3326,58 @@
    ]
   },
   {
+   "id": "decreto-111987-2024",
+   "tipo": "Decreto",
+   "numero": "111.987/2024-PMB",
+   "data": "2024-08-13",
+   "ementa": "Cria a EMEIF Maria da Conceição de Souza (Conjunto Jardim Nova Vida, Águas Lindas).",
+   "publicacao": {
+    "edicao": 15018,
+    "data": "2024-08-27",
+    "pagina": 2
+   },
+   "arquivos": [
+    "EMEIF MARIA DA CONCEIÇÃO DE SOUZA.pdf"
+   ],
+   "unidades": [
+    {
+     "id": "UN-065",
+     "inep": "15181847",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "portaria-2800-2024",
+   "tipo": "Portaria",
+   "numero": "2.800/2024-GABS/SEMEC",
+   "data": "2024-10-09",
+   "ementa": "Retifica a Portaria 715/2024: a escola nova passa a EMEI Prof. Joana D'arc Guimarães de Oliveira e o centro extinto passa a Anexo Santa Izabel da Hungria.",
+   "publicacao": {
+    "edicao": 15052,
+    "data": "2024-10-15",
+    "pagina": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-095",
+     "inep": "15098125",
+     "relacao": "retificação",
+     "confianca": "media",
+     "nota": "O ato troca 'Centro Catequético' por 'Anexo Santa Izabel da Hungria'; associação por nome (ver nota na Portaria 715/2024)."
+    },
+    {
+     "id": "UN-102",
+     "inep": "15181936",
+     "relacao": "retificação",
+     "confianca": "alta",
+     "nota": "Retifica o nome de anexa para EMEI independente."
+    }
+   ]
+  },
+  {
    "id": "decreto-112806-2024",
    "tipo": "Decreto",
    "numero": "112.806/2024-PMB",
@@ -2820,6 +3398,13 @@
      "relacao": "criação como anexo",
      "confianca": "alta",
      "nota": "O cadastro cita o Decreto 113.719/2025 como ato de criação; este decreto de 2024 criou a escola como anexa da EMEIF Parque Amazônia."
+    },
+    {
+     "id": "UN-119",
+     "inep": "15155170",
+     "relacao": "vinculação de unidades",
+     "confianca": "media",
+     "nota": "Escola-sede da anexa criada. Sem verificação independente."
     }
    ]
   },
@@ -2867,6 +3452,678 @@
      "inep": "15169979",
      "relacao": "criação",
      "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113717-2025",
+   "tipo": "Decreto",
+   "numero": "113.717/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Lions Clube de Belém.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 6
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-007",
+     "inep": "15181677",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113718-2025",
+   "tipo": "Decreto",
+   "numero": "113.718/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal São Francisco de Assis.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 6
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-120",
+     "inep": "15181634",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113719-2025",
+   "tipo": "Decreto",
+   "numero": "113.719/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Betinho.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 6,
+    "pagina_final": 7
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-117",
+     "inep": "15181740",
+     "relacao": "criação",
+     "confianca": "alta",
+     "nota": "Endereço do decreto (Rua Samaumeira 153) difere do cadastro; nome idêntico e cadastro cita este decreto."
+    }
+   ]
+  },
+  {
+   "id": "decreto-113720-2025",
+   "tipo": "Decreto",
+   "numero": "113.720/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Cristo Redentor.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 7
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-029",
+     "inep": "15181685",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113721-2025",
+   "tipo": "Decreto",
+   "numero": "113.721/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal de Educação do Campo São José.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 7
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-183",
+     "inep": "15181766",
+     "relacao": "criação",
+     "confianca": "alta"
+    },
+    {
+     "id": "UN-180",
+     "inep": "15181766",
+     "relacao": "criação como anexo",
+     "confianca": "media",
+     "nota": "O cadastro cita este ato como o de criação da unidade; o trecho lido do Diário não a nomeia (lista só a escola-sede). Confira no PDF."
+    }
+   ]
+  },
+  {
+   "id": "decreto-113722-2025",
+   "tipo": "Decreto",
+   "numero": "113.722/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Faveira.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 7
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-190",
+     "inep": "15181855",
+     "relacao": "criação",
+     "confianca": "alta",
+     "nota": "O cadastro também cita este decreto para anexos da EM Faveira (UN-178, UN-179, UN-187, UN-188), mas o trecho do ato só cria a sede."
+    },
+    {
+     "id": "UN-178",
+     "inep": "15181855",
+     "relacao": "criação como anexo",
+     "confianca": "media",
+     "nota": "O cadastro cita este ato como o de criação da unidade; o trecho lido do Diário não a nomeia (lista só a escola-sede). Confira no PDF."
+    },
+    {
+     "id": "UN-179",
+     "inep": "15181855",
+     "relacao": "criação como anexo",
+     "confianca": "media",
+     "nota": "O cadastro cita este ato como o de criação da unidade; o trecho lido do Diário não a nomeia (lista só a escola-sede). Confira no PDF."
+    },
+    {
+     "id": "UN-187",
+     "inep": "15181855",
+     "relacao": "criação como anexo",
+     "confianca": "media",
+     "nota": "O cadastro cita este ato como o de criação da unidade; o trecho lido do Diário não a nomeia (lista só a escola-sede). Confira no PDF."
+    },
+    {
+     "id": "UN-188",
+     "inep": "15181855",
+     "relacao": "criação como anexo",
+     "confianca": "media",
+     "nota": "O cadastro cita este ato como o de criação da unidade; o trecho lido do Diário não a nomeia (lista só a escola-sede). Confira no PDF."
+    }
+   ]
+  },
+  {
+   "id": "decreto-113723-2025",
+   "tipo": "Decreto",
+   "numero": "113.723/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Francisco de Assis.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 7
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-091",
+     "inep": "15181790",
+     "relacao": "criação",
+     "confianca": "alta",
+     "nota": "Endereço Passagem São Silvestre 2005 confere; não confundir com São Francisco de Assis (UN-120)."
+    }
+   ]
+  },
+  {
+   "id": "decreto-113724-2025",
+   "tipo": "Decreto",
+   "numero": "113.724/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Santa Rita de Cássia.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 7,
+    "pagina_final": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-083",
+     "inep": "15181871",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113725-2025",
+   "tipo": "Decreto",
+   "numero": "113.725/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Nova Esperança.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-062",
+     "inep": "15181723",
+     "relacao": "criação",
+     "confianca": "alta",
+     "nota": "Endereço do decreto (Passagem Azevedo 108, Cabanagem) difere do cadastro; nome idêntico e cadastro cita este decreto."
+    }
+   ]
+  },
+  {
+   "id": "decreto-113726-2025",
+   "tipo": "Decreto",
+   "numero": "113.726/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Santo Agostinho da Aldeia.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-085",
+     "inep": "15181669",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113727-2025",
+   "tipo": "Decreto",
+   "numero": "113.727/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Verdejante (grafia depois republicada como Verdejante I).",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-069",
+     "inep": "15181880",
+     "relacao": "criação",
+     "confianca": "alta",
+     "nota": "Republicação por incorreção do decreto publicado no DOM 15.216 (24/06/2025), que grafara 'Verdejante'."
+    }
+   ],
+   "nota": "Também publicado nas edições 15217."
+  },
+  {
+   "id": "decreto-113728-2025",
+   "tipo": "Decreto",
+   "numero": "113.728/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Visconde de Inhaúma.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-205",
+     "inep": "15181693",
+     "relacao": "criação",
+     "confianca": "alta",
+     "nota": "Endereço do decreto (Travessa Estrela 1711) difere do cadastro; nome idêntico e cadastro cita este decreto."
+    }
+   ]
+  },
+  {
+   "id": "decreto-113729-2025",
+   "tipo": "Decreto",
+   "numero": "113.729/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Nossa Senhora Aparecida.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-056",
+     "inep": "15181979",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113730-2025",
+   "tipo": "Decreto",
+   "numero": "113.730/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Alana de Souza Barbosa I.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 8,
+    "pagina_final": 9
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-027",
+     "inep": "15181642",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113731-2025",
+   "tipo": "Decreto",
+   "numero": "113.731/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Alana de Souza Barbosa II.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 9
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-028",
+     "inep": "15181863",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113732-2025",
+   "tipo": "Decreto",
+   "numero": "113.732/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal João Nelson Ribeiro I.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 9
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-212",
+     "inep": "15181782",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113733-2025",
+   "tipo": "Decreto",
+   "numero": "113.733/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Honorato Filgueiras I.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 9
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-108",
+     "inep": "15181820",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113734-2025",
+   "tipo": "Decreto",
+   "numero": "113.734/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Cria a Escola Municipal Pratinha II.",
+   "publicacao": {
+    "edicao": 15216,
+    "data": "2025-06-24",
+    "pagina": 9
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-046",
+     "inep": "15547272",
+     "relacao": "criação",
+     "confianca": "alta"
+    }
+   ]
+  },
+  {
+   "id": "decreto-113716-2025",
+   "tipo": "Decreto",
+   "numero": "113.716/2025-PMB",
+   "data": "2025-06-23",
+   "ementa": "Institui as nomenclaturas das Unidades Escolares da SEMEC como Escolas Municipais (anexo único: de EMEF/EMEIF/etc. para Escola Municipal).",
+   "publicacao": {
+    "edicao": 15217,
+    "data": "2025-06-25",
+    "pagina": 2,
+    "pagina_final": 3
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-014",
+     "inep": "15040887",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-016",
+     "inep": "15040801",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-019",
+     "inep": "15040640",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-042",
+     "inep": "15569632",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-053",
+     "inep": "15043070",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-055",
+     "inep": "15043029",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-066",
+     "inep": "15573826",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-087",
+     "inep": "15040879",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-088",
+     "inep": "15040836",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-100",
+     "inep": "15040950",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-107",
+     "inep": "15040712",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-114",
+     "inep": "15040798",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-118",
+     "inep": "15040674",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-126",
+     "inep": "15042995",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-134",
+     "inep": "15043002",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-135",
+     "inep": "15043037",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-147",
+     "inep": "15166376",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-148",
+     "inep": "15548066",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-150",
+     "inep": "15168476",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-151",
+     "inep": "15170861",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-159",
+     "inep": "15043347",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-161",
+     "inep": "15043371",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-163",
+     "inep": "15043274",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-169",
+     "inep": "15043401",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-171",
+     "inep": "15043355",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-192",
+     "inep": "15043053",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-202",
+     "inep": "15040933",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-210",
+     "inep": "15041123",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-213",
+     "inep": "15040941",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    },
+    {
+     "id": "UN-216",
+     "inep": "15040917",
+     "relacao": "alteração de nome",
+     "confianca": "alta",
+     "nota": "Anexo único: nomenclatura de {sigla} para Escola Municipal."
+    }
+   ]
+  },
+  {
+   "id": "portaria-2037-2025",
+   "tipo": "Portaria",
+   "numero": "2.037/2025-GABS/SEMEC",
+   "data": "2025-09-01",
+   "ementa": "Institui a estrutura organizacional e as diretrizes de funcionamento da Escola Bosque Professor Eidorfe Moreira (conforme citada na Portaria 2.038/2025).",
+   "publicacao": {
+    "edicao": 15269,
+    "data": "2025-09-08",
+    "pagina": 7,
+    "pagina_final": 8
+   },
+   "arquivos": [],
+   "unidades": [
+    {
+     "id": "UN-195",
+     "inep": "15140759",
+     "relacao": "outro",
+     "confianca": "baixa",
+     "nota": "Trecho do ato traz só o preâmbulo; o objeto (estrutura/funcionamento da Escola Bosque Prof. Eidorfe Moreira) vem da citação na Portaria 2.038/2025. Conferir texto integral. Verificação inconclusiva: Trecho contém só o preâmbulo; o objeto (Escola Bosque) não aparece no texto, e a relação \"outro\" depende da Portaria 2.038 externa."
     }
    ]
   }
