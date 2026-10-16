@@ -1,16 +1,18 @@
-import { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft, CalendarPlus, Pencil, Trash2 } from 'lucide-react';
-import { Dialogo, Etiqueta, Faixa, Medidor, Nota } from '../components/ui';
+import { Dialogo, Etiqueta, Faixa, Nota } from '../components/ui';
 import { FormUnidade, GRUPOS_UNIDADE } from '../components/FormUnidade';
 import { FormAuditoria, auditoriaVazia } from '../components/FormAuditoria';
 import { Anexos } from '../components/Anexos';
 import { AtosDiario } from '../components/AtosDiario';
 import { ResolucoesCme } from '../components/ResolucoesCme';
-import { CABECALHOS_UNIDADE as C, ROTULOS_ACAO, ROTULOS_PLANO, TEXTOS } from '../data/planilha';
+import { SecretariaEscolar } from '../components/SecretariaEscolar';
+import { SituacaoDocumentos } from '../components/SituacaoDocumentos';
+import { CABECALHOS_UNIDADE as C } from '../data/planilha';
 import { useDados } from '../lib/store';
-import { formatarCep, formatarData, formatarTelefone, fraseado } from '../lib/format';
-import { diasRestantes, vigenciaVencida } from '../lib/calc';
+import { formatarCep, formatarData, formatarTelefone } from '../lib/format';
+import { vigenciaVencida } from '../lib/calc';
 import { avisar } from '../lib/avisos';
 import type { Unidade } from '../lib/types';
 import { NaoEncontrada } from './NaoEncontrada';
@@ -40,10 +42,14 @@ export function UnidadeDetalhe() {
   const [planejando, setPlanejando] = useState(false);
   const [excluindo, setExcluindo] = useState(false);
   const u = d.unidadePorId.get(id);
+  const { hash } = useLocation();
+  // Links para uma seção da página (ex.: #checklist-secretaria, vindo de Dados e planilhas).
+  useEffect(() => {
+    if (hash) document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({ block: 'start' });
+  }, [hash, id]);
   if (!u) return <NaoEncontrada />;
 
   const auditorias = d.auditorias.filter((a) => a.unidade_id === id).sort((a, b) => b.id.localeCompare(a.id));
-  const acoes = d.acoes.filter((a) => a.unidade_id === id);
 
   return (
     <>
@@ -116,100 +122,19 @@ export function UnidadeDetalhe() {
           </div>
         </section>
 
-        <section className="cartao">
+        <section className="cartao" aria-labelledby="situacao-documentos">
           <div className="cartao__cab">
-            <h2 className="titulo-bloco">{fraseado(TEXTOS.planoAuditoria.titulo)}</h2>
-            <button type="button" className="btn btn--contorno btn--pequeno" onClick={() => setPlanejando(true)}>
-              <CalendarPlus size={14} aria-hidden /> Nova auditoria
-            </button>
+            <h2 id="situacao-documentos" className="titulo-bloco">
+              Situação dos documentos da auditoria
+            </h2>
+            <span className="contagem">Avaliados, conformes e o que requer verificação da CDE</span>
           </div>
-          {auditorias.length === 0 ? (
-            <p className="tabela-vazia">{TEXTOS.instrucoes.passos[1].descricao}</p>
-          ) : (
-            <div className="tabela-wrap">
-              <table className="tabela">
-                <thead>
-                  <tr>
-                    <th>{ROTULOS_PLANO.id}</th>
-                    <th>{ROTULOS_PLANO.tipo}</th>
-                    <th>{ROTULOS_PLANO.situacao}</th>
-                    <th>{ROTULOS_PLANO.dataPlanejada}</th>
-                    <th>{ROTULOS_PLANO.dataRealizada}</th>
-                    <th>{ROTULOS_PLANO.indice}</th>
-                    <th>{ROTULOS_PLANO.ncCriticas}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {auditorias.map((a) => {
-                    const s = d.resumos.get(a.id);
-                    return (
-                      <tr key={a.id} className="clicavel" onClick={() => navegar(`/auditoria-documental/${a.id}`)}>
-                        <td className="forte nowrap">
-                          <Link to={`/auditoria-documental/${a.id}`}>{a.id}</Link>
-                        </td>
-                        <td>{a.tipo || '—'}</td>
-                        <td>
-                          <Etiqueta valor={a.situacao} />
-                        </td>
-                        <td className="nowrap">{formatarData(a.data_planejada) || '—'}</td>
-                        <td className="nowrap">{formatarData(a.data_realizada) || '—'}</td>
-                        <td>
-                          <Medidor valor={s?.indice ?? null} />
-                        </td>
-                        <td className="num">{s?.iniciada ? s.ncCriticas : '—'}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
+          <div className="cartao__corpo">
+            <SituacaoDocumentos unidadeId={u.id} />
+          </div>
         </section>
 
-        <section className="cartao">
-          <div className="cartao__cab">
-            <h2 className="titulo-bloco">{fraseado(TEXTOS.planoAcao.titulo)}</h2>
-            <Link to={`/plano-de-acao?unidade=${u.id}`} className="btn btn--contorno btn--pequeno">
-              Abrir no Plano de Ação
-            </Link>
-          </div>
-          {acoes.length === 0 ? (
-            <p className="tabela-vazia">{TEXTOS.planoAcao.nota}</p>
-          ) : (
-            <div className="tabela-wrap">
-              <table className="tabela">
-                <thead>
-                  <tr>
-                    <th>{ROTULOS_ACAO.id}</th>
-                    <th>{ROTULOS_ACAO.item}</th>
-                    <th>{ROTULOS_ACAO.acao}</th>
-                    <th>{ROTULOS_ACAO.prazo}</th>
-                    <th>{ROTULOS_ACAO.diasRestantes}</th>
-                    <th>{ROTULOS_ACAO.situacao}</th>
-                    <th>{ROTULOS_ACAO.validacao}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {acoes.map((a) => (
-                    <tr key={a.id} className="clicavel" onClick={() => navegar(`/plano-de-acao?acao=${a.id}`)}>
-                      <td className="forte nowrap">{a.id}</td>
-                      <td className="nowrap">{a.item}</td>
-                      <td>{a.acao || a.achado}</td>
-                      <td className="nowrap">{formatarData(a.prazo) || '—'}</td>
-                      <td className="num">{diasRestantes(a.prazo) ?? '—'}</td>
-                      <td>
-                        <Etiqueta valor={a.situacao} />
-                      </td>
-                      <td>
-                        <Etiqueta valor={a.validacao} />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
+        <SecretariaEscolar unidade={u} />
 
         <div className="nao-imprimir">
           <button type="button" className="btn btn--perigo" onClick={() => setExcluindo(true)}>
@@ -243,11 +168,11 @@ export function UnidadeDetalhe() {
           <Dialogo
             titulo="Excluir unidade"
             confirmar="Ver auditorias"
-            aoConfirmar={() => navegar(`/plano-de-auditoria?unidade=${u.id}`)}
+            aoConfirmar={() => navegar(`/plano-de-visita-tecnica?unidade=${u.id}`)}
             aoFechar={() => setExcluindo(false)}
           >
             <Nota tipo="alerta">
-              Esta unidade possui {auditorias.length} registro(s) no Plano de Auditoria. Exclua-os antes de excluir a
+              Esta unidade possui {auditorias.length} registro(s) no Plano de Visita Técnica. Exclua-os antes de excluir a
               unidade, ou altere a {C.situacao} para EXTINTA ou PARALISADA.
             </Nota>
           </Dialogo>

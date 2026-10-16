@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowDownToLine, Check, Paperclip, ChevronDown, ChevronUp, ClipboardList, FilePlus2, Pencil, Printer } from 'lucide-react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { ArrowDownToLine, BadgeCheck, Check, Paperclip, ChevronDown, ChevronUp, ClipboardList, FilePlus2, Pencil, Printer, ShieldAlert } from 'lucide-react';
 import { CLASSE_SITUACAO, CampoSelect, CampoTexto, Etiqueta, Faixa, Medidor, Nota } from '../components/ui';
 import { Combobox } from '../components/Combobox';
 import { Anexos, useQuantidadeAnexos } from '../components/Anexos';
@@ -20,22 +20,15 @@ import { useDados } from '../lib/store';
 import { avaliado, linhasDaAuditoria, type Linha } from '../lib/calc';
 import { formatarData, formatarPct, formatarPeso } from '../lib/format';
 import { avisar } from '../lib/avisos';
+import { ROTULO_VERIFICACAO, VERIFICACAO_FEITA, VERIFICACAO_PENDENTE, divergeDaDeclaracao } from '../lib/checklist';
 import { chaveAvaliacao, type Acao, type Auditoria, type Avaliacao, type SituacaoItem } from '../lib/types';
 
-type Filtro = 'todos' | 'pendentes' | 'nc' | 'acao';
+type Filtro = 'todos' | 'pendentes' | 'nc' | 'acao' | 'verificar';
 
+/** O registro gravado do item (sem os campos calculados), com todos os campos, inclusive os da checklist da secretaria. */
 function semDef(l: Linha): Avaliacao {
-  return {
-    auditoria_id: l.auditoria_id,
-    item: l.item,
-    situacao: l.situacao,
-    evidencia: l.evidencia,
-    achado: l.achado,
-    requer_acao: l.requer_acao,
-    prazo: l.prazo,
-    responsavel: l.responsavel,
-    situacao_acao: l.situacao_acao,
-  };
+  const { def: _def, pesoAplicavel: _pa, pontos: _pontos, indice: _indice, ...av } = l;
+  return av;
 }
 
 function precisaDetalhe(l: Linha) {
@@ -134,7 +127,9 @@ function ItemAuditoria({
               className={CLASSE_SITUACAO[s]}
               aria-pressed={linha.situacao === s}
               onClick={() => {
-                void salvar({ situacao: s as SituacaoItem }).then(() => {
+                // Escolher a situação de um item autodeclarado é a verificação da CDE.
+                const verificar = linha.verificacao === VERIFICACAO_PENDENTE ? { verificacao: VERIFICACAO_FEITA } : {};
+                void salvar({ situacao: s as SituacaoItem, ...verificar }).then(() => {
                   if (s === 'Conforme') aoConforme?.(linha.item);
                 });
                 if (s === 'Não conforme' || s === 'Parcialmente conforme' || s === 'Não se aplica') setAberto(true);
@@ -148,6 +143,11 @@ function ItemAuditoria({
           {salvo && (
             <span className="salvo" role="status">
               <Check size={14} aria-hidden /> Salvo
+            </span>
+          )}
+          {linha.verificacao === VERIFICACAO_FEITA && (
+            <span className="chip chip--conforme" title={linha.declaracao}>
+              <BadgeCheck size={12} aria-hidden /> {ROTULO_VERIFICACAO[VERIFICACAO_FEITA]}
             </span>
           )}
           {nAnexos > 0 && (
@@ -171,6 +171,26 @@ function ItemAuditoria({
           </button>
         </span>
       </div>
+
+      {linha.verificacao === VERIFICACAO_PENDENTE && (
+        <div className="nota nota--alerta verificacao" role="note">
+          <ShieldAlert size={18} aria-hidden />
+          <div>
+            <strong>Autodeclarado pela secretaria escolar: {ROTULO_VERIFICACAO[VERIFICACAO_PENDENTE].toLowerCase()}.</strong> {linha.declaracao}
+            <div className="verificacao__acoes nao-imprimir">
+              <button type="button" className="btn btn--verde btn--pequeno" onClick={() => void salvar({ verificacao: VERIFICACAO_FEITA })}>
+                <BadgeCheck size={14} aria-hidden /> Confirmar {linha.situacao}
+              </button>
+              <span className="pequeno texto-muted">ou escolha outra situação acima, depois de conferir os documentos.</span>
+            </div>
+          </div>
+        </div>
+      )}
+      {divergeDaDeclaracao(linha) && (
+        <Nota tipo="alerta">
+          <strong>A secretaria declarou {linha.declarado}</strong>, diferente da avaliação da CDE. {linha.declaracao}
+        </Nota>
+      )}
 
       {linha.situacao === 'Não se aplica' && !texto.achado.trim() && criterioNA && (
         <Nota tipo="alerta">
@@ -337,6 +357,16 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
   });
   const t = TEXTOS.auditoriaDocumental;
   const u = d.unidadePorId.get(aud.unidade_id);
+  const { hash } = useLocation();
+  // Link para um item (#item-INS-01, vindo da página da unidade): rola até ele.
+  useEffect(() => {
+    if (!hash.startsWith('#item-')) return;
+    const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+    el?.scrollIntoView({ block: 'center' });
+    el?.classList.add('item-aud--destaque');
+    const t = window.setTimeout(() => el?.classList.remove('item-aud--destaque'), 2500);
+    return () => window.clearTimeout(t);
+  }, [hash, aud.id]);
   const linhas = useMemo(() => linhasDaAuditoria(aud.id, d.mapaAvaliacoes), [aud.id, d.mapaAvaliacoes]);
   const resumo = d.resumos.get(aud.id);
   const acoesPorItem = useMemo(() => {
@@ -349,6 +379,7 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
     if (filtro === 'pendentes') return !avaliado(l.situacao);
     if (filtro === 'nc') return l.situacao === 'Não conforme' || l.situacao === 'Parcialmente conforme';
     if (filtro === 'acao') return l.requer_acao === 'Sim';
+    if (filtro === 'verificar') return l.verificacao === VERIFICACAO_PENDENTE || divergeDaDeclaracao(l);
     return true;
   });
   const contagens = {
@@ -356,12 +387,14 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
     pendentes: linhas.filter((l) => !avaliado(l.situacao)).length,
     nc: linhas.filter((l) => l.situacao === 'Não conforme' || l.situacao === 'Parcialmente conforme').length,
     acao: linhas.filter((l) => l.requer_acao === 'Sim').length,
+    verificar: linhas.filter((l) => l.verificacao === VERIFICACAO_PENDENTE || divergeDaDeclaracao(l)).length,
   };
   const rotulosFiltro: Record<Filtro, string> = {
     todos: 'Todos',
     pendentes: 'Não avaliado',
     nc: 'Não conforme / Parcialmente conforme',
     acao: `${R.requerAcao} Sim`,
+    verificar: 'Requer verificação da CDE',
   };
 
   function alternarAvancar(v: boolean) {
@@ -409,7 +442,7 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
           <ClipboardList size={16} aria-hidden /> Checklist da Visita
         </Link>
         <button type="button" className="btn btn--claro" onClick={() => setEditando(true)}>
-          <Pencil size={16} aria-hidden /> Plano de Auditoria
+          <Pencil size={16} aria-hidden /> Plano de Visita Técnica
         </button>
         <button type="button" className="btn btn--claro" onClick={() => window.print()}>
           <Printer size={16} aria-hidden /> Imprimir
@@ -519,13 +552,23 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
           </div>
         </div>
 
+        {contagens.verificar > 0 && (
+          <Nota tipo="alerta">
+            <strong>{contagens.verificar} item(ns) da checklist da secretaria escolar requerem verificação da CDE.</strong> A situação declarada
+            pela secretaria já entra no índice, mas foi entregue sem comprovação: confira os documentos e confirme ou corrija cada item.{' '}
+            <button type="button" className="link-botao" onClick={() => setFiltro('verificar')}>
+              Mostrar só esses itens
+            </button>
+          </Nota>
+        )}
+
         <Nota>
           <strong>{TEXTOS.instrucoes.passos[2].titulo}.</strong> {TEXTOS.instrucoes.passos[2].descricao}{' '}
           {TEXTOS.instrucoes.passos[3].descricao}
         </Nota>
 
         <div className="pilulas nao-imprimir" role="group" aria-label="Filtrar itens">
-          {(Object.keys(rotulosFiltro) as Filtro[]).map((k) => (
+          {(Object.keys(rotulosFiltro) as Filtro[]).filter((k) => k !== 'verificar' || contagens.verificar > 0).map((k) => (
             <button type="button" key={k} className="pilula" aria-pressed={filtro === k} onClick={() => setFiltro(k)}>
               {rotulosFiltro[k]} <b>{contagens[k]}</b>
             </button>

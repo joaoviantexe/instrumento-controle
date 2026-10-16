@@ -1,8 +1,26 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { chaveArquivo, hashArquivo } from '../anexos';
+import { resumirChecklist, type ChecklistUnidade, type RespostasTurma } from '../checklist';
 import type { Conferencia } from '../conferencias';
+import { compactar, contarPanorama, expandir, type PanoramaCompacto } from '../panorama';
 import type { Anexo, Snapshot } from '../types';
-import { AnexosIndisponiveis, ConferenciasIndisponiveis, CHAVES, ErroChaveDuplicada, type AnexosApi, type Backend, type ConferenciasApi, type NomeTabela, type ResultadoMigracao, type ResultadoUnificacao, type Tabelas, type UsoOperacoes } from './tipos';
+import {
+  AnexosIndisponiveis,
+  ConferenciasIndisponiveis,
+  CHAVES,
+  ErroChaveDuplicada,
+  TurmasIndisponiveis,
+  type AnexosApi,
+  type Backend,
+  type ChecklistsApi,
+  type ConferenciasApi,
+  type NomeTabela,
+  type PanoramasApi,
+  type ResultadoMigracao,
+  type ResultadoUnificacao,
+  type Tabelas,
+  type UsoOperacoes,
+} from './tipos';
 
 type Env = Record<string, string | undefined>;
 const env = import.meta.env as unknown as Env;
@@ -52,9 +70,24 @@ function paraBanco(registro: object): Record<string, unknown> {
   return r;
 }
 
+/** Colunas de avaliacoes criadas para a checklist da secretaria (podem faltar num banco com o script antigo). */
+const COLUNAS_VERIFICACAO = ['declarado', 'declaracao', 'verificacao'];
+
+/** Avaliações sem declaração não enviam as colunas novas: o banco com o script antigo continua aceitando as gravações. */
+function semColunasVazias(tabela: NomeTabela, registro: Record<string, unknown>): Record<string, unknown> {
+  if (tabela !== 'avaliacoes') return registro;
+  const r = { ...registro };
+  for (const k of COLUNAS_VERIFICACAO) if (r[k] === null || r[k] === undefined) delete r[k];
+  return r;
+}
+
 function verificar(error: { code?: string; message: string } | null) {
   if (!error) return;
   if (error.code === '23505') throw new ErroChaveDuplicada();
+  // PGRST204 = coluna inexistente (script do banco desatualizado)
+  if (error.code === 'PGRST204' && COLUNAS_VERIFICACAO.some((c) => error.message.includes(`'${c}'`))) {
+    throw new Error('o banco ainda não tem as colunas da verificação da CDE. Execute o arquivo supabase/schema.sql atualizado no SQL Editor do Supabase.');
+  }
   throw new Error(error.message);
 }
 
@@ -276,11 +309,95 @@ function criarConferenciasSupabase(sb: SupabaseClient): ConferenciasApi {
   };
 }
 
+/** Erro de tabela ausente ou de permissão (só o administrador grava o panorama). */
+function falhaTurmas(error: { code?: string; message: string }): never {
+  if (ausente(error)) throw new TurmasIndisponiveis();
+  if (error.code === '42501') throw new Error('somente administradores podem alterar o panorama de matrícula.');
+  throw new Error(error.message);
+}
+
+function criarPanoramasSupabase(sb: SupabaseClient): PanoramasApi {
+  return {
+    async listar() {
+      const { data, error } = await sb.from('panoramas').select('ano, fonte, unidades, turmas, alunos, atualizado_em, atualizado_por').order('ano', { ascending: false });
+      if (error) falhaTurmas(error);
+      return (data ?? []).map((l) => {
+        const r = doBanco<Record<string, unknown>>(l);
+        return { ano: Number(r.ano), fonte: String(r.fonte), unidades: Number(r.unidades), turmas: Number(r.turmas), alunos: Number(r.alunos), atualizado_em: String(l.atualizado_em ?? ''), atualizado_por: String(l.atualizado_por ?? '') };
+      });
+    },
+    async obter(ano) {
+      const { data, error } = await sb.from('panoramas').select('dados').eq('ano', ano).maybeSingle();
+      if (error) falhaTurmas(error);
+      return data ? expandir((data as { dados: PanoramaCompacto }).dados) : null;
+    },
+    async salvar(p) {
+      const n = contarPanorama(p);
+      const { error } = await sb
+        .from('panoramas')
+        .upsert({ ano: p.ano, fonte: p.fonte, unidades: n.unidades, turmas: n.turmas, alunos: n.alunos, dados: compactar(p) }, { onConflict: 'ano' });
+      if (error) falhaTurmas(error);
+    },
+    async excluir(ano) {
+      const { error } = await sb.from('panoramas').delete().eq('ano', ano);
+      if (error) falhaTurmas(error);
+    },
+  };
+}
+
+function criarChecklistsSupabase(sb: SupabaseClient): ChecklistsApi {
+  const daLinha = (l: Record<string, unknown>): ChecklistUnidade => ({
+    unidade_id: String(l.unidade_id),
+    ano: Number(l.ano),
+    arquivo: String(l.arquivo ?? ''),
+    turmas: ((l.dados as { turmas?: Record<string, RespostasTurma> } | null)?.turmas ?? {}),
+    atualizado_em: String(l.atualizado_em ?? ''),
+    atualizado_por: String(l.atualizado_por ?? ''),
+  });
+  return {
+    async listar() {
+      const { data, error } = await sb.from('checklists').select('unidade_id, ano, arquivo, turmas_respondidas, itens_pendentes, atualizado_em, atualizado_por');
+      if (error) falhaTurmas(error);
+      return (data ?? []).map((l) => ({
+        unidade_id: String(l.unidade_id),
+        ano: Number(l.ano),
+        arquivo: String(l.arquivo ?? ''),
+        turmas: Number(l.turmas_respondidas ?? 0),
+        pendentes: Number(l.itens_pendentes ?? 0),
+        atualizado_em: String(l.atualizado_em ?? ''),
+        atualizado_por: String(l.atualizado_por ?? ''),
+      }));
+    },
+    async obter(unidadeId, ano) {
+      const { data, error } = await sb.from('checklists').select('*').eq('unidade_id', unidadeId).eq('ano', ano).maybeSingle();
+      if (error) falhaTurmas(error);
+      return data ? daLinha(data as Record<string, unknown>) : null;
+    },
+    async salvar(c) {
+      const r = resumirChecklist(c);
+      const { data, error } = await sb
+        .from('checklists')
+        .upsert(
+          { unidade_id: c.unidade_id, ano: c.ano, arquivo: c.arquivo, turmas_respondidas: r.turmas, itens_pendentes: r.pendentes, dados: { turmas: c.turmas } },
+          { onConflict: 'unidade_id,ano' },
+        )
+        .select()
+        .single();
+      if (error) falhaTurmas(error);
+      return daLinha(data as Record<string, unknown>);
+    },
+    async excluir(unidadeId, ano) {
+      const { error } = await sb.from('checklists').delete().eq('unidade_id', unidadeId).eq('ano', ano);
+      if (error) falhaTurmas(error);
+    },
+  };
+}
+
 export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
 
   async function inserirEmLotes(tabela: NomeTabela, registros: object[]) {
     for (let i = 0; i < registros.length; i += TAMANHO_LOTE) {
-      const { error } = await sb.from(tabela).insert(registros.slice(i, i + TAMANHO_LOTE).map(paraBanco));
+      const { error } = await sb.from(tabela).insert(registros.slice(i, i + TAMANHO_LOTE).map((r) => semColunasVazias(tabela, paraBanco(r))));
       verificar(error);
     }
   }
@@ -289,6 +406,8 @@ export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
     modo: 'supabase',
     anexos: criarAnexosSupabase(sb),
     conferencias: criarConferenciasSupabase(sb),
+    panoramas: criarPanoramasSupabase(sb),
+    checklists: criarChecklistsSupabase(sb),
     async carregar(): Promise<Snapshot> {
       const [unidades, auditorias, avaliacoes, acoes] = await Promise.all([
         lerTudo(sb, 'unidades'),
@@ -301,7 +420,7 @@ export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
     async salvar(tabela, registro) {
       const { error } = await sb
         .from(tabela)
-        .upsert(paraBanco(registro), { onConflict: (CHAVES[tabela] as string[]).join(',') });
+        .upsert(semColunasVazias(tabela, paraBanco(registro)), { onConflict: (CHAVES[tabela] as string[]).join(',') });
       verificar(error);
     },
     async salvarVarios(tabela, registros) {
@@ -309,7 +428,7 @@ export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
       for (let i = 0; i < registros.length; i += TAMANHO_LOTE) {
         const { error } = await sb
           .from(tabela)
-          .upsert(registros.slice(i, i + TAMANHO_LOTE).map(paraBanco), { onConflict: conflito });
+          .upsert(registros.slice(i, i + TAMANHO_LOTE).map((r) => semColunasVazias(tabela, paraBanco(r))), { onConflict: conflito });
         verificar(error);
       }
     },
@@ -336,9 +455,17 @@ export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
   };
 }
 
-/** Verifica se o e-mail autenticado está na tabela de membros autorizados. */
-export async function verificarMembro(): Promise<boolean> {
-  const { data, error } = await supabase().from('membros').select('email').limit(1);
-  if (error) throw new Error(error.message);
-  return (data ?? []).length > 0;
+/** Verifica se o e-mail autenticado está na tabela de membros autorizados e se é administrador. */
+export async function verificarMembro(): Promise<{ membro: boolean; admin: boolean }> {
+  const sb = supabase();
+  const { data, error } = await sb.from('membros').select('email, admin').limit(1);
+  if (error) {
+    // 42703 = coluna inexistente: banco com o script antigo, ainda sem administradores.
+    if (error.code !== '42703') throw new Error(error.message);
+    const antigo = await sb.from('membros').select('email').limit(1);
+    if (antigo.error) throw new Error(antigo.error.message);
+    return { membro: (antigo.data ?? []).length > 0, admin: false };
+  }
+  const linha = (data ?? [])[0] as { admin?: boolean } | undefined;
+  return { membro: !!linha, admin: !!linha?.admin };
 }

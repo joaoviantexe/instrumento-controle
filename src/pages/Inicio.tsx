@@ -157,7 +157,7 @@ export function Inicio() {
               <h2 id="prox-aud" className="titulo-bloco">
                 {fraseado(TEXTOS.planoAuditoria.titulo)}
               </h2>
-              <Link to="/plano-de-auditoria" className="btn btn--contorno btn--pequeno">
+              <Link to="/plano-de-visita-tecnica" className="btn btn--contorno btn--pequeno">
                 Ver todas
               </Link>
             </div>

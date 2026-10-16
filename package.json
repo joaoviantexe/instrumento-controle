@@ -11,6 +11,7 @@
     "test": "vitest run",
     "typecheck": "tsc -b",
     "extrair": "python3 scripts/planilha/extrair_planilha.py",
+    "panorama:extrair": "node scripts/panorama/extrair.mjs",
     "cme:atualizar": "node scripts/cme/atualizar.mjs",
     "diario:coletar": "node scripts/diario/coletar.mjs",
     "diario:analisar": "node scripts/diario/analisar.mjs"
@@ -23,6 +24,7 @@
     "@fontsource/poppins": "^5.3.0",
     "@supabase/supabase-js": "^2.117.2",
     "exceljs": "^4.4.0",
+    "jszip": "^3.10.2",
     "lucide-react": "^1.52.0",
     "pdfjs-dist": "^4.10.38",
     "react": "^19.3.0",

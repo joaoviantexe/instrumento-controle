@@ -322,3 +322,85 @@ alter table public.conferencias enable row level security;
 drop policy if exists "membros autorizados" on public.conferencias;
 create policy "membros autorizados" on public.conferencias for all to authenticated
   using (public.is_membro()) with check (public.is_membro());
+
+-- ---------------------------------------------------------------------
+-- Administradores: membros com admin = true atualizam o Panorama de
+-- Matrícula (as turmas de cada ano). Os demais membros só consultam.
+-- ---------------------------------------------------------------------
+alter table public.membros add column if not exists admin boolean not null default false;
+
+create or replace function public.is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1 from public.membros m
+    where lower(m.email) = lower(coalesce(auth.jwt() ->> 'email', '')) and m.admin
+  );
+$$;
+
+-- Administrador da DIPLAN. Falta só criar o usuário em Authentication > Users (com o mesmo e-mail).
+insert into public.membros (email, nome, admin)
+values ('marcelinocoelho.diplan@gmail.com', 'Administrador (DIPLAN)', true)
+on conflict (email) do update set admin = true;
+
+-- ---------------------------------------------------------------------
+-- Panorama de Matrícula (relatório do SIGA): as turmas de cada unidade, um registro por ano.
+-- O ano embutido no site (src/data/panoramas) vale até o administrador enviar outro para o mesmo ano.
+-- ---------------------------------------------------------------------
+create table if not exists public.panoramas (
+  ano            integer primary key check (ano between 2000 and 2100),
+  fonte          text,
+  unidades       integer not null default 0,
+  turmas         integer not null default 0,
+  alunos         integer not null default 0,
+  dados          jsonb not null,             -- unidades e turmas (forma compacta, ver src/lib/panorama.ts)
+  atualizado_em  timestamptz not null default now(),
+  atualizado_por text
+);
+
+drop trigger if exists marcar_atualizacao on public.panoramas;
+create trigger marcar_atualizacao before insert or update on public.panoramas
+  for each row execute function public.marcar_atualizacao();
+
+alter table public.panoramas enable row level security;
+drop policy if exists "membros consultam" on public.panoramas;
+create policy "membros consultam" on public.panoramas for select to authenticated
+  using (public.is_membro());
+drop policy if exists "administradores alteram" on public.panoramas;
+create policy "administradores alteram" on public.panoramas for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
+-- ---------------------------------------------------------------------
+-- Checklist da Secretaria Escolar: a última planilha enviada de cada unidade, por ano
+-- (respostas por turma e item). Sem chave estrangeira: restaurar os dados não a apaga.
+-- ---------------------------------------------------------------------
+create table if not exists public.checklists (
+  unidade_id         text not null,
+  ano                integer not null,
+  arquivo            text,
+  turmas_respondidas integer not null default 0,
+  itens_pendentes    integer not null default 0,
+  dados              jsonb not null,         -- { "turmas": { "C11101": { "INS-01": { "situacao": ... } } } }
+  atualizado_em      timestamptz not null default now(),
+  atualizado_por     text,
+  primary key (unidade_id, ano)
+);
+
+drop trigger if exists marcar_atualizacao on public.checklists;
+create trigger marcar_atualizacao before insert or update on public.checklists
+  for each row execute function public.marcar_atualizacao();
+
+alter table public.checklists enable row level security;
+drop policy if exists "membros autorizados" on public.checklists;
+create policy "membros autorizados" on public.checklists for all to authenticated
+  using (public.is_membro()) with check (public.is_membro());
+
+-- O que a secretaria declarou na checklist entra na Auditoria Documental como autodeclaração:
+-- verificacao = 'Pendente' até a CDE conferir ('Verificado'). Vazio = avaliação feita pela própria CDE.
+alter table public.avaliacoes add column if not exists declarado   text;
+alter table public.avaliacoes add column if not exists declaracao  text;
+alter table public.avaliacoes add column if not exists verificacao text;

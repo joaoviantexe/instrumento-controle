@@ -2716,3 +2716,156 @@ main {
   flex-wrap: wrap;
   font-size: 0.9rem;
 }
+
+/* ---------------------------------------------------------------------
+   Checklist da secretaria escolar, situação dos documentos e turmas
+   --------------------------------------------------------------------- */
+.tabela--compacta td {
+  padding: 7px 10px;
+}
+.tabela--compacta th {
+  padding: 8px 10px;
+}
+.texto-conforme {
+  color: var(--s-conforme-tx) !important;
+}
+.texto-nc {
+  color: var(--s-nc-tx) !important;
+}
+.texto-alerta {
+  color: var(--alerta) !important;
+}
+.metricas--compactas {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+.metricas--compactas > div {
+  padding: 10px 12px;
+}
+.metricas--compactas strong {
+  font-size: 1.25rem;
+}
+.situacao-docs {
+  display: grid;
+  gap: 14px;
+}
+.situacao-docs__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+.situacao-docs__aud,
+.seletor-ano {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--tinta-2);
+}
+.situacao-docs__aud select,
+.seletor-ano select {
+  font: inherit;
+  padding: 5px 10px;
+  border: 1px solid var(--borda-forte);
+  border-radius: var(--raio);
+  background: var(--superficie);
+  color: var(--tinta);
+  max-width: min(100%, 520px);
+}
+.situacao-docs__aviso {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--raio);
+  background: var(--alerta-claro);
+  color: var(--tinta);
+  font-size: 0.86rem;
+}
+.situacao-docs__aviso svg {
+  flex-shrink: 0;
+  color: var(--alerta);
+  margin-top: 2px;
+}
+.situacao-docs__item {
+  display: inline-flex;
+  gap: 8px;
+  align-items: baseline;
+  font-weight: 500 !important;
+  color: var(--tinta) !important;
+}
+.checklist-status {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  background: var(--superficie-2);
+}
+.checklist-status svg {
+  flex-shrink: 0;
+  color: var(--verde-texto);
+}
+.checklist-acoes {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.checklist-acoes > .btn {
+  align-self: center;
+}
+.checklist-acoes__drop {
+  flex: 1;
+  min-width: min(100%, 320px);
+}
+.verificacao__acoes {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.item-aud--destaque {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+  transition: outline-color 0.6s;
+}
+.panoramas__anos td {
+  vertical-align: middle;
+}
+.progresso-lote {
+  display: grid;
+  gap: 6px;
+}
+.checklist-acoes__gerar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-self: center;
+}
+.checklist-cadastro {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--azul-borda);
+  border-radius: var(--raio);
+  background: var(--azul-claro);
+}
+.checklist-cadastro legend {
+  padding: 0 6px;
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  color: var(--azul);
+}
+.checklist-cadastro__campo {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 0.86rem;
+  overflow-wrap: anywhere;
+}

@@ -14,6 +14,23 @@ import {
 import { hashArquivo, verificarEspaco } from './anexos';
 import { indexarConferencias, type ChaveConferencia, type Conferencia, type Decisao, type FonteAto, type MapaConferencias } from './conferencias';
 import { avisar } from './avisos';
+import type { ChecklistUnidade, InfoChecklist } from './checklist';
+import { associarUnidades, contarPanorama, type Panorama } from './panorama';
+import { ANOS_EMBUTIDOS, carregarPanoramaEmbutido } from '../data/panoramas';
+
+/** Um ano do Panorama de Matrícula disponível: embutido no site ou enviado pelo administrador (que prevalece). */
+export interface InfoPanorama {
+  ano: number;
+  fonte: string;
+  unidades: number;
+  turmas: number;
+  alunos: number;
+  origem: 'embutido' | 'enviado';
+  /** Enviado para um ano que também está embutido no site. */
+  substituiEmbutido: boolean;
+  atualizado_em: string;
+  atualizado_por: string;
+}
 
 interface Derivados {
   mapaAvaliacoes: MapaAvaliacoes;
@@ -46,6 +63,21 @@ export interface Dados extends Snapshot, Derivados {
   conferir(c: { fonte: FonteAto; ato_id: string; unidade_id: string; decisao: Decisao; nota?: string }): Promise<void>;
   /** Desfaz a decisão: a associação volta a ser a do arquivo de dados. */
   desfazerConferencia(chave: ChaveConferencia): Promise<void>;
+  /** Anos do Panorama de Matrícula, do mais recente ao mais antigo. */
+  panoramas: InfoPanorama[];
+  panoramasErro: string | null;
+  /** Turmas do ano (o enviado pelo administrador prevalece sobre o embutido), ligadas ao cadastro atual. */
+  obterPanorama(ano: number): Promise<Panorama | null>;
+  salvarPanorama(p: Panorama): Promise<void>;
+  /** Remove o panorama enviado do ano (o embutido, se houver, volta a valer). */
+  excluirPanorama(ano: number): Promise<void>;
+  /** Checklists da secretaria escolar já enviadas (resumo). */
+  checklists: InfoChecklist[];
+  obterChecklist(unidadeId: string, ano: number): Promise<ChecklistUnidade | null>;
+  salvarChecklist(c: Omit<ChecklistUnidade, 'atualizado_em' | 'atualizado_por'>): Promise<ChecklistUnidade>;
+  excluirChecklist(unidadeId: string, ano: number): Promise<void>;
+  /** Grava vários itens da Auditoria Documental de uma vez (ex.: a checklist da secretaria aplicada). */
+  salvarAvaliacoes(lista: Avaliacao[]): Promise<void>;
   carregando: boolean;
   erro: string | null;
   recarregar(): Promise<void>;
@@ -76,11 +108,43 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
   const [anexosErro, setAnexosErro] = useState<string | null>(null);
   const [conferencias, setConferencias] = useState<Conferencia[]>([]);
   const [conferenciasErro, setConferenciasErro] = useState<string | null>(null);
+  const [panoramas, setPanoramas] = useState<InfoPanorama[]>([]);
+  const [panoramasErro, setPanoramasErro] = useState<string | null>(null);
+  const [checklists, setChecklists] = useState<InfoChecklist[]>([]);
+  /** Panoramas já carregados, por ano (cada arquivo é grande: só é buscado uma vez). */
+  const cachePanoramas = useRef(new Map<number, Promise<Panorama | null>>());
   const snapRef = useRef(snap);
   snapRef.current = snap;
   const unificando = useRef(false);
   const anexosRef = useRef(anexos);
   anexosRef.current = anexos;
+
+  /** Lista os anos: os enviados (banco) e os embutidos que não foram substituídos. */
+  const listarPanoramas = useCallback(async () => {
+    let enviados: Awaited<ReturnType<Backend['panoramas']['listar']>> = [];
+    try {
+      enviados = await backend.panoramas.listar();
+      setPanoramasErro(null);
+    } catch (e) {
+      // Sem a tabela, os anos embutidos continuam valendo.
+      setPanoramasErro((e as Error).message);
+    }
+    const lista: InfoPanorama[] = enviados.map((p) => ({ ...p, origem: 'enviado', substituiEmbutido: ANOS_EMBUTIDOS.includes(p.ano) }));
+    for (const ano of ANOS_EMBUTIDOS.filter((a) => !lista.some((p) => p.ano === a))) {
+      const p = await carregarPanoramaEmbutido(ano);
+      if (p) lista.push({ ano, fonte: p.fonte, ...contarPanorama(p), origem: 'embutido', substituiEmbutido: false, atualizado_em: '', atualizado_por: '' });
+    }
+    setPanoramas(lista.sort((a, b) => b.ano - a.ano));
+  }, [backend]);
+
+  const listarChecklists = useCallback(async () => {
+    try {
+      setChecklists(await backend.checklists.listar());
+    } catch {
+      // Opcional: sem a tabela, a página da unidade avisa ao tentar enviar.
+      setChecklists([]);
+    }
+  }, [backend]);
 
   const recarregar = useCallback(async () => {
     try {
@@ -113,12 +177,15 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         setConferencias([]);
         setConferenciasErro((e as Error).message);
       }
+      cachePanoramas.current.clear();
+      void listarPanoramas();
+      void listarChecklists();
     } catch (e) {
       setErro((e as Error).message);
     } finally {
       setCarregando(false);
     }
-  }, [backend]);
+  }, [backend, listarPanoramas, listarChecklists]);
 
   useEffect(() => {
     void recarregar();
@@ -330,6 +397,65 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         await backend.conferencias.excluir(chave);
         setConferencias((l) => l.filter((x) => !(x.fonte === chave.fonte && x.ato_id === chave.ato_id && x.unidade_id === chave.unidade_id)));
       },
+      obterPanorama(ano: number) {
+        let p = cachePanoramas.current.get(ano);
+        if (!p) {
+          p = (async () => {
+            let bruto: Panorama | null = null;
+            try {
+              bruto = await backend.panoramas.obter(ano);
+            } catch {
+              /* sem a tabela: vale o embutido */
+            }
+            bruto ??= await carregarPanoramaEmbutido(ano);
+            if (!bruto) return null;
+            // A ligação gravada vale enquanto a unidade existir; unidades novas ou excluídas do cadastro são religadas.
+            const gravadas = new Map(bruto.unidades.filter((u) => u.unidade_id).map((u) => [u.codigo, u.unidade_id]));
+            return associarUnidades(bruto, snapRef.current.unidades, gravadas);
+          })();
+          p.catch(() => cachePanoramas.current.delete(ano));
+          cachePanoramas.current.set(ano, p);
+        }
+        return p;
+      },
+      async salvarPanorama(p: Panorama) {
+        await backend.panoramas.salvar(p);
+        cachePanoramas.current.delete(p.ano);
+        await listarPanoramas();
+      },
+      async excluirPanorama(ano: number) {
+        await backend.panoramas.excluir(ano);
+        cachePanoramas.current.delete(ano);
+        await listarPanoramas();
+      },
+      obterChecklist: (unidadeId: string, ano: number) => backend.checklists.obter(unidadeId, ano),
+      async salvarChecklist(c: Omit<ChecklistUnidade, 'atualizado_em' | 'atualizado_por'>) {
+        const salva = await backend.checklists.salvar(c);
+        await listarChecklists();
+        return salva;
+      },
+      async excluirChecklist(unidadeId: string, ano: number) {
+        await backend.checklists.excluir(unidadeId, ano);
+        await listarChecklists();
+      },
+      async salvarAvaliacoes(lista: Avaliacao[]) {
+        if (!lista.length) return;
+        const ids = new Set(lista.map((a) => a.auditoria_id));
+        const iniciar = snapRef.current.auditorias.filter((a) => ids.has(a.id) && !a.iniciada).map((a) => ({ ...a, iniciada: true }));
+        const chave = (a: Avaliacao) => `${a.auditoria_id}:${a.item}`;
+        const novas = new Map(lista.map((a) => [chave(a), a]));
+        await executar(
+          (s) => ({
+            ...s,
+            auditorias: s.auditorias.map((a) => iniciar.find((x) => x.id === a.id) ?? a),
+            avaliacoes: [...s.avaliacoes.filter((a) => !novas.has(chave(a))), ...novas.values()],
+          }),
+          async () => {
+            if (iniciar.length) await backend.salvarVarios('auditorias', iniciar);
+            await backend.salvarVarios('avaliacoes', lista);
+          },
+        );
+      },
       async importarRegistros(s: Snapshot) {
         try {
           await backend.salvarVarios('unidades', s.unidades);
@@ -345,11 +471,11 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
         await recarregar();
       },
     };
-  }, [backend, executar, recarregar, limparAnexos]);
+  }, [backend, executar, recarregar, limparAnexos, listarPanoramas, listarChecklists]);
 
   const valor = useMemo<Dados>(
-    () => ({ ...snap, ...derivados, ...acoes, anexos, anexosErro, conferencias, mapaConferencias: indexarConferencias(conferencias), conferenciasErro, destinoAnexos: backend.anexos.destinoNovo, modo: backend.modo, carregando, erro, recarregar }),
-    [snap, derivados, acoes, anexos, anexosErro, conferencias, conferenciasErro, backend, carregando, erro, recarregar],
+    () => ({ ...snap, ...derivados, ...acoes, anexos, anexosErro, conferencias, mapaConferencias: indexarConferencias(conferencias), conferenciasErro, panoramas, panoramasErro, checklists, destinoAnexos: backend.anexos.destinoNovo, modo: backend.modo, carregando, erro, recarregar }),
+    [snap, derivados, acoes, anexos, anexosErro, conferencias, conferenciasErro, panoramas, panoramasErro, checklists, backend, carregando, erro, recarregar],
   );
 
   return <Contexto.Provider value={valor}>{children}</Contexto.Provider>;

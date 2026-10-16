@@ -7,7 +7,7 @@ import { Nota } from './ui';
 
 const TABELAS = [
   { chave: 'unidades', nome: 'Cadastro Unidades' },
-  { chave: 'auditorias', nome: 'Plano de Auditoria' },
+  { chave: 'auditorias', nome: 'Plano de Visita Técnica' },
   { chave: 'avaliacoes', nome: 'Auditoria Documental' },
   { chave: 'acoes', nome: 'Plano de Ação' },
 ] as const;
@@ -70,7 +70,7 @@ export function ImportarPlanilha() {
       <div className="cartao__corpo" style={{ display: 'grid', gap: 14 }}>
         <p className="texto-muted pequeno">
           Envie a planilha atualizada (a original ou uma gerada por <strong>Exportar Excel</strong>). O sistema reconhece as abas
-          Cadastro Unidades, Plano de Auditoria, Auditoria Documental e Plano de Ação, compara com os dados atuais e mostra o que
+          Cadastro Unidades, Plano de Visita Técnica (ou Plano de Auditoria, nas planilhas antigas), Auditoria Documental e Plano de Ação, compara com os dados atuais e mostra o que
           será criado e alterado antes de gravar. As unidades são identificadas pelo INEP (ou pelo nome), as auditorias e as ações
           pelo ID. <strong>Nada é excluído</strong>: registros que não estiverem na planilha permanecem como estão.
         </p>

@@ -12,13 +12,14 @@ Este manual descreve cada tela e recurso da aplicação. A aplicação reproduz 
 3. [Instruções](#3-instruções)
 4. [Cadastro Unidades](#4-cadastro-unidades)
 5. [Lista Mestra](#5-lista-mestra)
-6. [Plano de Auditoria](#6-plano-de-auditoria)
+6. [Plano de Visita Técnica](#6-plano-de-visita-técnica)
 7. [Auditoria Documental](#7-auditoria-documental)
 8. [Checklist da Visita](#8-checklist-da-visita)
 9. [Plano de Ação](#9-plano-de-ação)
 10. [Dashboard](#10-dashboard)
 11. [Relatórios](#11-relatórios)
 12. [Dados e planilhas](#12-dados-e-planilhas)
+    - [12-B. Turmas e checklist da secretaria escolar](#12-b-turmas-e-checklist-da-secretaria-escolar)
 13. [Como a pontuação é calculada](#13-como-a-pontuação-é-calculada)
 14. [Navegação e impressão](#14-navegação-e-impressão)
 15. [Acesso, login e modos de armazenamento](#15-acesso-login-e-modos-de-armazenamento)
@@ -31,7 +32,7 @@ Este manual descreve cada tela e recurso da aplicação. A aplicação reproduz 
 O fluxo segue a aba **Instruções** da planilha:
 
 ```
-Cadastro Unidades → Plano de Auditoria → Auditoria Documental → (Checklist da Visita)
+Cadastro Unidades → Plano de Visita Técnica → Auditoria Documental → (Checklist da Visita)
                                                   ↓
                           Plano de Ação ← não conformidades relevantes
                                                   ↓
@@ -59,7 +60,7 @@ Para abrir o dia sabendo **o que fazer primeiro**:
 - **Instruções de uso** — os **8 passos** do fluxo, cada um com **barra de progresso real** (ex.: "166 de 217 com Data da atualização")
   e o botão **Acessar**. O **próximo passo** (primeira etapa de andamento ainda incompleta) vem destacado em verde.
 - **Plano de ação corretiva**: as 6 ações em aberto com prazo mais próximo (dias restantes em vermelho quando vencidos).
-- **Plano de auditoria documental**: as próximas auditorias agendadas, em execução ou planejadas com data.
+- **Plano de visita técnica**: as próximas auditorias agendadas, em execução ou planejadas com data.
 - **Fontes incorporadas ao instrumento**.
 - Aviso quando o banco está vazio, com o caminho para carregar os dados da planilha.
 
@@ -86,10 +87,11 @@ Base territorial com as **217 unidades** (175 municipais e 42 OSC/conveniadas) d
 
 **Detalhe da unidade** (clique na linha)
 - Todos os 26 campos da planilha agrupados em *Identificação*, *Endereço*, *Atos legais*, *Responsáveis* e *Observações cadastrais*.
-- Histórico de auditorias da unidade e suas ações corretivas, com atalhos.
+- No fim da página: **Situação dos documentos da auditoria**, **Checklist da secretaria escolar** e **Turmas** (veja a [seção 12-B](#12-b-turmas-e-checklist-da-secretaria-escolar)).
+  As auditorias e ações da unidade são abertas pela Situação dos documentos (botão *Abrir a Auditoria Documental*), pelo Plano de Visita Técnica e pelo Plano de Ação.
 - **Editar**: painel lateral com todos os campos. A *Data da atualização* é preenchida com a data de hoje ao salvar.
   A *Vigência do ato* aceita data (DD/MM/AAAA) ou texto (ex.: DEFINITIVO), como na planilha.
-- **Nova auditoria**: abre o formulário do Plano de Auditoria já com a unidade selecionada.
+- **Nova auditoria**: abre o formulário do Plano de Visita Técnica já com a unidade selecionada.
 - **Excluir unidade**: só é permitido se a unidade não tiver auditorias. Caso tenha, a aplicação orienta a alterar a
   *Situação* para EXTINTA ou PARALISADA.
 
@@ -107,7 +109,7 @@ Os **53 registros** do Checklist da CDE: 41 itens técnicos (peso 1 a 3) e 12 it
 A Lista Mestra é a definição do instrumento: não é editável pela interface, para que todas as auditorias usem os mesmos critérios.
 Alterações de critérios devem ser feitas em `scripts/planilha/extrair_planilha.py` / na planilha-fonte (ver [README](../../README.md)).
 
-## 6. Plano de Auditoria
+## 6. Plano de Visita Técnica
 
 Programação das verificações por unidade — uma linha por auditoria (**217** iniciais, `AUD-001` a `AUD-217`).
 
@@ -132,7 +134,7 @@ Acompanhamento de pendências, Verificação temática, Autoavaliação da unida
 
 A tela de trabalho principal: avaliação dos 53 registros de uma auditoria.
 
-1. Escolha a auditoria no campo de busca (por ID ou nome da unidade) — ou chegue aqui pelo Plano de Auditoria.
+1. Escolha a auditoria no campo de busca (por ID ou nome da unidade) — ou chegue aqui pelo Plano de Visita Técnica.
 2. O cabeçalho mostra ID, data, distrito, bairro, auditor(a)/equipe, tipo, situação e o **resumo** (itens previstos, avaliados,
    índice ponderado, NC críticas e checklist concluído), que se atualiza a cada clique.
 3. Em cada item, escolha a **Situação**: *Conforme, Parcialmente conforme, Não conforme, Não se aplica* ou *Não avaliado*.
@@ -189,7 +191,7 @@ Painel executivo, com filtro por **Distrito**:
 - **Índice ponderado por seção** e **Índice global por distrito** — mostram **onde** a conformidade está mais fraca
   (aparecem quando há itens avaliados; antes disso, orientam a abrir a Auditoria Documental).
 - **Unidades cadastradas por distrito e vínculo** — barras empilhadas Municipal × OSC/Conveniada.
-- **Plano de auditoria documental** e **Plano de ação corretiva** — situação de cada um, com **Prazo expirado**.
+- **Plano de visita técnica** e **Plano de ação corretiva** — situação de cada um, com **Prazo expirado**.
 - **Qualidade do cadastro territorial** — cobertura de logradouro, CEP, telefone, e-mail e situação ativa.
 - **Abrangência do Checklist por seção** — itens em cada seção.
 - **Legenda de gestão**.
@@ -210,12 +212,12 @@ Para as reuniões de gestão:
 
 ## 12. Dados e planilhas
 
-A tela tem uma faixa de estado (banco usado e onde os PDFs são guardados) e três abas: **Planilhas** (exportar e atualizar por planilha), **Anexos (PDF)** (anexos, arquivos distintos, espaço usado e economizado, barras de armazenamento e de operações do mês no Cloudflare R2, e a migração do Supabase para o R2) e **Avançado** (restaurar os dados originais).
+A tela tem uma faixa de estado (banco usado e onde os PDFs são guardados) e as abas: **Planilhas** (exportar e atualizar por planilha), **Turmas e checklists** (veja a seção 12-B), **Anexos (PDF)** (anexos, arquivos distintos, espaço usado e economizado, barras de armazenamento e de operações do mês no Cloudflare R2, e a migração do Supabase para o R2) e **Avançado** (restaurar os dados originais).
 
-- **Planilha completa**: gera um `.xlsx` com as abas *Cadastro Unidades, Lista Mestra, Plano de Auditoria, Auditoria Documental,
+- **Planilha completa**: gera um `.xlsx` com as abas *Cadastro Unidades, Lista Mestra, Plano de Visita Técnica, Auditoria Documental,
   Plano de Ação* e *Relatórios*, com os mesmos cabeçalhos da planilha original (datas e percentuais formatados, filtros e primeira linha fixa).
 - **Atualizar dados com uma planilha**: envie um `.xlsx` (a planilha original atualizada ou o arquivo gerado por *Exportar Excel*).
-  O sistema reconhece as abas *Cadastro Unidades, Plano de Auditoria, Auditoria Documental* e *Plano de Ação* (pelo nome da aba ou pelos
+  O sistema reconhece as abas *Cadastro Unidades, Plano de Visita Técnica, Auditoria Documental* e *Plano de Ação* (pelo nome da aba ou pelos
   cabeçalhos; a ordem das colunas não importa) e **mostra, antes de gravar**, quantos registros são novos, quantos mudam e quantos ficam iguais
   (clicando no número de alterados vê-se campo a campo o que muda: ~~antes~~ → depois). Só então **Aplicar** grava.
   - *Como cada registro é reconhecido:* unidades pelo **nome** (ou pelo **INEP**, quando ele é único — o INEP se repete entre sede e anexos);
@@ -227,6 +229,42 @@ A tela tem uma faixa de estado (banco usado e onde os PDFs são guardados) e tr�
 - **Dados da planilha**: recarrega as 217 unidades e 217 auditorias do arquivo original. No banco vazio, é o botão
   **Carregar dados da planilha** (primeira configuração).
 - Todas as operações destrutivas pedem confirmação.
+
+## 12-B. Turmas e checklist da secretaria escolar
+
+**Panorama de Matrícula (turmas).** O relatório *Panorama de Matrícula* do SIGA (uma linha por turma) define as turmas de cada unidade em cada
+ano. O de **2026** já vem no site (`dados/panorama-matricula/`); para outros anos, um **administrador** envia a planilha em
+*Dados e planilhas → Turmas e checklists → Atualizar o panorama de um ano* (os demais membros só consultam). As unidades do panorama são ligadas
+ao Cadastro pelo código da SEMEC já conhecido, pelo INEP e, para sede e anexos que dividem o INEP, pelo nome; a prévia mostra as que não foram encontradas.
+
+**Turmas na página da unidade.** Turmas agrupadas por etapa (Educação Infantil, Fundamental, EJA…), com série, turno, alunos, capacidade, vagas
+(negativas em vermelho: turma acima da capacidade), alunos da educação especial e a situação da checklist de cada turma. Em cima: total de turmas e
+alunos, ocupação e, quando há o ano anterior, turmas novas, turmas que deixaram de existir e a variação de alunos.
+
+**Checklist da secretaria escolar (Excel).** A planilha segue o modelo da CDE (`dados/modelos/Checklist_Secretaria_Escolar.xlsx`): aba **Unidade**
+(identificação, endereço e responsáveis, do Cadastro), aba **Turmas** (as turmas do ano) e uma aba **Checklist - TURMA** por turma com os
+34 documentos das seções 1 a 5 da Lista Mestra (Situação, Última atualização, Prazo, Responsável e Observação, com listas suspensas e a
+formatação em vermelho do que está pendente).
+
+- **Gerar com dados**: cada documento sai com a situação atual — o que a CDE avaliou ou verificou (marcado "Avaliado pela CDE" na Observação,
+  repetido em todas as turmas, porque a auditoria tem uma situação por documento para a unidade) e, onde a CDE ainda não avaliou, a última resposta
+  da secretaria em cada turma.
+- **Gerar em branco**: tudo como *Não avaliado*.
+- **Enviar a checklist preenchida** (arraste o .xlsx ou *Escolher arquivo*): o sistema lê as abas e mostra uma **prévia** antes de gravar:
+  - a situação declarada de cada documento, juntando as turmas: todas Conforme → *Conforme*; nenhuma Conforme e alguma Não conforme →
+    *Não conforme*; misturado → *Parcialmente conforme*; todas Não se aplica → *Não se aplica*. Turmas do panorama sem aba contam como não avaliadas;
+  - o que acontece com cada item na auditoria escolhida (ou numa nova, do tipo *Autoavaliação da unidade*): **entra marcado "requer verificação da CDE"**
+    (é uma autodeclaração, sem prova) ou **mantém a avaliação da CDE** — o que a CDE avaliou nunca é substituído; se a secretaria declarar outra coisa,
+    a divergência é apontada;
+  - os **dados da aba Unidade diferentes do Cadastro** (ex.: diretor, telefone), cada um com uma caixa: os marcados atualizam o Cadastro ao salvar.
+    Nome e INEP não mudam por aqui e células vazias não apagam nada;
+  - aviso se a planilha parecer de outra unidade (é preciso confirmar).
+- **Na Auditoria Documental**, os itens autodeclarados mostram a declaração (turmas, data, observações) e o botão **Confirmar**; escolher outra situação
+  também conta como verificação. O filtro **Requer verificação da CDE** mostra só esses itens (e os que divergem).
+- **Situação dos documentos da auditoria** (página da unidade): avaliados, conformes, parciais, não conformes, não se aplica e o que requer verificação,
+  com a lista dos 53 documentos (situação, quem respondeu por ela, o que a secretaria declarou e PDFs) e atalho para cada item.
+- Em *Dados e planilhas → Turmas e checklists* há a lista de unidades com a situação da checklist do ano, o botão **Gerar** de cada uma e
+  **Baixar todas (.zip)**, com ou sem dados, filtrando por distrito.
 
 ## 12-A. Anexos em PDF
 

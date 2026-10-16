@@ -63,6 +63,25 @@ A pessoa já pode entrar em o endereço do site (Cloudflare) com o e-mail e a se
 
 ---
 
+## Administradores
+
+Membros com `admin = true` atualizam o **Panorama de Matrícula** (as turmas de cada ano, em *Dados e planilhas → Turmas e checklists*). O
+banco recusa a gravação de quem não é administrador, mesmo que a tela seja burlada. O `supabase/schema.sql` já cadastra como administrador
+**marcelinocoelho.diplan@gmail.com**; falta só criar o usuário dele no Passo 1 (*Authentication → Users → Add user*, com esse e-mail).
+
+```sql
+-- Tornar administrador (a pessoa precisa estar em membros)
+update public.membros set admin = true where lower(email) = lower('nome@semec.belem.pa.gov.br');
+
+-- Tirar de administrador (continua com acesso normal)
+update public.membros set admin = false where lower(email) = lower('nome@semec.belem.pa.gov.br');
+
+-- Quem é administrador
+select email, nome from public.membros where admin order by email;
+```
+
+A pessoa vê "(administrador)" ao lado do e-mail em *Dados e planilhas* depois de entrar de novo. No modo local (sem Supabase) todos são administradores.
+
 ## Remover o acesso de uma pessoa
 
 Faça os dois passos (o segundo impede novo login):

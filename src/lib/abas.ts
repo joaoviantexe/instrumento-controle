@@ -65,7 +65,7 @@ export function abaPlano(d: Dados, auditorias: Auditoria[]): Aba {
     { cabecalho: r.observacoes, largura: 40 },
   ];
   return {
-    nome: 'Plano de Auditoria',
+    nome: 'Plano de Visita Técnica',
     titulo: TEXTOS.planoAuditoria.titulo,
     subtitulo: TEXTOS.planoAuditoria.subtitulo,
     colunas,

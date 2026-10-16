@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ClipboardCheck, Cloud, Download, FileSpreadsheet, HardDrive, Landmark, Paperclip, RotateCcw } from 'lucide-react';
+import { ClipboardCheck, Cloud, Download, FileSpreadsheet, HardDrive, Landmark, Paperclip, RotateCcw, Users } from 'lucide-react';
 import { ConferenciaAtos } from '../components/ConferenciaAtos';
+import { PanoramaTurmas } from '../components/PanoramaTurmas';
 import { ImportarPlanilha } from '../components/ImportarPlanilha';
 import { VarreduraDiario } from '../components/VarreduraDiario';
 import { MARGEM_BLOQUEIO, formatarTamanho, limiteArmazenamentoBytes, resumirAnexos } from '../lib/anexos';
@@ -23,7 +24,7 @@ const LIMITE_B = Number(env.VITE_LIMITE_LEITURAS) || 9000000;
 
 export function Dados() {
   const d = useDados();
-  const { email } = useSessao();
+  const { email, admin } = useSessao();
   const [pendente, setPendente] = useState<{ titulo: string; texto: string; dados: Snapshot } | null>(null);
   const [processando, setProcessando] = useState(false);
   const vazio = d.unidades.length === 0;
@@ -77,7 +78,7 @@ export function Dados() {
   }
 
   const [params, setParams] = useSearchParams();
-  const aba = (['planilhas', 'anexos', 'diario', 'atos', 'avancado'] as const).find((x) => x === params.get('aba')) ?? 'planilhas';
+  const aba = (['planilhas', 'turmas', 'anexos', 'diario', 'atos', 'avancado'] as const).find((x) => x === params.get('aba')) ?? 'planilhas';
   const irPara = (x: string) => setParams(x === 'planilhas' ? {} : { aba: x }, { replace: true });
   const alertaEspaco = usado >= MARGEM_BLOQUEIO ? 'bloqueado' : usado >= 0.8 ? 'atencao' : null;
 
@@ -122,7 +123,7 @@ export function Dados() {
             <strong>{d.modo === 'supabase' ? 'Banco compartilhado (Supabase)' : 'Modo local'}</strong>
             <span className="texto-muted pequeno">
               {d.modo === 'supabase'
-                ? ` · projeto ${new URL(SUPABASE_URL).hostname} · sessão: ${email}`
+                ? ` · projeto ${new URL(SUPABASE_URL).hostname} · sessão: ${email}${admin ? ' (administrador)' : ''}`
                 : ' · os dados ficam só neste navegador; exporte para Excel com frequência'}
             </span>
           </div>
@@ -135,6 +136,7 @@ export function Dados() {
           {(
             [
               ['planilhas', 'Planilhas', FileSpreadsheet],
+              ['turmas', 'Turmas e checklists', Users],
               ['anexos', 'Anexos (PDF)', Paperclip],
               ['diario', 'Diário Oficial', Landmark],
               ['atos', 'Conferência de atos', ClipboardCheck],
@@ -155,7 +157,7 @@ export function Dados() {
                 <div>
                   <h2 className="titulo-bloco">Exportar planilha completa</h2>
                   <p className="texto-muted pequeno">
-                    Gera um arquivo .xlsx com as abas Cadastro Unidades, Lista Mestra, Plano de Auditoria, Auditoria Documental, Plano de Ação e
+                    Gera um arquivo .xlsx com as abas Cadastro Unidades, Lista Mestra, Plano de Visita Técnica, Auditoria Documental, Plano de Ação e
                     Relatórios, com os mesmos cabeçalhos da planilha original. Serve também como cópia de segurança.
                   </p>
                 </div>
@@ -165,6 +167,12 @@ export function Dados() {
               </div>
             </section>
             <ImportarPlanilha />
+          </div>
+        )}
+
+        {aba === 'turmas' && (
+          <div role="tabpanel" id="painel-turmas" aria-labelledby="aba-turmas" className="dados-painel">
+            <PanoramaTurmas />
           </div>
         )}
 

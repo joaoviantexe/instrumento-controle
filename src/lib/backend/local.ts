@@ -1,8 +1,22 @@
 import { chaveArquivo, hashArquivo } from '../anexos';
+import { resumirChecklist, type ChecklistUnidade } from '../checklist';
 import { chaveDe, type Conferencia } from '../conferencias';
+import { compactar, contarPanorama, expandir, type PanoramaCompacto } from '../panorama';
 import type { Anexo, Snapshot } from '../types';
 import { snapshotInicial } from './inicial';
-import { ErroChaveDuplicada, mesmaChave, type AnexosApi, type Backend, type ConferenciasApi, type NomeTabela, type ResultadoUnificacao, type Tabelas } from './tipos';
+import {
+  ErroChaveDuplicada,
+  mesmaChave,
+  type AnexosApi,
+  type Backend,
+  type ChecklistsApi,
+  type ConferenciasApi,
+  type InfoPanoramaSalvo,
+  type NomeTabela,
+  type PanoramasApi,
+  type ResultadoUnificacao,
+  type Tabelas,
+} from './tipos';
 
 const CHAVE_STORAGE = 'instrumento-cde:dados:v1';
 const NOME_BD_ANEXOS = 'instrumento-cde-anexos';
@@ -143,6 +157,75 @@ export function criarConferenciasLocal(): ConferenciasApi {
   };
 }
 
+/** Panoramas e checklists do modo local ficam no IndexedDB: juntos, passam do tamanho que o localStorage aceita. */
+const NOME_BD_TURMAS = 'instrumento-cde-turmas';
+function abrirBdTurmas(): Promise<IDBDatabase> {
+  return new Promise((resolve, reject) => {
+    const r = indexedDB.open(NOME_BD_TURMAS, 1);
+    r.onupgradeneeded = () => {
+      r.result.createObjectStore('panoramas', { keyPath: 'ano' });
+      r.result.createObjectStore('checklists', { keyPath: ['unidade_id', 'ano'] });
+    };
+    r.onsuccess = () => resolve(r.result);
+    r.onerror = () => reject(r.error ?? new Error('Não foi possível abrir o armazenamento de turmas.'));
+  });
+}
+
+async function noBdTurmas<T>(loja: 'panoramas' | 'checklists', modo: IDBTransactionMode, f: (s: IDBObjectStore) => IDBRequest<T>): Promise<T> {
+  const bd = await abrirBdTurmas();
+  try {
+    const t = bd.transaction(loja, modo);
+    const r = await pedido(f(t.objectStore(loja)));
+    if (modo === 'readwrite') await terminar(t);
+    return r;
+  } finally {
+    bd.close();
+  }
+}
+
+type PanoramaLocal = InfoPanoramaSalvo & { dados: PanoramaCompacto };
+
+export function criarPanoramasLocal(): PanoramasApi {
+  return {
+    async listar() {
+      const lista = await noBdTurmas('panoramas', 'readonly', (s) => s.getAll() as IDBRequest<PanoramaLocal[]>);
+      return lista.map(({ dados: _dados, ...info }) => info).sort((a, b) => b.ano - a.ano);
+    },
+    async obter(ano) {
+      const r = await noBdTurmas('panoramas', 'readonly', (s) => s.get(ano) as IDBRequest<PanoramaLocal | undefined>);
+      return r ? expandir(r.dados) : null;
+    },
+    async salvar(p) {
+      const n = contarPanorama(p);
+      const registro: PanoramaLocal = { ano: p.ano, fonte: p.fonte, unidades: n.unidades, turmas: n.turmas, alunos: n.alunos, atualizado_em: new Date().toISOString(), atualizado_por: '', dados: compactar(p) };
+      await noBdTurmas('panoramas', 'readwrite', (s) => s.put(registro));
+    },
+    async excluir(ano) {
+      await noBdTurmas('panoramas', 'readwrite', (s) => s.delete(ano));
+    },
+  };
+}
+
+export function criarChecklistsLocal(): ChecklistsApi {
+  return {
+    async listar() {
+      const lista = await noBdTurmas('checklists', 'readonly', (s) => s.getAll() as IDBRequest<ChecklistUnidade[]>);
+      return lista.map((c) => ({ unidade_id: c.unidade_id, ano: c.ano, arquivo: c.arquivo, ...resumirChecklist(c), atualizado_em: c.atualizado_em, atualizado_por: c.atualizado_por }));
+    },
+    async obter(unidadeId, ano) {
+      return (await noBdTurmas('checklists', 'readonly', (s) => s.get([unidadeId, ano]) as IDBRequest<ChecklistUnidade | undefined>)) ?? null;
+    },
+    async salvar(c) {
+      const registro: ChecklistUnidade = { ...c, atualizado_em: new Date().toISOString(), atualizado_por: '' };
+      await noBdTurmas('checklists', 'readwrite', (s) => s.put(registro));
+      return registro;
+    },
+    async excluir(unidadeId, ano) {
+      await noBdTurmas('checklists', 'readwrite', (s) => s.delete([unidadeId, ano]));
+    },
+  };
+}
+
 function ler(): Snapshot | null {
   try {
     const bruto = localStorage.getItem(CHAVE_STORAGE);
@@ -172,6 +255,8 @@ export function criarBackendLocal(): Backend {
     modo: 'local',
     anexos: criarAnexosLocal(),
     conferencias: criarConferenciasLocal(),
+    panoramas: criarPanoramasLocal(),
+    checklists: criarChecklistsLocal(),
     async carregar() {
       const salvo = ler();
       if (salvo) dados = salvo;
