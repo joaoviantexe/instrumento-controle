@@ -8,7 +8,7 @@ import { Anexos } from '../components/Anexos';
 import { AtosDiario } from '../components/AtosDiario';
 import { ResolucoesCme } from '../components/ResolucoesCme';
 import { SecretariaEscolar } from '../components/SecretariaEscolar';
-import { AuditoriaUnidade } from '../components/AuditoriaUnidade';
+import { SituacaoDocumentos } from '../components/SituacaoDocumentos';
 import { CABECALHOS_UNIDADE as C } from '../data/planilha';
 import { useDados } from '../lib/store';
 import { formatarCep, formatarData, formatarTelefone } from '../lib/format';
@@ -122,9 +122,19 @@ export function UnidadeDetalhe() {
           </div>
         </section>
 
-        <SecretariaEscolar unidade={u} />
+        <section className="cartao" aria-labelledby="situacao-documentos">
+          <div className="cartao__cab">
+            <h2 id="situacao-documentos" className="titulo-bloco">
+              Situação dos documentos da auditoria
+            </h2>
+            <span className="contagem">Avaliados, conformes e o que requer verificação da CDE</span>
+          </div>
+          <div className="cartao__corpo">
+            <SituacaoDocumentos unidadeId={u.id} />
+          </div>
+        </section>
 
-        <AuditoriaUnidade unidadeId={u.id} />
+        <SecretariaEscolar unidade={u} />
 
         <div className="nao-imprimir">
           <button type="button" className="btn btn--perigo" onClick={() => setExcluindo(true)}>
