@@ -87,8 +87,13 @@ Base territorial com as **217 unidades** (175 municipais e 42 OSC/conveniadas) d
 
 **Detalhe da unidade** (clique na linha)
 - Todos os 26 campos da planilha agrupados em *Identificação*, *Endereço*, *Atos legais*, *Responsáveis* e *Observações cadastrais*.
-- No fim da página: **Situação dos documentos da auditoria** (editável ali mesmo, inclusive turma a turma), **Checklist da secretaria escolar** e **Turmas** (veja a [seção 12-B](#12-b-turmas-e-checklist-da-secretaria-escolar)).
-  As auditorias e ações da unidade são abertas pela Situação dos documentos (botão *Abrir a Auditoria Documental*), pelo Plano de Visita Técnica e pelo Plano de Ação.
+- No fim da página: **Checklist da secretaria escolar**, **Turmas** (veja a [seção 12-B](#12-b-turmas-e-checklist-da-secretaria-escolar)) e a
+  **Auditoria Documental completa** da unidade — a mesma da tela *Auditoria Documental* (seção 7), com tudo: situação de cada documento e de
+  cada turma, evidência, achado, *Requer ação?*, prazo, responsável, situação da ação, PDFs, *Registrar no Plano de Ação*, filtros, barra de
+  progresso e *Próximo não avaliado*. Em cima dela: escolha da auditoria (quando há mais de uma), **Plano de Visita Técnica** (editar tipo,
+  prioridade, datas, equipe, situação), **Checklist da Visita** e **Tela cheia**. Sem auditoria, o botão **Iniciar auditoria** cria uma.
+  - **Visão compacta** (padrão na unidade): um documento por linha, com a situação num seletor colorido; **Detalhes** abre os campos.
+    **Visão detalhada**: como na tela da auditoria, com a evidência esperada, a pontuação e os botões de situação. A escolha fica guardada.
 - **Editar**: painel lateral com todos os campos. A *Data da atualização* é preenchida com a data de hoje ao salvar.
   A *Vigência do ato* aceita data (DD/MM/AAAA) ou texto (ex.: DEFINITIVO), como na planilha.
 - **Nova auditoria**: abre o formulário do Plano de Visita Técnica já com a unidade selecionada.
@@ -249,14 +254,12 @@ alguma turma Não conforme → *Não conforme* (ou *Parcialmente conforme*, se o
 *Não avaliado* (a conformidade só vale com todas as turmas conferidas); todas conformes → *Conforme*; todas *Não se aplica* → *Não se aplica*.
 A pontuação usa essa situação, com os mesmos pesos de antes. Unidade sem turmas no panorama: os 34 documentos valem para a unidade inteira.
 
-**Situação dos documentos da auditoria (página da unidade)** — editável ali mesmo:
-- cada documento da unidade tem um seletor de situação; escolher a situação de um item autodeclarado conta como verificação da CDE, e o botão
-  **confirmar** verifica sem mudar a situação;
-- cada documento da turma abre a **grade de turmas** (clique na situação): um seletor por turma, **Todas as turmas** para marcar todas de uma vez e
-  **Confirmar autodeclaradas**. Turmas autodeclaradas aparecem em amarelo; as que divergem da secretaria, com a declaração dela;
-- sem auditoria, o botão **Iniciar auditoria** cria uma (*Visita técnica — checklist integral*);
-- em cima: avaliados, conformes, parciais, não conformes, não se aplica e o que requer verificação da CDE, com filtros.
-A mesma grade de turmas aparece na **Auditoria Documental**, no lugar dos botões de situação dos documentos da turma.
+**Avaliação na página da unidade e na Auditoria Documental** — as duas telas mostram a mesma auditoria, com os mesmos recursos:
+- escolher a situação de um item autodeclarado conta como verificação da CDE; o botão **Confirmar** verifica sem mudar a situação;
+- cada documento da turma tem o botão **Turmas** (com o resumo: avaliadas, não conformes, autodeclaradas, divergentes), que abre a
+  **grade de turmas**: um seletor por turma, **Todas as turmas** para marcar todas de uma vez e **Confirmar autodeclaradas**. Turmas
+  autodeclaradas aparecem em amarelo; as que divergem da secretaria, com a declaração dela. A grade abre sozinha quando há algo a conferir;
+- filtros: Todos, Não avaliado, Conforme, Não conforme / Parcialmente conforme, *Requer ação? Sim* e *Requer verificação da CDE*.
 
 **Turmas na página da unidade.** Turmas agrupadas por etapa, com série, turno, alunos, capacidade, vagas (negativas em vermelho: turma acima da
 capacidade), alunos da educação especial, a **avaliação da turma na auditoria** (documentos da turma avaliados e não conformes) e a situação da
