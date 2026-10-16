@@ -5,17 +5,25 @@
  */
 import type ExcelJSNs from 'exceljs';
 import {
-  ITENS_CHECKLIST,
+  ITENS_POR_TURMA,
   SECOES_CHECKLIST,
+  SECOES_GERAL,
+  SECOES_TURMA,
   SITUACOES_CHECKLIST,
   ehItemChecklist,
   ehMarcaCde,
+  ehPorTurma,
   itemPorRotulo,
+  itensGerais,
+  juntarRespostas,
   lerSituacao,
   pendentesDaTurma,
+  pendentesGerais,
   respostaVazia,
   type RespostaItem,
+  type RespostasChecklist,
   type RespostasTurma,
+  type SecaoChecklist,
 } from './checklist';
 import { formatarCep, formatarTelefone } from './format';
 import { chaveTexto, compararTurmas, decodificarTurma, linhasDaAba, valorCelula, type Turma, type UnidadePanorama } from './panorama';
@@ -40,7 +48,9 @@ const CENTRO = { horizontal: 'center' as const, vertical: 'middle' as const, wra
 
 /** Nome da aba da turma (o modelo usa "Checklist - C11101"). */
 export const nomeAbaTurma = (turma: string) => `Checklist - ${turma}`.slice(0, 31);
-const TURMA_GERAL = 'GERAL';
+/** Aba dos documentos da unidade, antes das turmas. */
+export const ABA_GERAL = 'Checklist - Geral';
+const TITULO_GERAL = 'Checklist Geral da Unidade';
 
 const numeroOuTexto = (v: string) => (/^\d{1,15}$/.test(v.trim()) ? Number(v) : v);
 function dataOuTexto(v: string): Date | string {
@@ -55,8 +65,8 @@ export interface DadosChecklist {
   turmas: Turma[];
   /** Linha da unidade no panorama (código da SEMEC, zona, contrato). */
   panorama?: UnidadePanorama;
-  /** Respostas já enviadas pela secretaria: entram preenchidas. */
-  respostas?: Record<string, RespostasTurma>;
+  /** Respostas que entram preenchidas (as enviadas pela secretaria e, na planilha com dados, a avaliação da CDE). */
+  respostas?: RespostasChecklist;
 }
 
 /** Campos da aba Unidade, na ordem do modelo, com o campo correspondente do Cadastro. */
@@ -185,7 +195,7 @@ function abaTurmas(wb: ExcelJSNs.Workbook, d: DadosChecklist, turmas: Turma[]) {
   ws.columns = CABECALHOS_TURMAS.map(([, w]) => ({ width: w }));
   const p = d.panorama;
   const linhas = turmas.map((t) => {
-    const titulo = tituloTurma(t, t.turma, pendentesDaTurma(d.respostas?.[t.turma]));
+    const titulo = tituloTurma(t, t.turma, pendentesDaTurma(d.respostas?.turmas[t.turma]));
     return [
       d.ano,
       p?.distrito || d.unidade.distrito,
@@ -238,23 +248,27 @@ function abaTurmas(wb: ExcelJSNs.Workbook, d: DadosChecklist, turmas: Turma[]) {
   ws.views = [{ state: 'frozen', ySplit: 1 }];
 }
 
-function abaChecklist(wb: ExcelJSNs.Workbook, d: DadosChecklist, turma: string, t: Turma | undefined) {
-  const ws = wb.addWorksheet(nomeAbaTurma(turma), { pageSetup: { orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0, paperSize: 9 } });
-  ws.columns = [{ width: 60.71 }, { width: 15.71 }, { width: 20.71 }, { width: 10.71 }, { width: 40.71 }, { width: 30.71 }, { width: 10, hidden: true }];
-  const respostas = d.respostas?.[turma] ?? {};
-  const ultima = 1 + SECOES_CHECKLIST.reduce((s, x) => s + 1 + x.itens.length, 0);
+interface AbaChecklist {
+  nome: string;
+  /** Fórmula do título (A1) e o resultado já calculado. */
+  formula: string;
+  titulo: string;
+  secoes: SecaoChecklist[];
+  respostas: RespostasTurma;
+}
 
-  // Título: série | turno | turma / pendências (fórmula do modelo, com o resultado já calculado).
+/** Fórmula do modelo para as pendências: "N itens pendentes" ou "Checklist Conforme". */
+const CONTAR = `(COUNTIF(B3:B71,"Não conforme")+COUNTIF(B3:B71,"Não avaliado"))`;
+const SITUACAO_TITULO = `IF(${CONTAR}>0,${CONTAR}&" itens pendentes","Checklist Conforme")`;
+
+function abaChecklist(wb: ExcelJSNs.Workbook, d: DadosChecklist, aba: AbaChecklist) {
+  const ws = wb.addWorksheet(aba.nome, { pageSetup: { orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0, paperSize: 9 } });
+  ws.columns = [{ width: 60.71 }, { width: 15.71 }, { width: 20.71 }, { width: 10.71 }, { width: 40.71 }, { width: 30.71 }, { width: 10, hidden: true }];
+
+  // Título com a fórmula do modelo (e o resultado já calculado, para quem abre sem recalcular).
   ws.mergeCells(1, 1, 1, 6);
   const a1 = ws.getCell('A1');
-  const contar = `(COUNTIF(B3:B71,"Não conforme")+COUNTIF(B3:B71,"Não avaliado"))`;
-  const situacao = `IF(${contar}>0,${contar}&" itens pendentes","Checklist Conforme")`;
-  a1.value = {
-    formula: t
-      ? `INDEX(Turmas!$K:$K,MATCH("${turma}",Turmas!$M:$M,0))&" | "&INDEX(Turmas!$L:$L,MATCH("${turma}",Turmas!$M:$M,0))&" | "&"${turma}"&" / "&${situacao}`
-      : `"${turma}"&" / "&${situacao}`,
-    result: tituloTurma(t, turma, pendentesDaTurma(respostas)),
-  };
+  a1.value = { formula: aba.formula, result: aba.titulo };
   a1.font = fonte(true, BRANCO, 16);
   a1.fill = fundo(VERDE);
   a1.alignment = { horizontal: 'center', vertical: 'middle' };
@@ -263,7 +277,7 @@ function abaChecklist(wb: ExcelJSNs.Workbook, d: DadosChecklist, turma: string, 
 
   let linha = 2;
   const faixas: string[] = [];
-  for (const secao of SECOES_CHECKLIST) {
+  for (const secao of aba.secoes) {
     ['' + secao.titulo, 'Situação', 'Ultima Atualização', 'Prazo', 'Responsável', 'Observação'].forEach((texto, i) => {
       const c = ws.getCell(linha, i + 1);
       c.value = texto;
@@ -275,7 +289,7 @@ function abaChecklist(wb: ExcelJSNs.Workbook, d: DadosChecklist, turma: string, 
     const inicio = linha + 1;
     secao.itens.forEach((item, i) => {
       linha++;
-      const r: RespostaItem = { ...respostaVazia(), ...respostas[item.codigo] };
+      const r: RespostaItem = { ...respostaVazia(), ...aba.respostas[item.codigo] };
       const valores = [item.rotulo, r.situacao, r.atualizado ? dataOuTexto(r.atualizado) : null, r.prazo ? dataOuTexto(r.prazo) : null, r.responsavel || d.unidade.diretor || null, r.observacao || null];
       valores.forEach((v, j) => {
         const c = ws.getCell(linha, j + 1);
@@ -316,20 +330,41 @@ function abaChecklist(wb: ExcelJSNs.Workbook, d: DadosChecklist, turma: string, 
       ],
     });
   });
-  ws.pageSetup.printArea = `A1:F${ultima + SECOES_CHECKLIST.length - 1}`;
+  ws.pageSetup.printArea = `A1:F${linha - 1}`;
 }
 
-/** Monta a planilha da unidade (recebe o ExcelJS já carregado). */
+/**
+ * Monta a planilha da unidade (recebe o ExcelJS já carregado): Unidade, Turmas, a checklist geral (documentos da
+ * unidade) e uma checklist por turma (documentos dos alunos e relação nominal). Sem turmas, todos os itens vão na geral.
+ */
 export function montarChecklist(Excel: ExcelJS, d: DadosChecklist): ExcelJSNs.Workbook {
   const wb = new Excel.Workbook();
   wb.creator = 'Instrumento de Controle da Documentação Escolar — CDE/SEMEC';
   wb.created = new Date();
   const turmas = [...d.turmas].sort(compararTurmas);
+  const comTurmas = turmas.length > 0;
   abaUnidade(wb, d.unidade);
   abaTurmas(wb, d, turmas);
-  if (turmas.length) for (const t of turmas) abaChecklist(wb, d, t.turma, t);
-  else abaChecklist(wb, d, TURMA_GERAL, undefined);
-  // Abre na primeira checklist, como o modelo.
+  const geral = d.respostas?.geral ?? {};
+  const pendGeral = pendentesGerais(geral, comTurmas);
+  abaChecklist(wb, d, {
+    nome: ABA_GERAL,
+    formula: `"${TITULO_GERAL}"&" / "&${SITUACAO_TITULO}`,
+    titulo: `${TITULO_GERAL} / ${pendGeral > 0 ? `${pendGeral} itens pendentes` : 'Checklist Conforme'}`,
+    secoes: comTurmas ? SECOES_GERAL : SECOES_CHECKLIST,
+    respostas: geral,
+  });
+  for (const t of turmas) {
+    const respostas = d.respostas?.turmas[t.turma] ?? {};
+    abaChecklist(wb, d, {
+      nome: nomeAbaTurma(t.turma),
+      formula: `INDEX(Turmas!$K:$K,MATCH("${t.turma}",Turmas!$M:$M,0))&" | "&INDEX(Turmas!$L:$L,MATCH("${t.turma}",Turmas!$M:$M,0))&" | "&"${t.turma}"&" / "&${SITUACAO_TITULO}`,
+      titulo: tituloTurma(t, t.turma, pendentesDaTurma(respostas)),
+      secoes: SECOES_TURMA,
+      respostas,
+    });
+  }
+  // Abre na checklist geral.
   wb.views = [{ x: 0, y: 0, width: 14805, height: 8010, firstSheet: 0, activeTab: 2, visibility: 'visible' }];
   return wb;
 }
@@ -348,14 +383,13 @@ export async function gerarChecklistExcel(d: DadosChecklist): Promise<{ buffer: 
 
 // ---------------------------------------------------------------- leitura da planilha devolvida
 
-export interface ChecklistLida {
+export interface ChecklistLida extends RespostasChecklist {
   /** Nome e INEP da aba Unidade (para conferir se é a unidade certa). */
   unidade: { nome: string; inep: string };
   /** Todos os campos preenchidos na aba Unidade (para atualizar o Cadastro). */
   cadastro: Partial<Record<keyof Unidade, string>>;
   /** Ano da aba Turmas (0 quando não informado). */
   ano: number;
-  turmas: Record<string, RespostasTurma>;
   avisos: string[];
 }
 
@@ -428,22 +462,27 @@ export function lerChecklistDaPasta(wb: ExcelJSNs.Workbook): ChecklistLida {
   const abaT = wb.worksheets.find((w) => chaveTexto(w.name) === 'turmas');
   if (abaT) ano = Number(valorCelula(abaT.getCell('A2').value)) || 0;
 
+  const geral: RespostasTurma = {};
   const turmas: Record<string, RespostasTurma> = {};
+  /** Itens gerais encontrados nas abas de turma (planilhas no formato antigo): juntados no fim. */
+  const legado = new Map<string, [string, RespostaItem][]>();
+  let temGeral = false;
   for (const ws of wb.worksheets) {
     if (ws === abaU || ws === abaT) continue;
     const linhas = linhasDaAba(ws as Planilha);
     // Aba de checklist: tem cabeçalhos de seção com "Situação" na coluna B.
     if (!linhas.some((l) => chaveTexto(l[1]) === 'situacao')) continue;
-    const turma = turmaDaAba(ws.name, texto(linhas[0]?.[0]));
-    if (turmas[turma]) {
-      avisos.push(`A turma ${turma} aparece em mais de uma aba; ficou a primeira.`);
+    const ehGeral = /checklist\s*-\s*geral$/i.test(ws.name.trim());
+    const turma = ehGeral ? '' : turmaDaAba(ws.name, texto(linhas[0]?.[0]));
+    if (ehGeral ? temGeral : turmas[turma]) {
+      avisos.push(`A aba "${ws.name}" aparece mais de uma vez; ficou a primeira.`);
       continue;
     }
     const respostas: RespostasTurma = {};
-    let secao = -1;
+    let secao = '';
     linhas.forEach((l, i) => {
       if (chaveTexto(l[1]) === 'situacao') {
-        secao++;
+        secao = texto(l[0]);
         return;
       }
       const rotulo = texto(l[0]);
@@ -466,16 +505,37 @@ export function lerChecklistDaPasta(wb: ExcelJSNs.Workbook): ChecklistLida {
         // A marca "Avaliado pela CDE" da planilha com dados não é observação da secretaria.
         observacao: ehMarcaCde(texto(l[5])) ? '' : texto(l[5]),
       };
+      if (!ehGeral && !ehPorTurma(codigo)) {
+        legado.set(codigo, [...(legado.get(codigo) ?? []), [turma, r]]);
+        return;
+      }
       // Só guarda o que foi preenchido além do padrão (o responsável padrão é o diretor).
       if (r.situacao !== 'Não avaliado' || r.atualizado || r.prazo || r.observacao) respostas[codigo] = r;
     });
-    turmas[turma] = respostas;
+    if (ehGeral) {
+      temGeral = true;
+      Object.assign(geral, respostas);
+    } else turmas[turma] = respostas;
   }
-  if (!Object.keys(turmas).length) throw new Error('nenhuma aba de checklist foi encontrada (abas "Checklist - TURMA", com a coluna Situação).');
-  const faltando = ITENS_CHECKLIST.length;
+  if (!temGeral && !Object.keys(turmas).length) {
+    throw new Error('nenhuma aba de checklist foi encontrada (abas "Checklist - Geral" e "Checklist - TURMA", com a coluna Situação).');
+  }
+  // Formato antigo (todos os itens em cada turma): os itens da unidade são juntados a partir das turmas.
+  if (legado.size) {
+    let juntados = 0;
+    for (const item of itensGerais(true)) {
+      if (geral[item.codigo] || !legado.has(item.codigo)) continue;
+      const r = juntarRespostas(legado.get(item.codigo)!);
+      if (r) {
+        geral[item.codigo] = r;
+        juntados++;
+      }
+    }
+    if (!temGeral) avisos.push(`A planilha está no formato antigo (todos os itens em cada turma): os documentos da unidade foram juntados a partir das turmas (${juntados} preenchido(s)).`);
+  }
   for (const [t, r] of Object.entries(turmas)) {
-    if (!decodificarTurma(t) && t !== TURMA_GERAL) avisos.push(`A aba da turma "${t}" não tem um código de turma do SIGA.`);
-    if (Object.keys(r).length === 0) avisos.push(`A turma ${t} não tem nenhum dos ${faltando} itens avaliados.`);
+    if (!decodificarTurma(t)) avisos.push(`A aba da turma "${t}" não tem um código de turma do SIGA.`);
+    if (Object.keys(r).length === 0) avisos.push(`A turma ${t} não tem nenhum dos ${ITENS_POR_TURMA.length} itens da turma avaliados.`);
   }
-  return { unidade, cadastro, ano, turmas, avisos };
+  return { unidade, cadastro, ano, geral, turmas, avisos };
 }

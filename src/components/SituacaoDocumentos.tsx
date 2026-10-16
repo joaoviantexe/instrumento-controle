@@ -1,28 +1,29 @@
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BadgeCheck, ClipboardCheck, ShieldAlert } from 'lucide-react';
-import { SECOES, SECOES_CURTAS } from '../data/planilha';
+import { BadgeCheck, Check, ChevronDown, ChevronUp, ClipboardCheck, PlayCircle, ShieldAlert } from 'lucide-react';
+import { SECOES, SECOES_CURTAS, TIPOS_VERIFICACAO } from '../data/planilha';
 import { avaliado, linhasDaAuditoria, type Linha } from '../lib/calc';
-import { ROTULO_VERIFICACAO, VERIFICACAO_FEITA, VERIFICACAO_PENDENTE, auditoriaDeReferencia, divergeDaDeclaracao } from '../lib/checklist';
+import { ROTULO_VERIFICACAO, VERIFICACAO_FEITA, VERIFICACAO_PENDENTE, auditoriaDeReferencia, divergeDaDeclaracao, ehPorTurma } from '../lib/checklist';
+import { avisar } from '../lib/avisos';
 import { formatarData } from '../lib/format';
 import { useDados } from '../lib/store';
-import { chaveAvaliacao } from '../lib/types';
+import { useTurmasDaAuditoria } from '../lib/useTurmas';
+import { chaveAvaliacao, type Avaliacao } from '../lib/types';
+import { GradeTurmas, SeletorSituacao, comVerificacao } from './AvaliacaoTurmas';
 import { Etiqueta, Medidor, Vazio } from './ui';
 
 type Filtro = 'todos' | 'verificar' | 'nc' | 'pendentes';
 
-/** Quem respondeu pela situação do item. */
-function verificacao(l: Linha): { rotulo: string; classe: string } {
-  if (l.verificacao === VERIFICACAO_PENDENTE) return { rotulo: ROTULO_VERIFICACAO[VERIFICACAO_PENDENTE], classe: 'chip--parcial' };
-  if (divergeDaDeclaracao(l)) return { rotulo: 'Diverge da secretaria', classe: 'chip--nc' };
-  if (l.verificacao === VERIFICACAO_FEITA) return { rotulo: ROTULO_VERIFICACAO[VERIFICACAO_FEITA], classe: 'chip--conforme' };
-  if (avaliado(l.situacao)) return { rotulo: 'Avaliado pela CDE', classe: 'chip--azul' };
-  return { rotulo: '—', classe: 'chip--vazio' };
+/** O registro gravado do item (sem os campos calculados). */
+function registro(l: Linha): Avaliacao {
+  const { def: _def, pesoAplicavel: _pa, pontos: _pontos, indice: _indice, ...av } = l;
+  return av;
 }
 
 /**
- * Situação de todos os documentos da auditoria da unidade (a mais recente iniciada, ou a escolhida): o que está avaliado,
- * conforme, o que a secretaria declarou e o que ainda requer verificação da CDE.
+ * Situação de todos os documentos da auditoria da unidade (a mais recente iniciada, ou a escolhida), editável aqui
+ * mesmo: a situação de cada documento da unidade e, nos documentos da turma, de cada turma. Mostra o que a secretaria
+ * declarou e o que ainda requer verificação da CDE.
  */
 export function SituacaoDocumentos({ unidadeId }: { unidadeId: string }) {
   const d = useDados();
@@ -32,7 +33,10 @@ export function SituacaoDocumentos({ unidadeId }: { unidadeId: string }) {
   );
   const [escolhida, setEscolhida] = useState('');
   const [filtro, setFiltro] = useState<Filtro>('todos');
+  const [aberto, setAberto] = useState<string | null>(null);
+  const [iniciando, setIniciando] = useState(false);
   const aud = auditorias.find((a) => a.id === escolhida) ?? auditoriaDeReferencia(auditorias, unidadeId);
+  const { turmas, ano, carregando } = useTurmasDaAuditoria(aud);
   const linhas = useMemo(() => (aud ? linhasDaAuditoria(aud.id, d.mapaAvaliacoes) : []), [aud, d.mapaAvaliacoes]);
   const anexosPorItem = useMemo(() => {
     const m = new Map<string, number>();
@@ -40,11 +44,42 @@ export function SituacaoDocumentos({ unidadeId }: { unidadeId: string }) {
     return m;
   }, [d.anexos]);
 
+  async function iniciar() {
+    setIniciando(true);
+    try {
+      const id = await d.criarAuditoria({
+        unidade_id: unidadeId,
+        tipo: TIPOS_VERIFICACAO[0],
+        prioridade: '',
+        data_planejada: '',
+        data_realizada: '',
+        equipe: '',
+        situacao: 'Em execução',
+        observacoes: '',
+        iniciada: true,
+      });
+      setEscolhida(id);
+      avisar(`Auditoria ${id} iniciada: avalie os documentos abaixo.`);
+    } finally {
+      setIniciando(false);
+    }
+  }
+
   if (!aud) {
     return (
-      <Vazio texto="Esta unidade ainda não tem auditoria. Envie a checklist da secretaria escolar (abaixo) ou registre uma nova auditoria." />
+      <Vazio texto="Esta unidade ainda não tem auditoria. Inicie uma para avaliar os documentos aqui mesmo, ou envie a checklist da secretaria escolar (abaixo).">
+        <button type="button" className="btn btn--primario btn--pequeno" disabled={iniciando} onClick={() => void iniciar()}>
+          <PlayCircle size={14} aria-hidden /> Iniciar auditoria
+        </button>
+      </Vazio>
     );
   }
+
+  const comTurmas = turmas.length > 0;
+  const porTurma = (l: Linha) => comTurmas && ehPorTurma(l.item);
+  const turmasDo = (l: Linha) => [...(d.mapaTurmas.get(aud.id)?.get(l.item)?.values() ?? [])];
+  const divergentes = (l: Linha) => (porTurma(l) ? turmasDo(l).filter(divergeDaDeclaracao).length : divergeDaDeclaracao(l) ? 1 : 0);
+  const precisaVerificar = (l: Linha) => l.verificacao === VERIFICACAO_PENDENTE || divergentes(l) > 0;
 
   const resumo = d.resumos.get(aud.id);
   const conta = (f: (l: Linha) => boolean) => linhas.filter(f).length;
@@ -55,7 +90,7 @@ export function SituacaoDocumentos({ unidadeId }: { unidadeId: string }) {
     nc: conta((l) => l.situacao === 'Não conforme'),
     na: conta((l) => l.situacao === 'Não se aplica'),
     pendentes: conta((l) => !avaliado(l.situacao)),
-    verificar: conta((l) => l.verificacao === VERIFICACAO_PENDENTE || divergeDaDeclaracao(l)),
+    verificar: conta(precisaVerificar),
     verificados: conta((l) => l.verificacao === VERIFICACAO_FEITA),
   };
   const filtros: Record<Filtro, [string, number]> = {
@@ -66,12 +101,24 @@ export function SituacaoDocumentos({ unidadeId }: { unidadeId: string }) {
   };
   const visivel = (l: Linha) =>
     filtro === 'verificar'
-      ? l.verificacao === VERIFICACAO_PENDENTE || divergeDaDeclaracao(l)
+      ? precisaVerificar(l)
       : filtro === 'nc'
         ? l.situacao === 'Não conforme' || l.situacao === 'Parcialmente conforme'
         : filtro === 'pendentes'
           ? !avaliado(l.situacao)
           : true;
+
+  /** Quem respondeu pela situação do item. */
+  function verificacao(l: Linha) {
+    if (l.verificacao === VERIFICACAO_PENDENTE) return <span className="chip chip--parcial">{ROTULO_VERIFICACAO[VERIFICACAO_PENDENTE]}</span>;
+    const div = divergentes(l);
+    if (div) return <span className="chip chip--nc">{porTurma(l) ? `${div} turma(s) divergem da secretaria` : 'Diverge da secretaria'}</span>;
+    if (l.verificacao === VERIFICACAO_FEITA) return <span className="chip chip--conforme">{ROTULO_VERIFICACAO[VERIFICACAO_FEITA]}</span>;
+    if (avaliado(l.situacao)) return <span className="chip chip--azul">Avaliado pela CDE</span>;
+    return <span className="texto-muted">—</span>;
+  }
+
+  const salvar = (av: Avaliacao) => void d.salvarAvaliacao(av).catch(() => undefined);
 
   return (
     <div className="situacao-docs">
@@ -130,10 +177,16 @@ export function SituacaoDocumentos({ unidadeId }: { unidadeId: string }) {
         </div>
       </div>
 
+      <p className="pequeno texto-muted" style={{ margin: 0 }}>
+        Altere a situação direto na tabela. Os documentos marcados <span className="chip chip--azul">por turma</span> são avaliados em cada turma
+        {comTurmas ? ` (${turmas.length} turmas em ${ano})` : carregando ? '' : ' — esta unidade não tem turmas no panorama, então valem para a unidade inteira'}; a
+        situação deles resulta das turmas.
+      </p>
+
       {n.verificar > 0 && (
         <p className="situacao-docs__aviso">
           <ShieldAlert size={16} aria-hidden /> {n.verificar} documento(s) foram declarados pela secretaria escolar sem comprovação (ou divergem da
-          avaliação da CDE). Confira os documentos na visita e confirme ou corrija cada um na Auditoria Documental.
+          avaliação da CDE). Confira na visita e confirme ou corrija a situação.
         </p>
       )}
       {n.verificados > 0 && (
@@ -172,24 +225,64 @@ export function SituacaoDocumentos({ unidadeId }: { unidadeId: string }) {
                   </td>
                 </tr>
                 {ls.map((l) => {
-                  const v = verificacao(l);
                   const pdfs = anexosPorItem.get(chaveAvaliacao(l.auditoria_id, l.item)) ?? 0;
+                  const turmaItem = porTurma(l);
+                  const expandido = aberto === l.item;
+                  const regs = turmaItem ? turmasDo(l) : [];
                   return (
-                    <tr key={l.item}>
-                      <td>
-                        <Link to={`/auditoria-documental/${aud.id}#item-${l.item}`} className="situacao-docs__item">
-                          <span className="item-aud__codigo">{l.item}</span> {l.def.item}
-                        </Link>
-                      </td>
-                      <td>
-                        <Etiqueta valor={l.situacao} />
-                      </td>
-                      <td>
-                        <span className={'chip ' + v.classe}>{v.rotulo}</span>
-                      </td>
-                      <td title={l.declaracao || undefined}>{l.declarado ? <Etiqueta valor={l.declarado} /> : <span className="texto-muted">—</span>}</td>
-                      <td className="num">{pdfs || <span className="texto-muted">—</span>}</td>
-                    </tr>
+                    <Fragment key={l.item}>
+                      <tr>
+                        <td>
+                          <Link to={`/auditoria-documental/${aud.id}#item-${l.item}`} className="situacao-docs__item">
+                            <span className="item-aud__codigo">{l.item}</span> {l.def.item}
+                          </Link>
+                          {ehPorTurma(l.item) && comTurmas && <span className="chip chip--azul situacao-docs__por-turma">por turma</span>}
+                        </td>
+                        <td>
+                          {turmaItem ? (
+                            <button
+                              type="button"
+                              className="situacao-docs__turmas"
+                              aria-expanded={expandido}
+                              onClick={() => setAberto(expandido ? null : l.item)}
+                              title="Avaliar turma a turma"
+                            >
+                              <Etiqueta valor={l.situacao} />
+                              <span className="pequeno">
+                                {regs.filter((r) => avaliado(r.situacao)).length}/{turmas.length} turmas
+                              </span>
+                              {expandido ? <ChevronUp size={14} aria-hidden /> : <ChevronDown size={14} aria-hidden />}
+                            </button>
+                          ) : (
+                            <SeletorSituacao valor={l.situacao} aoMudar={(s) => salvar(comVerificacao(registro(l), s))} rotulo={`Situação de ${l.item}`} />
+                          )}
+                        </td>
+                        <td>
+                          <span className="situacao-docs__verif">
+                            {verificacao(l)}
+                            {l.verificacao === VERIFICACAO_PENDENTE && !turmaItem && (
+                              <button
+                                type="button"
+                                className="grade-turmas__confirmar"
+                                title="Conferido: a situação declarada está certa"
+                                onClick={() => salvar({ ...registro(l), verificacao: VERIFICACAO_FEITA })}
+                              >
+                                <Check size={12} aria-hidden /> confirmar
+                              </button>
+                            )}
+                          </span>
+                        </td>
+                        <td title={l.declaracao || undefined}>{l.declarado ? <Etiqueta valor={l.declarado} /> : <span className="texto-muted">—</span>}</td>
+                        <td className="num">{pdfs || <span className="texto-muted">—</span>}</td>
+                      </tr>
+                      {turmaItem && expandido && (
+                        <tr className="situacao-docs__grade">
+                          <td colSpan={5}>
+                            <GradeTurmas auditoriaId={aud.id} item={l.item} turmas={turmas} atual={registro(l)} />
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
                   );
                 })}
               </tbody>

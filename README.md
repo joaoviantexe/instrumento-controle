@@ -19,7 +19,7 @@ portal da SEMEC (`docs/referencias/portal-semec.zip`).
 | Relatórios | Relatórios | Matriz por seção, distribuição por distrito, consolidação; Excel e impressão |
 | DistritoBairro (tabela dinâmica) | Relatórios → Distrito e Bairro | Matriz de unidades por bairro e distrito, clicável |
 | — | Dados e planilhas | Exportar Excel; **atualizar os dados enviando uma planilha** (.xlsx); **turmas** (Panorama de Matrícula por ano) e checklists de todas as unidades |
-| — | Página da unidade | **Situação dos documentos da auditoria**, **checklist da secretaria escolar** (gerar com dados ou em branco, enviar preenchida) e **turmas** do ano |
+| — | Página da unidade | **Situação dos documentos da auditoria** (editável ali mesmo, documentos da turma avaliados turma a turma), **checklist da secretaria escolar** (aba geral + uma por turma; gerar com dados ou em branco, enviar preenchida) e **turmas** do ano |
 
 Também: **atos do Diário Oficial** na página de cada unidade (decretos, portarias e resoluções com o link que abre a edição
 na página do ato), **anexos em PDF** (ato de autorização/vigência, evidências, relatórios de auditoria e de ações), busca global (`Ctrl+K`), painel "Precisa de atenção", planejamento em lote, colunas configuráveis, layout para celular e impressão em A4.

@@ -1,8 +1,9 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import type { Acao, Anexo, Auditoria, Avaliacao, EntidadeAnexo, Snapshot, Unidade } from './types';
+import type { Acao, Anexo, Auditoria, Avaliacao, AvaliacaoTurma, EntidadeAnexo, Snapshot, Unidade } from './types';
 import type { Backend, EnvioAnexo, ResultadoMigracao, UsoOperacoes } from './backend/tipos';
 import { ErroChaveDuplicada } from './backend/tipos';
 import {
+  avaliacaoPadrao,
   indexarAvaliacoes,
   linhasRegistradas,
   proximoId,
@@ -14,7 +15,7 @@ import {
 import { hashArquivo, verificarEspaco } from './anexos';
 import { indexarConferencias, type ChaveConferencia, type Conferencia, type Decisao, type FonteAto, type MapaConferencias } from './conferencias';
 import { avisar } from './avisos';
-import type { ChecklistUnidade, InfoChecklist } from './checklist';
+import { indexarTurmas, itemDasTurmas, type ChecklistUnidade, type InfoChecklist, type MapaTurmas } from './checklist';
 import { associarUnidades, contarPanorama, type Panorama } from './panorama';
 import { ANOS_EMBUTIDOS, carregarPanoramaEmbutido } from '../data/panoramas';
 
@@ -34,6 +35,8 @@ export interface InfoPanorama {
 
 interface Derivados {
   mapaAvaliacoes: MapaAvaliacoes;
+  /** Avaliações por turma: auditoria → item → turma. */
+  mapaTurmas: MapaTurmas;
   unidadePorId: Map<string, Unidade>;
   auditoriaPorId: Map<string, Auditoria>;
   resumos: Map<string, ResumoAuditoria>;
@@ -78,6 +81,11 @@ export interface Dados extends Snapshot, Derivados {
   excluirChecklist(unidadeId: string, ano: number): Promise<void>;
   /** Grava vários itens da Auditoria Documental de uma vez (ex.: a checklist da secretaria aplicada). */
   salvarAvaliacoes(lista: Avaliacao[]): Promise<void>;
+  /**
+   * Grava avaliações por turma (de uma auditoria) e recalcula a situação de cada item tocado a partir das turmas.
+   * `turmas` são as turmas da unidade no panorama: as que não têm registro contam como não avaliadas.
+   */
+  salvarAvaliacoesTurma(lista: AvaliacaoTurma[], turmas: string[]): Promise<void>;
   carregando: boolean;
   erro: string | null;
   recarregar(): Promise<void>;
@@ -97,7 +105,7 @@ export interface Dados extends Snapshot, Derivados {
   importarRegistros(s: Snapshot): Promise<void>;
 }
 
-const VAZIO: Snapshot = { unidades: [], auditorias: [], avaliacoes: [], acoes: [] };
+const VAZIO: Snapshot = { unidades: [], auditorias: [], avaliacoes: [], acoes: [], avaliacoes_turma: [] };
 const Contexto = createContext<Dados | null>(null);
 
 export function DadosProvider({ backend, children }: { backend: Backend; children: ReactNode }) {
@@ -225,6 +233,7 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
     const resumos = new Map(snap.auditorias.map((a) => [a.id, resumirAuditoria(a, mapaAvaliacoes)]));
     return {
       mapaAvaliacoes,
+      mapaTurmas: indexarTurmas(snap.avaliacoes_turma),
       unidadePorId: new Map(snap.unidades.map((u) => [u.id, u])),
       auditoriaPorId: new Map(snap.auditorias.map((a) => [a.id, a])),
       resumos,
@@ -311,6 +320,7 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
             ...s,
             auditorias: s.auditorias.filter((a) => a.id !== id),
             avaliacoes: s.avaliacoes.filter((a) => a.auditoria_id !== id),
+            avaliacoes_turma: s.avaliacoes_turma.filter((a) => a.auditoria_id !== id),
             acoes: s.acoes.map((a) => (a.auditoria_id === id ? { ...a, auditoria_id: '' } : a)),
           }),
           () => backend.excluir('auditorias', { id }),
@@ -456,12 +466,42 @@ export function DadosProvider({ backend, children }: { backend: Backend; childre
           },
         );
       },
+      async salvarAvaliacoesTurma(lista: AvaliacaoTurma[], turmas: string[]) {
+        if (!lista.length) return;
+        const chave = (a: AvaliacaoTurma) => `${a.auditoria_id}|${a.item}|${a.turma}`;
+        const novas = new Map(lista.map((a) => [chave(a), a]));
+        const todas = [...snapRef.current.avaliacoes_turma.filter((a) => !novas.has(chave(a))), ...novas.values()];
+        // A situação do item na auditoria passa a ser a das turmas juntas.
+        const itens = [...new Set(lista.map((a) => `${a.auditoria_id}|${a.item}`))].map((k) => {
+          const [aud, item] = k.split('|');
+          const base = snapRef.current.avaliacoes.find((a) => a.auditoria_id === aud && a.item === item) ?? avaliacaoPadrao(aud, item);
+          return itemDasTurmas(base, todas.filter((a) => a.auditoria_id === aud && a.item === item), turmas);
+        });
+        const ids = new Set(lista.map((a) => a.auditoria_id));
+        const iniciar = snapRef.current.auditorias.filter((a) => ids.has(a.id) && !a.iniciada).map((a) => ({ ...a, iniciada: true }));
+        const chaveItem = (a: Avaliacao) => `${a.auditoria_id}|${a.item}`;
+        const novosItens = new Map(itens.map((a) => [chaveItem(a), a]));
+        await executar(
+          (s) => ({
+            ...s,
+            auditorias: s.auditorias.map((a) => iniciar.find((x) => x.id === a.id) ?? a),
+            avaliacoes_turma: [...s.avaliacoes_turma.filter((a) => !novas.has(chave(a))), ...novas.values()],
+            avaliacoes: [...s.avaliacoes.filter((a) => !novosItens.has(chaveItem(a))), ...novosItens.values()],
+          }),
+          async () => {
+            if (iniciar.length) await backend.salvarVarios('auditorias', iniciar);
+            await backend.salvarVarios('avaliacoes_turma', lista);
+            await backend.salvarVarios('avaliacoes', itens);
+          },
+        );
+      },
       async importarRegistros(s: Snapshot) {
         try {
           await backend.salvarVarios('unidades', s.unidades);
           await backend.salvarVarios('auditorias', s.auditorias);
           await backend.salvarVarios('avaliacoes', s.avaliacoes);
           await backend.salvarVarios('acoes', s.acoes);
+          if (s.avaliacoes_turma.length) await backend.salvarVarios('avaliacoes_turma', s.avaliacoes_turma);
         } finally {
           await recarregar();
         }

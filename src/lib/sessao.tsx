@@ -6,8 +6,6 @@ export type StatusSessao = 'carregando' | 'anonimo' | 'nao-autorizado' | 'ok' | 
 interface Sessao {
   status: StatusSessao;
   email: string | null;
-  /** Administrador (coluna admin da tabela membros): atualiza o panorama de matrícula. No modo local, sempre. */
-  admin: boolean;
   mensagem: string | null;
   entrar(email: string, senha: string): Promise<string | null>;
   sair(): Promise<void>;
@@ -19,20 +17,16 @@ const Contexto = createContext<Sessao | null>(null);
 export function SessaoProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<StatusSessao>(supabaseConfigurado ? 'carregando' : 'ok');
   const [email, setEmail] = useState<string | null>(null);
-  const [admin, setAdmin] = useState(!supabaseConfigurado);
   const [mensagem, setMensagem] = useState<string | null>(null);
 
   const avaliar = useCallback(async (emailSessao: string | null) => {
     setEmail(emailSessao);
     if (!emailSessao) {
-      setAdmin(false);
       setStatus('anonimo');
       return;
     }
     try {
-      const r = await verificarMembro();
-      setAdmin(r.admin);
-      setStatus(r.membro ? 'ok' : 'nao-autorizado');
+      setStatus((await verificarMembro()) ? 'ok' : 'nao-autorizado');
     } catch (e) {
       setMensagem((e as Error).message);
       setStatus('erro');
@@ -63,7 +57,7 @@ export function SessaoProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <Contexto.Provider value={{ status, email, admin, mensagem, entrar, sair }}>{children}</Contexto.Provider>
+    <Contexto.Provider value={{ status, email, mensagem, entrar, sair }}>{children}</Contexto.Provider>
   );
 }
 

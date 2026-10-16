@@ -5,6 +5,9 @@ import { ROTAS_PASSOS } from '../components/navegacao';
 import { TEXTOS } from '../data/planilha';
 import { fraseado } from '../lib/format';
 
+/** Lista "Fontes incorporadas ao instrumento": desativada por enquanto; troque para true para voltar a mostrar. */
+const MOSTRAR_FONTES = false;
+
 export function Instrucoes() {
   const t = TEXTOS.instrucoes;
   return (
@@ -67,24 +70,26 @@ export function Instrucoes() {
           </div>
         </section>
 
-        <section className="cartao" aria-labelledby="titulo-fontes">
-          <div className="cartao__cab">
-            <h2 id="titulo-fontes" className="titulo-bloco">
-              {fraseado(t.fontesTitulo)}
-            </h2>
-          </div>
-          <ul className="lista-simples">
-            {t.fontes.map((f) => (
-              <li key={f.arquivo} style={{ justifyContent: 'flex-start' }}>
-                <FileSpreadsheet size={22} aria-hidden style={{ color: 'var(--verde-texto)', flexShrink: 0 }} />
-                <div>
-                  <strong>{f.arquivo}</strong>
-                  <p className="texto-muted">{f.descricao}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {MOSTRAR_FONTES && (
+          <section className="cartao" aria-labelledby="titulo-fontes">
+            <div className="cartao__cab">
+              <h2 id="titulo-fontes" className="titulo-bloco">
+                {fraseado(t.fontesTitulo)}
+              </h2>
+            </div>
+            <ul className="lista-simples">
+              {t.fontes.map((f) => (
+                <li key={f.arquivo} style={{ justifyContent: 'flex-start' }}>
+                  <FileSpreadsheet size={22} aria-hidden style={{ color: 'var(--verde-texto)', flexShrink: 0 }} />
+                  <div>
+                    <strong>{f.arquivo}</strong>
+                    <p className="texto-muted">{f.descricao}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </>
   );

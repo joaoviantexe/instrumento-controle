@@ -432,5 +432,5 @@ export const totalMudancas = (p: Plano) =>
 /** Registros a gravar, na ordem que respeita os vínculos entre tabelas. */
 export function registrosParaGravar(p: Plano): Snapshot {
   const lista = <T,>(r: ResumoTabela<T>) => [...r.novos, ...r.alterados.map((a) => a.depois)];
-  return { unidades: lista(p.unidades), auditorias: lista(p.auditorias), avaliacoes: lista(p.avaliacoes), acoes: lista(p.acoes) };
+  return { unidades: lista(p.unidades), auditorias: lista(p.auditorias), avaliacoes: lista(p.avaliacoes), acoes: lista(p.acoes), avaliacoes_turma: [] };
 }

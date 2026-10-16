@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState, type DragEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { Download, FileArchive, FileUp, Lock, Trash2, TriangleAlert } from 'lucide-react';
+import { Download, FileArchive, FileUp, Trash2, TriangleAlert } from 'lucide-react';
 import { DISTRITOS } from '../data/planilha';
 import { avisar } from '../lib/avisos';
 import { auditoriaDeReferencia, respostasComDados } from '../lib/checklist';
@@ -8,7 +8,6 @@ import { abrirXlsx, gerarChecklistExcel, nomeArquivoChecklist } from '../lib/che
 import { baixar } from '../lib/exportar';
 import { contem, formatarData, formatarNumero } from '../lib/format';
 import { associarUnidades, contarPanorama, lerLinhasPanorama, linhasDaAba, resumirTurmas, type Panorama } from '../lib/panorama';
-import { useSessao } from '../lib/sessao';
 import { useDados } from '../lib/store';
 import type { Unidade } from '../lib/types';
 import { Dialogo, Nota } from './ui';
@@ -26,7 +25,6 @@ export function PanoramaTurmas() {
 
 function AnosPanorama() {
   const d = useDados();
-  const { admin } = useSessao();
   const [removendo, setRemovendo] = useState<number | null>(null);
   return (
     <section className="cartao">
@@ -75,7 +73,7 @@ function AnosPanorama() {
                   <td className="num">{formatarNumero(p.alunos)}</td>
                   <td className="pequeno texto-muted">{p.fonte}</td>
                   <td>
-                    {admin && p.origem === 'enviado' && (
+                    {p.origem === 'enviado' && (
                       <button type="button" className="btn btn--neutro btn--pequeno" onClick={() => setRemovendo(p.ano)}>
                         <Trash2 size={14} aria-hidden /> Remover
                       </button>
@@ -113,7 +111,6 @@ function AnosPanorama() {
 
 function EnviarPanorama() {
   const d = useDados();
-  const { admin } = useSessao();
   const entrada = useRef<HTMLInputElement>(null);
   const [lendo, setLendo] = useState(false);
   const [salvando, setSalvando] = useState(false);
@@ -168,13 +165,10 @@ function EnviarPanorama() {
     <section className="cartao">
       <div className="cartao__cab">
         <h2 className="titulo-bloco">Atualizar o panorama de um ano</h2>
-        {admin ? <FileUp size={22} aria-hidden style={{ color: 'var(--verde-texto)' }} /> : <Lock size={20} aria-hidden style={{ color: 'var(--muted)' }} />}
+        <FileUp size={22} aria-hidden style={{ color: 'var(--verde-texto)' }} />
       </div>
       <div className="cartao__corpo" style={{ display: 'grid', gap: 14 }}>
-        {!admin ? (
-          <Nota>Somente administradores atualizam o Panorama de Matrícula. Peça a um administrador para enviar a planilha do ano.</Nota>
-        ) : (
-          <>
+        <>
             <p className="texto-muted pequeno" style={{ margin: 0 }}>
               Envie o relatório <em>Panorama de Matrícula</em> exportado do SIGA (.xlsx, uma linha por turma). O ano vem da coluna Ano; um arquivo com
               vários anos atualiza cada um. As unidades são ligadas ao cadastro pelo código da SEMEC já conhecido, pelo INEP e pelo nome. Enviar de
@@ -200,8 +194,7 @@ function EnviarPanorama() {
               </label>
               <input ref={entrada} type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden onChange={(e) => e.target.files?.[0] && void ler(e.target.files[0])} />
             </div>
-          </>
-        )}
+        </>
 
         {lidos && (
           <div className="importacao">
@@ -307,10 +300,10 @@ function ChecklistsPorUnidade() {
   async function planilha(u: Unidade, p: Panorama | null) {
     const up = p?.unidades.find((x) => x.unidade_id === u.id);
     if (!comDados) return gerarChecklistExcel({ unidade: u, ano, turmas: up?.turmas ?? [], panorama: up });
-    const salvas = enviadas.has(u.id) ? (await d.obterChecklist(u.id, ano))?.turmas : undefined;
+    const salvas = enviadas.has(u.id) ? ((await d.obterChecklist(u.id, ano)) ?? undefined) : undefined;
     const ref = auditoriaDeReferencia(d.auditorias, u.id);
-    const codigos = up?.turmas.length ? up.turmas.map((t) => t.turma) : ['GERAL'];
-    const respostas = respostasComDados(codigos, salvas, ref && d.mapaAvaliacoes.get(ref.id));
+    const codigos = (up?.turmas ?? []).map((t) => t.turma);
+    const respostas = respostasComDados(codigos, salvas, ref && d.mapaAvaliacoes.get(ref.id), ref && d.mapaTurmas.get(ref.id));
     return gerarChecklistExcel({ unidade: u, ano, turmas: up?.turmas ?? [], panorama: up, respostas });
   }
 

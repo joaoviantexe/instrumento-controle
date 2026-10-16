@@ -27,7 +27,7 @@ export function ImportarPlanilha() {
     setPlano(null);
     try {
       if (!/\.xlsx$/i.test(f.name)) throw new Error('envie um arquivo do Excel (.xlsx).');
-      const p = planejarImportacao(await lerPlanilha(f), { unidades: d.unidades, auditorias: d.auditorias, avaliacoes: d.avaliacoes, acoes: d.acoes });
+      const p = planejarImportacao(await lerPlanilha(f), { unidades: d.unidades, auditorias: d.auditorias, avaliacoes: d.avaliacoes, acoes: d.acoes, avaliacoes_turma: d.avaliacoes_turma });
       if (!TABELAS.some((t) => p[t.chave].encontrada)) throw new Error('nenhuma aba da planilha foi reconhecida.');
       setPlano({ ...p, arquivo: f.name });
     } catch (e) {

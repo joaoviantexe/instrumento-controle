@@ -13,7 +13,7 @@ import { useSessao } from '../lib/sessao';
 import { SUPABASE_URL } from '../lib/backend/supabase';
 import { snapshotInicial } from '../lib/backend/inicial';
 import { exportarExcel } from '../lib/exportar';
-import { abaAcoes, abaAuditoriaDocumental, abaListaMestra, abaPlano, abaUnidades, abasRelatorios } from '../lib/abas';
+import { abaAcoes, abaAuditoriaDocumental, abaAuditoriaTurmas, abaListaMestra, abaPlano, abaUnidades, abasRelatorios } from '../lib/abas';
 import { avisar } from '../lib/avisos';
 import { PLANILHA } from '../data/planilha';
 import type { Snapshot } from '../lib/types';
@@ -24,7 +24,7 @@ const LIMITE_B = Number(env.VITE_LIMITE_LEITURAS) || 9000000;
 
 export function Dados() {
   const d = useDados();
-  const { email, admin } = useSessao();
+  const { email } = useSessao();
   const [pendente, setPendente] = useState<{ titulo: string; texto: string; dados: Snapshot } | null>(null);
   const [processando, setProcessando] = useState(false);
   const vazio = d.unidades.length === 0;
@@ -72,6 +72,7 @@ export function Dados() {
       abaListaMestra(),
       abaPlano(d, d.auditorias),
       abaAuditoriaDocumental(d, d.auditorias),
+      abaAuditoriaTurmas(d),
       abaAcoes(d, d.acoes),
       ...abasRelatorios(d, d.linhas, d.unidades, d.auditorias),
     ]);
@@ -123,7 +124,7 @@ export function Dados() {
             <strong>{d.modo === 'supabase' ? 'Banco compartilhado (Supabase)' : 'Modo local'}</strong>
             <span className="texto-muted pequeno">
               {d.modo === 'supabase'
-                ? ` · projeto ${new URL(SUPABASE_URL).hostname} · sessão: ${email}${admin ? ' (administrador)' : ''}`
+                ? ` · projeto ${new URL(SUPABASE_URL).hostname} · sessão: ${email}`
                 : ' · os dados ficam só neste navegador; exporte para Excel com frequência'}
             </span>
           </div>
@@ -157,7 +158,7 @@ export function Dados() {
                 <div>
                   <h2 className="titulo-bloco">Exportar planilha completa</h2>
                   <p className="texto-muted pequeno">
-                    Gera um arquivo .xlsx com as abas Cadastro Unidades, Lista Mestra, Plano de Visita Técnica, Auditoria Documental, Plano de Ação e
+                    Gera um arquivo .xlsx com as abas Cadastro Unidades, Lista Mestra, Plano de Visita Técnica, Auditoria Documental, Auditoria por Turma, Plano de Ação e
                     Relatórios, com os mesmos cabeçalhos da planilha original. Serve também como cópia de segurança.
                   </p>
                 </div>

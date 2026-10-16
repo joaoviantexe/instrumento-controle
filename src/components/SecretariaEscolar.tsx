@@ -4,17 +4,21 @@ import { avisar } from '../lib/avisos';
 import { baixar } from '../lib/exportar';
 import { formatarData, formatarNumero, formatarPct, hojeISO } from '../lib/format';
 import { useDados } from '../lib/store';
+import { avaliado } from '../lib/calc';
 import {
   ITENS_CHECKLIST,
+  ITENS_POR_TURMA,
   auditoriaDeReferencia,
+  avaliadoPelaCde,
   consolidar,
+  itensGerais,
   pendentesDaTurma,
   planejarAplicacao,
   registrosDaAplicacao,
   respostasComDados,
   resumirChecklist,
   type ChecklistUnidade,
-  type MudancaItem,
+  type PlanoAplicacao,
 } from '../lib/checklist';
 import { diferencasCadastro, gerarChecklistExcel, lerChecklistExcel, type ChecklistLida, type DiferencaCadastro } from '../lib/checklistExcel';
 import { agruparTurmas, compararAnos, decodificarTurma, resumirTurmas, semelhanca, type UnidadePanorama } from '../lib/panorama';
@@ -103,7 +107,7 @@ export function SecretariaEscolar({ unidade }: { unidade: Unidade }) {
           <span className="contagem">Panorama de Matrícula (SIGA) · {anoAtual}</span>
         </div>
         <div className="cartao__corpo">
-          <TurmasUnidade ano={anoAtual} anos={anos} estado={estado} />
+          <TurmasUnidade ano={anoAtual} anos={anos} estado={estado} unidadeId={unidade.id} />
         </div>
       </section>
     </>
@@ -134,6 +138,7 @@ function ChecklistSecretaria({ unidade, ano, estado, aoSalvar }: { unidade: Unid
   /** Campos do Cadastro marcados para atualizar. */
   const [camposMarcados, setCamposMarcados] = useState<Set<string>>(new Set());
   const turmas = estado.atual?.turmas ?? [];
+  const codigosTurmas = turmas.map((t) => t.turma);
   const c = estado.checklist;
 
   const auditorias = useMemo(() => d.auditorias.filter((a) => a.unidade_id === unidade.id).sort((a, b) => b.id.localeCompare(a.id)), [d.auditorias, unidade.id]);
@@ -145,9 +150,10 @@ function ChecklistSecretaria({ unidade, ano, estado, aoSalvar }: { unidade: Unid
   async function gerar(comDados: boolean) {
     setGerando(true);
     try {
-      const codigos = turmas.length ? turmas.map((t) => t.turma) : ['GERAL'];
       const ref = auditoriaDeReferencia(d.auditorias, unidade.id);
-      const respostas = comDados ? respostasComDados(codigos, c?.turmas, ref && d.mapaAvaliacoes.get(ref.id)) : undefined;
+      const respostas = comDados
+        ? respostasComDados(codigosTurmas, c ?? undefined, ref && d.mapaAvaliacoes.get(ref.id), ref && d.mapaTurmas.get(ref.id))
+        : undefined;
       const { buffer, nome } = await gerarChecklistExcel({ unidade, ano, turmas, panorama: estado.atual, respostas });
       baixar(new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), comDados ? nome : nome.replace(/\.xlsx$/, '_em_branco.xlsx'));
       avisar(comDados ? 'Planilha gerada com a situação atual dos documentos.' : 'Planilha em branco gerada.');
@@ -187,21 +193,24 @@ function ChecklistSecretaria({ unidade, ano, estado, aoSalvar }: { unidade: Unid
     }
   }
 
-  // Situação declarada de cada item, juntando as turmas (as do panorama sem aba contam como não avaliadas).
-  const consolidados = useMemo(() => (previa ? consolidar({ turmas: previa.lida.turmas }, turmas.map((t) => t.turma)) : null), [previa, turmas]);
-  const plano: MudancaItem[] = useMemo(() => {
-    if (!consolidados || !previa) return [];
+  // Situação declarada de cada item (nos itens por turma, juntando as turmas; as do panorama sem aba contam como não avaliadas).
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const consolidados = useMemo(() => (previa ? consolidar(previa.lida, codigosTurmas) : null), [previa, codigosTurmas.join(',')]);
+  const plano: PlanoAplicacao = useMemo(() => {
+    if (!previa) return { itens: [], turmas: [] };
     const id = auditoriaDestino === NOVA ? 'NOVA' : auditoriaDestino;
-    return planejarAplicacao(consolidados, id, d.mapaAvaliacoes.get(id), { ano, arquivo: previa.arquivo, data: hojeISO() });
-  }, [consolidados, previa, auditoriaDestino, d.mapaAvaliacoes, ano]);
-  const aplicar = plano.filter((m) => m.acao === 'aplicar');
-  const divergentes = plano.filter((m) => m.diverge);
+    return planejarAplicacao(previa.lida, id, d.mapaAvaliacoes.get(id), d.mapaTurmas.get(id), codigosTurmas, { ano, arquivo: previa.arquivo, data: hojeISO() });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previa, auditoriaDestino, d.mapaAvaliacoes, d.mapaTurmas, ano, codigosTurmas.join(',')]);
+  const aplicar = [...plano.itens, ...plano.turmas].filter((m) => m.acao === 'aplicar');
+  const divergentes = [...plano.itens, ...plano.turmas].filter((m) => m.diverge);
+  const audPrevia = auditoriaDestino === NOVA ? undefined : auditoriaDestino;
 
   async function salvar(naAuditoria: boolean) {
     if (!previa || !consolidados) return;
     setAplicando(true);
     try {
-      await d.salvarChecklist({ unidade_id: unidade.id, ano, arquivo: previa.arquivo, turmas: previa.lida.turmas });
+      await d.salvarChecklist({ unidade_id: unidade.id, ano, arquivo: previa.arquivo, geral: previa.lida.geral, turmas: previa.lida.turmas });
       let msg = 'Checklist salva.';
       const mudancasCadastro = previa.cadastro.filter((x) => camposMarcados.has(x.campo));
       if (mudancasCadastro.length) {
@@ -223,9 +232,11 @@ function ChecklistSecretaria({ unidade, ano, estado, aoSalvar }: { unidade: Unid
           });
         }
         // Recalcula contra a auditoria escolhida (ou recém-criada), com os dados atuais.
-        const registros = registrosDaAplicacao(planejarAplicacao(consolidados, audId, d.mapaAvaliacoes.get(audId), { ano, arquivo: previa.arquivo, data: hojeISO() }));
-        await d.salvarAvaliacoes(registros);
-        msg = `Checklist salva e aplicada na auditoria ${audId}: ${aplicar.length} item(ns) aguardam verificação da CDE.`;
+        const meta = { ano, arquivo: previa.arquivo, data: hojeISO() };
+        const registros = registrosDaAplicacao(planejarAplicacao(previa.lida, audId, d.mapaAvaliacoes.get(audId), d.mapaTurmas.get(audId), codigosTurmas, meta));
+        await d.salvarAvaliacoes(registros.itens);
+        await d.salvarAvaliacoesTurma(registros.turmas, codigosTurmas);
+        msg = `Checklist salva e aplicada na auditoria ${audId}: ${aplicar.length} avaliação(ões) aguardam verificação da CDE.`;
       }
       if (mudancasCadastro.length) msg += ` Cadastro atualizado (${mudancasCadastro.map((x) => x.rotulo).join(', ')}).`;
       avisar(msg);
@@ -250,9 +261,11 @@ function ChecklistSecretaria({ unidade, ano, estado, aoSalvar }: { unidade: Unid
   return (
     <div style={{ display: 'grid', gap: 14 }}>
       <p className="texto-muted pequeno" style={{ margin: 0 }}>
-        A planilha tem a identificação da unidade, as turmas de {ano} e uma aba de checklist por turma com os {ITENS_CHECKLIST.length} documentos das
-        seções 1 a 5 da Lista Mestra. A secretaria preenche e devolve; o sistema lê as abas e leva a situação de cada documento para a auditoria,
-        marcada como <strong>requer verificação da CDE</strong> (é uma autodeclaração, sem prova). O que a CDE já avaliou nunca é substituído.
+        A planilha tem a identificação da unidade, as turmas de {ano}, a <strong>checklist geral</strong> com os {itensGerais(true).length} documentos da
+        unidade (atos, regimento, livros, servidores…) e uma <strong>checklist por turma</strong> com os {ITENS_POR_TURMA.length} documentos da turma
+        (documentos dos alunos e relação nominal). A secretaria preenche e devolve; o sistema lê as abas e leva a situação de cada documento — e de
+        cada turma — para a auditoria, marcada como <strong>requer verificação da CDE</strong> (é uma autodeclaração, sem prova). O que a CDE já
+        avaliou nunca é substituído.
       </p>
 
       <div className="checklist-status">
@@ -306,7 +319,7 @@ function ChecklistSecretaria({ unidade, ano, estado, aoSalvar }: { unidade: Unid
         </div>
       </div>
       {!estado.carregando && !turmas.length && (
-        <Nota tipo="alerta">Esta unidade não está no Panorama de Matrícula de {ano}: a planilha sai com uma única aba de checklist (GERAL).</Nota>
+        <Nota tipo="alerta">Esta unidade não está no Panorama de Matrícula de {ano}: a planilha sai só com a checklist geral, com todos os documentos.</Nota>
       )}
 
       {previa && consolidados && (
@@ -363,7 +376,7 @@ function ChecklistSecretaria({ unidade, ano, estado, aoSalvar }: { unidade: Unid
               <dd>{turmas.length || '—'}</dd>
             </div>
             <div>
-              <dt>Itens a aplicar</dt>
+              <dt>Avaliações a aplicar</dt>
               <dd>{aplicar.length}</dd>
             </div>
             <div>
@@ -387,34 +400,66 @@ function ChecklistSecretaria({ unidade, ano, estado, aoSalvar }: { unidade: Unid
               <thead>
                 <tr>
                   <th>Documento</th>
-                  <th>Declarado (todas as turmas)</th>
+                  <th>Declarado</th>
                   <th>Na auditoria hoje</th>
                   <th>O que acontece</th>
                 </tr>
               </thead>
               <tbody>
-                {plano.map((m) => (
-                  <tr key={m.codigo}>
-                    <td>
-                      <span className="item-aud__codigo">{m.codigo}</span> {m.rotulo}
-                    </td>
-                    <td title={m.declarado.naoConformes.length ? `Não conforme: ${m.declarado.naoConformes.join(', ')}` : undefined}>
-                      <Etiqueta valor={m.declarado.situacao} />{' '}
-                      <span className="pequeno texto-muted">
-                        {m.declarado.contagem.Conforme}/{m.declarado.turmas}
-                      </span>
-                    </td>
-                    <td>
-                      <Etiqueta valor={m.antes.situacao} />
-                    </td>
-                    <td className="pequeno">
-                      {m.acao === 'aplicar' && <span className="chip chip--parcial">Entra · requer verificação</span>}
-                      {m.acao === 'manter' && (m.diverge ? <span className="chip chip--nc">Mantém a avaliação da CDE (diverge)</span> : 'Mantém a avaliação da CDE')}
-                      {m.acao === 'igual' && <span className="texto-muted">Sem mudança</span>}
-                      {m.acao === 'sem-declaracao' && <span className="texto-muted">Não declarado</span>}
-                    </td>
-                  </tr>
-                ))}
+                {ITENS_CHECKLIST.map((item) => {
+                  const m = plano.itens.find((x) => x.codigo === item.codigo);
+                  if (m) {
+                    return (
+                      <tr key={item.codigo}>
+                        <td>
+                          <span className="item-aud__codigo">{m.codigo}</span> {m.rotulo}
+                        </td>
+                        <td>
+                          <Etiqueta valor={m.declarado.situacao} />
+                        </td>
+                        <td>
+                          <Etiqueta valor={m.antes.situacao} />
+                        </td>
+                        <td className="pequeno">
+                          {m.acao === 'aplicar' && <span className="chip chip--parcial">Entra · requer verificação</span>}
+                          {m.acao === 'manter' && (m.diverge ? <span className="chip chip--nc">Mantém a avaliação da CDE (diverge)</span> : 'Mantém a avaliação da CDE')}
+                          {m.acao === 'igual' && <span className="texto-muted">Sem mudança</span>}
+                          {m.acao === 'sem-declaracao' && <span className="texto-muted">Não declarado</span>}
+                        </td>
+                      </tr>
+                    );
+                  }
+                  // Item por turma: o resumo das turmas.
+                  const ts = plano.turmas.filter((x) => x.codigo === item.codigo);
+                  const cons = consolidados?.get(item.codigo);
+                  const n = (a: string) => ts.filter((x) => x.acao === a).length;
+                  const div = ts.filter((x) => x.diverge).length;
+                  return (
+                    <tr key={item.codigo}>
+                      <td>
+                        <span className="item-aud__codigo">{item.codigo}</span> {item.rotulo} <span className="chip chip--azul">por turma</span>
+                      </td>
+                      <td title={cons?.naoConformes.length ? `Não conforme: ${cons.naoConformes.join(', ')}` : undefined}>
+                        <Etiqueta valor={cons?.situacao} />{' '}
+                        <span className="pequeno texto-muted">
+                          {cons?.contagem.Conforme ?? 0}/{cons?.turmas ?? 0} conformes
+                        </span>
+                      </td>
+                      <td>
+                        <Etiqueta valor={(audPrevia && d.mapaAvaliacoes.get(audPrevia)?.get(item.codigo)?.situacao) || 'Não avaliado'} />
+                      </td>
+                      <td className="pequeno">
+                        {n('aplicar') > 0 && <span className="chip chip--parcial">{n('aplicar')} turma(s) entram · requer verificação</span>}{' '}
+                        {n('manter') + ts.filter((x) => x.acao === 'igual' && avaliadoPelaCde(x.antes)).length > 0 && (
+                          <span className={'chip ' + (div ? 'chip--nc' : 'chip--azul')}>
+                            {n('manter') + ts.filter((x) => x.acao === 'igual' && avaliadoPelaCde(x.antes)).length} mantêm a CDE{div ? ` (${div} divergem)` : ''}
+                          </span>
+                        )}
+                        {n('aplicar') + n('manter') === 0 && <span className="texto-muted">{n('sem-declaracao') === ts.length ? 'Não declarado' : 'Sem mudança'}</span>}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -464,9 +509,16 @@ function ChecklistSecretaria({ unidade, ano, estado, aoSalvar }: { unidade: Unid
 
 const TURNO_CURTO: Record<string, string> = { MANHÃ: 'Manhã', TARDE: 'Tarde', NOITE: 'Noite', 'TEMPO INTEGRAL': 'Integral', INTERMEDIÁRIO: 'Intermediário' };
 
-function TurmasUnidade({ ano, anos, estado }: { ano: number; anos: number[]; estado: Estado }) {
+function TurmasUnidade({ ano, anos, estado, unidadeId }: { ano: number; anos: number[]; estado: Estado; unidadeId: string }) {
+  const d = useDados();
   const turmas = estado.atual?.turmas ?? [];
   const grupos = useMemo(() => agruparTurmas(turmas), [turmas]);
+  // Avaliação da CDE de cada turma (documentos da turma), na auditoria de referência da unidade.
+  const ref = auditoriaDeReferencia(d.auditorias, unidadeId);
+  const avaliacaoDa = (turma: string) => {
+    const regs = ITENS_POR_TURMA.map((c) => d.mapaTurmas.get(ref?.id ?? '')?.get(c)?.get(turma)).filter((x) => x && avaliado(x.situacao));
+    return { avaliados: regs.length, nc: regs.filter((x) => x!.situacao === 'Não conforme' || x!.situacao === 'Parcialmente conforme').length };
+  };
   if (estado.carregando) return <p className="texto-muted">Carregando turmas…</p>;
   if (!estado.atual) {
     return (
@@ -474,7 +526,7 @@ function TurmasUnidade({ ano, anos, estado }: { ano: number; anos: number[]; est
         texto={
           anos.length
             ? `Esta unidade não aparece no Panorama de Matrícula de ${ano}.`
-            : 'Nenhum Panorama de Matrícula disponível. O administrador envia o do ano em Dados e planilhas → Turmas.'
+            : 'Nenhum Panorama de Matrícula disponível. Envie o do ano em Dados e planilhas → Turmas e checklists.'
         }
       />
     );
@@ -534,13 +586,14 @@ function TurmasUnidade({ ano, anos, estado }: { ano: number; anos: number[]; est
               <th className="num">Capacidade</th>
               <th className="num">Vagas</th>
               <th className="num">Ed. especial</th>
-              <th>Checklist</th>
+              <th title="Documentos da turma na auditoria">Auditoria</th>
+              <th title="Checklist enviada pela secretaria">Checklist</th>
             </tr>
           </thead>
           {grupos.map((g) => (
             <tbody key={g.ensino}>
               <tr className="secao-linha">
-                <td colSpan={8}>
+                <td colSpan={9}>
                   <School size={14} aria-hidden style={{ verticalAlign: '-2px' }} /> {g.ensino || 'Sem etapa'} · {g.resumo.turmas} turma(s) ·{' '}
                   {formatarNumero(g.resumo.alunos)} aluno(s) · ocupação {formatarPct(g.resumo.ocupacao)}
                 </td>
@@ -559,6 +612,18 @@ function TurmasUnidade({ ano, anos, estado }: { ano: number; anos: number[]; est
                       <td className="num">{t.ocupacao}</td>
                       <td className="num">{t.vagas < 0 ? <span className="chip chip--nc" title="Mais alunos que a capacidade">{t.vagas}</span> : t.vagas}</td>
                       <td className="num">{t.especial || <span className="texto-muted">0</span>}</td>
+                      <td className="nowrap">
+                        {(() => {
+                          const a = avaliacaoDa(t.turma);
+                          if (!a.avaliados) return <span className="texto-muted">—</span>;
+                          return (
+                            <span className={'chip ' + (a.nc ? 'chip--nc' : a.avaliados === ITENS_POR_TURMA.length ? 'chip--conforme' : 'chip--azul')}>
+                              {a.avaliados}/{ITENS_POR_TURMA.length}
+                              {a.nc ? ` · ${a.nc} NC` : ''}
+                            </span>
+                          );
+                        })()}
+                      </td>
                       <td>
                         {pend === undefined ? (
                           <span className="texto-muted">—</span>
