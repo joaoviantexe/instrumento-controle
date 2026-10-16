@@ -8,6 +8,9 @@ import { useDados } from '../lib/store';
 import { acaoEmAberto, diasRestantes, indiceGlobal } from '../lib/calc';
 import { formatarData, formatarNumero, formatarPct, fraseado } from '../lib/format';
 
+/** Lista "Fontes incorporadas ao instrumento": desativada por enquanto; troque para true para voltar a mostrar. */
+const MOSTRAR_FONTES = false;
+
 
 export function Inicio() {
   const d = useDados();
@@ -190,24 +193,26 @@ export function Inicio() {
       </div>
 
       <div className="container pagina" style={{ paddingTop: 0 }}>
-        <section className="cartao" aria-labelledby="fontes">
-          <div className="cartao__cab">
-            <h2 id="fontes" className="titulo-bloco">
-              {fraseado(i.fontesTitulo)}
-            </h2>
-          </div>
-          <ul className="lista-simples">
-            {i.fontes.map((f) => (
-              <li key={f.arquivo} style={{ justifyContent: 'flex-start' }}>
-                <FileSpreadsheet size={22} aria-hidden style={{ color: 'var(--verde-texto)', flexShrink: 0 }} />
-                <div>
-                  <strong>{f.arquivo}</strong>
-                  <p className="texto-muted">{f.descricao}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
+        {MOSTRAR_FONTES && (
+          <section className="cartao" aria-labelledby="fontes">
+            <div className="cartao__cab">
+              <h2 id="fontes" className="titulo-bloco">
+                {fraseado(i.fontesTitulo)}
+              </h2>
+            </div>
+            <ul className="lista-simples">
+              {i.fontes.map((f) => (
+                <li key={f.arquivo} style={{ justifyContent: 'flex-start' }}>
+                  <FileSpreadsheet size={22} aria-hidden style={{ color: 'var(--verde-texto)', flexShrink: 0 }} />
+                  <div>
+                    <strong>{f.arquivo}</strong>
+                    <p className="texto-muted">{f.descricao}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </>
   );
