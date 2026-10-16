@@ -2744,18 +2744,7 @@ main {
 .metricas--compactas strong {
   font-size: 1.25rem;
 }
-.situacao-docs {
-  display: grid;
-  gap: 14px;
-}
-.situacao-docs__topo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px 16px;
-}
-.situacao-docs__aud,
+.auditoria-unidade__seletor,
 .seletor-ano {
   display: inline-flex;
   align-items: center;
@@ -2763,7 +2752,7 @@ main {
   font-size: 0.84rem;
   color: var(--tinta-2);
 }
-.situacao-docs__aud select,
+.auditoria-unidade__seletor select,
 .seletor-ano select {
   font: inherit;
   padding: 5px 10px;
@@ -2772,29 +2761,6 @@ main {
   background: var(--superficie);
   color: var(--tinta);
   max-width: min(100%, 520px);
-}
-.situacao-docs__aviso {
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-  margin: 0;
-  padding: 10px 14px;
-  border-radius: var(--raio);
-  background: var(--alerta-claro);
-  color: var(--tinta);
-  font-size: 0.86rem;
-}
-.situacao-docs__aviso svg {
-  flex-shrink: 0;
-  color: var(--alerta);
-  margin-top: 2px;
-}
-.situacao-docs__item {
-  display: inline-flex;
-  gap: 8px;
-  align-items: baseline;
-  font-weight: 500 !important;
-  color: var(--tinta) !important;
 }
 .checklist-status {
   display: flex;
@@ -2909,30 +2875,6 @@ main {
   background: var(--superficie);
   color: var(--tinta);
 }
-.situacao-docs__turmas {
-  all: unset;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  color: var(--azul);
-}
-.situacao-docs__turmas:focus-visible {
-  outline: 2px solid var(--foco);
-}
-.situacao-docs__por-turma {
-  margin-left: 8px;
-}
-.situacao-docs__verif {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.tabela tbody tr.situacao-docs__grade td {
-  background: var(--superficie-2);
-  padding: 12px 14px 16px;
-}
 .item-aud__derivada {
   display: inline-flex;
   align-items: center;
@@ -3011,4 +2953,79 @@ main {
 }
 .grade-turmas__nota--ok {
   color: var(--verde-texto);
+}
+
+/* Auditoria completa (página da auditoria e página da unidade) */
+.auditoria-unidade__cab {
+  display: grid;
+  gap: 4px;
+  margin-top: 8px;
+}
+.auditoria-unidade__cab p {
+  margin: 0;
+}
+.auditoria-unidade__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+.auditoria-unidade__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.aud-filtros {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+.seg--visao button[aria-pressed='true'] {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #fff;
+}
+.aud-itens {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+/* Visão compacta: um item por linha (código, nome e situação); detalhes e turmas continuam a um clique. */
+.aud-itens--compacta .item-aud {
+  padding: 8px 16px;
+  gap: 6px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+.aud-itens--compacta .item-aud > :not(.item-aud__cab):not(.item-aud__linha) {
+  grid-column: 1 / -1;
+}
+.aud-itens--compacta .item-aud__cab {
+  align-items: center;
+  gap: 10px;
+}
+.aud-itens--compacta .item-aud__titulo strong {
+  font-size: 0.88rem;
+}
+.aud-itens--compacta .item-aud__titulo > span,
+.aud-itens--compacta .item-aud__metricas {
+  display: none;
+}
+.aud-itens--compacta .item-aud__linha {
+  justify-content: flex-end;
+}
+.aud-itens--compacta .item-aud__linha > span {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+@media (max-width: 1099px) {
+  .aud-itens--compacta .item-aud {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aud-itens--compacta .item-aud__linha {
+    justify-content: space-between;
+  }
 }
