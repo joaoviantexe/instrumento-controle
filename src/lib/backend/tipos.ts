@@ -1,13 +1,14 @@
 import type { ChecklistUnidade, InfoChecklist } from '../checklist';
 import type { Conferencia, ChaveConferencia } from '../conferencias';
 import type { Panorama } from '../panorama';
-import type { Acao, Auditoria, Anexo, Avaliacao, EntidadeAnexo, Snapshot, Unidade } from '../types';
+import type { Acao, Auditoria, Anexo, Avaliacao, AvaliacaoTurma, EntidadeAnexo, Snapshot, Unidade } from '../types';
 
 export interface Tabelas {
   unidades: Unidade;
   auditorias: Auditoria;
   avaliacoes: Avaliacao;
   acoes: Acao;
+  avaliacoes_turma: AvaliacaoTurma;
 }
 export type NomeTabela = keyof Tabelas;
 
@@ -17,6 +18,7 @@ export const CHAVES: { [T in NomeTabela]: (keyof Tabelas[T])[] } = {
   auditorias: ['id'],
   avaliacoes: ['auditoria_id', 'item'],
   acoes: ['id'],
+  avaliacoes_turma: ['auditoria_id', 'item', 'turma'],
 };
 
 export type EnvioAnexo = Anexo & { reaproveitado: boolean };
@@ -94,7 +96,7 @@ export interface InfoPanoramaSalvo {
   atualizado_por: string;
 }
 
-/** Panoramas de Matrícula por ano. Só o administrador grava; todos os membros leem. */
+/** Panoramas de Matrícula por ano (todo membro lê e grava). */
 export interface PanoramasApi {
   listar(): Promise<InfoPanoramaSalvo[]>;
   obter(ano: number): Promise<Panorama | null>;

@@ -87,7 +87,7 @@ Base territorial com as **217 unidades** (175 municipais e 42 OSC/conveniadas) d
 
 **Detalhe da unidade** (clique na linha)
 - Todos os 26 campos da planilha agrupados em *Identificação*, *Endereço*, *Atos legais*, *Responsáveis* e *Observações cadastrais*.
-- No fim da página: **Situação dos documentos da auditoria**, **Checklist da secretaria escolar** e **Turmas** (veja a [seção 12-B](#12-b-turmas-e-checklist-da-secretaria-escolar)).
+- No fim da página: **Situação dos documentos da auditoria** (editável ali mesmo, inclusive turma a turma), **Checklist da secretaria escolar** e **Turmas** (veja a [seção 12-B](#12-b-turmas-e-checklist-da-secretaria-escolar)).
   As auditorias e ações da unidade são abertas pela Situação dos documentos (botão *Abrir a Auditoria Documental*), pelo Plano de Visita Técnica e pelo Plano de Ação.
 - **Editar**: painel lateral com todos os campos. A *Data da atualização* é preenchida com a data de hoje ao salvar.
   A *Vigência do ato* aceita data (DD/MM/AAAA) ou texto (ex.: DEFINITIVO), como na planilha.
@@ -233,38 +233,56 @@ A tela tem uma faixa de estado (banco usado e onde os PDFs são guardados) e as 
 ## 12-B. Turmas e checklist da secretaria escolar
 
 **Panorama de Matrícula (turmas).** O relatório *Panorama de Matrícula* do SIGA (uma linha por turma) define as turmas de cada unidade em cada
-ano. O de **2026** já vem no site (`dados/panorama-matricula/`); para outros anos, um **administrador** envia a planilha em
-*Dados e planilhas → Turmas e checklists → Atualizar o panorama de um ano* (os demais membros só consultam). As unidades do panorama são ligadas
-ao Cadastro pelo código da SEMEC já conhecido, pelo INEP e, para sede e anexos que dividem o INEP, pelo nome; a prévia mostra as que não foram encontradas.
+ano. O de **2026** já vem no site (`dados/panorama-matricula/`); para outros anos, qualquer pessoa com acesso envia a planilha em
+*Dados e planilhas → Turmas e checklists → Atualizar o panorama de um ano*. As unidades do panorama são ligadas ao Cadastro pelo código da SEMEC
+já conhecido, pelo INEP e, para sede e anexos que dividem o INEP, pelo nome; a prévia mostra as que não foram encontradas.
 
-**Turmas na página da unidade.** Turmas agrupadas por etapa (Educação Infantil, Fundamental, EJA…), com série, turno, alunos, capacidade, vagas
-(negativas em vermelho: turma acima da capacidade), alunos da educação especial e a situação da checklist de cada turma. Em cima: total de turmas e
-alunos, ocupação e, quando há o ano anterior, turmas novas, turmas que deixaram de existir e a variação de alunos.
+**Documentos da unidade × documentos da turma.** Dos 34 documentos das seções 1 a 5 da Lista Mestra:
 
-**Checklist da secretaria escolar (Excel).** A planilha segue o modelo da CDE (`dados/modelos/Checklist_Secretaria_Escolar.xlsx`): aba **Unidade**
-(identificação, endereço e responsáveis, do Cadastro), aba **Turmas** (as turmas do ano) e uma aba **Checklist - TURMA** por turma com os
-34 documentos das seções 1 a 5 da Lista Mestra (Situação, Última atualização, Prazo, Responsável e Observação, com listas suspensas e a
-formatação em vermelho do que está pendente).
+- **24 são da unidade** (avaliados uma vez): os institucionais (ato de criação, autorização, regimento, PPP, calendário, matriz), os da secretaria
+  (livros, protocolos, arquivo, correspondências, inventário), os dos servidores e os administrativos;
+- **10 são da turma** (avaliados em cada turma): a *Relação nominal dos estudantes* (seção 2) e os 9 *documentos dos alunos* (seção 3).
+  A lista fica em `ITENS_POR_TURMA` (`src/lib/checklist.ts`).
 
-- **Gerar com dados**: cada documento sai com a situação atual — o que a CDE avaliou ou verificou (marcado "Avaliado pela CDE" na Observação,
-  repetido em todas as turmas, porque a auditoria tem uma situação por documento para a unidade) e, onde a CDE ainda não avaliou, a última resposta
-  da secretaria em cada turma.
+Na Auditoria Documental, cada documento da turma tem uma avaliação **por turma**, e a situação do documento resulta das turmas:
+alguma turma Não conforme → *Não conforme* (ou *Parcialmente conforme*, se outras estão conformes); senão, alguma turma ainda não avaliada →
+*Não avaliado* (a conformidade só vale com todas as turmas conferidas); todas conformes → *Conforme*; todas *Não se aplica* → *Não se aplica*.
+A pontuação usa essa situação, com os mesmos pesos de antes. Unidade sem turmas no panorama: os 34 documentos valem para a unidade inteira.
+
+**Situação dos documentos da auditoria (página da unidade)** — editável ali mesmo:
+- cada documento da unidade tem um seletor de situação; escolher a situação de um item autodeclarado conta como verificação da CDE, e o botão
+  **confirmar** verifica sem mudar a situação;
+- cada documento da turma abre a **grade de turmas** (clique na situação): um seletor por turma, **Todas as turmas** para marcar todas de uma vez e
+  **Confirmar autodeclaradas**. Turmas autodeclaradas aparecem em amarelo; as que divergem da secretaria, com a declaração dela;
+- sem auditoria, o botão **Iniciar auditoria** cria uma (*Visita técnica — checklist integral*);
+- em cima: avaliados, conformes, parciais, não conformes, não se aplica e o que requer verificação da CDE, com filtros.
+A mesma grade de turmas aparece na **Auditoria Documental**, no lugar dos botões de situação dos documentos da turma.
+
+**Turmas na página da unidade.** Turmas agrupadas por etapa, com série, turno, alunos, capacidade, vagas (negativas em vermelho: turma acima da
+capacidade), alunos da educação especial, a **avaliação da turma na auditoria** (documentos da turma avaliados e não conformes) e a situação da
+checklist da secretaria. Em cima: totais, ocupação e, quando há o ano anterior, turmas novas, turmas que deixaram de existir e a variação de alunos.
+
+**Checklist da secretaria escolar (Excel).** A planilha segue o modelo da CDE (`dados/modelos/Checklist_Secretaria_Escolar.xlsx`):
+aba **Unidade** (identificação, endereço e responsáveis, do Cadastro), aba **Turmas** (as turmas do ano), aba **Checklist - Geral** com os
+24 documentos da unidade e uma aba **Checklist - TURMA** por turma com os 10 documentos da turma — com listas suspensas, a fórmula do título e a
+formatação em vermelho do que está pendente.
+
+- **Gerar com dados**: cada documento sai com a situação atual — o que a CDE avaliou ou verificou (marcado "Avaliado pela CDE" na Observação;
+  nos documentos da turma, turma a turma) e, onde a CDE ainda não avaliou, a última resposta da secretaria.
 - **Gerar em branco**: tudo como *Não avaliado*.
 - **Enviar a checklist preenchida** (arraste o .xlsx ou *Escolher arquivo*): o sistema lê as abas e mostra uma **prévia** antes de gravar:
-  - a situação declarada de cada documento, juntando as turmas: todas Conforme → *Conforme*; nenhuma Conforme e alguma Não conforme →
-    *Não conforme*; misturado → *Parcialmente conforme*; todas Não se aplica → *Não se aplica*. Turmas do panorama sem aba contam como não avaliadas;
-  - o que acontece com cada item na auditoria escolhida (ou numa nova, do tipo *Autoavaliação da unidade*): **entra marcado "requer verificação da CDE"**
-    (é uma autodeclaração, sem prova) ou **mantém a avaliação da CDE** — o que a CDE avaliou nunca é substituído; se a secretaria declarar outra coisa,
-    a divergência é apontada;
+  - o que a secretaria declarou em cada documento (nos da turma, quantas turmas conformes) e o que acontece na auditoria escolhida (ou numa nova,
+    do tipo *Autoavaliação da unidade*): **entra marcado "requer verificação da CDE"** (é uma autodeclaração, sem prova) ou **mantém a avaliação
+    da CDE** — o que a CDE avaliou nunca é substituído; se a secretaria declarar outra coisa, a divergência é apontada. Nos documentos da turma,
+    isso vale turma a turma;
   - os **dados da aba Unidade diferentes do Cadastro** (ex.: diretor, telefone), cada um com uma caixa: os marcados atualizam o Cadastro ao salvar.
     Nome e INEP não mudam por aqui e células vazias não apagam nada;
   - aviso se a planilha parecer de outra unidade (é preciso confirmar).
-- **Na Auditoria Documental**, os itens autodeclarados mostram a declaração (turmas, data, observações) e o botão **Confirmar**; escolher outra situação
-  também conta como verificação. O filtro **Requer verificação da CDE** mostra só esses itens (e os que divergem).
-- **Situação dos documentos da auditoria** (página da unidade): avaliados, conformes, parciais, não conformes, não se aplica e o que requer verificação,
-  com a lista dos 53 documentos (situação, quem respondeu por ela, o que a secretaria declarou e PDFs) e atalho para cada item.
+  - Planilhas no **formato antigo** (todos os itens em cada turma, como o modelo original) também são lidas: os documentos da unidade são juntados
+    a partir das turmas em que a secretaria respondeu.
 - Em *Dados e planilhas → Turmas e checklists* há a lista de unidades com a situação da checklist do ano, o botão **Gerar** de cada uma e
   **Baixar todas (.zip)**, com ou sem dados, filtrando por distrito.
+- A exportação completa (*Planilhas → Exportar Excel*) inclui a aba **Auditoria por Turma**.
 
 ## 12-A. Anexos em PDF
 

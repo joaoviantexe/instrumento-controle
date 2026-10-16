@@ -1,5 +1,5 @@
 import { chaveArquivo, hashArquivo } from '../anexos';
-import { resumirChecklist, type ChecklistUnidade } from '../checklist';
+import { comGeral, resumirChecklist, type ChecklistUnidade } from '../checklist';
 import { chaveDe, type Conferencia } from '../conferencias';
 import { compactar, contarPanorama, expandir, type PanoramaCompacto } from '../panorama';
 import type { Anexo, Snapshot } from '../types';
@@ -210,10 +210,11 @@ export function criarChecklistsLocal(): ChecklistsApi {
   return {
     async listar() {
       const lista = await noBdTurmas('checklists', 'readonly', (s) => s.getAll() as IDBRequest<ChecklistUnidade[]>);
-      return lista.map((c) => ({ unidade_id: c.unidade_id, ano: c.ano, arquivo: c.arquivo, ...resumirChecklist(c), atualizado_em: c.atualizado_em, atualizado_por: c.atualizado_por }));
+      return lista.map((c) => ({ unidade_id: c.unidade_id, ano: c.ano, arquivo: c.arquivo, ...resumirChecklist(comGeral(c)), atualizado_em: c.atualizado_em, atualizado_por: c.atualizado_por }));
     },
     async obter(unidadeId, ano) {
-      return (await noBdTurmas('checklists', 'readonly', (s) => s.get([unidadeId, ano]) as IDBRequest<ChecklistUnidade | undefined>)) ?? null;
+      const c = await noBdTurmas('checklists', 'readonly', (s) => s.get([unidadeId, ano]) as IDBRequest<ChecklistUnidade | undefined>);
+      return c ? comGeral(c) : null;
     },
     async salvar(c) {
       const registro: ChecklistUnidade = { ...c, atualizado_em: new Date().toISOString(), atualizado_por: '' };
@@ -229,7 +230,10 @@ export function criarChecklistsLocal(): ChecklistsApi {
 function ler(): Snapshot | null {
   try {
     const bruto = localStorage.getItem(CHAVE_STORAGE);
-    return bruto ? (JSON.parse(bruto) as Snapshot) : null;
+    if (!bruto) return null;
+    // Dados gravados antes da avaliação por turma não têm a lista.
+    const s = JSON.parse(bruto) as Omit<Snapshot, 'avaliacoes_turma'> & Partial<Snapshot>;
+    return { ...s, avaliacoes_turma: s.avaliacoes_turma ?? [] };
   } catch {
     return null;
   }
@@ -293,6 +297,7 @@ export function criarBackendLocal(): Backend {
       if (tabela === 'auditorias') {
         const id = (chave as Partial<Tabelas['auditorias']>).id;
         dados.avaliacoes = dados.avaliacoes.filter((a) => a.auditoria_id !== id);
+        dados.avaliacoes_turma = dados.avaliacoes_turma.filter((a) => a.auditoria_id !== id);
         dados.acoes = dados.acoes.map((a) => (a.auditoria_id === id ? { ...a, auditoria_id: '' } : a));
       }
       if (tabela === 'unidades') {

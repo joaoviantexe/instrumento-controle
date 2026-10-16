@@ -1,5 +1,6 @@
 /** Montagem das abas exportadas para Excel, com os mesmos cabeçalhos da planilha original. */
 import {
+  ITEM_POR_CODIGO,
   CABECALHOS_LISTA,
   CABECALHOS_UNIDADE,
   LISTA_MESTRA,
@@ -152,6 +153,39 @@ export function abaAuditoriaDocumental(d: Dados, auditorias: Auditoria[]): Aba {
       .flatMap((a) =>
         linhasDaAuditoria(a.id, d.mapaAvaliacoes).map((l) => linhaAuditoriaDoc(a, d.unidadePorId.get(a.unidade_id), l)),
       ),
+  };
+}
+
+/** Avaliações por turma (documentos da turma), uma linha por item e turma. Só exportação. */
+export function abaAuditoriaTurmas(d: Dados): Aba {
+  return {
+    nome: 'Auditoria por Turma',
+    titulo: 'AUDITORIA DOCUMENTAL — DOCUMENTOS POR TURMA',
+    subtitulo: 'Situação de cada documento da turma (relação nominal e documentos dos alunos), turma a turma',
+    colunas: [
+      { cabecalho: ROTULOS_AUDITORIA_DOC.id },
+      { cabecalho: ROTULOS_AUDITORIA_DOC.unidade, largura: 50 },
+      { cabecalho: 'Código', largura: 10 },
+      { cabecalho: ROTULOS_AUDITORIA_DOC.item, largura: 50 },
+      { cabecalho: 'Turma', largura: 12 },
+      { cabecalho: ROTULOS_AUDITORIA_DOC.situacao, largura: 22 },
+      { cabecalho: 'Verificação da CDE', largura: 24 },
+      { cabecalho: 'Declarado pela secretaria', largura: 24 },
+      { cabecalho: 'Observação', largura: 40 },
+    ],
+    linhas: [...d.avaliacoes_turma]
+      .sort((a, b) => a.auditoria_id.localeCompare(b.auditoria_id) || a.item.localeCompare(b.item) || a.turma.localeCompare(b.turma))
+      .map((a) => [
+        a.auditoria_id,
+        d.unidadePorId.get(d.auditoriaPorId.get(a.auditoria_id)?.unidade_id ?? '')?.nome,
+        a.item,
+        ITEM_POR_CODIGO[a.item]?.item,
+        a.turma,
+        a.situacao,
+        a.verificacao === 'Pendente' ? 'Requer verificação da CDE' : a.verificacao === 'Verificado' ? 'Verificado pela CDE' : '',
+        a.declarado,
+        a.observacao,
+      ]),
   };
 }
 

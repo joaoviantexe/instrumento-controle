@@ -20,7 +20,10 @@ import { useDados } from '../lib/store';
 import { avaliado, linhasDaAuditoria, type Linha } from '../lib/calc';
 import { formatarData, formatarPct, formatarPeso } from '../lib/format';
 import { avisar } from '../lib/avisos';
-import { ROTULO_VERIFICACAO, VERIFICACAO_FEITA, VERIFICACAO_PENDENTE, divergeDaDeclaracao } from '../lib/checklist';
+import { ROTULO_VERIFICACAO, VERIFICACAO_FEITA, VERIFICACAO_PENDENTE, divergeDaDeclaracao, ehPorTurma } from '../lib/checklist';
+import { useTurmasDaAuditoria } from '../lib/useTurmas';
+import type { Turma } from '../lib/panorama';
+import { GradeTurmas } from '../components/AvaliacaoTurmas';
 import { chaveAvaliacao, type Acao, type Auditoria, type Avaliacao, type SituacaoItem } from '../lib/types';
 
 type Filtro = 'todos' | 'pendentes' | 'nc' | 'acao' | 'verificar';
@@ -42,18 +45,22 @@ function precisaDetalhe(l: Linha) {
 
 function ItemAuditoria({
   linha,
+  turmas,
   acoes,
   aoSalvar,
   aoRegistrarAcao,
   aoConforme,
 }: {
   linha: Linha;
+  /** Turmas da unidade: os documentos da turma são avaliados turma a turma. */
+  turmas: Turma[];
   acoes: Acao[];
   aoSalvar: (av: Avaliacao) => Promise<void>;
   aoRegistrarAcao: (l: Linha) => void;
   /** Chamado depois de gravar "Conforme" (permite avançar para o próximo item). */
   aoConforme?: (codigo: string) => void;
 }) {
+  const porTurma = turmas.length > 0 && ehPorTurma(linha.item);
   const [aberto, setAberto] = useState(() => precisaDetalhe(linha));
   const [texto, setTexto] = useState({ evidencia: linha.evidencia, achado: linha.achado, responsavel: linha.responsavel });
   const [salvo, setSalvo] = useState(false);
@@ -119,26 +126,32 @@ function ItemAuditoria({
       </div>
 
       <div className="item-aud__linha">
-        <div className="seg" role="group" aria-label={`${R.situacao} — ${linha.item}`}>
-          {SITUACOES_ITEM.map((s) => (
-            <button
-              type="button"
-              key={s}
-              className={CLASSE_SITUACAO[s]}
-              aria-pressed={linha.situacao === s}
-              onClick={() => {
-                // Escolher a situação de um item autodeclarado é a verificação da CDE.
-                const verificar = linha.verificacao === VERIFICACAO_PENDENTE ? { verificacao: VERIFICACAO_FEITA } : {};
-                void salvar({ situacao: s as SituacaoItem, ...verificar }).then(() => {
-                  if (s === 'Conforme') aoConforme?.(linha.item);
-                });
-                if (s === 'Não conforme' || s === 'Parcialmente conforme' || s === 'Não se aplica') setAberto(true);
-              }}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
+        {porTurma ? (
+          <span className="item-aud__derivada">
+            <Etiqueta valor={linha.situacao} /> <span className="pequeno texto-muted">resultado das {turmas.length} turmas (avalie abaixo)</span>
+          </span>
+        ) : (
+          <div className="seg" role="group" aria-label={`${R.situacao} — ${linha.item}`}>
+            {SITUACOES_ITEM.map((s) => (
+              <button
+                type="button"
+                key={s}
+                className={CLASSE_SITUACAO[s]}
+                aria-pressed={linha.situacao === s}
+                onClick={() => {
+                  // Escolher a situação de um item autodeclarado é a verificação da CDE.
+                  const verificar = linha.verificacao === VERIFICACAO_PENDENTE ? { verificacao: VERIFICACAO_FEITA } : {};
+                  void salvar({ situacao: s as SituacaoItem, ...verificar }).then(() => {
+                    if (s === 'Conforme') aoConforme?.(linha.item);
+                  });
+                  if (s === 'Não conforme' || s === 'Parcialmente conforme' || s === 'Não se aplica') setAberto(true);
+                }}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        )}
         <span style={{ display: 'inline-flex', gap: 10, alignItems: 'center' }}>
           {salvo && (
             <span className="salvo" role="status">
@@ -172,21 +185,31 @@ function ItemAuditoria({
         </span>
       </div>
 
+      {porTurma && (
+        <div className="nao-imprimir">
+          <GradeTurmas auditoriaId={linha.auditoria_id} item={linha.item} turmas={turmas} atual={semDef(linha)} />
+        </div>
+      )}
+
       {linha.verificacao === VERIFICACAO_PENDENTE && (
         <div className="nota nota--alerta verificacao" role="note">
           <ShieldAlert size={18} aria-hidden />
           <div>
-            <strong>Autodeclarado pela secretaria escolar: {ROTULO_VERIFICACAO[VERIFICACAO_PENDENTE].toLowerCase()}.</strong> {linha.declaracao}
-            <div className="verificacao__acoes nao-imprimir">
-              <button type="button" className="btn btn--verde btn--pequeno" onClick={() => void salvar({ verificacao: VERIFICACAO_FEITA })}>
-                <BadgeCheck size={14} aria-hidden /> Confirmar {linha.situacao}
-              </button>
-              <span className="pequeno texto-muted">ou escolha outra situação acima, depois de conferir os documentos.</span>
-            </div>
+            <strong>Autodeclarado pela secretaria escolar: requer verificação da CDE.</strong> {linha.declaracao}
+            {porTurma ? (
+              <div className="verificacao__acoes pequeno texto-muted">Confirme ou corrija cada turma marcada como autodeclarada acima.</div>
+            ) : (
+              <div className="verificacao__acoes nao-imprimir">
+                <button type="button" className="btn btn--verde btn--pequeno" onClick={() => void salvar({ verificacao: VERIFICACAO_FEITA })}>
+                  <BadgeCheck size={14} aria-hidden /> Confirmar {linha.situacao}
+                </button>
+                <span className="pequeno texto-muted">ou escolha outra situação acima, depois de conferir os documentos.</span>
+              </div>
+            )}
           </div>
         </div>
       )}
-      {divergeDaDeclaracao(linha) && (
+      {!porTurma && divergeDaDeclaracao(linha) && (
         <Nota tipo="alerta">
           <strong>A secretaria declarou {linha.declarado}</strong>, diferente da avaliação da CDE. {linha.declaracao}
         </Nota>
@@ -368,6 +391,7 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
     return () => window.clearTimeout(t);
   }, [hash, aud.id]);
   const linhas = useMemo(() => linhasDaAuditoria(aud.id, d.mapaAvaliacoes), [aud.id, d.mapaAvaliacoes]);
+  const { turmas } = useTurmasDaAuditoria(aud);
   const resumo = d.resumos.get(aud.id);
   const acoesPorItem = useMemo(() => {
     const m = new Map<string, Acao[]>();
@@ -614,6 +638,7 @@ function PainelAuditoria({ aud }: { aud: Auditoria }) {
                     <ItemAuditoria
                       key={l.item}
                       linha={l}
+                      turmas={turmas}
                       acoes={acoesPorItem.get(l.item) ?? []}
                       aoSalvar={d.salvarAvaliacao}
                       aoRegistrarAcao={registrarAcao}

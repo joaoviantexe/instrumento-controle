@@ -324,32 +324,18 @@ create policy "membros autorizados" on public.conferencias for all to authentica
   using (public.is_membro()) with check (public.is_membro());
 
 -- ---------------------------------------------------------------------
--- Administradores: membros com admin = true atualizam o Panorama de
--- Matrícula (as turmas de cada ano). Os demais membros só consultam.
+-- Todo membro autorizado é administrador: atualiza o Panorama de Matrícula, envia checklists e avalia.
+-- (Uma versão anterior usava a coluna membros.admin e a função is_admin(); podem ficar no banco, sem uso.)
 -- ---------------------------------------------------------------------
-alter table public.membros add column if not exists admin boolean not null default false;
-
-create or replace function public.is_admin()
-returns boolean
-language sql
-stable
-security definer
-set search_path = public
-as $$
-  select exists (
-    select 1 from public.membros m
-    where lower(m.email) = lower(coalesce(auth.jwt() ->> 'email', '')) and m.admin
-  );
-$$;
-
--- Administrador da DIPLAN. Falta só criar o usuário em Authentication > Users (com o mesmo e-mail).
-insert into public.membros (email, nome, admin)
-values ('marcelinocoelho.diplan@gmail.com', 'Administrador (DIPLAN)', true)
-on conflict (email) do update set admin = true;
+-- Usuários da DIPLAN e da CDE. Falta só criar cada um em Authentication > Users (com o mesmo e-mail).
+insert into public.membros (email, nome) values
+  ('marcelinocoelho.diplan@gmail.com', 'DIPLAN'),
+  ('cde.semec@gmail.com', 'CDE SEMEC')
+on conflict (email) do nothing;
 
 -- ---------------------------------------------------------------------
 -- Panorama de Matrícula (relatório do SIGA): as turmas de cada unidade, um registro por ano.
--- O ano embutido no site (src/data/panoramas) vale até o administrador enviar outro para o mesmo ano.
+-- O ano embutido no site (src/data/panoramas) vale até alguém enviar outro para o mesmo ano.
 -- ---------------------------------------------------------------------
 create table if not exists public.panoramas (
   ano            integer primary key check (ano between 2000 and 2100),
@@ -371,8 +357,9 @@ drop policy if exists "membros consultam" on public.panoramas;
 create policy "membros consultam" on public.panoramas for select to authenticated
   using (public.is_membro());
 drop policy if exists "administradores alteram" on public.panoramas;
-create policy "administradores alteram" on public.panoramas for all to authenticated
-  using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "membros alteram" on public.panoramas;
+create policy "membros alteram" on public.panoramas for all to authenticated
+  using (public.is_membro()) with check (public.is_membro());
 
 -- ---------------------------------------------------------------------
 -- Checklist da Secretaria Escolar: a última planilha enviada de cada unidade, por ano
@@ -404,3 +391,29 @@ create policy "membros autorizados" on public.checklists for all to authenticate
 alter table public.avaliacoes add column if not exists declarado   text;
 alter table public.avaliacoes add column if not exists declaracao  text;
 alter table public.avaliacoes add column if not exists verificacao text;
+
+-- ---------------------------------------------------------------------
+-- Avaliação por turma: os itens conferidos em cada turma (documentos dos alunos e relação nominal) têm uma
+-- avaliação por turma; a situação do item em avaliacoes passa a ser a das turmas juntas (src/lib/checklist.ts).
+-- ---------------------------------------------------------------------
+create table if not exists public.avaliacoes_turma (
+  auditoria_id   text not null references public.auditorias(id) on delete cascade,
+  item           text not null,
+  turma          text not null,
+  situacao       text not null default 'Não avaliado',
+  observacao     text,
+  verificacao    text,   -- '' = avaliação da CDE; 'Pendente' = autodeclarado; 'Verificado'
+  declarado      text,   -- situação declarada pela secretaria nesta turma
+  atualizado_em  timestamptz default now(),
+  atualizado_por text,
+  primary key (auditoria_id, item, turma)
+);
+
+drop trigger if exists marcar_atualizacao on public.avaliacoes_turma;
+create trigger marcar_atualizacao before insert or update on public.avaliacoes_turma
+  for each row execute function public.marcar_atualizacao();
+
+alter table public.avaliacoes_turma enable row level security;
+drop policy if exists "membros autorizados" on public.avaliacoes_turma;
+create policy "membros autorizados" on public.avaliacoes_turma for all to authenticated
+  using (public.is_membro()) with check (public.is_membro());

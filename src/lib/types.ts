@@ -83,6 +83,23 @@ export interface Avaliacao {
   verificacao?: string;
 }
 
+/**
+ * Avaliação de um item da checklist em uma turma (documentos dos alunos e relação nominal). A situação do item na
+ * Auditoria Documental é a consolidação das turmas (ver itemDasTurmas em checklist.ts).
+ */
+export interface AvaliacaoTurma {
+  auditoria_id: string;
+  item: string;
+  /** Código da turma no SIGA (ex.: C11101). */
+  turma: string;
+  situacao: SituacaoItem;
+  observacao: string;
+  /** '' (avaliação da CDE), 'Pendente' (autodeclarado pela secretaria) ou 'Verificado'. */
+  verificacao: string;
+  /** Situação declarada pela secretaria nesta turma. */
+  declarado: string;
+}
+
 export interface Acao {
   id: string;
   auditoria_id: string;
@@ -105,6 +122,8 @@ export interface Snapshot {
   auditorias: Auditoria[];
   avaliacoes: Avaliacao[];
   acoes: Acao[];
+  /** Avaliações por turma dos itens que são verificados em cada turma. */
+  avaliacoes_turma: AvaliacaoTurma[];
 }
 
 /** A que registro o anexo pertence. */

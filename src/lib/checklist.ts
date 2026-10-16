@@ -1,14 +1,17 @@
 /**
- * Checklist da Secretaria Escolar: a planilha que a secretaria da unidade preenche, uma aba por turma, com os 34 documentos
- * das seções 1 a 5 da Lista Mestra. Aqui ficam o modelo da checklist, a consolidação das turmas e o plano de aplicação
- * na Auditoria Documental. O que a secretaria declara entra na auditoria marcado como "requer verificação da CDE":
- * é uma autodeclaração, sem prova, e nunca substitui o que a CDE já avaliou.
+ * Checklist da Secretaria Escolar: a planilha que a secretaria da unidade preenche com os 34 documentos das seções 1 a 5
+ * da Lista Mestra. Os documentos da unidade (ato de criação, regimento, servidores…) ficam numa aba geral; os que se
+ * conferem em cada turma (documentos dos alunos e a relação nominal) ficam numa aba por turma.
+ *
+ * Aqui ficam o modelo da checklist, a consolidação das turmas e o plano de aplicação na Auditoria Documental. O que a
+ * secretaria declara entra na auditoria marcado como "requer verificação da CDE": é uma autodeclaração, sem prova, e
+ * nunca substitui o que a CDE já avaliou.
  */
 import { ITEM_POR_CODIGO, LISTA_MESTRA, SECOES } from '../data/planilha';
 import { avaliacaoPadrao, avaliado } from './calc';
 import { formatarData } from './format';
 import { chaveTexto } from './panorama';
-import type { Auditoria, Avaliacao, SituacaoItem } from './types';
+import type { Auditoria, Avaliacao, AvaliacaoTurma, SituacaoItem } from './types';
 
 /** Situações que a secretaria escolhe na planilha (a lista suspensa do modelo). */
 export const SITUACOES_CHECKLIST: SituacaoItem[] = ['Conforme', 'Não conforme', 'Não se aplica', 'Não avaliado'];
@@ -20,6 +23,14 @@ export const ROTULO_VERIFICACAO: Record<string, string> = {
   [VERIFICACAO_PENDENTE]: 'Requer verificação da CDE',
   [VERIFICACAO_FEITA]: 'Verificado pela CDE',
 };
+
+/**
+ * Itens conferidos em cada turma: a relação nominal dos estudantes da turma e os documentos dos alunos (seção 3).
+ * Todos os outros (atos, regimento, PPP, livros, servidores, censo…) são da unidade inteira.
+ */
+export const ITENS_POR_TURMA = ['SEC-06', 'EST-01', 'EST-02', 'EST-03', 'EST-04', 'EST-05', 'EST-06', 'EST-07', 'EST-08', 'EST-09'];
+const POR_TURMA = new Set(ITENS_POR_TURMA);
+export const ehPorTurma = (codigo: string) => POR_TURMA.has(codigo);
 
 /** Títulos das seções na planilha da secretaria (seções 1 a 5 da Lista Mestra). */
 const TITULOS = [
@@ -38,6 +49,7 @@ const ROTULOS_MODELO: Record<string, string> = {
 export interface ItemChecklist {
   codigo: string;
   rotulo: string;
+  porTurma: boolean;
 }
 export interface SecaoChecklist {
   titulo: string;
@@ -48,10 +60,18 @@ export interface SecaoChecklist {
 export const SECOES_CHECKLIST: SecaoChecklist[] = TITULOS.map((titulo, i) => ({
   titulo,
   secao: SECOES[i],
-  itens: LISTA_MESTRA.filter((x) => x.secao === SECOES[i]).map((x) => ({ codigo: x.codigo, rotulo: ROTULOS_MODELO[x.codigo] ?? x.item })),
+  itens: LISTA_MESTRA.filter((x) => x.secao === SECOES[i]).map((x) => ({ codigo: x.codigo, rotulo: ROTULOS_MODELO[x.codigo] ?? x.item, porTurma: POR_TURMA.has(x.codigo) })),
 }));
 export const ITENS_CHECKLIST: ItemChecklist[] = SECOES_CHECKLIST.flatMap((s) => s.itens);
 const CODIGOS = new Set(ITENS_CHECKLIST.map((i) => i.codigo));
+
+const filtrarSecoes = (f: (i: ItemChecklist) => boolean) => SECOES_CHECKLIST.map((s) => ({ ...s, itens: s.itens.filter(f) })).filter((s) => s.itens.length);
+/** Seções da aba geral (itens da unidade). */
+export const SECOES_GERAL = filtrarSecoes((i) => !i.porTurma);
+/** Seções de cada aba de turma. */
+export const SECOES_TURMA = filtrarSecoes((i) => i.porTurma);
+/** Itens tratados na aba geral: sem turmas no panorama, todos. */
+export const itensGerais = (comTurmas: boolean) => ITENS_CHECKLIST.filter((i) => !comTurmas || !i.porTurma);
 
 /** Acha o item pelo texto da coluna A (nome do modelo ou da Lista Mestra, sem diferença de acentos e maiúsculas). */
 const POR_ROTULO = new Map<string, string>(
@@ -60,13 +80,15 @@ const POR_ROTULO = new Map<string, string>(
     [chaveTexto(ITEM_POR_CODIGO[i.codigo].item), i.codigo],
   ]),
 );
-export function itemPorRotulo(rotulo: string, secao?: number): string | null {
+/** `secao` é o título da seção da linha (desempata itens com o mesmo nome em duas seções). */
+export function itemPorRotulo(rotulo: string, secao?: string): string | null {
   const k = chaveTexto(rotulo);
   const codigo = POR_ROTULO.get(k);
   if (!codigo) return null;
   // "Relação nominal dos estudantes" e "Correspondências oficiais" existem em duas seções: vale a seção da linha.
   if (secao !== undefined) {
-    const naSecao = SECOES_CHECKLIST[secao]?.itens.find((i) => chaveTexto(i.rotulo) === k || chaveTexto(ITEM_POR_CODIGO[i.codigo].item) === k);
+    const s = SECOES_CHECKLIST.find((x) => chaveTexto(x.titulo) === chaveTexto(secao));
+    const naSecao = s?.itens.find((i) => chaveTexto(i.rotulo) === k || chaveTexto(ITEM_POR_CODIGO[i.codigo].item) === k);
     if (naSecao) return naSecao.codigo;
   }
   return codigo;
@@ -85,6 +107,21 @@ export function lerSituacao(v: string): SituacaoItem | null {
   return null;
 }
 
+/**
+ * Situação de um item a partir das turmas:
+ * alguma Não conforme ou parcial → Não conforme (se nenhuma estiver conforme) ou Parcialmente conforme;
+ * senão, alguma ainda não avaliada → Não avaliado (conformidade só depois de conferir todas);
+ * senão, alguma Conforme → Conforme; todas Não se aplica → Não se aplica.
+ */
+export function consolidarSituacoes(lista: SituacaoItem[]): SituacaoItem {
+  const n = (s: SituacaoItem) => lista.filter((x) => x === s).length;
+  const conformes = n('Conforme');
+  const parciais = n('Parcialmente conforme');
+  if (n('Não conforme') + parciais > 0) return conformes + parciais > 0 ? 'Parcialmente conforme' : 'Não conforme';
+  if (!lista.length || n('Não avaliado') > 0) return 'Não avaliado';
+  return conformes > 0 ? 'Conforme' : 'Não se aplica';
+}
+
 // ---------------------------------------------------------------- respostas guardadas
 
 export interface RespostaItem {
@@ -98,14 +135,20 @@ export interface RespostaItem {
 /** Código do item → resposta. */
 export type RespostasTurma = Record<string, RespostaItem>;
 
+/** Respostas de uma planilha: a aba geral e uma por turma. */
+export interface RespostasChecklist {
+  /** Itens da unidade (aba "Checklist - Geral"). */
+  geral: RespostasTurma;
+  /** Código da turma → respostas dos itens por turma. */
+  turmas: Record<string, RespostasTurma>;
+}
+
 /** A checklist de uma unidade em um ano (a última planilha enviada). */
-export interface ChecklistUnidade {
+export interface ChecklistUnidade extends RespostasChecklist {
   unidade_id: string;
   ano: number;
   /** Nome do arquivo enviado. */
   arquivo: string;
-  /** Código da turma → respostas. */
-  turmas: Record<string, RespostasTurma>;
   atualizado_em: string;
   atualizado_por: string;
 }
@@ -123,25 +166,63 @@ export interface InfoChecklist {
 
 export const respostaVazia = (): RespostaItem => ({ situacao: 'Não avaliado', atualizado: '', prazo: '', responsavel: '', observacao: '' });
 
-/** Itens Não conforme ou Não avaliado de uma turma (o "itens pendentes" do título da aba). */
+const pendente = (s: SituacaoItem | undefined) => !s || s === 'Não conforme' || s === 'Não avaliado';
+
+/** Itens por turma Não conforme ou Não avaliado de uma turma (o "itens pendentes" do título da aba). */
 export function pendentesDaTurma(r: RespostasTurma | undefined): number {
-  return ITENS_CHECKLIST.filter((i) => {
-    const s = r?.[i.codigo]?.situacao ?? 'Não avaliado';
-    return s === 'Não conforme' || s === 'Não avaliado';
-  }).length;
+  return ITENS_POR_TURMA.filter((c) => pendente(r?.[c]?.situacao)).length;
 }
 
-export function resumirChecklist(c: Pick<ChecklistUnidade, 'turmas'>): { turmas: number; pendentes: number } {
+/** Pendências da aba geral (sem turmas, ela tem todos os itens). */
+export function pendentesGerais(r: RespostasTurma | undefined, comTurmas = true): number {
+  return itensGerais(comTurmas).filter((i) => pendente(r?.[i.codigo]?.situacao)).length;
+}
+
+export function resumirChecklist(c: RespostasChecklist): { turmas: number; pendentes: number } {
   const turmas = Object.values(c.turmas);
-  return { turmas: turmas.length, pendentes: turmas.reduce((s, t) => s + pendentesDaTurma(t), 0) };
+  return { turmas: turmas.length, pendentes: pendentesGerais(c.geral, turmas.length > 0) + turmas.reduce((s, t) => s + pendentesDaTurma(t), 0) };
 }
 
-// ---------------------------------------------------------------- consolidação das turmas
+/**
+ * Junta as respostas das turmas de um item da unidade numa resposta só (planilhas antigas, com todos os itens em cada
+ * turma). O documento é o mesmo para a escola toda: valem as turmas em que a secretaria respondeu.
+ */
+export function juntarRespostas(porTurma: [string, RespostaItem][]): RespostaItem | null {
+  const preenchidas = porTurma.filter(([, r]) => r.situacao !== 'Não avaliado' || r.observacao || r.atualizado || r.prazo);
+  if (!preenchidas.length) return null;
+  const obs = porTurma.filter(([, r]) => r.observacao).map(([t, r]) => `${t}: ${r.observacao}`);
+  const respondidas = porTurma.map(([, r]) => r.situacao).filter((x) => x !== 'Não avaliado');
+  return {
+    situacao: consolidarSituacoes(respondidas),
+    atualizado: preenchidas.map(([, r]) => r.atualizado).filter(Boolean).sort().pop() ?? '',
+    prazo: preenchidas.map(([, r]) => r.prazo).find(Boolean) ?? '',
+    responsavel: preenchidas.map(([, r]) => r.responsavel).find(Boolean) ?? '',
+    observacao: obs.slice(0, 5).join('; ') + (obs.length > 5 ? '…' : ''),
+  };
+}
+
+/** Checklists salvas antes da aba geral (todos os itens em cada turma): os itens gerais passam para a aba geral. */
+export function comGeral<T extends { turmas: Record<string, RespostasTurma>; geral?: RespostasTurma }>(c: T): T & RespostasChecklist {
+  if (c.geral) return c as T & RespostasChecklist;
+  const geral: RespostasTurma = {};
+  const turmas: Record<string, RespostasTurma> = {};
+  const legado = Object.entries(c.turmas);
+  for (const [t, r] of legado) turmas[t] = Object.fromEntries(Object.entries(r).filter(([codigo]) => ehPorTurma(codigo)));
+  for (const item of itensGerais(true)) {
+    const junta = juntarRespostas(legado.filter(([, r]) => r[item.codigo]).map(([t, r]) => [t, r[item.codigo]]));
+    if (junta) geral[item.codigo] = junta;
+  }
+  return { ...c, geral, turmas };
+}
+
+// ---------------------------------------------------------------- consolidação para exibição
 
 export interface Consolidado {
   codigo: string;
-  /** Situação declarada para a unidade, juntando as turmas. */
+  /** Situação declarada para a unidade (nos itens por turma, juntando as turmas). */
   situacao: SituacaoItem;
+  /** Item conferido turma a turma (com turmas no panorama). */
+  porTurma: boolean;
   contagem: Record<SituacaoItem, number>;
   /** Turmas consideradas (as da checklist e as do panorama que ficaram sem resposta). */
   turmas: number;
@@ -150,50 +231,105 @@ export interface Consolidado {
   observacoes: string[];
 }
 
-/**
- * Junta as respostas das turmas em uma situação por item:
- * todas Conforme → Conforme; nenhuma Conforme e alguma Não conforme → Não conforme; Conforme misturado com
- * Não conforme ou sem avaliação → Parcialmente conforme; todas Não se aplica → Não se aplica; nada declarado → Não avaliado.
- * Turmas do panorama ausentes da planilha contam como não avaliadas.
- */
-export function consolidar(c: Pick<ChecklistUnidade, 'turmas'>, turmasEsperadas: string[] = []): Map<string, Consolidado> {
+const contagemVazia = () => ({ Conforme: 0, 'Parcialmente conforme': 0, 'Não conforme': 0, 'Não se aplica': 0, 'Não avaliado': 0 }) as Record<SituacaoItem, number>;
+
+/** Situação declarada de cada item: o da aba geral, ou o das turmas juntas (as do panorama sem aba contam como não avaliadas). */
+export function consolidar(c: RespostasChecklist, turmasEsperadas: string[] = []): Map<string, Consolidado> {
   const codigos = [...new Set([...Object.keys(c.turmas), ...turmasEsperadas])].sort();
   const mapa = new Map<string, Consolidado>();
   for (const item of ITENS_CHECKLIST) {
-    const contagem = { Conforme: 0, 'Parcialmente conforme': 0, 'Não conforme': 0, 'Não se aplica': 0, 'Não avaliado': 0 } as Record<SituacaoItem, number>;
+    const contagem = contagemVazia();
+    if (!item.porTurma || !codigos.length) {
+      const r = c.geral[item.codigo];
+      const situacao = r?.situacao ?? 'Não avaliado';
+      contagem[situacao]++;
+      mapa.set(item.codigo, { codigo: item.codigo, situacao, porTurma: false, contagem, turmas: 0, naoConformes: [], semResposta: [], observacoes: r?.observacao ? [r.observacao] : [] });
+      continue;
+    }
     const naoConformes: string[] = [];
     const semResposta: string[] = [];
     const observacoes: string[] = [];
-    for (const t of codigos) {
+    const sits = codigos.map((t) => {
       const r = c.turmas[t]?.[item.codigo];
       const s = r?.situacao ?? 'Não avaliado';
       contagem[s]++;
       if (s === 'Não conforme' || s === 'Parcialmente conforme') naoConformes.push(t);
       if (s === 'Não avaliado') semResposta.push(t);
       if (r?.observacao.trim()) observacoes.push(`${t}: ${r.observacao.trim()}`);
-    }
-    const c1 = contagem.Conforme;
-    const nc = contagem['Não conforme'] + contagem['Parcialmente conforme'];
-    const na = contagem['Não avaliado'];
-    let situacao: SituacaoItem;
-    if (!codigos.length || c1 + nc === 0) situacao = c1 + nc + na === 0 && codigos.length ? 'Não se aplica' : 'Não avaliado';
-    else if (nc + na === 0) situacao = 'Conforme';
-    else if (c1 === 0) situacao = 'Não conforme';
-    else situacao = 'Parcialmente conforme';
-    mapa.set(item.codigo, { codigo: item.codigo, situacao, contagem, turmas: codigos.length, naoConformes, semResposta, observacoes });
+      return s;
+    });
+    mapa.set(item.codigo, { codigo: item.codigo, situacao: consolidarSituacoes(sits), porTurma: true, contagem, turmas: codigos.length, naoConformes, semResposta, observacoes });
   }
   return mapa;
 }
 
-/** Frase que acompanha a declaração na auditoria. */
+/** Frase que acompanha a declaração de um item da unidade na auditoria. */
 export function descreverDeclaracao(d: Consolidado, meta: { ano: number; arquivo: string; data: string }): string {
   const partes = [`Checklist da secretaria escolar (${meta.ano}), enviada em ${formatarData(meta.data)}`];
-  const conformes = d.contagem.Conforme;
-  if (d.turmas) partes.push(`Conforme em ${conformes} de ${d.turmas} turma(s)`);
-  if (d.naoConformes.length) partes.push(`Não conforme: ${d.naoConformes.join(', ')}`);
-  if (d.semResposta.length && d.situacao !== 'Não avaliado') partes.push(`sem avaliação: ${d.semResposta.join(', ')}`);
+  if (d.porTurma && d.turmas) {
+    partes.push(`Conforme em ${d.contagem.Conforme} de ${d.turmas} turma(s)`);
+    if (d.naoConformes.length) partes.push(`Não conforme: ${d.naoConformes.join(', ')}`);
+  }
   if (d.observacoes.length) partes.push(`Observações: ${d.observacoes.slice(0, 5).join('; ')}${d.observacoes.length > 5 ? '…' : ''}`);
   return partes.join('. ') + '.';
+}
+
+// ---------------------------------------------------------------- avaliação por turma
+
+export const avaliacaoTurmaPadrao = (auditoria_id: string, item: string, turma: string): AvaliacaoTurma => ({
+  auditoria_id,
+  item,
+  turma,
+  situacao: 'Não avaliado',
+  observacao: '',
+  verificacao: '',
+  declarado: '',
+});
+
+/** Turmas de cada item de uma auditoria: item → turma → avaliação. */
+export type MapaTurmas = Map<string, Map<string, Map<string, AvaliacaoTurma>>>;
+export function indexarTurmas(lista: AvaliacaoTurma[]): MapaTurmas {
+  const m: MapaTurmas = new Map();
+  for (const a of lista) {
+    let porItem = m.get(a.auditoria_id);
+    if (!porItem) m.set(a.auditoria_id, (porItem = new Map()));
+    let porTurma = porItem.get(a.item);
+    if (!porTurma) porItem.set(a.item, (porTurma = new Map()));
+    porTurma.set(a.turma, a);
+  }
+  return m;
+}
+
+/**
+ * Situação do item na auditoria a partir das turmas (as turmas sem registro contam como não avaliadas). A verificação
+ * fica pendente enquanto alguma turma autodeclarada não for conferida.
+ */
+export function itemDasTurmas(base: Avaliacao, registros: AvaliacaoTurma[], turmas: string[]): Avaliacao {
+  if (!registros.length) return base;
+  const codigos = [...new Set([...turmas, ...registros.map((r) => r.turma)])].sort();
+  const por = new Map(registros.map((r) => [r.turma, r]));
+  const situacao = consolidarSituacoes(codigos.map((t) => por.get(t)?.situacao ?? 'Não avaliado'));
+  const verificacao = registros.some((r) => r.verificacao === VERIFICACAO_PENDENTE)
+    ? VERIFICACAO_PENDENTE
+    : registros.some((r) => r.verificacao === VERIFICACAO_FEITA)
+      ? VERIFICACAO_FEITA
+      : '';
+  const declarados = registros.filter((r) => r.declarado && r.declarado !== 'Não avaliado');
+  if (!declarados.length) return { ...base, situacao, verificacao };
+  const sit = (s: SituacaoItem) => codigos.filter((t) => (por.get(t)?.declarado || 'Não avaliado') === s);
+  const naoConformes = [...sit('Não conforme'), ...sit('Parcialmente conforme')];
+  const declaracao =
+    `Declarado pela secretaria escolar, por turma: Conforme em ${sit('Conforme').length} de ${codigos.length}` +
+    (naoConformes.length ? `; Não conforme: ${naoConformes.join(', ')}` : '') +
+    (sit('Não avaliado').length ? `; sem declaração: ${sit('Não avaliado').length} turma(s)` : '') +
+    '.';
+  return {
+    ...base,
+    situacao,
+    verificacao,
+    declarado: consolidarSituacoes(codigos.map((t) => (por.get(t)?.declarado || 'Não avaliado') as SituacaoItem)),
+    declaracao,
+  };
 }
 
 // ---------------------------------------------------------------- aplicação na Auditoria Documental
@@ -201,11 +337,11 @@ export function descreverDeclaracao(d: Consolidado, meta: { ano: number; arquivo
 export type AcaoItem =
   /** A situação declarada entra na auditoria, marcada para a CDE verificar. */
   | 'aplicar'
-  /** A CDE já avaliou o item: a situação dela fica; a declaração é só registrada (e a diferença, apontada). */
+  /** A CDE já avaliou: a situação dela fica; a declaração é só registrada (e a diferença, apontada). */
   | 'manter'
   /** Nada muda. */
   | 'igual'
-  /** A secretaria não avaliou o item em nenhuma turma. */
+  /** A secretaria não avaliou. */
   | 'sem-declaracao';
 
 export interface MudancaItem {
@@ -219,44 +355,90 @@ export interface MudancaItem {
   diverge: boolean;
 }
 
-/** A CDE já avaliou (ou confirmou) o item: o que ela registrou prevalece sobre a autodeclaração. */
-export function avaliadoPelaCde(av: Avaliacao): boolean {
+export interface MudancaTurma {
+  codigo: string;
+  turma: string;
+  acao: AcaoItem;
+  antes: AvaliacaoTurma;
+  depois: AvaliacaoTurma;
+  diverge: boolean;
+}
+
+export interface PlanoAplicacao {
+  /** Itens da unidade (e, sem turmas no panorama, todos). */
+  itens: MudancaItem[];
+  /** Itens por turma, turma a turma. */
+  turmas: MudancaTurma[];
+}
+
+type ComSituacao = { situacao: string; verificacao?: string; declarado?: string };
+
+/** A CDE já avaliou (ou confirmou): o que ela registrou prevalece sobre a autodeclaração. */
+export function avaliadoPelaCde(av: ComSituacao): boolean {
   return avaliado(av.situacao) && av.verificacao !== VERIFICACAO_PENDENTE;
 }
 
-/** Item avaliado pela CDE com situação diferente da declarada pela secretaria. */
-export function divergeDaDeclaracao(av: Avaliacao): boolean {
+/** Avaliado pela CDE com situação diferente da declarada pela secretaria. */
+export function divergeDaDeclaracao(av: ComSituacao): boolean {
   return !!av.declarado && av.declarado !== 'Não avaliado' && avaliadoPelaCde(av) && av.declarado !== av.situacao;
 }
 
 export function planejarAplicacao(
-  consolidados: Map<string, Consolidado>,
+  c: RespostasChecklist,
   auditoriaId: string,
   atuais: Map<string, Avaliacao> | undefined,
+  atuaisTurma: Map<string, Map<string, AvaliacaoTurma>> | undefined,
+  turmasEsperadas: string[],
   meta: { ano: number; arquivo: string; data: string },
-): MudancaItem[] {
-  return ITENS_CHECKLIST.map((item) => {
+): PlanoAplicacao {
+  const codigosTurma = [...new Set([...Object.keys(c.turmas), ...turmasEsperadas])].sort();
+  const consolidados = consolidar(c, turmasEsperadas);
+  const plano: PlanoAplicacao = { itens: [], turmas: [] };
+  for (const item of ITENS_CHECKLIST) {
+    if (item.porTurma && codigosTurma.length) {
+      for (const turma of codigosTurma) {
+        const r = c.turmas[turma]?.[item.codigo];
+        const s = r?.situacao ?? 'Não avaliado';
+        const antes = atuaisTurma?.get(item.codigo)?.get(turma) ?? avaliacaoTurmaPadrao(auditoriaId, item.codigo, turma);
+        const base = { codigo: item.codigo, turma, antes };
+        if (s === 'Não avaliado') plano.turmas.push({ ...base, acao: 'sem-declaracao', depois: antes, diverge: false });
+        else if (avaliadoPelaCde(antes)) {
+          const depois = { ...antes, declarado: s };
+          plano.turmas.push({ ...base, acao: antes.declarado === s ? 'igual' : 'manter', depois, diverge: s !== antes.situacao });
+        } else {
+          const depois: AvaliacaoTurma = { ...antes, situacao: s, declarado: s, verificacao: VERIFICACAO_PENDENTE, observacao: r?.observacao || antes.observacao };
+          const igual = JSON.stringify(antes) === JSON.stringify(depois);
+          plano.turmas.push({ ...base, acao: igual ? 'igual' : 'aplicar', depois, diverge: false });
+        }
+      }
+      continue;
+    }
     const declarado = consolidados.get(item.codigo)!;
     const antes = atuais?.get(item.codigo) ?? avaliacaoPadrao(auditoriaId, item.codigo);
     const base = { codigo: item.codigo, rotulo: item.rotulo, antes, declarado };
-    if (declarado.situacao === 'Não avaliado') return { ...base, acao: 'sem-declaracao', depois: antes, diverge: false };
+    if (declarado.situacao === 'Não avaliado') {
+      plano.itens.push({ ...base, acao: 'sem-declaracao', depois: antes, diverge: false });
+      continue;
+    }
     const declaracao = descreverDeclaracao(declarado, meta);
     if (avaliadoPelaCde(antes)) {
       const depois = { ...antes, declarado: declarado.situacao, declaracao };
-      const diverge = declarado.situacao !== antes.situacao;
       const mudou = antes.declarado !== depois.declarado || antes.declaracao !== depois.declaracao;
-      return { ...base, acao: mudou ? 'manter' : 'igual', depois, diverge };
+      plano.itens.push({ ...base, acao: mudou ? 'manter' : 'igual', depois, diverge: declarado.situacao !== antes.situacao });
+      continue;
     }
     const depois: Avaliacao = { ...antes, situacao: declarado.situacao, declarado: declarado.situacao, declaracao, verificacao: VERIFICACAO_PENDENTE };
     const igual = antes.situacao === depois.situacao && antes.verificacao === VERIFICACAO_PENDENTE && antes.declarado === depois.declarado;
-    // Mesmo sem mudar a situação, a frase (turmas, data) é atualizada.
-    return { ...base, acao: igual ? 'igual' : 'aplicar', depois, diverge: false };
-  });
+    // Mesmo sem mudar a situação, a frase (data, observações) é atualizada.
+    plano.itens.push({ ...base, acao: igual ? 'igual' : 'aplicar', depois, diverge: false });
+  }
+  return plano;
 }
 
 /** Registros que precisam ser gravados (inclui os "iguais" cuja frase da declaração mudou). */
-export function registrosDaAplicacao(mudancas: MudancaItem[]): Avaliacao[] {
-  return mudancas.filter((m) => m.acao !== 'sem-declaracao' && JSON.stringify(m.antes) !== JSON.stringify(m.depois)).map((m) => m.depois);
+export function registrosDaAplicacao(p: PlanoAplicacao): { itens: Avaliacao[]; turmas: AvaliacaoTurma[] } {
+  const mudou = (m: { acao: AcaoItem; antes: object; depois: object }) => m.acao !== 'sem-declaracao' && JSON.stringify(m.antes) !== JSON.stringify(m.depois);
+  return { itens: p.itens.filter(mudou).map((m) => m.depois), turmas: p.turmas.filter(mudou).map((m) => m.depois) };
 }
 
 // ---------------------------------------------------------------- planilha "com dados"
@@ -273,29 +455,38 @@ export function auditoriaDeReferencia<T extends Pick<Auditoria, 'id' | 'unidade_
     .sort((a, b) => Number(b.iniciada) - Number(a.iniciada) || b.id.localeCompare(a.id))[0];
 }
 
+/** Resposta com a situação da CDE e a marca na observação (a observação da secretaria, se houver, fica). */
+function comCde(antes: RespostaItem | undefined, av: ComSituacao): RespostaItem {
+  const r = antes ?? respostaVazia();
+  const marca = av.verificacao === VERIFICACAO_FEITA ? MARCA_VERIFICADO : MARCA_CDE;
+  return { ...r, situacao: av.situacao as SituacaoItem, observacao: r.observacao && !ehMarcaCde(r.observacao) ? r.observacao : marca };
+}
+
 /**
- * Respostas da planilha "com dados": a situação atual de cada documento em cada turma.
- * O que a CDE avaliou ou verificou vale para todas as turmas (a auditoria tem uma situação por documento para a unidade),
- * a não ser que as respostas da secretaria por turma já resultem na mesma situação (aí o detalhe por turma é mantido).
- * Onde a CDE ainda não avaliou, ficam as últimas respostas da secretaria.
+ * Respostas da planilha "com dados": a situação atual de cada documento. Onde a CDE avaliou (o item da unidade, ou o
+ * item em cada turma), vale a avaliação dela; onde ainda não avaliou, a última resposta da secretaria.
  */
 export function respostasComDados(
   turmas: string[],
-  salvas: Record<string, RespostasTurma> | undefined,
+  salvas: RespostasChecklist | undefined,
   avaliacoes: Map<string, Avaliacao> | undefined,
-): Record<string, RespostasTurma> {
-  const base = salvas ?? {};
-  const consolidadas = consolidar({ turmas: base }, turmas);
-  const saida: Record<string, RespostasTurma> = Object.fromEntries(turmas.map((t) => [t, { ...base[t] }]));
+  avaliacoesTurma: Map<string, Map<string, AvaliacaoTurma>> | undefined,
+): RespostasChecklist {
+  const geral: RespostasTurma = { ...salvas?.geral };
+  const porTurma: Record<string, RespostasTurma> = Object.fromEntries(turmas.map((t) => [t, { ...salvas?.turmas[t] }]));
   for (const item of ITENS_CHECKLIST) {
     const av = avaliacoes?.get(item.codigo);
-    if (!av || !avaliadoPelaCde(av)) continue;
-    if (Object.keys(base).length && consolidadas.get(item.codigo)?.situacao === av.situacao) continue;
-    const marca = av.verificacao === VERIFICACAO_FEITA ? MARCA_VERIFICADO : MARCA_CDE;
+    if (!item.porTurma || !turmas.length) {
+      if (av && avaliadoPelaCde(av)) geral[item.codigo] = comCde(geral[item.codigo], av);
+      continue;
+    }
+    const registros = avaliacoesTurma?.get(item.codigo);
     for (const t of turmas) {
-      const antes = saida[t][item.codigo] ?? respostaVazia();
-      saida[t][item.codigo] = { ...antes, situacao: av.situacao, observacao: antes.observacao && !ehMarcaCde(antes.observacao) ? antes.observacao : marca };
+      const rt = registros?.get(t);
+      if (rt && avaliadoPelaCde(rt)) porTurma[t][item.codigo] = comCde(porTurma[t][item.codigo], rt);
+      // Avaliado só para a unidade inteira (antes da avaliação por turma): vale para todas as turmas.
+      else if (!registros?.size && av && avaliadoPelaCde(av)) porTurma[t][item.codigo] = comCde(porTurma[t][item.codigo], av);
     }
   }
-  return saida;
+  return { geral, turmas: porTurma };
 }

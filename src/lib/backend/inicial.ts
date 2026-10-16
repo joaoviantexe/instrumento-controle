@@ -8,5 +8,6 @@ export function snapshotInicial(): Snapshot {
     auditorias: structuredClone(AUDITORIAS_INICIAIS),
     avaliacoes: [],
     acoes: [],
+    avaliacoes_turma: [],
   };
 }

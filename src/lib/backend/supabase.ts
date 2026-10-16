@@ -1,6 +1,6 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { chaveArquivo, hashArquivo } from '../anexos';
-import { resumirChecklist, type ChecklistUnidade, type RespostasTurma } from '../checklist';
+import { comGeral, resumirChecklist, type ChecklistUnidade, type RespostasTurma } from '../checklist';
 import type { Conferencia } from '../conferencias';
 import { compactar, contarPanorama, expandir, type PanoramaCompacto } from '../panorama';
 import type { Anexo, Snapshot } from '../types';
@@ -81,13 +81,18 @@ function semColunasVazias(tabela: NomeTabela, registro: Record<string, unknown>)
   return r;
 }
 
+/** O banco ainda não tem uma tabela ou coluna nova (script SQL desatualizado). */
+class BancoDesatualizado extends Error {
+  constructor() {
+    super('o banco ainda não tem as tabelas e colunas da checklist e da avaliação por turma. Execute o arquivo supabase/schema.sql atualizado no SQL Editor do Supabase.');
+  }
+}
+
 function verificar(error: { code?: string; message: string } | null) {
   if (!error) return;
   if (error.code === '23505') throw new ErroChaveDuplicada();
-  // PGRST204 = coluna inexistente (script do banco desatualizado)
-  if (error.code === 'PGRST204' && COLUNAS_VERIFICACAO.some((c) => error.message.includes(`'${c}'`))) {
-    throw new Error('o banco ainda não tem as colunas da verificação da CDE. Execute o arquivo supabase/schema.sql atualizado no SQL Editor do Supabase.');
-  }
+  // PGRST204 = coluna inexistente; PGRST205/42P01 = tabela inexistente (script do banco desatualizado)
+  if ((error.code === 'PGRST204' && COLUNAS_VERIFICACAO.some((c) => error.message.includes(`'${c}'`))) || ausente(error)) throw new BancoDesatualizado();
   throw new Error(error.message);
 }
 
@@ -309,10 +314,10 @@ function criarConferenciasSupabase(sb: SupabaseClient): ConferenciasApi {
   };
 }
 
-/** Erro de tabela ausente ou de permissão (só o administrador grava o panorama). */
+/** Erro de tabela ausente (script do banco desatualizado) ou de permissão. */
 function falhaTurmas(error: { code?: string; message: string }): never {
   if (ausente(error)) throw new TurmasIndisponiveis();
-  if (error.code === '42501') throw new Error('somente administradores podem alterar o panorama de matrícula.');
+  if (error.code === '42501') throw new Error('o banco recusou a gravação. Execute o arquivo supabase/schema.sql atualizado no SQL Editor do Supabase.');
   throw new Error(error.message);
 }
 
@@ -346,14 +351,18 @@ function criarPanoramasSupabase(sb: SupabaseClient): PanoramasApi {
 }
 
 function criarChecklistsSupabase(sb: SupabaseClient): ChecklistsApi {
-  const daLinha = (l: Record<string, unknown>): ChecklistUnidade => ({
-    unidade_id: String(l.unidade_id),
-    ano: Number(l.ano),
-    arquivo: String(l.arquivo ?? ''),
-    turmas: ((l.dados as { turmas?: Record<string, RespostasTurma> } | null)?.turmas ?? {}),
-    atualizado_em: String(l.atualizado_em ?? ''),
-    atualizado_por: String(l.atualizado_por ?? ''),
-  });
+  const daLinha = (l: Record<string, unknown>): ChecklistUnidade => {
+    const dados = (l.dados ?? {}) as { geral?: RespostasTurma; turmas?: Record<string, RespostasTurma> };
+    return comGeral({
+      unidade_id: String(l.unidade_id),
+      ano: Number(l.ano),
+      arquivo: String(l.arquivo ?? ''),
+      geral: dados.geral,
+      turmas: dados.turmas ?? {},
+      atualizado_em: String(l.atualizado_em ?? ''),
+      atualizado_por: String(l.atualizado_por ?? ''),
+    });
+  };
   return {
     async listar() {
       const { data, error } = await sb.from('checklists').select('unidade_id, ano, arquivo, turmas_respondidas, itens_pendentes, atualizado_em, atualizado_por');
@@ -378,7 +387,7 @@ function criarChecklistsSupabase(sb: SupabaseClient): ChecklistsApi {
       const { data, error } = await sb
         .from('checklists')
         .upsert(
-          { unidade_id: c.unidade_id, ano: c.ano, arquivo: c.arquivo, turmas_respondidas: r.turmas, itens_pendentes: r.pendentes, dados: { turmas: c.turmas } },
+          { unidade_id: c.unidade_id, ano: c.ano, arquivo: c.arquivo, turmas_respondidas: r.turmas, itens_pendentes: r.pendentes, dados: { geral: c.geral, turmas: c.turmas } },
           { onConflict: 'unidade_id,ano' },
         )
         .select()
@@ -409,13 +418,19 @@ export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
     panoramas: criarPanoramasSupabase(sb),
     checklists: criarChecklistsSupabase(sb),
     async carregar(): Promise<Snapshot> {
-      const [unidades, auditorias, avaliacoes, acoes] = await Promise.all([
+      const [unidades, auditorias, avaliacoes, acoes, avaliacoes_turma] = await Promise.all([
         lerTudo(sb, 'unidades'),
         lerTudo(sb, 'auditorias'),
         lerTudo(sb, 'avaliacoes'),
         lerTudo(sb, 'acoes'),
+        // Banco com o script antigo: sem avaliações por turma, o resto funciona. Outras falhas não são escondidas: com a lista
+        // incompleta, a próxima avaliação de uma turma recalcularia o item com dados faltando.
+        lerTudo(sb, 'avaliacoes_turma').catch((e: unknown) => {
+          if (e instanceof BancoDesatualizado) return [];
+          throw e;
+        }),
       ]);
-      return { unidades, auditorias, avaliacoes, acoes };
+      return { unidades, auditorias, avaliacoes, acoes, avaliacoes_turma };
     },
     async salvar(tabela, registro) {
       const { error } = await sb
@@ -442,30 +457,25 @@ export function criarBackendSupabase(sb: SupabaseClient = supabase()): Backend {
       verificar(error);
     },
     async substituirTudo(s) {
-      for (const tabela of ['acoes', 'avaliacoes', 'auditorias', 'unidades'] as const) {
+      for (const tabela of ['acoes', 'avaliacoes_turma', 'avaliacoes', 'auditorias', 'unidades'] as const) {
         const coluna = (CHAVES[tabela] as string[])[0];
         const { error } = await sb.from(tabela).delete().not(coluna, 'is', null);
+        // A tabela de turmas pode não existir num banco com o script antigo (e sai junto com as auditorias).
+        if (error && tabela === 'avaliacoes_turma' && ausente(error)) continue;
         verificar(error);
       }
       await inserirEmLotes('unidades', s.unidades);
       await inserirEmLotes('auditorias', s.auditorias);
       await inserirEmLotes('avaliacoes', s.avaliacoes);
       await inserirEmLotes('acoes', s.acoes);
+      await inserirEmLotes('avaliacoes_turma', s.avaliacoes_turma ?? []);
     },
   };
 }
 
-/** Verifica se o e-mail autenticado está na tabela de membros autorizados e se é administrador. */
-export async function verificarMembro(): Promise<{ membro: boolean; admin: boolean }> {
-  const sb = supabase();
-  const { data, error } = await sb.from('membros').select('email, admin').limit(1);
-  if (error) {
-    // 42703 = coluna inexistente: banco com o script antigo, ainda sem administradores.
-    if (error.code !== '42703') throw new Error(error.message);
-    const antigo = await sb.from('membros').select('email').limit(1);
-    if (antigo.error) throw new Error(antigo.error.message);
-    return { membro: (antigo.data ?? []).length > 0, admin: false };
-  }
-  const linha = (data ?? [])[0] as { admin?: boolean } | undefined;
-  return { membro: !!linha, admin: !!linha?.admin };
+/** Verifica se o e-mail autenticado está na tabela de membros autorizados (todo membro é administrador). */
+export async function verificarMembro(): Promise<boolean> {
+  const { data, error } = await supabase().from('membros').select('email').limit(1);
+  if (error) throw new Error(error.message);
+  return (data ?? []).length > 0;
 }
