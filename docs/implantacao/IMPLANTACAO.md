@@ -56,6 +56,9 @@ Os anexos usam uma tabela (`anexos`) e um *bucket* privado do Storage, ambos cri
 idempotente e não apaga dados. Para conferir: *Storage* deve listar o bucket **anexos** (privado). Enquanto isso não for feito,
 o resto do sistema funciona normalmente e as áreas de anexo mostram um aviso pedindo a atualização do banco.
 **Reexecute o `schema.sql` também depois desta atualização** (acrescenta a coluna `hash`, usada para guardar PDFs idênticos uma só vez); os PDFs já enviados são unificados sozinhos na próxima abertura do sistema.
+
+**Turmas, checklists e administradores:** reexecute o `schema.sql` mais uma vez depois da atualização que trouxe o Panorama de Matrícula e a checklist da secretaria escolar. Ele cria as tabelas `panoramas` e `checklists`, as colunas da verificação da CDE em `avaliacoes` e a coluna `admin` em `membros` (já marcando **marcelinocoelho.diplan@gmail.com** como administrador — crie o usuário dele em *Authentication → Users*). Antes disso o site continua funcionando: as turmas de 2026 vêm embutidas, mas enviar checklists e panoramas avisa que o banco precisa do script. Veja [Usuários → Administradores](USUARIOS.md#administradores).
+
 Limites: 10 MB por PDF; o plano gratuito do Supabase oferece 1 GB de arquivos.
 
 ## 4. Primeiro acesso

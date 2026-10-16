@@ -1,4 +1,6 @@
+import type { ChecklistUnidade, InfoChecklist } from '../checklist';
 import type { Conferencia, ChaveConferencia } from '../conferencias';
+import type { Panorama } from '../panorama';
 import type { Acao, Auditoria, Anexo, Avaliacao, EntidadeAnexo, Snapshot, Unidade } from '../types';
 
 export interface Tabelas {
@@ -81,10 +83,47 @@ export class ConferenciasIndisponiveis extends Error {
   }
 }
 
+/** Panorama de Matrícula de um ano enviado pelo administrador (resumo, sem as turmas). */
+export interface InfoPanoramaSalvo {
+  ano: number;
+  fonte: string;
+  unidades: number;
+  turmas: number;
+  alunos: number;
+  atualizado_em: string;
+  atualizado_por: string;
+}
+
+/** Panoramas de Matrícula por ano. Só o administrador grava; todos os membros leem. */
+export interface PanoramasApi {
+  listar(): Promise<InfoPanoramaSalvo[]>;
+  obter(ano: number): Promise<Panorama | null>;
+  /** Cria ou substitui o panorama do ano. */
+  salvar(p: Panorama): Promise<void>;
+  excluir(ano: number): Promise<void>;
+}
+
+/** Checklists da secretaria escolar (a última planilha enviada de cada unidade, por ano). Ficam fora do restante dos dados. */
+export interface ChecklistsApi {
+  listar(): Promise<InfoChecklist[]>;
+  obter(unidadeId: string, ano: number): Promise<ChecklistUnidade | null>;
+  salvar(c: Omit<ChecklistUnidade, 'atualizado_em' | 'atualizado_por'>): Promise<ChecklistUnidade>;
+  excluir(unidadeId: string, ano: number): Promise<void>;
+}
+
+/** O banco ainda não tem as tabelas de turmas e checklists (script SQL desatualizado). */
+export class TurmasIndisponiveis extends Error {
+  constructor() {
+    super('As turmas e as checklists ainda não estão habilitadas neste banco. Execute o arquivo supabase/schema.sql atualizado no SQL Editor do Supabase.');
+  }
+}
+
 export interface Backend {
   modo: 'local' | 'supabase';
   anexos: AnexosApi;
   conferencias: ConferenciasApi;
+  panoramas: PanoramasApi;
+  checklists: ChecklistsApi;
   carregar(): Promise<Snapshot>;
   /** Insere ou atualiza. */
   salvar<T extends NomeTabela>(tabela: T, registro: Tabelas[T]): Promise<void>;

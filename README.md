@@ -11,14 +11,15 @@ portal da SEMEC (`docs/referencias/portal-semec.zip`).
 | Instruções | Instruções | Fluxo em 8 passos, critérios de classificação, fontes — com atalhos para cada etapa |
 | Cadastro Unidades | Cadastro Unidades | 217 unidades; busca, filtros por distrito/bairro/vínculo, pendências cadastrais, edição, nova unidade |
 | Lista Mestra | Lista Mestra | 53 registros (41 técnicos + 12 de síntese), com pesos e orientações |
-| Plano de Auditoria | Plano de Auditoria | Planejamento por unidade, IDs automáticos, índice e NC críticas calculados |
+| Plano de Auditoria | Plano de Visita Técnica | Planejamento por unidade, IDs automáticos, índice e NC críticas calculados |
 | Auditoria Documental | Auditoria Documental | Avaliação item a item com pontuação em tempo real e salvamento automático |
 | Checklist da Visita | Checklist da Visita | Síntese automática dos 12 itens, pronta para imprimir |
 | Plano de Ação | Plano de Ação | Ações corretivas, dias restantes, validação da CDE |
 | Dashboard | Dashboard | 6 indicadores, gráficos, qualidade do cadastro, legenda |
 | Relatórios | Relatórios | Matriz por seção, distribuição por distrito, consolidação; Excel e impressão |
 | DistritoBairro (tabela dinâmica) | Relatórios → Distrito e Bairro | Matriz de unidades por bairro e distrito, clicável |
-| — | Dados e planilhas | Exportar Excel; **atualizar os dados enviando uma planilha** (.xlsx) |
+| — | Dados e planilhas | Exportar Excel; **atualizar os dados enviando uma planilha** (.xlsx); **turmas** (Panorama de Matrícula por ano) e checklists de todas as unidades |
+| — | Página da unidade | **Situação dos documentos da auditoria**, **checklist da secretaria escolar** (gerar com dados ou em branco, enviar preenchida) e **turmas** do ano |
 
 Também: **atos do Diário Oficial** na página de cada unidade (decretos, portarias e resoluções com o link que abre a edição
 na página do ato), **anexos em PDF** (ato de autorização/vigência, evidências, relatórios de auditoria e de ações), busca global (`Ctrl+K`), painel "Precisa de atenção", planejamento em lote, colunas configuráveis, layout para celular e impressão em A4.
@@ -54,6 +55,10 @@ npm run build      # produção (pasta dist)
 src/                     Código do site (React + TypeScript)
   data/planilha.json     Textos, listas, Lista Mestra, 217 unidades e auditorias extraídos da planilha
   data/atos-diario.json  Atos do Diário Oficial associados às unidades (edição e página de cada um)
+  data/panoramas/        Panorama de Matrícula embutido (turmas por unidade), um arquivo por ano
+  lib/panorama.ts        Leitura do Panorama de Matrícula, ligação às unidades e resumos das turmas
+  lib/checklist.ts       Checklist da secretaria: consolidação das turmas e aplicação na auditoria
+  lib/checklistExcel.ts  Gera e lê a planilha da checklist (formato do modelo da CDE)
   data/planilha.ts       Acesso tipado aos dados da planilha
   lib/calc.ts            Fórmulas da planilha (pesos, pontos, índices, dias restantes…)
   lib/diario.ts          Atos do Diário Oficial: busca por unidade e link para a página da edição
@@ -67,9 +72,12 @@ worker/index.js          Worker da Cloudflare: anexos no R2 e edições do Diár
 supabase/schema.sql      Tabelas e regras de segurança do banco
 scripts/planilha/        Gera src/data/planilha.json a partir do .xlsx
 scripts/diario/          Coleta e leitura automática do Diário Oficial (linha de comando)
+scripts/panorama/        Gera src/data/panoramas/<ano>.json a partir do Panorama de Matrícula (.xlsx)
 dados/                   Arquivos de origem (não vão para o site)
   planilha/              A planilha original do Instrumento de Controle
   atos-de-criacao/       PDFs dos atos (páginas do Diário Oficial) usados para montar data/atos-diario.json
+  panorama-matricula/    Panorama de Matrícula do SIGA (2026)
+  modelos/               Modelo da Checklist da Secretaria Escolar
 docs/                    Documentação: uso/, implantacao/, diario-oficial/, ideias/, referencias/ (ver docs/README.md)
 ```
 

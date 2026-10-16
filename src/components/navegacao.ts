@@ -30,7 +30,7 @@ export const SECOES_APP: Secao[] = [
   { rota: '/instrucoes', rotulo: 'Instruções', icone: BookOpen, descricao: TEXTOS.instrucoes.subtitulo, grupo: 0 },
   { rota: '/unidades', rotulo: 'Cadastro Unidades', icone: School, descricao: TEXTOS.cadastro.subtitulo, grupo: 1 },
   { rota: '/lista-mestra', rotulo: 'Lista Mestra', icone: ListChecks, descricao: TEXTOS.listaMestra.subtitulo, grupo: 1 },
-  { rota: '/plano-de-auditoria', rotulo: 'Plano de Auditoria', icone: CalendarCheck, descricao: TEXTOS.planoAuditoria.subtitulo, grupo: 2 },
+  { rota: '/plano-de-visita-tecnica', rotulo: 'Plano de Visita Técnica', icone: CalendarCheck, descricao: TEXTOS.planoAuditoria.subtitulo, grupo: 2 },
   { rota: '/auditoria-documental', rotulo: 'Auditoria Documental', icone: ClipboardCheck, descricao: TEXTOS.auditoriaDocumental.subtitulo, grupo: 2 },
   { rota: '/checklist-da-visita', rotulo: 'Checklist da Visita', icone: ClipboardList, descricao: TEXTOS.checklistVisita.subtitulo, grupo: 2 },
   { rota: '/plano-de-acao', rotulo: 'Plano de Ação', icone: Wrench, descricao: TEXTOS.planoAcao.subtitulo, grupo: 3 },
@@ -42,7 +42,7 @@ export const SECOES_APP: Secao[] = [
 /** Rota de cada passo do fluxo recomendado (aba Instruções). */
 export const ROTAS_PASSOS = [
   '/unidades',
-  '/plano-de-auditoria',
+  '/plano-de-visita-tecnica',
   '/auditoria-documental',
   '/instrucoes#criterios',
   '/checklist-da-visita',

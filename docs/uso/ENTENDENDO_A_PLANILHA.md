@@ -62,7 +62,7 @@ Pense na **vistoria de um prédio** (ou na revisão de um carro):
 |---|---|
 | A lista de prédios da cidade | **Cadastro Unidades** (as 217 escolas, com endereço, diretor, atos legais…) |
 | A "lista de itens que o fiscal confere" (extintor, saída de emergência, alvará…) | **Lista Mestra** (53 itens: ato de criação, regimento, livro de matrícula, históricos…) |
-| A agenda de vistorias ("quando o fiscal vai a cada prédio") | **Plano de Auditoria** |
+| A agenda de vistorias ("quando o fiscal vai a cada prédio") | **Plano de Auditoria** (no site: **Plano de Visita Técnica**) |
 | A ficha preenchida durante a vistoria (OK / não OK / parcial, com observações) | **Auditoria Documental** + **Checklist da Visita** |
 | A nota do prédio (ex.: 72% em conformidade) | **Índice ponderado** |
 | O prazo dado para consertar o que está errado | **Plano de Ação** |
@@ -400,6 +400,8 @@ flowchart TD
 
 ### 4.5 Plano de Auditoria
 
+> No site, esta aba se chama **Plano de Visita Técnica** (`/plano-de-visita-tecnica`; o endereço antigo `/plano-de-auditoria` continua levando a ela).
+
 **Para que serve:** é a **agenda e o placar** das verificações: **uma linha por auditoria** (a planilha já vem com **217 linhas, uma para cada unidade**, `AUD-001` a `AUD-217`). Responde: *"Qual escola será verificada? Quando? Por quem? Em que pé está? Qual foi a nota?"*
 
 **Colunas (A a O) e o que cada uma faz:**
@@ -435,7 +437,7 @@ flowchart TD
 
 > ⚠️ **As colunas J a N têm erros de referência na planilha tal como foi entregue** (a linha 6 aponta para a linha 7, e a linha 7 mostra `#REF!`). Está documentado com provas na [Parte 7](#parte-7--os-limites-e-os-erros-da-planilha-com-provas).
 
-**➜ No site:** tela **Plano de Auditoria** com botões por situação, filtros (distrito, tipo, prioridade), **IDs gerados automaticamente** (`AUD-218`, `AUD-219`…), **colunas calculadas que sempre funcionam**, escolha de colunas visíveis e **planejamento em lote** (marcar várias auditorias e definir tipo/prioridade/data/equipe/situação de uma só vez — coisa que no Excel exigiria copiar e colar célula a célula).
+**➜ No site:** tela **Plano de Visita Técnica** com botões por situação, filtros (distrito, tipo, prioridade), **IDs gerados automaticamente** (`AUD-218`, `AUD-219`…), **colunas calculadas que sempre funcionam**, escolha de colunas visíveis e **planejamento em lote** (marcar várias auditorias e definir tipo/prioridade/data/equipe/situação de uma só vez — coisa que no Excel exigiria copiar e colar célula a célula).
 
 ---
 
@@ -897,7 +899,7 @@ Não existe nenhuma fórmula que **avise** de uma **vigência de ato vencida** (
 | 2 | Cadastro Unidades | **Cadastro Unidades** (+ página de cada unidade) | `/unidades`, `/unidades/UN-001` | `Unidades.tsx`, `UnidadeDetalhe.tsx`, `components/FormUnidade.tsx` |
 | 3 | DistritoBairro | Bloco **"Distrito e Bairro"** em **Relatórios** | `/relatorios` | `components/MatrizBairro.tsx` |
 | 4 | Lista Mestra | **Lista Mestra** | `/lista-mestra` | `ListaMestra.tsx` |
-| 5 | Plano de Auditoria | **Plano de Auditoria** | `/plano-de-auditoria` | `PlanoAuditoria.tsx` |
+| 5 | Plano de Auditoria | **Plano de Visita Técnica** | `/plano-de-visita-tecnica` | `PlanoAuditoria.tsx` |
 | 6 | Auditoria Documental | **Auditoria Documental** | `/auditoria-documental/AUD-001` | `AuditoriaDocumental.tsx` |
 | 7 | Checklist da Visita | **Checklist da Visita** | `/checklist-da-visita/AUD-001` | `ChecklistVisita.tsx` |
 | 8 | Plano de Ação | **Plano de Ação** | `/plano-de-acao` | `PlanoAcao.tsx`, `components/FormAcao.tsx` |
@@ -1101,7 +1103,7 @@ sequenceDiagram
 | **Adicionar uma pessoa à equipe** | Criar a conta em *Authentication → Users* **e** autorizar o e-mail em `membros` → `docs/implantacao/USUARIOS.md` |
 | **Cadastrar uma escola nova** | Site → **Cadastro Unidades → Nova unidade** |
 | **Corrigir dados de uma escola** | Abrir a unidade → **Editar** |
-| **Planejar várias auditorias** | **Plano de Auditoria** → marcar as caixas → **Planejar em lote** |
+| **Planejar várias auditorias** | **Plano de Visita Técnica** → marcar as caixas → **Planejar em lote** |
 | **Avaliar uma escola** | **Auditoria Documental** → escolher a auditoria → classificar os itens |
 | **Abrir uma ação corretiva** | No item da auditoria → **Registrar no Plano de Ação** |
 | **Guardar uma cópia de segurança** | **Dados e planilhas → Exportar Excel** (e reenviar depois, se preciso, em *Atualizar dados com uma planilha*) |
@@ -1144,7 +1146,7 @@ sequenceDiagram
 | **0. Entrar** | Abrir o arquivo (e torcer para ninguém estar com a versão mais nova) | Abrir o endereço do site, entrar com e-mail e senha. A barra lateral mostra **"Banco compartilhado"** |
 | **1. Ver o que é urgente** | Percorrer abas e filtros procurando problemas | **Início → "Precisa de atenção"**: cinco linhas com número e botão (ex.: *95 — Vigência do ato: vencida*) |
 | **2. Atualizar o cadastro** | Aba *Cadastro Unidades*, editar na célula | **Cadastro Unidades → filtro "Pendências cadastrais"** → clicar na unidade → **Editar**. Na `AUD-001`: preencher a *Vigência do ato* e localizar o ato (hoje "NÃO LOCALIZADO NO SITE DO CME BELÉM") e o(a) *Secretário(a)* ("SEM SECRETARIO") |
-| **3. Planejar a verificação** | Aba *Plano de Auditoria*, linha `AUD-001`: escolher tipo, prioridade, datas e equipe, uma coluna por vez | **Plano de Auditoria** → marcar `AUD-001` (e outras) → **Planejar em lote** → tipo, prioridade, data, equipe → **Aplicar** |
+| **3. Planejar a verificação** | Aba *Plano de Auditoria*, linha `AUD-001`: escolher tipo, prioridade, datas e equipe, uma coluna por vez | **Plano de Visita Técnica** → marcar `AUD-001` (e outras) → **Planejar em lote** → tipo, prioridade, data, equipe → **Aplicar** |
 | **4. Avaliar** | Aba *Auditoria Documental*: rolar 53 linhas, escolher a situação em lista suspensa, digitar evidências | **Auditoria Documental** → `AUD-001` → um **cartão por item** com botões coloridos; **barra fixa** com o progresso; **"Próximo não avaliado"**; salva sozinho |
 | **5. Ver a nota** | Ir à aba *Plano de Auditoria* e ler a coluna L (se a fórmula estiver certa…) | A nota aparece **no topo da própria auditoria e se atualiza a cada clique** |
 | **6. Levar a visita impressa** | Aba *Checklist da Visita* → imprimir | **Checklist da Visita** → `AUD-001` → **Imprimir** (A4, pronto) |

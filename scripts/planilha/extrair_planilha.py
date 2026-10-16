@@ -60,6 +60,25 @@ def lista_validacao(ws, celula):
     return []
 
 
+# Nomes que o site usa no lugar dos da planilha original (a aba "Plano de Auditoria" virou "Plano de Visita Técnica").
+RENOMEAR = [
+    ("PLANO DE AUDITORIA DOCUMENTAL", "PLANO DE VISITA TÉCNICA"),
+    ("Plano de Auditoria", "Plano de Visita Técnica"),
+]
+
+
+def renomear(v):
+    if isinstance(v, str):
+        for antigo, novo in RENOMEAR:
+            v = v.replace(antigo, novo)
+        return v
+    if isinstance(v, list):
+        return [renomear(x) for x in v]
+    if isinstance(v, dict):
+        return {k: renomear(x) for k, x in v.items()}
+    return v
+
+
 def main(caminho):
     wb = openpyxl.load_workbook(caminho)
 
@@ -259,7 +278,7 @@ def main(caminho):
 
     dados = {
         "fonte": Path(caminho).name,
-        "textos": {
+        "textos": renomear({
             "instrucoes": instrucoes,
             "cadastro": cadastro,
             "listaMestra": lista_mestra_textos,
@@ -269,7 +288,7 @@ def main(caminho):
             "planoAcao": plano_acao,
             "dashboard": dashboard,
             "relatorios": relatorios,
-        },
+        }),
         "listaMestra": lista_mestra,
         "unidades": unidades,
         "auditorias": auditorias,

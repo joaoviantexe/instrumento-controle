@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Moldura } from './components/Layout';
 import { Carregando } from './components/ui';
 import { criarBackendLocal } from './lib/backend/local';
@@ -19,6 +19,12 @@ import { Dashboard } from './pages/Dashboard';
 import { Relatorios } from './pages/Relatorios';
 import { Dados } from './pages/Dados';
 import { NaoEncontrada } from './pages/NaoEncontrada';
+
+/** Endereço antigo (favoritos, links salvos): leva ao novo, mantendo os filtros. */
+function EnderecoAntigo({ para }: { para: string }) {
+  const { search, hash } = useLocation();
+  return <Navigate to={para + search + hash} replace />;
+}
 
 const backend = supabaseConfigurado ? criarBackendSupabase() : criarBackendLocal();
 
@@ -44,7 +50,8 @@ function Conteudo() {
       <Route path="unidades" element={<Unidades />} />
       <Route path="unidades/:id" element={<UnidadeDetalhe />} />
       <Route path="lista-mestra" element={<ListaMestra />} />
-      <Route path="plano-de-auditoria" element={<PlanoAuditoria />} />
+      <Route path="plano-de-visita-tecnica" element={<PlanoAuditoria />} />
+      <Route path="plano-de-auditoria" element={<EnderecoAntigo para="/plano-de-visita-tecnica" />} />
       <Route path="auditoria-documental" element={<AuditoriaDocumental />} />
       <Route path="auditoria-documental/:id" element={<AuditoriaDocumental />} />
       <Route path="checklist-da-visita" element={<ChecklistVisita />} />

@@ -28,7 +28,7 @@ Cada receita diz **para que serve**, **o passo a passo** e **como saber que deu 
 ## 1. Entrar e se localizar
 
 1. Abra o endereço do site e entre com e-mail e senha. Se aparecer "ainda não está autorizado", veja a [seção 17](#17-adicionar-ou-remover-pessoas).
-2. O **menu lateral** (no celular, o botão ☰) lista as telas na ordem do trabalho: Início e Instruções; Cadastro Unidades e Lista Mestra; Plano de Auditoria, Auditoria Documental e Checklist da Visita; Plano de Ação, Dashboard e Relatórios; Dados e planilhas.
+2. O **menu lateral** (no celular, o botão ☰) lista as telas na ordem do trabalho: Início e Instruções; Cadastro Unidades e Lista Mestra; Plano de Visita Técnica, Auditoria Documental e Checklist da Visita; Plano de Ação, Dashboard e Relatórios; Dados e planilhas.
 3. No rodapé do menu: **"Banco compartilhado"** (dados da equipe) ou **"Modo local"** (só neste navegador), e seu e-mail com o botão **sair**.
 4. **`Ctrl+K`** (ou `/`) abre a busca de qualquer tela.
 
@@ -74,10 +74,10 @@ Cada receita diz **para que serve**, **o passo a passo** e **como saber que deu 
 
 ## 7. Planejar auditorias (uma ou várias)
 
-**Uma só:** *Plano de Auditoria → "Nova auditoria"* (ou, na página da unidade, **Nova auditoria**). Escolha a unidade digitando parte do nome; defina tipo, prioridade, datas, equipe e situação; **Salvar**. O ID (`AUD-218`…) é gerado sozinho.
+**Uma só:** *Plano de Visita Técnica → "Nova auditoria"* (ou, na página da unidade, **Nova auditoria**). Escolha a unidade digitando parte do nome; defina tipo, prioridade, datas, equipe e situação; **Salvar**. O ID (`AUD-218`…) é gerado sozinho.
 
 **Várias de uma vez:**
-1. Em *Plano de Auditoria*, filtre (ex.: distrito DABEN).
+1. Em *Plano de Visita Técnica*, filtre (ex.: distrito DABEN).
 2. Marque as caixas das auditorias, ou a caixa do cabeçalho para marcar **todas as da lista filtrada**.
 3. Clique em **"Planejar em lote"**.
 4. Preencha **só o que deve mudar** (tipo, prioridade, data planejada, situação, equipe). O que ficar em branco não é alterado.
@@ -88,7 +88,7 @@ Para mostrar ou esconder colunas, use **Colunas** (seção 14).
 
 ## 8. Avaliar uma escola (Auditoria Documental)
 
-1. *Plano de Auditoria* → ícone de prancheta da linha, ou *Auditoria Documental* → busque a auditoria.
+1. *Plano de Visita Técnica* → ícone de prancheta da linha, ou *Auditoria Documental* → busque a auditoria.
 2. No topo, confira escola, data e equipe. Os números (itens avaliados, índice, NC críticas) atualizam a cada clique.
 3. Em cada item, clique na situação: **Conforme**, **Parcialmente conforme**, **Não conforme**, **Não se aplica** ou **Não avaliado**. Salva sozinho ("Salvo").
 4. **Detalhes** abre os campos *Evidência/localização* (onde viu a prova), *Achado/observação*, *Requer ação?*, *Prazo*, *Responsável* e *Situação da ação*. Aparece também a orientação de conferência do item.
@@ -138,7 +138,7 @@ Para mostrar ou esconder colunas, use **Colunas** (seção 14).
 - **Busca global:** `Ctrl+K` → digite nome, INEP, bairro, ID de auditoria ou ação → ↑ ↓ → `Enter`.
 - **Filtros e botões** de cada lista: combine à vontade; **"Limpar filtros"** volta ao início. Os filtros ficam no endereço: copie o link para mostrar a mesma lista a um colega.
 - **Ordenar:** clique no cabeçalho da coluna (de novo inverte).
-- **Colunas** (Plano de Auditoria e Plano de Ação): botão **Colunas** → marque/desmarque; "Padrão" restaura. A escolha fica salva no navegador.
+- **Colunas** (Plano de Visita Técnica e Plano de Ação): botão **Colunas** → marque/desmarque; "Padrão" restaura. A escolha fica salva no navegador.
 
 ## 14-A. Anexar e consultar PDFs
 

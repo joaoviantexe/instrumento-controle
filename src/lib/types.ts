@@ -75,6 +75,12 @@ export interface Avaliacao {
   prazo: string;
   responsavel: string;
   situacao_acao: string;
+  /** Situação declarada pela secretaria escolar na checklist (vazio quando não houve declaração). */
+  declarado?: string;
+  /** Resumo da declaração: arquivo, data, turmas e observações. */
+  declaracao?: string;
+  /** Verificação da CDE: '' (avaliação da própria CDE), 'Pendente' (autodeclarado) ou 'Verificado'. */
+  verificacao?: string;
 }
 
 export interface Acao {

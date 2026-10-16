@@ -68,7 +68,7 @@ export function itensDeAtencao(d: Dados): ItemAtencao[] {
       chave: 'nc_criticas',
       total: ncCriticas,
       rotulo: ROTULOS_PLANO.ncCriticas,
-      para: '/plano-de-auditoria?iniciadas=1',
+      para: '/plano-de-visita-tecnica?iniciadas=1',
       detalhe: 'Itens de peso 3 classificados como Não conforme',
     },
     {

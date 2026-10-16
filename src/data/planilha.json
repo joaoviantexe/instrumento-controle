@@ -11,7 +11,7 @@
     },
     {
      "titulo": "2. Planejar a verificação",
-     "descricao": "Criar ID único na aba Plano de Auditoria, selecionar a unidade, definir tipo, prioridade, datas e equipe responsável."
+     "descricao": "Criar ID único na aba Plano de Visita Técnica, selecionar a unidade, definir tipo, prioridade, datas e equipe responsável."
     },
     {
      "titulo": "3. Avaliar os 53 registros",
@@ -140,7 +140,7 @@
    }
   },
   "planoAuditoria": {
-   "titulo": "PLANO DE AUDITORIA DOCUMENTAL",
+   "titulo": "PLANO DE VISITA TÉCNICA",
    "subtitulo": "Programação, execução e consolidação das verificações por unidade educacional",
    "cabecalhos": [
     "ID auditoria",
@@ -183,7 +183,7 @@
   "auditoriaDocumental": {
    "titulo": "AUDITORIA DOCUMENTAL — CHECKLIST INTEGRAL",
    "subtitulo": "Matriz de avaliação dos 53 registros do Checklist da CDE, com evidências, achados, pontuação e encaminhamento corretivo",
-   "nota": "Preencha o Plano de Auditoria e classifique todos os itens do bloco AUD-0001. Para uma nova unidade, copie o bloco completo, altere o ID e ajuste o vínculo ao registro correspondente do plano.",
+   "nota": "Preencha o Plano de Visita Técnica e classifique todos os itens do bloco AUD-0001. Para uma nova unidade, copie o bloco completo, altere o ID e ajuste o vínculo ao registro correspondente do plano.",
    "cabecalhos": [
     "ID auditoria",
     "Data",

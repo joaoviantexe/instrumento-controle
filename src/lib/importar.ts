@@ -106,7 +106,7 @@ export async function lerPlanilha(arquivo: File): Promise<Planilha> {
       'ato de criacao': CABECALHOS_UNIDADE.ato_criacao,
       'ato de autorizacao/credenciamento/reconhecimento': CABECALHOS_UNIDADE.ato_autorizacao,
     }),
-    auditorias: procurar(['plano de auditoria'], [RP.id, RP.unidade, RP.tipo, RP.prioridade, RP.dataPlanejada, RP.dataRealizada, RP.equipe, RP.situacao, RP.observacoes], 6),
+    auditorias: procurar(['plano de visita tecnica', 'plano de auditoria'], [RP.id, RP.unidade, RP.tipo, RP.prioridade, RP.dataPlanejada, RP.dataRealizada, RP.equipe, RP.situacao, RP.observacoes], 6),
     avaliacoes: procurar(['auditoria documental'], [RD.id, RD.item, RD.situacao, RD.evidencia, RD.achado, RD.requerAcao, RD.prazo, RD.responsavel, RD.situacaoAcao], 5),
     acoes: procurar(['plano de acao'], [RA.id, RA.auditoria, RA.unidade, RA.item, RA.achado, RA.acao, RA.prioridade, RA.responsavel, RA.dataAbertura, RA.prazo, RA.situacao, RA.evidencia, RA.dataConclusao, RA.validacao], 8),
   };
@@ -246,7 +246,7 @@ export function planejarImportacao(p: Planilha, atual: Snapshot): Plano {
   }
   const unidadePorNome = (nome: string) => porNome.get(chave(nome));
 
-  // ---- Plano de Auditoria
+  // ---- Plano de Visita Técnica (aba "Plano de Auditoria" nas planilhas antigas)
   const auditorias = [...atual.auditorias];
   const audPorId = new Map(auditorias.map((a) => [a.id, a]));
   const tA = p.auditorias;
@@ -315,7 +315,7 @@ export function planejarImportacao(p: Planilha, atual: Snapshot): Plano {
     tD.linhas.forEach((l, i) => {
       const aud = idAuditoria(l[RD.id] ?? '');
       if (!audPorId.has(aud)) {
-        avisos.push(`${tD.aba}: linha ${i + 1} ignorada, pois ${RD.id} "${l[RD.id] ?? ''}" não existe no Plano de Auditoria.`);
+        avisos.push(`${tD.aba}: linha ${i + 1} ignorada, pois ${RD.id} "${l[RD.id] ?? ''}" não existe no Plano de Visita Técnica.`);
         return;
       }
       const texto = chave(l[RD.item] ?? '');
@@ -400,7 +400,7 @@ export function planejarImportacao(p: Planilha, atual: Snapshot): Plano {
       const base: Acao = existente ?? { id, auditoria_id: '', unidade_id, item: '', achado: '', acao: '', prioridade: '', responsavel: '', data_abertura: '', prazo: '', situacao: 'Não iniciada', evidencia: '', data_conclusao: '', validacao: 'Pendente' };
       const depois = { ...mesclar(base, linha, mapa, tP.presentes, { prazo: data, data_abertura: data, data_conclusao: data }), unidade_id };
       if (aud && !audPorId.has(aud)) {
-        avisos.push(`${tP.aba}: ${idLido || `linha ${i + 1}`} referencia ${aud}, que não existe no Plano de Auditoria; o vínculo foi deixado em branco.`);
+        avisos.push(`${tP.aba}: ${idLido || `linha ${i + 1}`} referencia ${aud}, que não existe no Plano de Visita Técnica; o vínculo foi deixado em branco.`);
         depois.auditoria_id = existente?.auditoria_id ?? '';
       }
       if (existente) {
